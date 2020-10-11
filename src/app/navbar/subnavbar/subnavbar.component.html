@@ -1,1 +1,12 @@
-<p *ngFor="let item of items">{{ item }}</p>
+<div class="container" [id]="elementId + '-submenu'">
+  <p
+    *ngFor="let item of items"
+    [@openClose]="
+      activeId == elementId && activeItems.indexOf(item) > -1
+        ? 'open'
+        : 'closed'
+    "
+  >
+    {{ item }}
+  </p>
+</div>

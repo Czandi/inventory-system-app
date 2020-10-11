@@ -2,6 +2,7 @@ import "reflect-metadata";
 import "../polyfills";
 
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
@@ -22,6 +23,7 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { SubnavbarComponent } from "./navbar/subnavbar/subnavbar.component";
 import { MenubarComponent } from "./menubar/menubar.component";
 import { SubmenuService } from "./core/services/SubmenuService";
+import { DisplayRecordsComponent } from './display-records/display-records.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -34,9 +36,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     SubnavbarComponent,
     MenubarComponent,
+    DisplayRecordsComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     CoreModule,

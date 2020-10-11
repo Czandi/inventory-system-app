@@ -4,15 +4,11 @@
     "outDir": "../out-tsc/app",
     "module": "es2015",
     "baseUrl": "",
+    "paths": { "@angular/*": ["../node_modules/@angular/*"] },
     "types": []
   },
-  "include": [
-    "main.ts",
-    "polyfill.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts"
-  ],
+  "include": ["main.ts", "polyfill.ts"],
+  "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,

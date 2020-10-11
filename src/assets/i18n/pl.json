@@ -13,11 +13,18 @@
       "MAIN": "Wyświetl rekordy",
       "SUBMENU": {
         "TABLES": "Tabele",
-        "EXAMPLE": "Przykład"
+        "EXAMPLE": "Przykład",
+        "HISTORY": "Historia"
       }
     },
     "UPDATE_RECORDS": "Aktualizuj rekordy",
-    "IMPORT_EXPORT": "Import Eksport",
+    "IMPORT_EXPORT": {
+      "MAIN": "Import Eksport",
+      "SUBMENU": {
+        "EXPORT": "Eksport",
+        "IMPORT": "Import"
+      }
+    },
     "OPERATION_HISTORY": "Historia operacji",
     "ADD_RECORDS": "Dodaj rekord"
   }

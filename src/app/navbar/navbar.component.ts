@@ -21,51 +21,105 @@ export class NavbarComponent implements OnInit {
   @ViewChild("history") history: ElementRef;
   @ViewChild("addRecord") addRecord: ElementRef;
 
-  private active: ElementRef;
+  private activeEl: ElementRef;
+  private activeId: number;
+  private offset: number;
+  private mouseOver = false;
 
   constructor(private renderer: Renderer2, private service: SubmenuService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this.active = this.dashboard;
+    this.activeEl = this.dashboard;
+    this.activeId = 1;
+    this.calculateOffset();
     this.updateWavePosition();
+  }
+
+  onClick(id: number) {
+    this.setActive(id);
+    this.calculateOffset();
+    setTimeout(() => {
+      this.updateWavePosition();
+    }, 250);
+  }
+
+  setActive(id) {
+    this.activeId = id;
+    this.activeEl.nativeElement.classList.toggle("active");
+
+    switch (id) {
+      case 1:
+        this.activeEl = this.dashboard;
+        var name = "dashboard";
+        break;
+      case 2:
+        this.activeEl = this.displayRecords;
+        var name = "displayRecords";
+        break;
+      case 3:
+        this.activeEl = this.updateRecords;
+        var name = "updateRecords";
+        break;
+      case 4:
+        this.activeEl = this.importExport;
+        var name = "importExport";
+        break;
+      case 5:
+        this.activeEl = this.history;
+        var name = "history";
+        break;
+      case 6:
+        this.activeEl = this.addRecord;
+        var name = "addRecord";
+        break;
+    }
+    setTimeout(() => {
+      this.activeEl.nativeElement.classList.toggle("active");
+    }, 250);
+    this.service.newEvent(name);
+  }
+
+  calculateOffset() {
+    var wave = this.wave.nativeElement;
+    var halfWaveHeight = wave.offsetHeight / 2;
+    var activeElement = this.activeEl.nativeElement;
+    this.offset =
+      activeElement.offsetTop +
+      activeElement.offsetHeight / 2 -
+      halfWaveHeight -
+      15;
   }
 
   updateWavePosition() {
     var wave = this.wave.nativeElement;
-    var halfWaveHeight = wave.offsetHeight / 2;
-
-    var activeElement = this.active.nativeElement;
-    var offset =
-      activeElement.offsetTop + activeElement.offsetHeight / 2 - halfWaveHeight;
-    this.renderer.setStyle(wave, "top", offset + "px");
+    this.renderer.setStyle(wave, "top", this.offset + "px");
   }
 
-  setActive(name: string) {
-    this.active.nativeElement.classList.toggle("active");
-    switch (name) {
-      case "dashboard":
-        this.active = this.dashboard;
-        break;
-      case "displayRecords":
-        this.active = this.displayRecords;
-        break;
-      case "updateRecords":
-        this.active = this.updateRecords;
-        break;
-      case "importExport":
-        this.active = this.importExport;
-        break;
-      case "history":
-        this.active = this.history;
-        break;
-      case "addRecord":
-        this.active = this.addRecord;
-        break;
+  mouseEnter(id: number) {
+    if (!this.mouseOver) {
+      if (id > this.activeId) {
+        this.offset += 20;
+      } else if (id < this.activeId) {
+        this.offset -= 20;
+      }
+      this.mouseOver = true;
     }
-    this.service.newEvent(name);
-    this.active.nativeElement.classList.toggle("active");
+
+    this.updateWavePosition();
+  }
+
+  mouseLeave(id: number) {
+    if (this.mouseOver) {
+      if (id > this.activeId) {
+        this.offset -= 20;
+      } else if (id < this.activeId) {
+        this.offset += 20;
+      }
+      this.mouseOver = false;
+    }
+
     this.updateWavePosition();
   }
 }

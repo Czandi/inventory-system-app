@@ -1,17 +1,28 @@
 <div class="container">
   <div class="item dashboard active" #dashboard>
-    <div class="clickable" (click)="setActive('dashboard')">
+    <div
+      class="clickable"
+      (mouseover)="mouseEnter(1)"
+      (mouseleave)="mouseLeave(1)"
+      (click)="onClick(1)"
+    >
       <img src="../../assets/icons/dashboard_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.DASHBOARD" | translate }}</a>
     </div>
   </div>
   <div class="item display-records" #displayRecords>
-    <div class="clickable" (click)="setActive('displayRecords')">
+    <div
+      class="clickable"
+      (mouseover)="mouseEnter(2)"
+      (mouseleave)="mouseLeave(2)"
+      (click)="onClick(2)"
+    >
       <img src="../../assets/icons/show_record_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.DISPLAY_RECORDS.MAIN" | translate }}</a>
     </div>
     <div class="submenu">
       <app-subnavbar
+        elementId="displayRecords"
         [items]="[
           'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
           'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate
@@ -20,24 +31,64 @@
     </div>
   </div>
   <div class="item update-records" #updateRecords>
-    <div class="clickable" (click)="setActive('updateRecords')">
+    <div
+      class="clickable"
+      (mouseover)="mouseEnter(3)"
+      (mouseleave)="mouseLeave(3)"
+      (click)="onClick(3)"
+    >
       <img src="../../assets/icons/show_record_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS" | translate }}</a>
     </div>
   </div>
   <div class="item import-export" #importExport>
-    <div class="clickable" (click)="setActive('importExport')">
+    <div
+      class="clickable"
+      (mouseover)="mouseEnter(4)"
+      (mouseleave)="mouseLeave(4)"
+      (click)="onClick(4)"
+    >
       <img src="../../assets/icons/export_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT" | translate }}</a>
+      <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT.MAIN" | translate }}</a>
+    </div>
+    <div class="submenu">
+      <app-subnavbar
+        elementId="importExport"
+        [items]="[
+          'NAVBAR.IMPORT_EXPORT.SUBMENU.EXPORT' | translate,
+          'NAVBAR.IMPORT_EXPORT.SUBMENU.IMPORT' | translate
+        ]"
+      ></app-subnavbar>
     </div>
   </div>
   <div class="item history" #history>
-    <div class="clickable" (click)="setActive('history')">
+    <div
+      class="clickable"
+      (mouseover)="mouseEnter(5)"
+      (mouseleave)="mouseLeave(5)"
+      (click)="onClick(5)"
+    >
       <img src="../../assets/icons/history_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.OPERATION_HISTORY" | translate }}</a>
     </div>
+    <div class="submenu">
+      <app-subnavbar
+        elementId="history"
+        [items]="[
+          'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
+          'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate,
+          'NAVBAR.DISPLAY_RECORDS.SUBMENU.HISTORY' | translate
+        ]"
+      ></app-subnavbar>
+    </div>
   </div>
-  <div class="item add-record" (click)="setActive('addRecord')" #addRecord>
+  <div
+    class="item add-record"
+    (mouseover)="mouseEnter(6)"
+    (mouseleave)="mouseLeave(6)"
+    (click)="onClick(6)"
+    #addRecord
+  >
     <div class="clickable">
       <img src="../../assets/icons/add_record_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.ADD_RECORDS" | translate }}</a>
