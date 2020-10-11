@@ -38,11 +38,13 @@ export class NavbarComponent implements OnInit {
   }
 
   onClick(id: number) {
-    this.setActive(id);
-    this.calculateOffset();
-    setTimeout(() => {
-      this.updateWavePosition();
-    }, 250);
+    if (this.activeId != id) {
+      this.setActive(id);
+      this.calculateOffset();
+      setTimeout(() => {
+        this.updateWavePosition();
+      }, 250);
+    }
   }
 
   setActive(id) {

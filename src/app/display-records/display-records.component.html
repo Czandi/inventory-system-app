@@ -1,1 +1,5 @@
-<p>display-records works!</p>
+<div class="container">
+  <div *ngFor="let device of devices">
+    {{ device.owner.name }}
+  </div>
+</div>

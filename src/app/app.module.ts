@@ -15,15 +15,15 @@ import { AppRoutingModule } from "./app-routing.module";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import { HomeModule } from "./home/home.module";
-import { DetailModule } from "./detail/detail.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
+import { DisplayRecordsModule } from "./display-records/display-records.module";
 
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SubnavbarComponent } from "./navbar/subnavbar/subnavbar.component";
 import { MenubarComponent } from "./menubar/menubar.component";
 import { SubmenuService } from "./core/services/SubmenuService";
-import { DisplayRecordsComponent } from './display-records/display-records.component';
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -36,7 +36,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     SubnavbarComponent,
     MenubarComponent,
-    DisplayRecordsComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,8 +44,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     CoreModule,
     SharedModule,
-    HomeModule,
-    DetailModule,
+    DashboardModule,
+    DisplayRecordsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {

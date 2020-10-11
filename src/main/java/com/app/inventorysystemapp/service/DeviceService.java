@@ -20,7 +20,7 @@ public class DeviceService {
   }
 
   public List<Device> getDevices() {
-    return deviceRepository.findAllDevices();
+    return deviceRepository.findAll();
   }
 
   public Device getSingleDevice(long id) throws ResourceNotFoundException {

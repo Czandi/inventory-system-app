@@ -10,16 +10,22 @@
   "NAVBAR": {
     "DASHBOARD": "Panel główny",
     "DISPLAY_RECORDS": {
-      "MAIN": "Wyświetl rekordy",
+      "TITLE": "Wyświetl rekordy",
       "SUBMENU": {
         "TABLES": "Tabele",
         "EXAMPLE": "Przykład",
         "HISTORY": "Historia"
       }
     },
-    "UPDATE_RECORDS": "Aktualizuj rekordy",
+    "UPDATE_RECORDS": {
+      "TITLE": "Aktualizuj rekordy",
+      "SUBMENU": {
+        "ROOMS": "Pomieszczenia",
+        "SETS": "Zestawy"
+      }
+    },
     "IMPORT_EXPORT": {
-      "MAIN": "Import Eksport",
+      "TITLE": "Import Eksport",
       "SUBMENU": {
         "EXPORT": "Eksport",
         "IMPORT": "Import"

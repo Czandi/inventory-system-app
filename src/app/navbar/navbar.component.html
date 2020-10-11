@@ -5,9 +5,10 @@
       (mouseover)="mouseEnter(1)"
       (mouseleave)="mouseLeave(1)"
       (click)="onClick(1)"
+      routerLink="/dashboard"
     >
       <img src="../../assets/icons/dashboard_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.DASHBOARD" | translate }}</a>
+      <a>{{ "NAVBAR.DASHBOARD" | translate }}</a>
     </div>
   </div>
   <div class="item display-records" #displayRecords>
@@ -16,18 +17,10 @@
       (mouseover)="mouseEnter(2)"
       (mouseleave)="mouseLeave(2)"
       (click)="onClick(2)"
+      routerLink="/display-records"
     >
       <img src="../../assets/icons/show_record_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.DISPLAY_RECORDS.MAIN" | translate }}</a>
-    </div>
-    <div class="submenu">
-      <app-subnavbar
-        elementId="displayRecords"
-        [items]="[
-          'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
-          'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate
-        ]"
-      ></app-subnavbar>
+      <a>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</a>
     </div>
   </div>
   <div class="item update-records" #updateRecords>
@@ -37,8 +30,17 @@
       (mouseleave)="mouseLeave(3)"
       (click)="onClick(3)"
     >
-      <img src="../../assets/icons/show_record_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS" | translate }}</a>
+      <img src="../../assets/icons/update_record_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</a>
+    </div>
+    <div class="submenu">
+      <app-subnavbar
+        elementId="updateRecords"
+        [items]="[
+          'NAVBAR.UPDATE_RECORDS.SUBMENU.ROOMS' | translate,
+          'NAVBAR.UPDATE_RECORDS.SUBMENU.SETS' | translate
+        ]"
+      ></app-subnavbar>
     </div>
   </div>
   <div class="item import-export" #importExport>
@@ -49,7 +51,7 @@
       (click)="onClick(4)"
     >
       <img src="../../assets/icons/export_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT.MAIN" | translate }}</a>
+      <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT.TITLE" | translate }}</a>
     </div>
     <div class="submenu">
       <app-subnavbar
