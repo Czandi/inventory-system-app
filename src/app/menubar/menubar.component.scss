@@ -1,0 +1,33 @@
+.container {
+  width: 100vw;
+  height: 30px;
+  background-color: #18181b;
+  position: relative;
+  z-index: 2;
+}
+
+.icon {
+  display: inline-block;
+  padding: 5.5px 10px;
+  -webkit-app-region: no-drag;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+}
+
+.buttons {
+  position: absolute;
+  right: 0;
+}
+
+.drag-region {
+  top: 6px;
+  left: 6px;
+  display: block;
+  position: absolute;
+  width: calc(100% - 12px);
+  height: calc(100% - 6px);
+  z-index: -1;
+  -webkit-app-region: drag;
+}

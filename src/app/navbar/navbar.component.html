@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="item dashboard active" #dashboard>
+    <div class="clickable" (click)="setActive('dashboard')">
+      <img src="../../assets/icons/dashboard_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.DASHBOARD" | translate }}</a>
+    </div>
+  </div>
+  <div class="item display-records" #displayRecords>
+    <div class="clickable" (click)="setActive('displayRecords')">
+      <img src="../../assets/icons/show_record_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.DISPLAY_RECORDS.MAIN" | translate }}</a>
+    </div>
+    <div class="submenu">
+      <app-subnavbar
+        [items]="[
+          'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
+          'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate
+        ]"
+      ></app-subnavbar>
+    </div>
+  </div>
+  <div class="item update-records" #updateRecords>
+    <div class="clickable" (click)="setActive('updateRecords')">
+      <img src="../../assets/icons/show_record_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS" | translate }}</a>
+    </div>
+  </div>
+  <div class="item import-export" #importExport>
+    <div class="clickable" (click)="setActive('importExport')">
+      <img src="../../assets/icons/export_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT" | translate }}</a>
+    </div>
+  </div>
+  <div class="item history" #history>
+    <div class="clickable" (click)="setActive('history')">
+      <img src="../../assets/icons/history_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.OPERATION_HISTORY" | translate }}</a>
+    </div>
+  </div>
+  <div class="item add-record" (click)="setActive('addRecord')" #addRecord>
+    <div class="clickable">
+      <img src="../../assets/icons/add_record_icon.svg" />
+      <a routerLink="#">{{ "NAVBAR.ADD_RECORDS" | translate }}</a>
+    </div>
+  </div>
+  <div class="wave" #wave>
+    <img src="../../assets/icons/wave.svg" />
+  </div>
+  <div class="background"></div>
+</div>

@@ -1,0 +1,14 @@
+p {
+  background-color: #0a2839;
+  border-radius: 0 150px 150px 0;
+  width: 200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  transition: width 0.3s ease;
+  z-index: -4;
+  &:hover {
+    width: 220px;
+    cursor: pointer;
+  }
+}

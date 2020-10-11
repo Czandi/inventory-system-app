@@ -1,0 +1,104 @@
+.container {
+  position: fixed;
+  width: 120px;
+  height: 100vh;
+  padding-top: 20px;
+}
+
+.item {
+  text-align: center;
+  position: absolute;
+  transition: all 0.3s ease;
+  -webkit-user-select: none;
+  img {
+    transition: width 0.3s ease;
+    width: 40px;
+    pointer-events: none;
+  }
+  a {
+    transition: font-size 0.3s ease;
+    color: white;
+    font-size: 11pt;
+    text-decoration: none;
+    word-spacing: 100px;
+    display: block;
+    margin-top: 7px;
+  }
+
+  &.active {
+    margin-left: 20px;
+    margin-top: -10px;
+    img {
+      width: 55px;
+    }
+
+    a {
+      font-size: 13pt;
+      // font-weight: bold;
+    }
+
+    &:hover {
+      margin-top: -10px;
+      img {
+        width: 55px;
+      }
+
+      a {
+        font-size: 13pt;
+      }
+    }
+
+    .submenu {
+      display: block;
+      margin-left: 10px;
+    }
+  }
+
+  &:first-child {
+    top: 20px;
+  }
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i + 1}) {
+      top: #{($i) * 110 + 20}px;
+    }
+  }
+
+  &:hover {
+    margin-top: -5px;
+  }
+}
+
+.clickable {
+  position: relative;
+  z-index: 2;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.wave {
+  position: absolute;
+  left: 119px;
+  top: 107px;
+  transition: top 0.3s ease;
+  height: 235px;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  left: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #18181b;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}

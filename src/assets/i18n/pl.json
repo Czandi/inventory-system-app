@@ -1,0 +1,24 @@
+{
+  "HOME": {
+    "TITLE": "App works !",
+    "GO_TO_DETAIL": "Go to Detail"
+  },
+  "DETAIL": {
+    "TITLE": "Detail page !",
+    "BACK_TO_HOME": "Back to Home"
+  },
+  "NAVBAR": {
+    "DASHBOARD": "Panel główny",
+    "DISPLAY_RECORDS": {
+      "MAIN": "Wyświetl rekordy",
+      "SUBMENU": {
+        "TABLES": "Tabele",
+        "EXAMPLE": "Przykład"
+      }
+    },
+    "UPDATE_RECORDS": "Aktualizuj rekordy",
+    "IMPORT_EXPORT": "Import Eksport",
+    "OPERATION_HISTORY": "Historia operacji",
+    "ADD_RECORDS": "Dodaj rekord"
+  }
+}
