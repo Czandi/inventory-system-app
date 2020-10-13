@@ -3,6 +3,7 @@ package com.app.inventorysystemapp.service;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeviceRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,15 @@ import java.util.Map;
 @Service
 public class DeviceService {
 
+  public static final int PAGE_SIZE = 10;
   private final DeviceRepository deviceRepository;
 
   public DeviceService(DeviceRepository deviceRepository) {
     this.deviceRepository = deviceRepository;
   }
 
-  public List<Device> getDevices() {
-    return deviceRepository.findAll();
+  public List<Device> getDevices(int page) {
+    return deviceRepository.findAllDevices(PageRequest.of(page, PAGE_SIZE));
   }
 
   public Device getSingleDevice(long id) throws ResourceNotFoundException {
@@ -34,14 +36,14 @@ public class DeviceService {
 
   public ResponseEntity<Device> updateDevice(long id, Device details) throws ResourceNotFoundException {
     Device device = this.getSingleDevice(id);
-    device.setSerial_number(details.getSerial_number());
+    device.setSerialNumber(details.getSerialNumber());
     device.setRoom(details.getRoom());
     device.setDevicesSet(details.getDevicesSet());
     device.setModel(details.getModel());
     device.setOwner(details.getOwner());
-    device.setInventory_number(details.getInventory_number());
+    device.setInventoryNumber(details.getInventoryNumber());
     device.setComments(details.getComments());
-    device.setBar_code(details.getBar_code());
+    device.setBarCode(details.getBarCode());
     device.setType(details.getType());
     final Device updatedDevice = deviceRepository.save(device);
     return ResponseEntity.ok(updatedDevice);

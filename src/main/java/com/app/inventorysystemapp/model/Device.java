@@ -19,9 +19,9 @@ public class Device {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private String serial_number;
+  private String serialNumber;
 
-  private int inventory_number;
+  private int inventoryNumber;
 
   @ManyToOne
   @JoinColumn(name = "id_room")
@@ -43,9 +43,9 @@ public class Device {
   @JoinColumn(name = "id_devices_set", referencedColumnName = "id")
   private DevicesSet devicesSet;
 
-  private long bar_code;
+  private long barCode;
 
   private String comments;
 
-  private LocalDateTime created_date;
+  private LocalDateTime createdDate;
 }

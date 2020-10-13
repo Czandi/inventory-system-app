@@ -23,7 +23,8 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { SubnavbarComponent } from "./navbar/subnavbar/subnavbar.component";
 import { MenubarComponent } from "./menubar/menubar.component";
 import { SubmenuService } from "./core/services/SubmenuService";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { ConfigService } from "./service/config.service";
+import { DeviceService } from "./service/device.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -55,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
   ],
-  providers: [SubmenuService],
+  providers: [SubmenuService, ConfigService, DeviceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

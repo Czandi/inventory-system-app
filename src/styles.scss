@@ -13,3 +13,34 @@ p,
 a {
   font-size: 10pt;
 }
+
+.content-container {
+  margin-left: 120px;
+  text-align: center;
+  position: relative;
+  min-height: 870px;
+  height: calc(100vh - 30px);
+}
+
+.header {
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -47%);
+}
+
+input,
+select {
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+  }
+}

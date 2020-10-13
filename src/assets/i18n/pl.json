@@ -1,12 +1,4 @@
 {
-  "HOME": {
-    "TITLE": "App works !",
-    "GO_TO_DETAIL": "Go to Detail"
-  },
-  "DETAIL": {
-    "TITLE": "Detail page !",
-    "BACK_TO_HOME": "Back to Home"
-  },
   "NAVBAR": {
     "DASHBOARD": "Panel główny",
     "DISPLAY_RECORDS": {
@@ -33,5 +25,30 @@
     },
     "OPERATION_HISTORY": "Historia operacji",
     "ADD_RECORDS": "Dodaj rekord"
+  },
+  "PAGES": {
+    "DISPLAY_RECORDS": {
+      "TITLE": "Rekordy",
+      "SERIAL_NUMBER": "Numer seryjny",
+      "DEVICE_TYPE": "Typ urządzenia",
+      "ROOM": "Pomieszczenie",
+      "OWNER": "Właściciel",
+      "BAR_CODE": "Kod kreskowy",
+      "SET_NUMBER": "Zestaw number",
+      "SEARCH": "Szukaj",
+      "TABLES": {
+        "TABLES": "Tabele",
+        "DEVICES": "Urządzenia",
+        "DEVICES_SETS": "Zestawy",
+        "MODELS": "Modele",
+        "OWNERS": "Właściciele",
+        "ROOMS": "Pomieszczenia"
+      },
+      "DISPLAY_TYPE": {
+        "DISPLAY": "Wyświetl",
+        "SUMS": "Sumy",
+        "ALL": "Wszystko"
+      }
+    }
   }
 }

@@ -1,3 +1,130 @@
-.container {
-  margin-left: 120px;
+.select-table,
+.select-display-type {
+  display: inline-block;
+  color: white;
+
+  label {
+    margin-right: 20px;
+    font-weight: bold;
+  }
+
+  select {
+    background-color: #3d3d3d;
+    color: white;
+    padding: 7px 0 7px 13px;
+    border: none;
+  }
+
+  &:nth-of-type(2) {
+    margin-left: 50px;
+  }
+}
+
+.search-bar {
+  input {
+    padding: 7px 0 7px 13px;
+    background-color: white;
+    border: none;
+    margin: 60px 0;
+  }
+}
+
+.records {
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  font-size: 11pt;
+  border-collapse: collapse;
+  cursor: default;
+
+  .line {
+    td {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      div {
+        background-color: white;
+        padding: 0;
+        height: 1.5px;
+        width: 100%;
+        border-radius: 50px;
+      }
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  tr {
+    border-radius: 5px;
+    transition: background-color 0.05s ease;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+      // box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.15);
+    }
+    &:first-of-type {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    td {
+      &:first-of-type {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      &:last-of-type {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+    }
+  }
+
+  th {
+    text-align: center;
+    padding: 13px 10px;
+  }
+
+  td {
+    text-align: center;
+    margin: 0 100px;
+    padding: 13px 0;
+  }
+}
+
+.pagination {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 20px;
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+    &:nth-of-type(1) {
+      margin-right: 10px;
+    }
+    &:nth-of-type(2) {
+      margin-left: 10px;
+    }
+  }
+  p {
+    display: inline-block;
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.05s ease;
+    &:hover {
+      cursor: pointer;
+      color: rgba(255, 255, 255, 1);
+    }
+    &.active {
+      color: #f56b16;
+      font-weight: bold;
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
 }

@@ -1,5 +1,94 @@
-<div class="container">
-  <div *ngFor="let device of devices">
-    {{ device.owner.name }}
+<div class="content-container">
+  <h1 class="header">{{ "PAGES.DISPLAY_RECORDS.TITLE" | translate }}</h1>
+  <div class="center">
+    <div class="select-table">
+      <label for="tables">{{
+        "PAGES.DISPLAY_RECORDS.TABLES.TABLES" | translate
+      }}</label>
+      <select id="tables" name="tablelist">
+        <option value="device">
+          {{ "PAGES.DISPLAY_RECORDS.TABLES.DEVICES" | translate }}
+        </option>
+
+        <option value="devices_sets">
+          {{ "PAGES.DISPLAY_RECORDS.TABLES.DEVICES_SETS" | translate }}
+        </option>
+
+        <option value="models">
+          {{ "PAGES.DISPLAY_RECORDS.TABLES.MODELS" | translate }}
+        </option>
+
+        <option value="owners">
+          {{ "PAGES.DISPLAY_RECORDS.TABLES.OWNERS" | translate }}
+        </option>
+
+        <option value="rooms">
+          {{ "PAGES.DISPLAY_RECORDS.TABLES.ROOMS" | translate }}
+        </option>
+      </select>
+    </div>
+
+    <div class="select-display-type">
+      <label for="tables">{{
+        "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.DISPLAY" | translate
+      }}</label>
+
+      <select id="tables" name="tablelist">
+        <option value="device">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.ALL" | translate }}
+        </option>
+
+        <option value="devices_sets">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.SUMS" | translate }}
+        </option>
+      </select>
+    </div>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
+      />
+    </div>
+
+    <table class="records">
+      <tr>
+        <th>{{ "PAGES.DISPLAY_RECORDS.SERIAL_NUMBER" | translate }}</th>
+        <th>{{ "PAGES.DISPLAY_RECORDS.DEVICE_TYPE" | translate }}</th>
+        <th>{{ "PAGES.DISPLAY_RECORDS.ROOM" | translate }}</th>
+        <th>{{ "PAGES.DISPLAY_RECORDS.OWNER" | translate }}</th>
+        <th>{{ "PAGES.DISPLAY_RECORDS.BAR_CODE" | translate }}</th>
+        <th>{{ "PAGES.DISPLAY_RECORDS.SET_NUMBER" | translate }}</th>
+      </tr>
+      <tr class="line">
+        <td colspan="6">
+          <div></div>
+        </td>
+      </tr>
+      <tr
+        *ngFor="let device of devices"
+        (contextmenu)="onRightClick($event, device.id)"
+      >
+        <td>{{ device.serialNumber }}</td>
+        <td>{{ device.type.name }}</td>
+        <td>{{ device.room.name }}</td>
+        <td>{{ device.owner.name }}</td>
+        <td>{{ device.barCode }}</td>
+        <td>{{ device.devicesSet.name }}</td>
+      </tr>
+      <tr class="line">
+        <td colspan="6">
+          <div></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="pagination">
+    <img src="../../assets/icons/pagination_arrow_left.svg" />
+    <p>1</p>
+    <p class="active">2</p>
+    <p>3</p>
+    <p>4</p>
+    <img src="../../assets/icons/pagination_arrow_right.svg" />
   </div>
 </div>
