@@ -5,9 +5,11 @@ import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeviceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +24,17 @@ public class DeviceService {
     this.deviceRepository = deviceRepository;
   }
 
-  public Page<Device> getDevices(int page) {
+  public Page<Device> getDevices(int page, String search) {
+    Pageable paging = PageRequest.of(page, PAGE_SIZE);
 
-    return deviceRepository.findAllDevices(PageRequest.of(page, PAGE_SIZE));
+    if(search == null){
+      System.out.println("Nie ma kodu");
+      return deviceRepository.findAllDevices(paging);
+    }else{
+      System.out.println("Jest kod");
+      return deviceRepository.findByContaining(search, paging);
+    }
+
   }
 
   public Device getSingleDevice(long id) throws ResourceNotFoundException {

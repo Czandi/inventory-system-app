@@ -48,6 +48,8 @@
       <input
         type="text"
         [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
+        #searchBar
+        (keyup)="onTyping($event)"
       />
     </div>
 

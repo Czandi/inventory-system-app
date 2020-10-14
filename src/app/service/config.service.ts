@@ -1,6 +1,6 @@
 export class ConfigService {
   private apiUrl = "http://localhost:4201";
-  private _deviceUrl = this.apiUrl + "/devices/?page=";
+  private _deviceUrl = this.apiUrl + "/devices";
   private _roomUrl = this.apiUrl + "/rooms";
 
   get deviceUrl(): string {

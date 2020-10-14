@@ -1,15 +1,16 @@
 import {
   Component,
-  HostListener,
   OnInit,
   Renderer2,
-  OnDestroy,
+  ElementRef,
+  ViewChild,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { DeviceService } from "../service/device.service";
 import { ContextMenu } from "../shared/models/context-menu.model";
 import { SubjectService } from "../service/subjectService";
 import { Subscription } from "rxjs";
+import { Console } from "console";
 
 @Component({
   selector: "app-display-records",
@@ -17,6 +18,8 @@ import { Subscription } from "rxjs";
   styleUrls: ["./display-records.component.scss"],
 })
 export class DisplayRecordsComponent implements OnInit {
+  @ViewChild("searchBar") searchBar: ElementRef;
+
   devices = [];
   pages = [];
   itemOnPage = 10;
@@ -25,15 +28,16 @@ export class DisplayRecordsComponent implements OnInit {
   private totalPages: number;
   private contextMenuData = new ContextMenu();
   private clickedElement;
-  private prevColor;
+  private searchValue: string;
+  private searchTimeout;
+
   private contextMenuSub: Subscription;
   private deviceSub: Subscription;
 
   constructor(
     private router: Router,
     private deviceService: DeviceService,
-    private subjectService: SubjectService,
-    private renderer: Renderer2
+    private subjectService: SubjectService
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +55,15 @@ export class DisplayRecordsComponent implements OnInit {
   getDeviceList() {
     this.deviceSub = this.deviceService
       .getAllDevices(this.currentPage)
+      .subscribe((data) => {
+        this.devices = data.content;
+      });
+  }
+
+  getDevicesListBySearchValue() {
+    console.log("Urządzenia");
+    this.deviceSub = this.deviceService
+      .getAllDevices(this.currentPage, this.searchValue)
       .subscribe((data) => {
         this.devices = data.content;
       });
@@ -102,6 +115,20 @@ export class DisplayRecordsComponent implements OnInit {
         }
       }
     );
+  }
+
+  onTyping(event) {
+    this.searchValue = this.searchBar.nativeElement.value;
+    console.log(this.searchValue);
+    this.resetSearchTimeout();
+  }
+
+  resetSearchTimeout() {
+    console.log("Resetuje licznik");
+    window.clearTimeout(this.searchTimeout);
+    this.searchTimeout = window.setTimeout(() => {
+      this.getDevicesListBySearchValue();
+    }, 1000);
   }
 
   ngOnDestroy() {
