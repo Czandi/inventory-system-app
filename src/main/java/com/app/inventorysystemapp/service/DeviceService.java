@@ -3,6 +3,7 @@ package com.app.inventorysystemapp.service;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeviceRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class DeviceService {
     this.deviceRepository = deviceRepository;
   }
 
-  public List<Device> getDevices(int page) {
+  public Page<Device> getDevices(int page) {
 
     return deviceRepository.findAllDevices(PageRequest.of(page, PAGE_SIZE));
   }

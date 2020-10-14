@@ -3,6 +3,7 @@ package com.app.inventorysystemapp.controller;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Device;
 import com.app.inventorysystemapp.service.DeviceService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class DeviceController {
   }
 
   @GetMapping("/devices")
-  public List<Device> getDevices(@RequestParam(required = false) int page) {
+  public Page<Device> getDevices(@RequestParam(required = false) int page) {
     int pageNumber = page > 0 ? page : 1;
     return deviceService.getDevices(pageNumber-1);
   }

@@ -1,4 +1,10 @@
-import { Component, HostListener, OnInit, Renderer2 } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  OnInit,
+  Renderer2,
+  OnDestroy,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { DeviceService } from "../service/device.service";
 import { ContextMenu } from "../shared/models/context-menu.model";
@@ -12,10 +18,16 @@ import { Subscription } from "rxjs";
 })
 export class DisplayRecordsComponent implements OnInit {
   devices = [];
+  pages = [];
   itemOnPage = 10;
+  currentPage = 1;
+
+  private totalPages: number;
   private contextMenuData = new ContextMenu();
   private clickedElement;
+  private prevColor;
   private contextMenuSub: Subscription;
+  private deviceSub: Subscription;
 
   constructor(
     private router: Router,
@@ -25,10 +37,46 @@ export class DisplayRecordsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.deviceService.getAllDevices().subscribe((data) => {
-      console.log(data);
-      this.devices = data;
-    });
+    this.deviceSub = this.deviceService
+      .getAllDevices(this.currentPage)
+      .subscribe((data) => {
+        this.devices = data.content;
+        this.totalPages = data.totalPages;
+        for (let i = 0; i < this.totalPages; i++) {
+          this.pages.push(i + 1);
+        }
+      });
+  }
+
+  getDeviceList() {
+    this.deviceSub = this.deviceService
+      .getAllDevices(this.currentPage)
+      .subscribe((data) => {
+        this.devices = data.content;
+      });
+  }
+
+  prevPage() {
+    console.log(this.currentPage);
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getDeviceList();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.getDeviceList();
+    }
+  }
+
+  loadPage(page: number) {
+    console.log(page);
+    if (page > 0 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getDeviceList();
+    }
   }
 
   onRightClick(event, id: number) {
@@ -44,23 +92,19 @@ export class DisplayRecordsComponent implements OnInit {
     this.subjectService.contextMenuEmitter.next(this.contextMenuData);
 
     this.clickedElement = document.getElementById("device" + id);
-    this.renderer.setStyle(
-      this.clickedElement,
-      "background-color",
-      "rgba(0, 0, 0, .3)"
-    );
+    this.clickedElement.classList.toggle("active");
 
     this.contextMenuSub = this.subjectService.contextMenuEmitter.subscribe(
       (data) => {
         if (data === "closed") {
-          this.renderer.setStyle(
-            this.clickedElement,
-            "background-color",
-            "transparent"
-          );
-          this.contextMenuSub = null;
+          this.clickedElement.classList.toggle("active");
+          this.contextMenuSub.unsubscribe();
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.deviceSub.unsubscribe();
   }
 }

@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 export class DeviceService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllDevices(): Observable<any> {
-    return this.http.get<Device[]>(this.config.deviceUrl);
+  getAllDevices(page: number): Observable<any> {
+    return this.http.get<Device[]>(this.config.deviceUrl + page);
   }
 }
