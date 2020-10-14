@@ -22,6 +22,7 @@ public class DeviceService {
   }
 
   public List<Device> getDevices(int page) {
+
     return deviceRepository.findAllDevices(PageRequest.of(page, PAGE_SIZE));
   }
 

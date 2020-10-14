@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { SubmenuService } from "app/core/services/SubmenuService";
+import { SubjectService } from "../../../service/subjectService";
 import {
   trigger,
   state,
@@ -41,10 +41,10 @@ export class SubnavbarComponent implements OnInit {
   activeId: string;
   activeItems: Array<string> = [];
 
-  constructor(private service: SubmenuService) {}
+  constructor(private service: SubjectService) {}
 
   ngOnInit(): void {
-    this.service.evenets$.forEach((event) => {
+    this.service.submenuEmitter.subscribe((event) => {
       this.triggerAnimate("close", 0);
       var primaryTimeout = 50 * this.items.length + 1;
       setTimeout(() => {

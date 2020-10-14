@@ -2,6 +2,7 @@
 .select-display-type {
   display: inline-block;
   color: white;
+  -webkit-user-select: none;
 
   label {
     margin-right: 20px;
@@ -11,8 +12,12 @@
   select {
     background-color: #3d3d3d;
     color: white;
-    padding: 7px 0 7px 13px;
+    padding: 7px 13px;
     border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &:nth-of-type(2) {
@@ -22,7 +27,7 @@
 
 .search-bar {
   input {
-    padding: 7px 0 7px 13px;
+    padding: 7px 13px;
     background-color: white;
     border: none;
     margin: 60px 0;

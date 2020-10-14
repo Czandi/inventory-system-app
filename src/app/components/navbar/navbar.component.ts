@@ -5,7 +5,7 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
-import { SubmenuService } from "app/core/services/SubmenuService";
+import { SubjectService } from "../../service/subjectService";
 
 @Component({
   selector: "app-navbar",
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   private offset: number;
   private mouseOver = false;
 
-  constructor(private renderer: Renderer2, private service: SubmenuService) {}
+  constructor(private renderer: Renderer2, private service: SubjectService) {}
 
   ngOnInit(): void {}
 
@@ -80,7 +80,7 @@ export class NavbarComponent implements OnInit {
     setTimeout(() => {
       this.activeEl.nativeElement.classList.toggle("active");
     }, 250);
-    this.service.newEvent(name);
+    this.service.submenuEmitter.next(name);
   }
 
   calculateOffset() {

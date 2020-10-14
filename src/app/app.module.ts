@@ -19,10 +19,10 @@ import { DashboardModule } from "./dashboard/dashboard.module";
 import { DisplayRecordsModule } from "./display-records/display-records.module";
 
 import { AppComponent } from "./app.component";
-import { NavbarComponent } from "./navbar/navbar.component";
-import { SubnavbarComponent } from "./navbar/subnavbar/subnavbar.component";
-import { MenubarComponent } from "./menubar/menubar.component";
-import { SubmenuService } from "./core/services/SubmenuService";
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { SubnavbarComponent } from "./components/navbar/subnavbar/subnavbar.component";
+import { MenubarComponent } from "./components/menubar/menubar.component";
+import { SubjectService } from "./service/subjectService";
 import { ConfigService } from "./service/config.service";
 import { DeviceService } from "./service/device.service";
 
@@ -56,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
   ],
-  providers: [SubmenuService, ConfigService, DeviceService],
+  providers: [SubjectService, ConfigService, DeviceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
