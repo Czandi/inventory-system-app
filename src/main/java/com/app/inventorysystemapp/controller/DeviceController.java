@@ -21,9 +21,12 @@ public class DeviceController {
   }
 
   @GetMapping("/devices")
-  public Page<Device> getDevices(@RequestParam(required = false) int page, @RequestParam(required = false) String search) {
+  public Page<Device> getDevices(@RequestParam(required = false) int page,
+                                 @RequestParam(required = false) String orderBy,
+                                 @RequestParam(required = false) String sortType,
+                                 @RequestParam(required = false) String search) {
     int pageNumber = page > 0 ? page : 1;
-    return deviceService.getDevices(pageNumber-1, search);
+    return deviceService.getDevices(pageNumber-1, orderBy, sortType, search);
   }
 
   @GetMapping("/devices/{id}")

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class DevicesSet {
+public class DeviceSet {
   @Id
   private int id;
   private String name;

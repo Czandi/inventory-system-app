@@ -14,14 +14,17 @@
     color: white;
     padding: 7px 13px;
     border: none;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-top: 50px;
 
     &:hover {
       cursor: pointer;
     }
   }
 
-  &:nth-of-type(2) {
-    margin-left: 50px;
+  &:last-of-type {
+    margin-right: 0;
   }
 }
 
@@ -30,6 +33,5 @@
     padding: 7px 13px;
     background-color: white;
     border: none;
-    margin: 60px 0;
   }
 }

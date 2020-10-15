@@ -6,12 +6,11 @@ import com.app.inventorysystemapp.repository.DeviceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -24,8 +23,17 @@ public class DeviceService {
     this.deviceRepository = deviceRepository;
   }
 
-  public Page<Device> getDevices(int page, String search) {
-    Pageable paging = PageRequest.of(page, PAGE_SIZE);
+  public Page<Device> getDevices(int page, String orderBy, String sortType, String search) {
+    Pageable paging;
+    if(orderBy != null){
+       if(sortType != null && sortType.equals("desc")){
+         paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy).descending());
+       }else{
+        paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy));
+       }
+    }else{
+      paging = PageRequest.of(page, PAGE_SIZE);
+    }
 
     if(search == null){
       System.out.println("Nie ma kodu");
@@ -50,7 +58,7 @@ public class DeviceService {
     Device device = this.getSingleDevice(id);
     device.setSerialNumber(details.getSerialNumber());
     device.setRoom(details.getRoom());
-    device.setDevicesSet(details.getDevicesSet());
+    device.setDeviceSet(details.getDeviceSet());
     device.setModel(details.getModel());
     device.setOwner(details.getOwner());
     device.setInventoryNumber(details.getInventoryNumber());

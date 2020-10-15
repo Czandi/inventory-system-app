@@ -1,4 +1,4 @@
-import { DevicesSet } from "./devicesSet.model";
+import { DevicesSet } from "./deviceSet.model";
 import { Model } from "./model.model";
 import { Owner } from "./owner.model";
 import { Room } from "./room.model";

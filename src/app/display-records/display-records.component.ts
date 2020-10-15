@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+} from "@angular/core";
 import { DeviceService } from "../service/device.service";
 import { Subscription } from "rxjs";
 import { SubjectService } from "app/service/subjectService";
@@ -8,18 +14,22 @@ import { SubjectService } from "app/service/subjectService";
   templateUrl: "./display-records.component.html",
   styleUrls: ["./display-records.component.scss"],
 })
-export class DisplayRecordsComponent implements OnInit {
+export class DisplayRecordsComponent implements OnInit, OnDestroy {
   @ViewChild("searchBar") searchBar: ElementRef;
 
   devices = [];
   pages = [];
   totalPages: number;
 
-  private currentPage;
+  private currentPage = 1;
   private searchValue: string;
   private searchTimeout;
+  private sortValue = "serialNumber";
+  private sortType = "asc";
 
   private deviceSub: Subscription;
+  private paginationSub: Subscription;
+  private sortingSub: Subscription;
 
   constructor(
     private deviceService: DeviceService,
@@ -27,38 +37,55 @@ export class DisplayRecordsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subjectService.currentPageEmmiter.subscribe((page) => {
-      this.currentPage = page;
-      this.pages = [];
+    this.paginationSub = this.subjectService.currentPageEmitter.subscribe(
+      (page) => {
+        this.currentPage = page;
+        this.getDeviceList();
+      }
+    );
+
+    this.sortingSub = this.subjectService.sortValueEmitter.subscribe((sort) => {
+      this.sortValue = sort.value;
+      this.sortType = sort.sortType;
+      console.log(this.sortType, this.sortValue);
+      this.getDeviceList();
+    });
+
+    this.getDeviceList();
+  }
+
+  getDeviceList() {
+    if (this.searchValue == null || this.searchValue == "") {
       this.deviceSub = this.deviceService
-        .getAllDevices(this.currentPage)
+        .getAllDevices(this.currentPage, this.sortValue, this.sortType)
         .subscribe((data) => {
           this.devices = data.content;
           this.totalPages = data.totalPages;
+          this.pages = [];
           for (let i = 0; i < this.totalPages; i++) {
             this.pages.push(i + 1);
           }
         });
-    });
+    } else {
+      this.deviceSub = this.deviceService
+        .getAllDevices(
+          this.currentPage,
+          this.sortValue,
+          this.sortType,
+          this.searchValue
+        )
+        .subscribe((data) => {
+          this.devices = data.content;
+          this.totalPages = data.totalPages;
+          this.pages = [];
+          for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i + 1);
+          }
+        });
+    }
   }
 
-  getDeviceList() {
-    this.deviceSub = this.deviceService
-      .getAllDevices(this.currentPage)
-      .subscribe((data) => {
-        this.devices = data.content;
-      });
-  }
-
-  getDevicesListBySearchValue() {
-    this.deviceSub = this.deviceService
-      .getAllDevices(this.currentPage, this.searchValue)
-      .subscribe((data) => {
-        this.devices = data.content;
-      });
-  }
-
-  onTyping(event) {
+  onTyping() {
     this.searchValue = this.searchBar.nativeElement.value;
     this.resetSearchTimeout();
   }
@@ -66,11 +93,12 @@ export class DisplayRecordsComponent implements OnInit {
   resetSearchTimeout() {
     window.clearTimeout(this.searchTimeout);
     this.searchTimeout = window.setTimeout(() => {
-      this.getDevicesListBySearchValue();
+      this.getDeviceList();
     }, 1000);
   }
 
   ngOnDestroy() {
     this.deviceSub.unsubscribe();
+    this.paginationSub.unsubscribe();
   }
 }

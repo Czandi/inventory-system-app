@@ -10,14 +10,44 @@ import { Observable } from "rxjs";
 export class DeviceService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllDevices(page: number, searchValue?: string): Observable<any> {
+  getAllDevices(
+    page: number,
+    orderBy: String,
+    sortType: String,
+    searchValue?: string
+  ): Observable<any> {
     if (searchValue) {
       console.log("Szukam " + searchValue);
       return this.http.get<Device[]>(
-        this.config.deviceUrl + "/?page=" + page + "&search=" + searchValue
+        this.config.deviceUrl +
+          "/?page=" +
+          page +
+          "&sortType=" +
+          sortType +
+          "&orderby=" +
+          orderBy +
+          "&search=" +
+          searchValue
       );
     } else {
-      return this.http.get<Device[]>(this.config.deviceUrl + "/?page=" + page);
+      console.log(
+        this.config.deviceUrl +
+          "/?page=" +
+          page +
+          "&sortType=" +
+          sortType +
+          "&orderBy=" +
+          orderBy
+      );
+      return this.http.get<Device[]>(
+        this.config.deviceUrl +
+          "/?page=" +
+          page +
+          "&sortType=" +
+          sortType +
+          "&orderBy=" +
+          orderBy
+      );
     }
   }
 }

@@ -1,6 +1,5 @@
 package com.app.inventorysystemapp.model;
 
-import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +40,7 @@ public class Device {
 
   @ManyToOne
   @JoinColumn(name = "id_devices_set", referencedColumnName = "id")
-  private DevicesSet devicesSet;
+  private DeviceSet deviceSet;
 
   private long barCode;
 

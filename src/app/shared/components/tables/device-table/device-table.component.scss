@@ -6,6 +6,7 @@
   border-collapse: collapse;
   cursor: default;
   width: 80vw;
+  min-height: 524px;
 
   .line {
     td {
@@ -66,11 +67,31 @@
 
   th {
     text-align: center;
+
+    img {
+      opacity: 0;
+      margin-left: 5px;
+
+      &.active {
+        opacity: 1;
+      }
+
+      &.rotate {
+        transform: rotate(180deg);
+      }
+    }
+
+    span {
+      margin-left: 16px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   td {
     text-align: center;
     margin: 0 100px;
-    padding: 13px 0;
+    padding: 15px 0;
   }
 }

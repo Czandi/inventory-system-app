@@ -1,6 +1,15 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.DISPLAY_RECORDS.TITLE" | translate }}</h1>
   <div class="center">
+    <div class="search-bar">
+      <input
+        type="text"
+        [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
+        #searchBar
+        (keyup)="onTyping()"
+      />
+    </div>
+
     <div class="select-table">
       <label for="tables">{{
         "PAGES.DISPLAY_RECORDS.TABLES.TABLES" | translate
@@ -38,19 +47,10 @@
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.ALL" | translate }}
         </option>
 
-        <option value="devices_sets">
+        <option value="device_set">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.SUMS" | translate }}
         </option>
       </select>
-    </div>
-
-    <div class="search-bar">
-      <input
-        type="text"
-        [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
-        #searchBar
-        (keyup)="onTyping($event)"
-      />
     </div>
 
     <app-device-table [devices]="devices"></app-device-table>

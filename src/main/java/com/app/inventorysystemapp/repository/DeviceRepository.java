@@ -20,7 +20,7 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
     "inner join d.model md " +
     "inner join d.room rm " +
     "inner join d.type tp " +
-    "inner join d.devicesSet ds " +
+    "inner join d.deviceSet ds " +
     "where ow.name like %?1% " +
     "or ow.surname like %?1% " +
     "or md.name like %?1% " +

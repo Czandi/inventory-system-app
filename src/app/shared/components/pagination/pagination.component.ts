@@ -14,28 +14,27 @@ export class PaginationComponent implements OnInit {
   constructor(private subjectService: SubjectService) {}
 
   ngOnInit(): void {
-    this.subjectService.currentPageEmmiter.next(this.currentPage);
+    this.subjectService.currentPageEmitter.next(this.currentPage);
   }
 
   prevPage() {
-    console.log(this.currentPage);
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.subjectService.currentPageEmmiter.next(this.currentPage);
+      this.subjectService.currentPageEmitter.next(this.currentPage);
     }
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.subjectService.currentPageEmmiter.next(this.currentPage);
+      this.subjectService.currentPageEmitter.next(this.currentPage);
     }
   }
 
   loadPage(page: number) {
     if (page > 0 && page <= this.totalPages) {
       this.currentPage = page;
-      this.subjectService.currentPageEmmiter.next(this.currentPage);
+      this.subjectService.currentPageEmitter.next(this.currentPage);
     }
   }
 }
