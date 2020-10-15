@@ -1,11 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { DisplayRecordsRoutingModule } from "./display-records-routing.module";
-
 import { DisplayRecordsComponent } from "./display-records.component";
+
+import { DisplayRecordsRoutingModule } from "./display-records-routing.module";
 import { SharedModule } from "../shared/shared.module";
-import { ContextMenuModule } from "../components/context-menu/context-menu.module";
+import { ContextMenuModule } from "../shared/components/context-menu/context-menu.module";
+import { DeviceTableModule } from "./tables/device-table/device-table.madule";
+import { PaginationModule } from "../shared/components/pagination/pagination.module";
 
 @NgModule({
   declarations: [DisplayRecordsComponent],
@@ -14,6 +16,8 @@ import { ContextMenuModule } from "../components/context-menu/context-menu.modul
     SharedModule,
     DisplayRecordsRoutingModule,
     ContextMenuModule,
+    DeviceTableModule,
+    PaginationModule,
   ],
 })
 export class DisplayRecordsModule {}

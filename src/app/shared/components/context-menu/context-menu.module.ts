@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { ContextMenuComponent } from "./context-menu.component";
-import { SharedModule } from "../../shared/shared.module";
+import { SharedModule } from "../../shared.module";
 
 @NgModule({
   declarations: [ContextMenuComponent],

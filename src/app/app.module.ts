@@ -19,9 +19,9 @@ import { DashboardModule } from "./dashboard/dashboard.module";
 import { DisplayRecordsModule } from "./display-records/display-records.module";
 
 import { AppComponent } from "./app.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { SubnavbarComponent } from "./components/navbar/subnavbar/subnavbar.component";
-import { MenubarComponent } from "./components/menubar/menubar.component";
+import { NavbarComponent } from "./shared/components/navbar/navbar.component";
+import { SubnavbarComponent } from "./shared/components/subnavbar/subnavbar.component";
+import { MenubarComponent } from "./shared/components/menubar/menubar.component";
 import { SubjectService } from "./service/subjectService";
 import { ConfigService } from "./service/config.service";
 import { DeviceService } from "./service/device.service";

@@ -53,49 +53,10 @@
       />
     </div>
 
-    <table class="records">
-      <tr>
-        <th>{{ "PAGES.DISPLAY_RECORDS.SERIAL_NUMBER" | translate }}</th>
-        <th>{{ "PAGES.DISPLAY_RECORDS.DEVICE_TYPE" | translate }}</th>
-        <th>{{ "PAGES.DISPLAY_RECORDS.ROOM" | translate }}</th>
-        <th>{{ "PAGES.DISPLAY_RECORDS.OWNER" | translate }}</th>
-        <th>{{ "PAGES.DISPLAY_RECORDS.BAR_CODE" | translate }}</th>
-        <th>{{ "PAGES.DISPLAY_RECORDS.SET_NUMBER" | translate }}</th>
-      </tr>
-      <tr class="line">
-        <td colspan="6">
-          <div></div>
-        </td>
-      </tr>
-      <tr
-        *ngFor="let device of devices"
-        (contextmenu)="onRightClick($event, device.id)"
-        [id]="'device' + device.id"
-      >
-        <td>{{ device.serialNumber }}</td>
-        <td>{{ device.type.name }}</td>
-        <td>{{ device.room.name }}</td>
-        <td>{{ device.owner.name }}</td>
-        <td>{{ device.barCode }}</td>
-        <td>{{ device.devicesSet.name }}</td>
-      </tr>
-      <tr class="line">
-        <td colspan="6">
-          <div></div>
-        </td>
-      </tr>
-    </table>
+    <app-device-table [devices]="devices"></app-device-table>
   </div>
-  <div class="pagination">
-    <img
-      (click)="prevPage()"
-      src="../../assets/icons/pagination_arrow_left.svg"
-    />
-    <p *ngFor="let page of pages" (click)="loadPage(page)">{{ page }}</p>
-    <img
-      (click)="nextPage()"
-      src="../../assets/icons/pagination_arrow_right.svg"
-    />
-  </div>
+
+  <app-pagination [pages]="pages" [totalPages]="totalPages"></app-pagination>
+
   <app-context-menu></app-context-menu>
 </div>

@@ -6,8 +6,8 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
-import { SubjectService } from "../../service/subjectService";
-import { ContextMenu } from "../../shared/models/context-menu.model";
+import { SubjectService } from "../../../service/subjectService";
+import { ContextMenu } from "../../models/context-menu.model";
 
 @Component({
   selector: "app-context-menu",

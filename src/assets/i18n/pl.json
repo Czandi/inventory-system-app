@@ -30,6 +30,7 @@
     "DISPLAY_RECORDS": {
       "TITLE": "Rekordy",
       "SERIAL_NUMBER": "Numer seryjny",
+      "DEVICE_MODEL": "Model urządzenia",
       "DEVICE_TYPE": "Typ urządzenia",
       "ROOM": "Pomieszczenie",
       "OWNER": "Właściciel",

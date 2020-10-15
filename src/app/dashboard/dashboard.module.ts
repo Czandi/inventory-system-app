@@ -5,15 +5,9 @@ import { DashboardRoutingModule } from "./dashboard-routing.module";
 
 import { DashboardComponent } from "./dashboard.component";
 import { SharedModule } from "../shared/shared.module";
-import { ContextMenuModule } from "../components/context-menu/context-menu.module";
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    DashboardRoutingModule,
-    ContextMenuModule,
-  ],
+  imports: [CommonModule, SharedModule, DashboardRoutingModule],
 })
 export class DashboardModule {}

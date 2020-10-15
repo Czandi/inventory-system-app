@@ -1,0 +1,11 @@
+<div class="pagination">
+  <img
+    (click)="prevPage()"
+    src="../../assets/icons/pagination_arrow_left.svg"
+  />
+  <p *ngFor="let page of pages" (click)="loadPage(page)">{{ page }}</p>
+  <img
+    (click)="nextPage()"
+    src="../../assets/icons/pagination_arrow_right.svg"
+  />
+</div>
