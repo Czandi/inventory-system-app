@@ -1,6 +1,7 @@
 package com.app.inventorysystemapp.repository;
 
 import com.app.inventorysystemapp.model.Device;
+import com.app.inventorysystemapp.model.Model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,4 +31,7 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
     "or d.barCode like %?1% " +
     "or d.serialNumber like %?1%")
   Page<Device> findByContaining(String contain, Pageable paging);
+
+  @Query("Select md.name, count(distinct d) from Device d inner join d.model md group by md.name")
+  Page<Device> getCountedModels(Pageable page);
 }

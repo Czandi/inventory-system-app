@@ -20,8 +20,6 @@ public class Device {
 
   private String serialNumber;
 
-  private int inventoryNumber;
-
   @ManyToOne
   @JoinColumn(name = "id_room")
   private Room room;
@@ -39,7 +37,7 @@ public class Device {
   private Type type;
 
   @ManyToOne
-  @JoinColumn(name = "id_devices_set", referencedColumnName = "id")
+  @JoinColumn(name = "id_device_set", referencedColumnName = "id")
   private DeviceSet deviceSet;
 
   private long barCode;

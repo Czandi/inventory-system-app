@@ -94,11 +94,16 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
     window.clearTimeout(this.searchTimeout);
     this.searchTimeout = window.setTimeout(() => {
       this.getDeviceList();
-    }, 1000);
+    }, 500);
+  }
+
+  onDisplaySelect(element) {
+    console.log(element);
   }
 
   ngOnDestroy() {
     this.deviceSub.unsubscribe();
     this.paginationSub.unsubscribe();
+    this.sortingSub.unsubscribe();
   }
 }

@@ -49,6 +49,11 @@ public class DeviceService {
     return deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device not found for id: " + id));
   }
 
+  public Page<Device> countModels(int page, String orderBy, String sortType, String search) {
+    Pageable paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy));
+    return deviceRepository.getCountedModels(paging);
+  }
+
   public Device insertDevice(Device device) {
     deviceRepository.save(device);
     return device;
@@ -61,10 +66,8 @@ public class DeviceService {
     device.setDeviceSet(details.getDeviceSet());
     device.setModel(details.getModel());
     device.setOwner(details.getOwner());
-    device.setInventoryNumber(details.getInventoryNumber());
     device.setComments(details.getComments());
     device.setBarCode(details.getBarCode());
-    device.setType(details.getType());
     final Device updatedDevice = deviceRepository.save(device);
     return ResponseEntity.ok(updatedDevice);
   }

@@ -10,34 +10,38 @@
       />
     </div>
 
-    <div class="select-table">
-      <label for="tables">{{
-        "PAGES.DISPLAY_RECORDS.TABLES.TABLES" | translate
-      }}</label>
-      <select id="tables" name="tablelist">
+    <div class="select-display">
+      <label for="tables"
+        >{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DISPLAY" | translate }} :</label
+      >
+      <select
+        (change)="onDisplaySelect($event.target.value)"
+        id="tables"
+        name="tablelist"
+      >
         <option value="device">
-          {{ "PAGES.DISPLAY_RECORDS.TABLES.DEVICES" | translate }}
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICES" | translate }}
         </option>
 
-        <option value="devices_sets">
-          {{ "PAGES.DISPLAY_RECORDS.TABLES.DEVICES_SETS" | translate }}
+        <option value="model">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODELS" | translate }}
         </option>
 
-        <option value="models">
-          {{ "PAGES.DISPLAY_RECORDS.TABLES.MODELS" | translate }}
+        <option value="device_set">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICES_SETS" | translate }}
         </option>
 
-        <option value="owners">
-          {{ "PAGES.DISPLAY_RECORDS.TABLES.OWNERS" | translate }}
+        <option value="owner">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNERS" | translate }}
         </option>
 
-        <option value="rooms">
-          {{ "PAGES.DISPLAY_RECORDS.TABLES.ROOMS" | translate }}
+        <option value="room">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOMS" | translate }}
         </option>
       </select>
     </div>
 
-    <div class="select-display-type">
+    <!-- <div class="select-display-type">
       <label for="tables">{{
         "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.DISPLAY" | translate
       }}</label>
@@ -51,7 +55,7 @@
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.SUMS" | translate }}
         </option>
       </select>
-    </div>
+    </div> -->
 
     <app-device-table [devices]="devices"></app-device-table>
   </div>

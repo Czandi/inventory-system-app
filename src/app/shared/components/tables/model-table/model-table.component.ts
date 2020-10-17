@@ -2,18 +2,15 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { SubjectService } from "../../../../service/subjectService";
 import { SortInfo } from "../../../models/sortInfo.model";
 import { Table } from "../table.class";
-import { TableData } from "../table.data";
 
 @Component({
-  selector: "app-device-table",
-  templateUrl: "./device-table.component.html",
+  selector: "app-model-table",
+  templateUrl: "./model-table.component.html",
   styleUrls: ["../table.component.scss"],
 })
-export class DeviceTableComponent extends Table implements OnInit {
+export class ModelTableComponent extends Table implements OnInit {
   @Input() devices = [];
   @ViewChild("serialNumber") serialNumberArrow: ElementRef;
-
-  tableData = [];
 
   constructor(subjectService: SubjectService) {
     super(subjectService, "serialNumber", "asc", [
@@ -21,8 +18,6 @@ export class DeviceTableComponent extends Table implements OnInit {
       "Option two",
       "Option three",
     ]);
-
-    this.tableData = TableData.getDeviceTableData();
   }
 
   ngOnInit(): void {
@@ -33,6 +28,6 @@ export class DeviceTableComponent extends Table implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.currentArrow = document.getElementById("serialNumber");
+    this.currentArrow = this.serialNumberArrow.nativeElement;
   }
 }

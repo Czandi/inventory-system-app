@@ -37,13 +37,13 @@
         "ROOM": "Pomieszczenie",
         "OWNER": "Właściciel",
         "BAR_CODE": "Kod kreskowy",
-        "SET_NUMBER": "Zestaw number"
+        "SET_NUMBER": "Numer zestawu"
       },
-      "TABLES": {
-        "TABLES": "Tabele",
+      "DISPLAY": {
+        "DISPLAY": "Wyświetl",
         "DEVICES": "Urządzenia",
-        "DEVICES_SETS": "Zestawy",
         "MODELS": "Modele",
+        "DEVICES_SETS": "Zestawy",
         "OWNERS": "Właściciele",
         "ROOMS": "Pomieszczenia"
       },
@@ -52,6 +52,22 @@
         "SUMS": "Sumy",
         "ALL": "Wszystko"
       }
+    }
+  },
+  "TABLE_HEADERS": {
+    "DEVICE": {
+      "SERIAL_NUMBER": "Numer seryjny",
+      "DEVICE_MODEL": "Model urządzenia",
+      "DEVICE_TYPE": "Typ urządzenia",
+      "ROOM": "Pomieszczenie",
+      "OWNER": "Właściciel",
+      "BAR_CODE": "Kod kreskowy",
+      "SET_NUMBER": "Numer zestawu"
+    },
+    "MODEL": {
+      "MODEL_NAME": "Nazwa modelu",
+      "DEVICE_TYPE": "Typ urządzenia",
+      "AMOUNT": "Ilość"
     }
   }
 }

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -32,6 +31,15 @@ public class DeviceController {
   @GetMapping("/devices/{id}")
   public Device getSingleDevice(@PathVariable long id) throws ResourceNotFoundException {
     return deviceService.getSingleDevice(id);
+  }
+
+  @GetMapping("/devices/count/models")
+  public Page<Device> countModels(@RequestParam(required = false) int page,
+                                 @RequestParam(required = false) String orderBy,
+                                 @RequestParam(required = false) String sortType,
+                                 @RequestParam(required = false) String search) {
+    int pageNumber = page > 0 ? page : 1;
+    return deviceService.countModels(pageNumber-1, orderBy, sortType, search);
   }
 
   @PostMapping("/devices")
