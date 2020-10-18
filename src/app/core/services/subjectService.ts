@@ -5,4 +5,5 @@ export class SubjectService {
   contextMenuEmitter = new Subject<any>();
   currentPageEmitter = new Subject<any>();
   sortValueEmitter = new Subject<any>();
+  totalPageNumber = new Subject<any>();
 }

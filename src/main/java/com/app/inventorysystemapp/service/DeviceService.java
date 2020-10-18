@@ -36,21 +36,18 @@ public class DeviceService {
     }
 
     if(search == null){
-      System.out.println("Nie ma kodu");
       return deviceRepository.findAllDevices(paging);
     }else{
-      System.out.println("Jest kod");
       return deviceRepository.findByContaining(search, paging);
     }
-
   }
 
   public Device getSingleDevice(long id) throws ResourceNotFoundException {
     return deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device not found for id: " + id));
   }
 
-  public Page<Device> countModels(int page, String orderBy, String sortType, String search) {
-    Pageable paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy));
+  public Page<Device> getCountedModels(int page) {
+    Pageable paging = PageRequest.of(page, PAGE_SIZE);
     return deviceRepository.getCountedModels(paging);
   }
 

@@ -30,8 +30,8 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
     "or ds.name like %?1% " +
     "or d.barCode like %?1% " +
     "or d.serialNumber like %?1%")
-  Page<Device> findByContaining(String contain, Pageable paging);
+  Page<Device> findByContaining(String contain, Pageable page);
 
-  @Query("Select md.name, count(distinct d) from Device d inner join d.model md group by md.name")
+  @Query("Select m.id as modelId, m.name, t.name, count(distinct d) from Device d inner join d.model m inner join d.type t group by d.model")
   Page<Device> getCountedModels(Pageable page);
 }

@@ -1,12 +1,12 @@
 package com.app.inventorysystemapp.controller;
 
+import com.app.inventorysystemapp.controller.dto.ModelDto;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.service.ModelService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -19,20 +19,17 @@ public class ModelController {
   }
 
   @GetMapping("/models")
-  public Page<Model> getModels(@RequestParam(required = false) Integer page,
+  public Page<ModelDto> getModels(@RequestParam(required = false) int page,
                                @RequestParam(required = false) String orderBy,
                                @RequestParam(required = false) String sortType,
-                               @RequestParam(required = false) String search){
+                               @RequestParam(required = false) String search) {
     int pageNumber = page > 0 ? page : 1;
-    return modelService.getModels(pageNumber-1, orderBy, sortType, search);
+    return ModelDtoMapper.mapToModelDtos(modelService.getModels(pageNumber-1, orderBy, sortType, search));
   }
-//
-//  @GetMapping("/models/counted")
-//  public Page<Model> getCountedModels(@RequestParam(required = false) int page,
-//                                         @RequestParam(required = false) String orderBy,
-//                                         @RequestParam(required = false) String sortType,
-//                                         @RequestParam(required = false) String search){
+
+//  @GetMapping("/models/count/{id}")
+//  public List<Integer> getModels(@PathVariable long id, @RequestParam(required = false) int page) {
 //    int pageNumber = page > 0 ? page : 1;
-//    return modelService.getCountedModels(pageNumber-1, orderBy, sortType, search);
+//    return modelService.getCountedModels(id, pageNumber-1);
 //  }
 }

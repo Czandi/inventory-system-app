@@ -34,7 +34,7 @@ public class Device {
 
   @ManyToOne
   @JoinColumn(name = "id_type")
-  private Type type;
+  private DeviceType type;
 
   @ManyToOne
   @JoinColumn(name = "id_device_set", referencedColumnName = "id")

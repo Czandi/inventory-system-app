@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Setter
 public class Owner {
   @Id
-  private int id;
+  private long id;
   private String name;
   private String surname;
 }

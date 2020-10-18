@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { SubjectService } from "../../../service/subjectService";
+import { SubjectService } from "../../../core/services/subjectService";
 import {
   trigger,
   state,

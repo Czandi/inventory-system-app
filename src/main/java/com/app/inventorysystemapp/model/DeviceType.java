@@ -5,12 +5,14 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Getter
 @Setter
-public class Type {
+@Table(name = "type")
+public class DeviceType {
   @Id
-  private int id;
+  private long id;
   private String name;
 }

@@ -1,10 +1,10 @@
-import { ElementRef } from "@angular/core";
-import { SubjectService } from "../../../service/subjectService";
-import { ContextMenu } from "../../models/context-menu.model";
+import { OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
+import { SubjectService } from "../../core/services/subjectService";
+import { ContextMenu } from "../../shared/models/context-menu.model";
 import { Subscription } from "rxjs";
-import { SortInfo } from "../../models/sortInfo.model";
+import { SortInfo } from "../../shared/models/sortInfo.model";
 
-export class Table {
+export class Table implements OnDestroy, OnChanges {
   devices = [];
 
   protected contextMenuData = new ContextMenu();
@@ -14,6 +14,8 @@ export class Table {
   protected currentSortType;
   protected currentArrow;
   protected contextMenuOptions;
+  protected sort = new SortInfo();
+  protected apiSub: Subscription;
 
   constructor(
     protected subjectService: SubjectService,
@@ -24,6 +26,20 @@ export class Table {
     this.currentSortValue = currentSortValue;
     this.currentSortType = currentSortType;
     this.contextMenuOptions = contextMenuOptions;
+    var sort = new SortInfo();
+    this.sort.value = this.currentSortValue;
+    this.sort.type = this.currentSortType;
+    this.subjectService.sortValueEmitter.next(sort);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.searchValue) {
+      this.getRecords();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.apiSub.unsubscribe();
   }
 
   onRightClick(event, id: number) {
@@ -46,29 +62,31 @@ export class Table {
     );
   }
 
-  setSortValue(value: string, elementId: string) {
-    var sort = new SortInfo();
-    sort.value = value;
+  setSortValue(id: string) {
+    this.sort.value = id;
 
-    var element = document.getElementById(elementId);
+    var element = document.getElementById(id);
 
-    if (this.currentSortValue !== value) {
+    if (this.currentSortValue !== id) {
       this.currentArrow.classList.toggle("active");
       this.currentArrow.classList.remove("rotate");
 
       this.currentArrow = element;
       this.currentArrow.classList.toggle("active");
 
-      this.currentSortValue = value;
+      this.currentSortValue = id;
 
-      sort.sortType = "asc";
+      this.sort.type = "asc";
     } else {
       this.currentArrow.classList.toggle("rotate");
       this.switchSortType();
-      sort.sortType = this.currentSortType;
+      this.sort.type = this.currentSortType;
     }
+    this.getRecords();
+  }
 
-    this.subjectService.sortValueEmitter.next(sort);
+  getRecords() {
+    console.log("Wczytuje dane");
   }
 
   switchSortType() {

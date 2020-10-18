@@ -13,9 +13,9 @@ export class TableData {
 
   static getModelTableData() {
     return [
-      { header: "MODEL.MODEL_NAME", id: "modelName" },
-      { hedaer: "MODEL.DEVICE_TYPE", id: "deviceType" },
-      { hedaeer: "MODEL.AMOUNT", id: "amount" },
+      { header: "MODEL.MODEL_NAME", id: "name" },
+      { header: "MODEL.DEVICE_TYPE", id: "type" },
+      { header: "MODEL.AMOUNT", id: "amount" },
     ];
   }
 }

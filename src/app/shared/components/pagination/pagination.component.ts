@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { SubjectService } from "../../../service/subjectService";
+import { SubjectService } from "../../../core/services/subjectService";
 
 @Component({
   selector: "app-pagination",
@@ -9,7 +9,7 @@ import { SubjectService } from "../../../service/subjectService";
 export class PaginationComponent implements OnInit {
   @Input() pages;
   @Input() totalPages;
-  private currentPage = 1;
+  @Input() currentPage;
 
   constructor(private subjectService: SubjectService) {}
 

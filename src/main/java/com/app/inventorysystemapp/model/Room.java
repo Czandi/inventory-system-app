@@ -11,6 +11,6 @@ import javax.persistence.Id;
 @Getter
 public class Room {
   @Id
-  private int id;
+  private long id;
   private String name;
 }

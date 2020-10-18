@@ -22,9 +22,9 @@ import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./shared/components/navbar/navbar.component";
 import { SubnavbarComponent } from "./shared/components/subnavbar/subnavbar.component";
 import { MenubarComponent } from "./shared/components/menubar/menubar.component";
-import { SubjectService } from "./service/subjectService";
-import { ConfigService } from "./service/config.service";
-import { DeviceService } from "./service/device.service";
+import { SubjectService } from "./core/services/subjectService";
+import { ConfigService } from "./core/services/config.service";
+import { DeviceService } from "./core/services/device.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {

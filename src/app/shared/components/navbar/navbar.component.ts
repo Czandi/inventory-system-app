@@ -5,7 +5,7 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
-import { SubjectService } from "../../../service/subjectService";
+import { SubjectService } from "../../../core/services/subjectService";
 
 @Component({
   selector: "app-navbar",

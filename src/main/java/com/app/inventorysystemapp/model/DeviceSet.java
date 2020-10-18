@@ -11,6 +11,6 @@ import javax.persistence.Id;
 @Setter
 public class DeviceSet {
   @Id
-  private int id;
+  private long id;
   private String name;
 }

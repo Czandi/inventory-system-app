@@ -57,10 +57,25 @@
       </select>
     </div> -->
 
-    <app-device-table [devices]="devices"></app-device-table>
+    <app-device-table
+      *ngIf="currentTable === 'device'"
+      [currentPage]="currentPage"
+      [searchValue]="searchValue"
+    ></app-device-table>
+
+    <app-model-table
+      *ngIf="currentTable === 'model'"
+      [currentPage]="currentPage"
+      [searchValue]="searchValue"
+    >
+    </app-model-table>
   </div>
 
-  <app-pagination [pages]="pages" [totalPages]="totalPages"></app-pagination>
+  <app-pagination
+    [currentPage]="currentPage"
+    [pages]="pages"
+    [totalPages]="totalPages"
+  ></app-pagination>
 
   <app-context-menu></app-context-menu>
 </div>

@@ -13,9 +13,9 @@ import javax.persistence.ManyToOne;
 @Getter
 public class Model {
   @Id
-  private int id;
+  private long id;
   private String name;
   @ManyToOne
   @JoinColumn(name = "id_type")
-  private Type type;
+  private DeviceType type;
 }
