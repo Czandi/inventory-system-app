@@ -14,7 +14,7 @@ import { TableData } from "../table.data";
 @Component({
   selector: "app-device-table",
   templateUrl: "./device-table.component.html",
-  styleUrls: ["../table.component.scss"],
+  styleUrls: ["../table.scss"],
 })
 export class DeviceTableComponent extends Table implements OnInit, OnDestroy {
   @Input() currentPage;
@@ -38,6 +38,7 @@ export class DeviceTableComponent extends Table implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tableData = TableData.getDeviceTableData();
     this.getRecords();
+    this.initialized = true;
   }
 
   ngAfterViewInit() {
@@ -55,6 +56,7 @@ export class DeviceTableComponent extends Table implements OnInit, OnDestroy {
       )
       .subscribe((data) => {
         this.devices = data.content;
+        this.subjectService.totalPageNumber.next(data.totalPages);
       });
   }
 }

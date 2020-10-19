@@ -14,7 +14,7 @@ import { TableData } from "../table.data";
 @Component({
   selector: "app-model-table",
   templateUrl: "./model-table.component.html",
-  styleUrls: ["../table.component.scss"],
+  styleUrls: ["../table.scss"],
 })
 export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   @Input() currentPage;
@@ -38,6 +38,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   ngOnInit() {
     this.tableData = TableData.getModelTableData();
     this.getRecords();
+    this.initialized = true;
   }
 
   ngAfterViewInit() {
@@ -55,6 +56,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
       )
       .subscribe((data) => {
         this.models = data.content;
+        this.subjectService.totalPageNumber.next(data.totalPages);
       });
   }
 }

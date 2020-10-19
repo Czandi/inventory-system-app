@@ -41,22 +41,6 @@
       </select>
     </div>
 
-    <!-- <div class="select-display-type">
-      <label for="tables">{{
-        "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.DISPLAY" | translate
-      }}</label>
-
-      <select id="tables" name="tablelist">
-        <option value="device">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.ALL" | translate }}
-        </option>
-
-        <option value="device_set">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY_TYPE.SUMS" | translate }}
-        </option>
-      </select>
-    </div> -->
-
     <app-device-table
       *ngIf="currentTable === 'device'"
       [currentPage]="currentPage"

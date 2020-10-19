@@ -37,13 +37,15 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.pageSub = this.subjectService.totalPageNumber.subscribe((number) => {
-      this.totalPages = number;
-      this.pages = [];
-      for (let i = 0; i < this.totalPages; i++) {
-        this.pages.push(i + 1);
+    this.pageSub = this.subjectService.totalPageNumber.subscribe(
+      (totalPages) => {
+        this.totalPages = totalPages;
+        this.pages = [];
+        for (let i = 0; i < this.totalPages; i++) {
+          this.pages.push(i + 1);
+        }
       }
-    });
+    );
   }
 
   onTyping() {

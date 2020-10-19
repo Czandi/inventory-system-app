@@ -29,8 +29,6 @@ export class ModelService {
       url += this.config.search + searchValue;
     }
 
-    console.log(url);
-
     return this.http.get<Device[]>(url);
   }
 }

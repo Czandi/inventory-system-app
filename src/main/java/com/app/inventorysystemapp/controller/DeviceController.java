@@ -21,12 +21,13 @@ public class DeviceController {
   }
 
   @GetMapping("/devices")
-  public Page<DeviceDto> getDevices(@RequestParam(required = false) int page,
+  public Page<DeviceDto> getDevices(int page,
+                                    int pageSize,
                                     @RequestParam(required = false) String orderBy,
                                     @RequestParam(required = false) String sortType,
                                     @RequestParam(required = false) String search) {
     int pageNumber = page > 0 ? page : 1;
-    return DeviceDtoMapper.mapToDeviceDtos(deviceService.getDevices(pageNumber-1, orderBy, sortType, search));
+    return DeviceDtoMapper.mapToDeviceDtos(deviceService.getDevices(pageNumber-1, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/devices/{id}")

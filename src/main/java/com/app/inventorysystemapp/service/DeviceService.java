@@ -16,27 +16,37 @@ import java.util.Map;
 @Service
 public class DeviceService {
 
-  public static final int PAGE_SIZE = 10;
   private final DeviceRepository deviceRepository;
 
   public DeviceService(DeviceRepository deviceRepository) {
     this.deviceRepository = deviceRepository;
   }
 
-  public Page<Device> getDevices(int page, String orderBy, String sortType, String search) {
+  public Page<Device> getDevices(int page, int pageSize, String orderBy, String sortType, String search) {
     Pageable paging;
+
     if(orderBy != null){
-       if(sortType != null && sortType.equals("desc")){
-         paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy).descending());
+
+      String type = "";
+
+      if(sortType == null){
+        type = "desc";
+      }else{
+        type = sortType;
+      }
+
+       if(type.equals("desc")){
+         paging = PageRequest.of(page, pageSize, Sort.by(orderBy).descending());
        }else{
-        paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy));
+        paging = PageRequest.of(page, pageSize, Sort.by(orderBy));
        }
+
     }else{
-      paging = PageRequest.of(page, PAGE_SIZE);
+      paging = PageRequest.of(page, pageSize);
     }
 
     if(search == null){
-      return deviceRepository.findAllDevices(paging);
+      return deviceRepository.findAll(paging);
     }else{
       return deviceRepository.findByContaining(search, paging);
     }
@@ -47,7 +57,7 @@ public class DeviceService {
   }
 
   public Page<Device> getCountedModels(int page) {
-    Pageable paging = PageRequest.of(page, PAGE_SIZE);
+    Pageable paging = PageRequest.of(page, 10);
     return deviceRepository.getCountedModels(paging);
   }
 

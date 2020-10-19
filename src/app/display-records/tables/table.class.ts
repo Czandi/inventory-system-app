@@ -1,7 +1,7 @@
 import { OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
 import { SubjectService } from "../../core/services/subjectService";
 import { ContextMenu } from "../../shared/models/context-menu.model";
-import { Subscription } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { SortInfo } from "../../shared/models/sortInfo.model";
 
 export class Table implements OnDestroy, OnChanges {
@@ -16,6 +16,7 @@ export class Table implements OnDestroy, OnChanges {
   protected contextMenuOptions;
   protected sort = new SortInfo();
   protected apiSub: Subscription;
+  protected initialized = false;
 
   constructor(
     protected subjectService: SubjectService,
@@ -33,8 +34,14 @@ export class Table implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.searchValue) {
-      this.getRecords();
+    if (this.initialized) {
+      if (changes.searchValue) {
+        this.getRecords();
+      }
+
+      if (changes.currentPage) {
+        this.getRecords();
+      }
     }
   }
 
@@ -80,20 +87,17 @@ export class Table implements OnDestroy, OnChanges {
     } else {
       this.currentArrow.classList.toggle("rotate");
       this.switchSortType();
-      this.sort.type = this.currentSortType;
     }
     this.getRecords();
   }
 
-  getRecords() {
-    console.log("Wczytuje dane");
-  }
+  getRecords() {}
 
   switchSortType() {
-    if (this.currentSortType === "asc") {
-      this.currentSortType = "desc";
-    } else if (this.currentSortType === "desc") {
-      this.currentSortType = "asc";
+    if (this.sort.type === "asc") {
+      this.sort.type = "desc";
+    } else if (this.sort.type === "desc") {
+      this.sort.type = "asc";
     }
   }
 }

@@ -20,28 +20,40 @@ import java.util.stream.Collectors;
 @Service
 public class ModelService {
 
-  public static final int PAGE_SIZE = 10;
   private final ModelRepository modelRepository;
-  private final DeviceRepository deviceRepository;
 
-  public ModelService(ModelRepository modelRepository, DeviceRepository deviceRepository) {
+  public ModelService(ModelRepository modelRepository) {
     this.modelRepository = modelRepository;
-    this.deviceRepository = deviceRepository;
   }
 
-  public Page<Model> getModels(int page, String orderBy, String sortType, String search){
+  public Page<Model> getModels(int page, int pageSize, String orderBy, String sortType, String search){
     Pageable paging;
+
     if(orderBy != null){
-      if(sortType != null && sortType.equals("desc")){
-        paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy).descending());
+
+      String type = "";
+
+      if(sortType == null){
+        type = "desc";
       }else{
-        paging = PageRequest.of(page, PAGE_SIZE, Sort.by(orderBy));
+        type = sortType;
       }
+
+      if(type.equals("desc")){
+        paging = PageRequest.of(page, pageSize, Sort.by(orderBy).descending());
+      }else{
+        paging = PageRequest.of(page, pageSize, Sort.by(orderBy));
+      }
+
     }else{
-      paging = PageRequest.of(page, PAGE_SIZE);
+      paging = PageRequest.of(page, pageSize);
     }
-    System.out.println("Nie ma kodu");
-    return modelRepository.findAllModels(paging);
+
+    if(search == null) {
+      return modelRepository.findAll(paging);
+    }else{
+      return modelRepository.findByContaining(search, paging);
+    }
   }
 
   public int getCount(long id){

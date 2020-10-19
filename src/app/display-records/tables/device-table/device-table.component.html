@@ -1,33 +1,45 @@
-<table class="records">
-  <tr>
-    <th *ngFor="let item of tableData">
-      <span (click)="setSortValue(item.id)"
-        >{{ "TABLE_HEADERS." + item.header | translate }}
+<div class="table-container">
+  <table class="records">
+    <tr>
+      <th *ngFor="let item of tableData">
+        <span (click)="setSortValue(item.id)"
+          >{{ "TABLE_HEADERS." + item.header | translate }}
+        </span>
+        <img
+          src="../../../../../assets/icons/sort_arrow_up.svg"
+          [id]="item.id"
+        />
+      </th>
+    </tr>
+    <tr class="line">
+      <td colspan="7">
+        <div></div>
+      </td>
+    </tr>
+    <tr
+      *ngFor="let device of devices"
+      (contextmenu)="onRightClick($event, device.id)"
+      [id]="'device' + device.id"
+    >
+      <td>{{ device.serialNumber }}</td>
+      <td>{{ device.model }}</td>
+      <td>{{ device.type }}</td>
+      <td>{{ device.room }}</td>
+      <td>{{ device.owner }}</td>
+      <td>{{ device.barCode }}</td>
+      <td>{{ device.deviceSet }}</td>
+    </tr>
+
+    <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr>
+  </table>
+</div>
+
+<!-- <div class="records">
+  <div class="headers">
+    <p *ngFor="let item of tableData">
+      <span (click)="setSortValue(item.id)">
+        {{ "TABLE_HEADERS." + item.header | translate }}
       </span>
-      <img src="../../../../../assets/icons/sort_arrow_up.svg" [id]="item.id" />
-    </th>
-  </tr>
-  <tr class="line">
-    <td colspan="7">
-      <div></div>
-    </td>
-  </tr>
-  <tr
-    *ngFor="let device of devices"
-    (contextmenu)="onRightClick($event, device.id)"
-    [id]="'device' + device.id"
-  >
-    <td>{{ device.serialNumber }}</td>
-    <td>{{ device.model }}</td>
-    <td>{{ device.type }}</td>
-    <td>{{ device.room }}</td>
-    <td>{{ device.owner }}</td>
-    <td>{{ device.barCode }}</td>
-    <td>{{ device.deviceSet }}</td>
-  </tr>
-  <tr class="line">
-    <td colspan="7">
-      <div></div>
-    </td>
-  </tr>
-</table>
+    </p>
+  </div>
+</div> -->

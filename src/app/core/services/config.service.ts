@@ -4,7 +4,10 @@ export class ConfigService {
   private _modelUrl = this.apiUrl + "/models";
   private _roomUrl = this.apiUrl + "/rooms";
 
+  private PAGE_SIZE = 10;
+
   private _page = "/?page=";
+  private _page_size = "&pageSize=" + this.PAGE_SIZE;
   private _sortType = "&sortType=";
   private _orderBy = "&orderBy=";
   private _search = "&search=";
@@ -23,6 +26,10 @@ export class ConfigService {
 
   get page(): string {
     return this._page;
+  }
+
+  get pageSize(): string {
+    return this._page_size;
   }
 
   get sortType(): string {

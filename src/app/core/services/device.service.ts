@@ -20,6 +20,7 @@ export class DeviceService {
       this.config.deviceUrl +
       this.config.page +
       page +
+      this.config.pageSize +
       this.config.sortType +
       sortType +
       this.config.orderBy +
@@ -28,8 +29,6 @@ export class DeviceService {
     if (searchValue != "") {
       url += this.config.search + searchValue;
     }
-
-    console.log(url);
 
     return this.http.get<Device[]>(url);
   }

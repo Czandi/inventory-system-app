@@ -1,12 +1,10 @@
 package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.ModelDto;
-import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.service.ModelService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -19,12 +17,13 @@ public class ModelController {
   }
 
   @GetMapping("/models")
-  public Page<ModelDto> getModels(@RequestParam(required = false) int page,
+  public Page<ModelDto> getModels(int page,
+                               int pageSize,
                                @RequestParam(required = false) String orderBy,
                                @RequestParam(required = false) String sortType,
                                @RequestParam(required = false) String search) {
     int pageNumber = page > 0 ? page : 1;
-    return ModelDtoMapper.mapToModelDtos(modelService.getModels(pageNumber-1, orderBy, sortType, search));
+    return ModelDtoMapper.mapToModelDtos(modelService.getModels(pageNumber-1, pageSize, orderBy, sortType, search));
   }
 
 //  @GetMapping("/models/count/{id}")

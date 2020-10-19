@@ -1,3 +1,7 @@
+.table-container {
+  min-height: 532px;
+}
+
 .records {
   margin-left: auto;
   margin-right: auto;
@@ -6,7 +10,6 @@
   border-collapse: collapse;
   cursor: default;
   width: 80vw;
-  min-height: 524px;
 
   .line {
     td {
@@ -95,3 +98,19 @@
     padding: 15px 0;
   }
 }
+
+// .records {
+//   color: white;
+//   font-size: 11pt;
+//   width: 80vw;
+
+//   p {
+//     display: inline-block;
+
+//     span {
+//       &:hover {
+//         cursor: pointer;
+//       }
+//     }
+//   }
+// }
