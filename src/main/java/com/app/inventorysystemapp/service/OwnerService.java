@@ -31,8 +31,10 @@ public class OwnerService {
 
       switch(orderBy){
         case "name":
-          order = "ownerSurname";
+          order = "ownerName";
           break;
+        case "surname":
+          order = "ownerSurname";
         case "count":
           order = "ownerItemsCount";
           break;

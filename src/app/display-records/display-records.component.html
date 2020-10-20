@@ -20,23 +20,27 @@
         name="tablelist"
       >
         <option value="device">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICES" | translate }}
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}
         </option>
 
         <option value="model">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODELS" | translate }}
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}
         </option>
 
         <option value="deviceSet">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICES_SETS" | translate }}
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_SET" | translate }}
+        </option>
+
+        <option value="deviceType">
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_TYPE" | translate }}
         </option>
 
         <option value="owner">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNERS" | translate }}
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}
         </option>
 
         <option value="room">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOMS" | translate }}
+          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}
         </option>
       </select>
     </div>
@@ -60,6 +64,27 @@
       [searchValue]="searchValue"
     >
     </app-device-set-table>
+
+    <app-device-type-table
+      *ngIf="currentTable === 'deviceType'"
+      [currentPage]="currentPage"
+      [searchValue]="searchValue"
+    >
+    </app-device-type-table>
+
+    <app-owner-table
+      *ngIf="currentTable === 'owner'"
+      [currentPage]="currentPage"
+      [searchValue]="searchValue"
+    >
+    </app-owner-table>
+
+    <app-room-table
+      *ngIf="currentTable === 'room'"
+      [currentPage]="currentPage"
+      [searchValue]="searchValue"
+    >
+    </app-room-table>
   </div>
 
   <app-pagination

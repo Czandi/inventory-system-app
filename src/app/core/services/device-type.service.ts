@@ -6,17 +6,17 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class DeviceSetService {
+export class DeviceTypeService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllDeviceSets(
+  getAllDeviceTypes(
     page: number,
     orderBy: string,
     sortType: string,
     searchValue?: string
   ): Observable<any> {
     var url =
-      this.config.deviceTypeUrl +
+      this.config.deviceSetUrl +
       this.config.page +
       page +
       this.config.pageSize +

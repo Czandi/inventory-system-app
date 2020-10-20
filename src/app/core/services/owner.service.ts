@@ -6,17 +6,17 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class DeviceSetService {
+export class OwnerService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllDeviceSets(
+  getAllOwners(
     page: number,
     orderBy: string,
     sortType: string,
     searchValue?: string
   ): Observable<any> {
     var url =
-      this.config.deviceTypeUrl +
+      this.config.ownerUrl +
       this.config.page +
       page +
       this.config.pageSize +
@@ -28,8 +28,6 @@ export class DeviceSetService {
     if (searchValue != "") {
       url += this.config.search + searchValue;
     }
-
-    console.log(url);
 
     return this.http.get(url);
   }

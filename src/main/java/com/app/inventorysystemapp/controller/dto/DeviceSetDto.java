@@ -8,5 +8,5 @@ import lombok.Data;
 public class DeviceSetDto {
   private long id;
   private String name;
-  private int itemsCount;
+  private int count;
 }

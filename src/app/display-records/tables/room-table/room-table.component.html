@@ -17,12 +17,12 @@
       </td>
     </tr>
     <tr
-      *ngFor="let deviceSet of deviceSets"
-      (contextmenu)="onRightClick($event, deviceSet.id)"
-      [id]="'device' + deviceSet.id"
+      *ngFor="let room of rooms"
+      (contextmenu)="onRightClick($event, room.id)"
+      [id]="'device' + room.id"
     >
-      <td>{{ deviceSet.name }}</td>
-      <td>{{ deviceSet.count }}</td>
+      <td>{{ room.name }}</td>
+      <td>{{ room.itemsInRoom }}</td>
     </tr>
 
     <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr>

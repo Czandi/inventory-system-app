@@ -9,5 +9,5 @@ public class OwnerDto {
   Long id;
   String name;
   String surname;
-  Integer ownerItemsCount;
+  Integer itemsCount;
 }

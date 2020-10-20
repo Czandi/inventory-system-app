@@ -64,17 +64,7 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
   onDisplaySelect(element) {
     this.currentPage = 1;
     this.searchValue = "";
-    switch (element) {
-      case "device":
-        this.currentTable = element;
-        break;
-      case "model":
-        this.currentTable = element;
-        break;
-      case "deviceSet":
-        this.currentTable = element;
-        break;
-    }
+    this.currentTable = element;
   }
 
   ngOnDestroy() {

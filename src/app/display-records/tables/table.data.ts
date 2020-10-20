@@ -25,4 +25,26 @@ export class TableData {
       { header: "DEVICE_SET.DEVICES_AMOUNT", id: "count" },
     ];
   }
+
+  static getDeviceTypeTableData() {
+    return [
+      { header: "DEVICE_TYPE.DEVICE_TYPE_NAME", id: "name" },
+      { header: "DEVICE_TYPE.DEVICE_AMOUNT", id: "count" },
+    ];
+  }
+
+  static getOwnerTableData() {
+    return [
+      { header: "OWNER.OWNER_NAME", id: "name" },
+      { header: "OWNER.OWNER_SURNAME", id: "surname" },
+      { header: "OWNER.ITEMS_COUNT", id: "count" },
+    ];
+  }
+
+  static getRoomTableData() {
+    return [
+      { header: "ROOM.ROOM_NAME", id: "name" },
+      { header: "ROOM.ITEMS_IN_ROOM", id: "count" },
+    ];
+  }
 }

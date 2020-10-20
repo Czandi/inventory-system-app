@@ -15,7 +15,7 @@ public class OwnerDtoMapper {
       .id(owner.getOwnerId())
       .name(owner.getOwnerName())
       .surname(owner.getOwnerSurname())
-      .ownerItemsCount(owner.getOwnerItemsCount())
+      .itemsCount(owner.getOwnerItemsCount())
       .build();
   }
 }

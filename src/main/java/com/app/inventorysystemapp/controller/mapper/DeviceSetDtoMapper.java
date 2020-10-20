@@ -14,7 +14,7 @@ public class DeviceSetDtoMapper {
     return DeviceSetDto.builder()
       .id(deviceSet.getDeviceSetId())
       .name(deviceSet.getDeviceSetName())
-      .itemsCount(deviceSet.getItemsCount())
+      .count(deviceSet.getItemsCount())
       .build();
   }
 

@@ -41,11 +41,12 @@
       },
       "DISPLAY": {
         "DISPLAY": "Wyświetl",
-        "DEVICES": "Urządzenia",
-        "MODELS": "Modele",
-        "DEVICES_SETS": "Zestawy",
-        "OWNERS": "Właściciele",
-        "ROOMS": "Pomieszczenia"
+        "DEVICE": "Urządzenia",
+        "MODEL": "Modele",
+        "DEVICE_SET": "Zestawy",
+        "DEVICE_TYPE": "Typy urządzeń",
+        "OWNER": "Właściciele",
+        "ROOM": "Pomieszczenia"
       },
       "DISPLAY_TYPE": {
         "DISPLAY": "Wyświetl",
@@ -72,6 +73,19 @@
     "DEVICE_SET": {
       "DEVICE_SET_NAME": "Nazwa zestawu",
       "DEVICES_AMOUNT": "Liczba urządzeń"
+    },
+    "DEVICE_TYPE": {
+      "DEVICE_TYPE_NAME": "Typ urządzenia",
+      "DEVICE_AMOUNT": "Liczba urządzeń"
+    },
+    "OWNER": {
+      "OWNER_NAME": "Imię",
+      "OWNER_SURNAME": "Nazwisko",
+      "ITEMS_COUNT": "Ilość urządzeń"
+    },
+    "ROOM": {
+      "ROOM_NAME": "Pokój",
+      "ITEMS_IN_ROOM": "Liczba przedmiotów"
     }
   }
 }

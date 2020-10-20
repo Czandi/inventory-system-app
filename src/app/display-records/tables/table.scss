@@ -9,7 +9,11 @@
   font-size: 11pt;
   border-collapse: collapse;
   cursor: default;
-  width: 80vw;
+  width: 40vw;
+
+  &.full-view {
+    width: 80vw;
+  }
 
   .line {
     td {

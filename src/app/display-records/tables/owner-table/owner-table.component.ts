@@ -1,54 +1,54 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { DeviceService } from "../../../core/services/device.service";
+import { OwnerService } from "../../../core/services/owner.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
 import { TableData } from "../table.data";
 
 @Component({
-  selector: "app-device-table",
-  templateUrl: "./device-table.component.html",
+  selector: "app-owner-table",
+  templateUrl: "./owner-table.component.html",
   styleUrls: ["../table.scss"],
 })
-export class DeviceTableComponent extends Table implements OnInit {
+export class OwnerTableComponent extends Table implements OnInit {
   @Input() currentPage;
   @Input() searchValue;
-  @ViewChild("serialNumber") serialNumberArrow: ElementRef;
+  @ViewChild("name") serialNumberArrow: ElementRef;
 
   public tableData = [];
-  public devices;
+  public owners;
 
   constructor(
     subjectService: SubjectService,
-    private deviceService: DeviceService
+    private ownerService: OwnerService
   ) {
-    super(subjectService, "serialNumber", "asc", [
+    super(subjectService, "name", "asc", [
       "Option one",
       "Option two",
       "Option three",
     ]);
   }
 
-  ngOnInit(): void {
-    this.tableData = TableData.getDeviceTableData();
+  ngOnInit() {
+    this.tableData = TableData.getOwnerTableData();
     this.getRecords();
     this.initialized = true;
   }
 
   ngAfterViewInit() {
-    this.currentArrow = document.getElementById("serialNumber");
+    this.currentArrow = document.getElementById("name");
     this.currentArrow.classList.add("active");
   }
 
   getRecords() {
-    this.apiSub = this.deviceService
-      .getAllDevices(
+    this.apiSub = this.ownerService
+      .getAllOwners(
         this.currentPage,
         this.sort.value,
         this.sort.type,
         this.searchValue
       )
       .subscribe((data) => {
-        this.devices = data.content;
+        this.owners = data.content;
         this.subjectService.totalPageNumber.next(data.totalPages);
       });
   }

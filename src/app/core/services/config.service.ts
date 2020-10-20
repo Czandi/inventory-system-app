@@ -2,7 +2,9 @@ export class ConfigService {
   private apiUrl = "http://localhost:4201";
   private _deviceUrl = this.apiUrl + "/devices";
   private _modelUrl = this.apiUrl + "/models";
-  private _deviceSetUrl = this.apiUrl + "/devicesets";
+  private _deviceSetUrl = this.apiUrl + "/device-sets";
+  private _deviceTypeUrl = this.apiUrl + "/device-types";
+  private _ownerUrl = this.apiUrl + "/owners";
   private _roomUrl = this.apiUrl + "/rooms";
 
   private PAGE_SIZE = 10;
@@ -23,6 +25,14 @@ export class ConfigService {
 
   get deviceSetUrl(): string {
     return this._deviceSetUrl;
+  }
+
+  get deviceTypeUrl(): string {
+    return this._deviceTypeUrl;
+  }
+
+  get ownerUrl(): string {
+    return this._ownerUrl;
   }
 
   get roomUrl(): string {
