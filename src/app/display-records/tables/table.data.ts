@@ -15,7 +15,14 @@ export class TableData {
     return [
       { header: "MODEL.MODEL_NAME", id: "name" },
       { header: "MODEL.DEVICE_TYPE", id: "type" },
-      { header: "MODEL.AMOUNT", id: "amount" },
+      { header: "MODEL.AMOUNT", id: "count" },
+    ];
+  }
+
+  static getDeviceSetTableData() {
+    return [
+      { header: "DEVICE_SET.DEVICE_SET_NAME", id: "name" },
+      { header: "DEVICE_SET.DEVICES_AMOUNT", id: "count" },
     ];
   }
 }

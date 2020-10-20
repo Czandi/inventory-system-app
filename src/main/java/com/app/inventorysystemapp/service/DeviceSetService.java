@@ -1,6 +1,6 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.model.DeviceSet;
+import com.app.inventorysystemapp.model.interfaces.IDeviceSet;
 import com.app.inventorysystemapp.repository.DeviceSetRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,10 +17,26 @@ public class DeviceSetService {
     this.deviceSetRepository = deviceSetRepository;
   }
 
-  public Page<DeviceSet> getDeviceSet(int page, int pageSize, String orderBy, String sortType, String search) {
+  public Page<IDeviceSet> getDeviceSets(int page,
+                                        int pageSize,
+                                        String orderBy,
+                                        String sortType,
+                                        String search) {
     Pageable paging;
+    int pageNumber = page > 0 ? page : 1;
 
     if(orderBy != null){
+
+      String order = orderBy;
+
+      switch(orderBy){
+        case "name":
+          order = "deviceSetName";
+          break;
+        case "count":
+          order = "itemsCount";
+          break;
+      }
 
       String type = "";
 
@@ -31,21 +47,20 @@ public class DeviceSetService {
       }
 
       if(type.equals("desc")){
-        paging = PageRequest.of(page, pageSize, Sort.by(orderBy).descending());
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
       }else{
-        paging = PageRequest.of(page, pageSize, Sort.by(orderBy));
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
       }
 
     }else{
-      paging = PageRequest.of(page, pageSize);
+      paging = PageRequest.of(pageNumber-1, pageSize);
     }
 
     if(search == null) {
-      return deviceSetRepository.findAll(paging);
+      return deviceSetRepository.findAllDevicesSetWithCount(paging);
     }else{
-      return deviceSetRepository.findByContaining(search, paging);
+      return deviceSetRepository.findAllDevicesSetWithCountByContaining(search, paging);
     }
 
   }
-
 }

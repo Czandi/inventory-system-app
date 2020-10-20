@@ -1,4 +1,4 @@
-package com.app.inventorysystemapp.controller;
+package com.app.inventorysystemapp.controller.mapper;
 
 import com.app.inventorysystemapp.controller.dto.DeviceDto;
 import com.app.inventorysystemapp.model.Device;
@@ -20,7 +20,7 @@ public class DeviceDtoMapper {
       .room(device.getRoom().getName())
       .model(device.getModel().getName())
       .owner(device.getOwner().getName())
-      .type(device.getType().getName())
+      .type(device.getModel().getType().getName())
       .deviceSet(device.getDeviceSet().getName())
       .barCode(device.getBarCode())
       .comments(device.getComments())

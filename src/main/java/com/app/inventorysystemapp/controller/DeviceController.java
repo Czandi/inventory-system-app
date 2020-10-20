@@ -1,6 +1,7 @@
 package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.DeviceDto;
+import com.app.inventorysystemapp.controller.mapper.DeviceDtoMapper;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Device;
 import com.app.inventorysystemapp.service.DeviceService;
@@ -26,8 +27,7 @@ public class DeviceController {
                                     @RequestParam(required = false) String orderBy,
                                     @RequestParam(required = false) String sortType,
                                     @RequestParam(required = false) String search) {
-    int pageNumber = page > 0 ? page : 1;
-    return DeviceDtoMapper.mapToDeviceDtos(deviceService.getDevices(pageNumber-1, pageSize, orderBy, sortType, search));
+    return DeviceDtoMapper.mapToDeviceDtos(deviceService.getDevices(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/devices/{id}")

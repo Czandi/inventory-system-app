@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.model.interfaces.IModel;
-import com.app.inventorysystemapp.repository.ModelRepository;
+import com.app.inventorysystemapp.model.interfaces.IDeviceType;
+import com.app.inventorysystemapp.repository.DeviceTypeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,15 +9,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ModelService {
+public class DeviceTypeService {
 
-  private final ModelRepository modelRepository;
+  private final DeviceTypeRepository deviceTypeRepository;
 
-  public ModelService(ModelRepository modelRepository) {
-    this.modelRepository = modelRepository;
+  public DeviceTypeService(DeviceTypeRepository deviceTypeRepository) {
+    this.deviceTypeRepository = deviceTypeRepository;
   }
 
-  public Page<IModel> getModels(int page, int pageSize, String orderBy, String sortType, String search){
+  public Page<IDeviceType> getDeviceTypes(int page,
+                                          int pageSize,
+                                          String orderBy,
+                                          String sortType,
+                                          String search) {
     Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
@@ -27,13 +31,10 @@ public class ModelService {
 
       switch(orderBy){
         case "name":
-          order = "modelName";
-          break;
-        case "type":
-          order = "typeName";
+          order = "deviceTypeName";
           break;
         case "count":
-          order = "modelCount";
+          order = "deviceTypeCount";
           break;
       }
 
@@ -56,10 +57,9 @@ public class ModelService {
     }
 
     if(search == null) {
-      return modelRepository.findAllModelsWithCount(paging);
+      return deviceTypeRepository.findAllDeviceTypesWithCount(paging);
     }else{
-      return modelRepository.findAllModelsWithCountByContaining(search, paging);
+      return deviceTypeRepository.findAllDeviceTypesWithCountByContaining(search, paging);
     }
   }
-
 }

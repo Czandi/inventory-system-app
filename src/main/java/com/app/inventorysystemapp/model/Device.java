@@ -33,10 +33,6 @@ public class Device {
   private Owner owner;
 
   @ManyToOne
-  @JoinColumn(name = "id_type")
-  private DeviceType type;
-
-  @ManyToOne
   @JoinColumn(name = "id_device_set", referencedColumnName = "id")
   private DeviceSet deviceSet;
 

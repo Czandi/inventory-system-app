@@ -68,6 +68,10 @@
       "MODEL_NAME": "Nazwa modelu",
       "DEVICE_TYPE": "Typ urządzenia",
       "AMOUNT": "Ilość"
+    },
+    "DEVICE_SET": {
+      "DEVICE_SET_NAME": "Nazwa zestawu",
+      "DEVICES_AMOUNT": "Liczba urządzeń"
     }
   }
 }

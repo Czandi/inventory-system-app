@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Device } from "../../shared/models/device.model";
 import { ConfigService } from "./config.service";
 import { Observable } from "rxjs";
 
@@ -30,6 +29,6 @@ export class DeviceService {
       url += this.config.search + searchValue;
     }
 
-    return this.http.get<Device[]>(url);
+    return this.http.get(url);
   }
 }

@@ -24,8 +24,17 @@ public class DeviceService {
 
   public Page<Device> getDevices(int page, int pageSize, String orderBy, String sortType, String search) {
     Pageable paging;
+    int pageNumber = page > 0 ? page : 1;
 
     if(orderBy != null){
+
+      String orderValue = orderBy;
+
+      switch(orderBy){
+        case "type":
+          orderValue = "model." + orderBy;
+          break;
+      }
 
       String type = "";
 
@@ -36,13 +45,13 @@ public class DeviceService {
       }
 
        if(type.equals("desc")){
-         paging = PageRequest.of(page, pageSize, Sort.by(orderBy).descending());
+         paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue).descending());
        }else{
-        paging = PageRequest.of(page, pageSize, Sort.by(orderBy));
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue));
        }
 
     }else{
-      paging = PageRequest.of(page, pageSize);
+      paging = PageRequest.of(pageNumber-1, pageSize);
     }
 
     if(search == null){

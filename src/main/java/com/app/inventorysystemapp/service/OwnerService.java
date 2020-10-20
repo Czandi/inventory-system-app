@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.model.interfaces.IModel;
-import com.app.inventorysystemapp.repository.ModelRepository;
+import com.app.inventorysystemapp.model.interfaces.IOwner;
+import com.app.inventorysystemapp.repository.OwnerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,15 +9,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ModelService {
+public class OwnerService {
 
-  private final ModelRepository modelRepository;
+  private final OwnerRepository ownerRepository;
 
-  public ModelService(ModelRepository modelRepository) {
-    this.modelRepository = modelRepository;
+  public OwnerService(OwnerRepository ownerRepository) {
+    this.ownerRepository = ownerRepository;
   }
 
-  public Page<IModel> getModels(int page, int pageSize, String orderBy, String sortType, String search){
+  public Page<IOwner> getOwners(int page,
+                                int pageSize,
+                                String orderBy,
+                                String sortType,
+                                String search) {
     Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
@@ -27,13 +31,10 @@ public class ModelService {
 
       switch(orderBy){
         case "name":
-          order = "modelName";
-          break;
-        case "type":
-          order = "typeName";
+          order = "ownerSurname";
           break;
         case "count":
-          order = "modelCount";
+          order = "ownerItemsCount";
           break;
       }
 
@@ -56,10 +57,9 @@ public class ModelService {
     }
 
     if(search == null) {
-      return modelRepository.findAllModelsWithCount(paging);
+      return ownerRepository.findAllOwnersWithItemsCount(paging);
     }else{
-      return modelRepository.findAllModelsWithCountByContaining(search, paging);
+      return ownerRepository.findAllOwnersWithItemsCountByContaining(search, paging);
     }
   }
-
 }

@@ -27,7 +27,7 @@
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODELS" | translate }}
         </option>
 
-        <option value="device_set">
+        <option value="deviceSet">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICES_SETS" | translate }}
         </option>
 
@@ -53,6 +53,13 @@
       [searchValue]="searchValue"
     >
     </app-model-table>
+
+    <app-device-set-table
+      *ngIf="currentTable === 'deviceSet'"
+      [currentPage]="currentPage"
+      [searchValue]="searchValue"
+    >
+    </app-device-set-table>
   </div>
 
   <app-pagination

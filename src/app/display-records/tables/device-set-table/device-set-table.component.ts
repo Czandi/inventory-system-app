@@ -1,0 +1,55 @@
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { DeviceSetService } from "app/core/services/device-set.service";
+import { SubjectService } from "../../../core/services/subjectService";
+import { Table } from "../table.class";
+import { TableData } from "../table.data";
+
+@Component({
+  selector: "app-device-set-table",
+  templateUrl: "./device-set-table.component.html",
+  styleUrls: ["../table.scss"],
+})
+export class DeviceSetTableComponent extends Table implements OnInit {
+  @Input() currentPage;
+  @Input() searchValue;
+  @ViewChild("name") serialNumberArrow: ElementRef;
+
+  public tableData = [];
+  public deviceSets;
+
+  constructor(
+    subjectService: SubjectService,
+    private deviceSetService: DeviceSetService
+  ) {
+    super(subjectService, "name", "asc", [
+      "Option one",
+      "Option two",
+      "Option three",
+    ]);
+  }
+
+  ngOnInit(): void {
+    this.tableData = TableData.getDeviceSetTableData();
+    this.getRecords();
+    this.initialized = true;
+  }
+
+  ngAfterViewInit() {
+    this.currentArrow = document.getElementById("name");
+    this.currentArrow.classList.add("active");
+  }
+
+  getRecords() {
+    this.apiSub = this.deviceSetService
+      .getAllDeviceSets(
+        this.currentPage,
+        this.sort.value,
+        this.sort.type,
+        this.searchValue
+      )
+      .subscribe((data) => {
+        this.deviceSets = data.content;
+        this.subjectService.totalPageNumber.next(data.totalPages);
+      });
+  }
+}
