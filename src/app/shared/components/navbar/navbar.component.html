@@ -17,7 +17,7 @@
       (mouseover)="mouseEnter(2)"
       (mouseleave)="mouseLeave(2)"
       (click)="onClick(2)"
-      routerLink="/display-records"
+      routerLink="/display-records/device-table/1"
     >
       <img src="../../assets/icons/show_record_icon.svg" />
       <a>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</a>
@@ -90,10 +90,11 @@
     (mouseleave)="mouseLeave(6)"
     (click)="onClick(6)"
     #addRecord
+    routerLink="/add-record"
   >
     <div class="clickable">
       <img src="../../assets/icons/add_record_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.ADD_RECORDS" | translate }}</a>
+      <a>{{ "NAVBAR.ADD_RECORDS" | translate }}</a>
     </div>
   </div>
   <div class="wave" #wave>

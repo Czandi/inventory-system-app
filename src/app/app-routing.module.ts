@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from "./shared/components";
 
 import { DisplayRecordsRoutingModule } from "./display-records/display-records-routing.module";
 import { DashboardRoutingModule } from "./dashboard/dashboard-routing.module";
-import { DisplayRecordsComponent } from "./display-records/display-records.component";
+import { AddRecordRoutingModule } from "./add-record/add-record-routing.module";
 
 const routes: Routes = [
   {
@@ -23,6 +23,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     DisplayRecordsRoutingModule,
     DashboardRoutingModule,
+    AddRecordRoutingModule,
   ],
   exports: [RouterModule],
 })

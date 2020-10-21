@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { DeviceService } from "../../../core/services/device.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
@@ -10,8 +11,6 @@ import { TableData } from "../table.data";
   styleUrls: ["../table.scss"],
 })
 export class DeviceTableComponent extends Table implements OnInit {
-  @Input() currentPage;
-  @Input() searchValue;
   @ViewChild("serialNumber") serialNumberArrow: ElementRef;
 
   public tableData = [];
@@ -19,9 +18,10 @@ export class DeviceTableComponent extends Table implements OnInit {
 
   constructor(
     subjectService: SubjectService,
+    route: ActivatedRoute,
     private deviceService: DeviceService
   ) {
-    super(subjectService, "serialNumber", "asc", [
+    super(subjectService, route, "serialNumber", "asc", [
       "Option one",
       "Option two",
       "Option three",
@@ -30,8 +30,7 @@ export class DeviceTableComponent extends Table implements OnInit {
 
   ngOnInit(): void {
     this.tableData = TableData.getDeviceTableData();
-    this.getRecords();
-    this.initialized = true;
+    this.initialize();
   }
 
   ngAfterViewInit() {

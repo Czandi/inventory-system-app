@@ -3,8 +3,9 @@ import { SubjectService } from "../../core/services/subjectService";
 import { ContextMenu } from "../../shared/models/context-menu.model";
 import { Subject, Subscription } from "rxjs";
 import { SortInfo } from "../../shared/models/sortInfo.model";
+import { ActivatedRoute } from "@angular/router";
 
-export class Table implements OnDestroy, OnChanges {
+export class Table implements OnDestroy {
   devices = [];
 
   protected contextMenuData = new ContextMenu();
@@ -14,12 +15,16 @@ export class Table implements OnDestroy, OnChanges {
   protected currentSortType;
   protected currentArrow;
   protected contextMenuOptions;
+  protected currentPage;
+  protected searchValue;
   protected sort = new SortInfo();
   protected apiSub: Subscription;
+  protected routeSub: Subscription;
   protected initialized = false;
 
   constructor(
     protected subjectService: SubjectService,
+    protected route: ActivatedRoute,
     currentSortValue: string,
     currentSortType: string,
     contextMenuOptions: Array<string>
@@ -33,15 +38,23 @@ export class Table implements OnDestroy, OnChanges {
     this.subjectService.sortValueEmitter.next(sort);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.initialized) {
-      if (changes.searchValue) {
-        this.getRecords();
-      }
+  initialize() {
+    this.routeSub = this.route.params.subscribe((params) => {
+      this.validateAndSetSearchValue(params["search-value"]);
+      this.currentPage = this.route.snapshot.params["current-page"];
+      this.getRecords();
+    });
+    this.currentPage = this.route.snapshot.params["current-page"];
+    this.validateAndSetSearchValue(this.route.snapshot.params["search-value"]);
+    this.getRecords();
+    this.initialized = true;
+  }
 
-      if (changes.currentPage) {
-        this.getRecords();
-      }
+  validateAndSetSearchValue(searchValue) {
+    if (!searchValue) {
+      this.searchValue = "";
+    } else {
+      this.searchValue = searchValue;
     }
   }
 

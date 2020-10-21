@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { OwnerService } from "../../../core/services/owner.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
@@ -10,8 +11,6 @@ import { TableData } from "../table.data";
   styleUrls: ["../table.scss"],
 })
 export class OwnerTableComponent extends Table implements OnInit {
-  @Input() currentPage;
-  @Input() searchValue;
   @ViewChild("name") serialNumberArrow: ElementRef;
 
   public tableData = [];
@@ -19,9 +18,10 @@ export class OwnerTableComponent extends Table implements OnInit {
 
   constructor(
     subjectService: SubjectService,
+    route: ActivatedRoute,
     private ownerService: OwnerService
   ) {
-    super(subjectService, "name", "asc", [
+    super(subjectService, route, "name", "asc", [
       "Option one",
       "Option two",
       "Option three",
@@ -30,8 +30,7 @@ export class OwnerTableComponent extends Table implements OnInit {
 
   ngOnInit() {
     this.tableData = TableData.getOwnerTableData();
-    this.getRecords();
-    this.initialized = true;
+    this.initialize();
   }
 
   ngAfterViewInit() {

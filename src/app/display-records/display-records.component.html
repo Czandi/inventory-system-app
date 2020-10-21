@@ -19,33 +19,35 @@
         id="tables"
         name="tablelist"
       >
-        <option value="device">
+        <option value="device-table">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}
         </option>
 
-        <option value="model">
+        <option value="model-table">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}
         </option>
 
-        <option value="deviceSet">
+        <option value="device-set-table">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_SET" | translate }}
         </option>
 
-        <option value="deviceType">
+        <option value="device-type-table">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_TYPE" | translate }}
         </option>
 
-        <option value="owner">
+        <option value="owner-table">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}
         </option>
 
-        <option value="room">
+        <option value="room-table">
           {{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}
         </option>
       </select>
     </div>
 
-    <app-device-table
+    <router-outlet></router-outlet>
+
+    <!-- <app-device-table
       *ngIf="currentTable === 'device'"
       [currentPage]="currentPage"
       [searchValue]="searchValue"
@@ -84,7 +86,7 @@
       [currentPage]="currentPage"
       [searchValue]="searchValue"
     >
-    </app-room-table>
+    </app-room-table> -->
   </div>
 
   <app-pagination

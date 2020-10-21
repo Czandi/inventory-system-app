@@ -17,6 +17,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { DashboardModule } from "./dashboard/dashboard.module";
 import { DisplayRecordsModule } from "./display-records/display-records.module";
+import { AddRecordModule } from "./add-record/add-record.module";
 
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./shared/components/navbar/navbar.component";
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DashboardModule,
     DisplayRecordsModule,
     AppRoutingModule,
+    AddRecordModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

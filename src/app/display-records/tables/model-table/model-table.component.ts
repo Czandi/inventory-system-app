@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { ModelService } from "app/core/services/model.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
@@ -17,8 +18,6 @@ import { TableData } from "../table.data";
   styleUrls: ["../table.scss"],
 })
 export class ModelTableComponent extends Table implements OnInit, OnDestroy {
-  @Input() currentPage;
-  @Input() searchValue;
   @ViewChild("name") serialNumberArrow: ElementRef;
 
   public tableData = [];
@@ -26,9 +25,10 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
 
   constructor(
     subjectService: SubjectService,
+    route: ActivatedRoute,
     private modelService: ModelService
   ) {
-    super(subjectService, "name", "asc", [
+    super(subjectService, route, "name", "asc", [
       "Option one",
       "Option two",
       "Option three",
@@ -37,8 +37,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tableData = TableData.getModelTableData();
-    this.getRecords();
-    this.initialized = true;
+    this.initialize();
   }
 
   ngAfterViewInit() {

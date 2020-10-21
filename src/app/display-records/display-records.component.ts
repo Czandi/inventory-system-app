@@ -5,6 +5,7 @@ import {
   ViewChild,
   OnDestroy,
 } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SubjectService } from "../core/services/subjectService";
 
@@ -20,20 +21,21 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
   public pages = [];
   public totalPages: number;
   public currentPage = 1;
-  public currentTable = "device";
   public searchValue = "";
 
+  private currentRoute = "device-table";
   private search = "";
   private searchTimeout;
   private paginationSub: Subscription;
   private pageSub: Subscription;
 
-  constructor(private subjectService: SubjectService) {}
+  constructor(private subjectService: SubjectService, private router: Router) {}
 
   ngOnInit(): void {
     this.paginationSub = this.subjectService.currentPageEmitter.subscribe(
       (page) => {
         this.currentPage = page;
+        this.updateRoute();
       }
     );
 
@@ -44,8 +46,11 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.totalPages; i++) {
           this.pages.push(i + 1);
         }
+        this.updateRoute();
       }
     );
+
+    this.updateRoute();
   }
 
   onTyping() {
@@ -56,15 +61,27 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
   resetSearchTimeout() {
     window.clearTimeout(this.searchTimeout);
     this.searchTimeout = window.setTimeout(() => {
-      console.log("Setting searchValue to " + this.search);
       this.searchValue = this.search;
+      this.updateRoute();
     }, 500);
   }
 
-  onDisplaySelect(element) {
+  onDisplaySelect(route) {
     this.currentPage = 1;
     this.searchValue = "";
-    this.currentTable = element;
+    this.currentRoute = route;
+    this.updateRoute();
+  }
+
+  updateRoute() {
+    this.router.navigate([
+      "/display-records/" +
+        this.currentRoute +
+        "/" +
+        this.currentPage +
+        "/" +
+        this.searchValue,
+    ]);
   }
 
   ngOnDestroy() {

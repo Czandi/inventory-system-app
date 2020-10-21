@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { RoomService } from "../../../core/services/room.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
@@ -10,8 +11,6 @@ import { TableData } from "../table.data";
   styleUrls: ["../table.scss"],
 })
 export class RoomTableComponent extends Table implements OnInit {
-  @Input() currentPage;
-  @Input() searchValue;
   @ViewChild("name") serialNumberArrow: ElementRef;
 
   public tableData = [];
@@ -19,9 +18,10 @@ export class RoomTableComponent extends Table implements OnInit {
 
   constructor(
     subjectService: SubjectService,
+    route: ActivatedRoute,
     private roomService: RoomService
   ) {
-    super(subjectService, "name", "asc", [
+    super(subjectService, route, "name", "asc", [
       "Option one",
       "Option two",
       "Option three",
@@ -30,8 +30,7 @@ export class RoomTableComponent extends Table implements OnInit {
 
   ngOnInit() {
     this.tableData = TableData.getRoomTableData();
-    this.getRecords();
-    this.initialized = true;
+    this.initialize();
   }
 
   ngAfterViewInit() {
