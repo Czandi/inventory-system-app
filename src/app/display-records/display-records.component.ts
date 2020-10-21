@@ -8,6 +8,7 @@ import {
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SubjectService } from "../core/services/subjectService";
+import { DeviceTableComponent } from "./tables/device-table/device-table.component";
 
 @Component({
   selector: "app-display-records",
@@ -16,14 +17,19 @@ import { SubjectService } from "../core/services/subjectService";
 })
 export class DisplayRecordsComponent implements OnInit, OnDestroy {
   @ViewChild("searchBar") searchBar: ElementRef;
+  @ViewChild("device") deviceTableButton: ElementRef;
+
+  private static lastRoute;
+  private static lastTableButtonId;
 
   public records = [];
   public pages = [];
   public totalPages: number;
   public currentPage = 1;
   public searchValue = "";
+  public currentRoute;
 
-  private currentRoute = "device-table";
+  private activeTableButton;
   private search = "";
   private searchTimeout;
   private paginationSub: Subscription;
@@ -50,7 +56,24 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
       }
     );
 
+    if (DisplayRecordsComponent.lastRoute) {
+      this.currentRoute = DisplayRecordsComponent.lastRoute;
+    } else {
+      this.currentRoute = "/device-table";
+    }
     this.updateRoute();
+  }
+
+  ngAfterViewInit() {
+    if (DisplayRecordsComponent.lastTableButtonId) {
+      this.activeTableButton = document.getElementById(
+        DisplayRecordsComponent.lastTableButtonId
+      );
+      console.log(this.activeTableButton);
+    } else {
+      this.activeTableButton = this.deviceTableButton.nativeElement;
+    }
+    this.activeTableButton.classList.add("active");
   }
 
   onTyping() {
@@ -66,10 +89,16 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  onDisplaySelect(route) {
+  setRouterLink(route, element, elementId) {
     this.currentPage = 1;
     this.searchValue = "";
     this.currentRoute = route;
+    this.activeTableButton.classList.remove("active");
+    this.activeTableButton = element;
+    DisplayRecordsComponent.lastTableButtonId = elementId;
+    this.activeTableButton.classList.add("active");
+    DisplayRecordsComponent.lastRoute = this.currentRoute;
+    console.log(this.activeTableButton);
     this.updateRoute();
   }
 

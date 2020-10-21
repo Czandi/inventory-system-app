@@ -14,10 +14,15 @@ const routes: Routes = [
     path: "display-records",
     component: DisplayRecordsComponent,
     children: [
-      { path: "device-table/:current-page", component: DeviceTableComponent },
+      {
+        path: "device-table/:current-page",
+        component: DeviceTableComponent,
+        data: { animation: "DeviceTable" },
+      },
       {
         path: "device-table/:current-page/:search-value",
         component: DeviceTableComponent,
+        data: { animation: "DeviceTable" },
       },
       {
         path: "device-set-table/:current-page",
@@ -35,10 +40,15 @@ const routes: Routes = [
         path: "device-type-table/:current-page/:search-value",
         component: DeviceTypeTableComponent,
       },
-      { path: "model-table/:current-page", component: ModelTableComponent },
+      {
+        path: "model-table/:current-page",
+        component: ModelTableComponent,
+        data: { animation: "ModelTable" },
+      },
       {
         path: "model-table/:current-page/:search-value",
         component: ModelTableComponent,
+        data: { animation: "ModelTable" },
       },
       { path: "owner-table/:current-page", component: OwnerTableComponent },
       {

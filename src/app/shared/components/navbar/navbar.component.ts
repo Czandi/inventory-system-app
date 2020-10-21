@@ -22,8 +22,15 @@ export class NavbarComponent implements OnInit {
   @ViewChild("history") history: ElementRef;
   @ViewChild("addRecord") addRecord: ElementRef;
 
-  activeId: number;
-
+  private names = [
+    "dashboard",
+    "displayRecords",
+    "updateRecords",
+    "importExport",
+    "history",
+    "addRecord",
+  ];
+  private activeId: number;
   private activeEl: ElementRef;
   private offset: number;
   private mouseOver = false;
@@ -55,35 +62,30 @@ export class NavbarComponent implements OnInit {
 
   setActive(id) {
     this.activeId = id;
-    console.log(this.activeId);
     this.activeEl.nativeElement.classList.toggle("active");
 
     switch (id) {
       case 1:
         this.activeEl = this.dashboard;
-        var name = "dashboard";
         break;
       case 2:
         this.activeEl = this.displayRecords;
-        var name = "displayRecords";
         break;
       case 3:
         this.activeEl = this.updateRecords;
-        var name = "updateRecords";
         break;
       case 4:
         this.activeEl = this.importExport;
-        var name = "importExport";
         break;
       case 5:
         this.activeEl = this.history;
-        var name = "history";
         break;
       case 6:
         this.activeEl = this.addRecord;
-        var name = "addRecord";
         break;
     }
+
+    let name = this.names[id - 1];
     setTimeout(() => {
       this.activeEl.nativeElement.classList.toggle("active");
     }, 250);

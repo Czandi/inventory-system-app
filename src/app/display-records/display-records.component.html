@@ -1,6 +1,51 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.DISPLAY_RECORDS.TITLE" | translate }}</h1>
   <div class="center">
+    <div class="tables">
+      <p
+        id="device"
+        (click)="setRouterLink('device-table', device, 'device')"
+        #device
+      >
+        <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}</span>
+      </p>
+      <p
+        id="model"
+        (click)="setRouterLink('model-table', model, 'model')"
+        #model
+      >
+        <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}</span>
+      </p>
+      <p
+        id="deviceSet"
+        (click)="setRouterLink('device-set-table', deviceSet, 'deviceSet')"
+        #deviceSet
+      >
+        <span>{{
+          "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_SET" | translate
+        }}</span>
+      </p>
+      <p
+        id="deviceType"
+        (click)="setRouterLink('device-type-table', deviceType, 'deviceType')"
+        #deviceType
+      >
+        <span>{{
+          "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_TYPE" | translate
+        }}</span>
+      </p>
+      <p
+        id="owner"
+        (click)="setRouterLink('owner-table', owner, 'owner')"
+        #owner
+      >
+        <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}</span>
+      </p>
+      <p id="room" (click)="setRouterLink('room-table', room, 'room')" #room>
+        <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}</span>
+      </p>
+    </div>
+
     <div class="search-bar">
       <input
         type="text"
@@ -10,83 +55,7 @@
       />
     </div>
 
-    <div class="select-display">
-      <label for="tables"
-        >{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DISPLAY" | translate }} :</label
-      >
-      <select
-        (change)="onDisplaySelect($event.target.value)"
-        id="tables"
-        name="tablelist"
-      >
-        <option value="device-table">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}
-        </option>
-
-        <option value="model-table">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}
-        </option>
-
-        <option value="device-set-table">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_SET" | translate }}
-        </option>
-
-        <option value="device-type-table">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_TYPE" | translate }}
-        </option>
-
-        <option value="owner-table">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}
-        </option>
-
-        <option value="room-table">
-          {{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}
-        </option>
-      </select>
-    </div>
-
     <router-outlet></router-outlet>
-
-    <!-- <app-device-table
-      *ngIf="currentTable === 'device'"
-      [currentPage]="currentPage"
-      [searchValue]="searchValue"
-    ></app-device-table>
-
-    <app-model-table
-      *ngIf="currentTable === 'model'"
-      [currentPage]="currentPage"
-      [searchValue]="searchValue"
-    >
-    </app-model-table>
-
-    <app-device-set-table
-      *ngIf="currentTable === 'deviceSet'"
-      [currentPage]="currentPage"
-      [searchValue]="searchValue"
-    >
-    </app-device-set-table>
-
-    <app-device-type-table
-      *ngIf="currentTable === 'deviceType'"
-      [currentPage]="currentPage"
-      [searchValue]="searchValue"
-    >
-    </app-device-type-table>
-
-    <app-owner-table
-      *ngIf="currentTable === 'owner'"
-      [currentPage]="currentPage"
-      [searchValue]="searchValue"
-    >
-    </app-owner-table>
-
-    <app-room-table
-      *ngIf="currentTable === 'room'"
-      [currentPage]="currentPage"
-      [searchValue]="searchValue"
-    >
-    </app-room-table> -->
   </div>
 
   <app-pagination

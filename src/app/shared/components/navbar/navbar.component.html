@@ -17,7 +17,7 @@
       (mouseover)="mouseEnter(2)"
       (mouseleave)="mouseLeave(2)"
       (click)="onClick(2)"
-      routerLink="/display-records/device-table/1"
+      routerLink="/display-records"
     >
       <img src="../../assets/icons/show_record_icon.svg" />
       <a>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</a>
@@ -33,15 +33,13 @@
       <img src="../../assets/icons/update_record_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</a>
     </div>
-    <div class="submenu">
-      <app-subnavbar
-        elementId="updateRecords"
-        [items]="[
-          'NAVBAR.UPDATE_RECORDS.SUBMENU.ROOMS' | translate,
-          'NAVBAR.UPDATE_RECORDS.SUBMENU.SETS' | translate
-        ]"
-      ></app-subnavbar>
-    </div>
+    <app-subnavbar
+      elementId="updateRecords"
+      [items]="[
+        'NAVBAR.UPDATE_RECORDS.SUBMENU.ROOMS' | translate,
+        'NAVBAR.UPDATE_RECORDS.SUBMENU.SETS' | translate
+      ]"
+    ></app-subnavbar>
   </div>
   <div class="item import-export" #importExport>
     <div
@@ -73,14 +71,6 @@
       <img src="../../assets/icons/history_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.OPERATION_HISTORY" | translate }}</a>
     </div>
-    <app-subnavbar
-      elementId="history"
-      [items]="[
-        'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
-        'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate,
-        'NAVBAR.DISPLAY_RECORDS.SUBMENU.HISTORY' | translate
-      ]"
-    ></app-subnavbar>
   </div>
   <div class="item add-record" #addRecord>
     <div
@@ -93,16 +83,6 @@
       <img src="../../assets/icons/add_record_icon.svg" />
       <a>{{ "NAVBAR.ADD_RECORD.TITLE" | translate }}</a>
     </div>
-    <app-subnavbar
-      elementId="addRecord"
-      [items]="[
-        'NAVBAR.ADD_RECORD.SUBMENU.DEVICE' | translate,
-        'NAVBAR.ADD_RECORD.SUBMENU.DEVICE_SET' | translate,
-        'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
-        'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate,
-        'NAVBAR.DISPLAY_RECORDS.SUBMENU.HISTORY' | translate
-      ]"
-    ></app-subnavbar>
   </div>
   <div class="wave" #wave>
     <img src="../../assets/icons/wave.svg" />

@@ -4,9 +4,12 @@
     "DISPLAY_RECORDS": {
       "TITLE": "Wyświetl rekordy",
       "SUBMENU": {
-        "TABLES": "Tabele",
-        "EXAMPLE": "Przykład",
-        "HISTORY": "Historia"
+        "DEVICES": "Urządzenia",
+        "MODELS": "Modele",
+        "DEVICE_SETS": "Zestawy",
+        "DEVICE_TYPES": "Typy urządzeń",
+        "OWNERS": "Właściciele",
+        "ROOMS": "Pomieszczenia"
       }
     },
     "UPDATE_RECORDS": {
