@@ -8,6 +8,9 @@ import {
   transition,
 } from "@angular/animations";
 import { ThrowStmt } from "@angular/compiler";
+import { CombineLatestOperator } from "rxjs/internal/observable/combineLatest";
+import { Subscription } from "rxjs";
+import { time } from "console";
 
 @Component({
   selector: "app-subnavbar",
@@ -40,34 +43,58 @@ export class SubnavbarComponent implements OnInit {
   isOpen = true;
   activeId: string;
   activeItems: Array<string> = [];
+  static activeItems: Array<string> = [];
+
+  private OFFSET = 50;
 
   constructor(private service: SubjectService) {}
-
   ngOnInit(): void {
     this.service.submenuEmitter.subscribe((event) => {
-      this.triggerAnimate("close", 0);
-      var primaryTimeout = 50 * this.items.length + 1;
-      setTimeout(() => {
-        this.activeId = event;
-      }, primaryTimeout);
-      this.triggerAnimate("open", primaryTimeout);
+      this.hideCurrentEjectedItems();
+
+      var timeout = this.OFFSET * this.items.length;
+
+      this.delayItem(event, timeout);
+
+      if (event === this.elementId) {
+        this.triggerOpenAnimate(timeout);
+      }
     });
   }
 
-  triggerAnimate(state: string, primaryTimout: number) {
-    if (state === "open") {
-      for (let i in this.items) {
-        setTimeout(() => {
-          this.activeItems.push(this.items[+i]);
-        }, primaryTimout + 50 * (+i + 1));
-      }
-    } else if (state === "close" && this.activeItems != []) {
-      this.activeItems.splice(0, 1);
-      for (let i in this.activeItems) {
-        setTimeout(() => {
-          this.activeItems.splice(0, 1);
-        }, 50 * (+i + 1));
-      }
+  delayItem(event, timeout) {
+    setTimeout(() => {
+      this.activeId = event;
+    }, timeout);
+  }
+
+  triggerOpenAnimate(timeout: number) {
+    for (let i in this.items) {
+      let item = this.items[i];
+
+      let itemTimeout = timeout + this.OFFSET * (+i + 1);
+
+      this.ejectItem(item, itemTimeout);
     }
+  }
+
+  hideCurrentEjectedItems() {
+    for (let i in this.activeItems) {
+      let timeout = this.OFFSET * +i;
+
+      this.hideItem(timeout);
+    }
+  }
+
+  ejectItem(item, timeout) {
+    setTimeout(() => {
+      this.activeItems.push(item);
+    }, timeout);
+  }
+
+  hideItem(timeout) {
+    setTimeout(() => {
+      this.activeItems.splice(0, 1);
+    }, timeout);
   }
 }

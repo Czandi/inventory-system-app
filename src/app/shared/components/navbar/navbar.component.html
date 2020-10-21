@@ -73,29 +73,36 @@
       <img src="../../assets/icons/history_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.OPERATION_HISTORY" | translate }}</a>
     </div>
-    <div class="submenu">
-      <app-subnavbar
-        elementId="history"
-        [items]="[
-          'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
-          'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate,
-          'NAVBAR.DISPLAY_RECORDS.SUBMENU.HISTORY' | translate
-        ]"
-      ></app-subnavbar>
-    </div>
+    <app-subnavbar
+      elementId="history"
+      [items]="[
+        'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
+        'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate,
+        'NAVBAR.DISPLAY_RECORDS.SUBMENU.HISTORY' | translate
+      ]"
+    ></app-subnavbar>
   </div>
-  <div
-    class="item add-record"
-    (mouseover)="mouseEnter(6)"
-    (mouseleave)="mouseLeave(6)"
-    (click)="onClick(6)"
-    #addRecord
-    routerLink="/add-record"
-  >
-    <div class="clickable">
+  <div class="item add-record" #addRecord>
+    <div
+      class="clickable"
+      (mouseover)="mouseEnter(6)"
+      (mouseleave)="mouseLeave(6)"
+      (click)="onClick(6)"
+      routerLink="/add-record"
+    >
       <img src="../../assets/icons/add_record_icon.svg" />
-      <a>{{ "NAVBAR.ADD_RECORDS" | translate }}</a>
+      <a>{{ "NAVBAR.ADD_RECORD.TITLE" | translate }}</a>
     </div>
+    <app-subnavbar
+      elementId="addRecord"
+      [items]="[
+        'NAVBAR.ADD_RECORD.SUBMENU.DEVICE' | translate,
+        'NAVBAR.ADD_RECORD.SUBMENU.DEVICE_SET' | translate,
+        'NAVBAR.DISPLAY_RECORDS.SUBMENU.TABLES' | translate,
+        'NAVBAR.DISPLAY_RECORDS.SUBMENU.EXAMPLE' | translate,
+        'NAVBAR.DISPLAY_RECORDS.SUBMENU.HISTORY' | translate
+      ]"
+    ></app-subnavbar>
   </div>
   <div class="wave" #wave>
     <img src="../../assets/icons/wave.svg" />

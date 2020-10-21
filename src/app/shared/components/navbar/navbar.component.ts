@@ -5,6 +5,7 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
+import { Router } from "@angular/router";
 import { SubjectService } from "../../../core/services/subjectService";
 
 @Component({
@@ -21,12 +22,17 @@ export class NavbarComponent implements OnInit {
   @ViewChild("history") history: ElementRef;
   @ViewChild("addRecord") addRecord: ElementRef;
 
+  activeId: number;
+
   private activeEl: ElementRef;
-  private activeId: number;
   private offset: number;
   private mouseOver = false;
 
-  constructor(private renderer: Renderer2, private service: SubjectService) {}
+  constructor(
+    private renderer: Renderer2,
+    private service: SubjectService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -49,6 +55,7 @@ export class NavbarComponent implements OnInit {
 
   setActive(id) {
     this.activeId = id;
+    console.log(this.activeId);
     this.activeEl.nativeElement.classList.toggle("active");
 
     switch (id) {

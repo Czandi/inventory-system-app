@@ -24,7 +24,13 @@
       }
     },
     "OPERATION_HISTORY": "Historia operacji",
-    "ADD_RECORDS": "Dodaj rekord"
+    "ADD_RECORD": {
+      "TITLE": "Dodaj rekord",
+      "SUBMENU": {
+        "DEVICE": "Urządzenie",
+        "DEVICE_SET": "Zestaw"
+      }
+    }
   },
   "PAGES": {
     "DISPLAY_RECORDS": {
@@ -47,12 +53,10 @@
         "DEVICE_TYPE": "Typy urządzeń",
         "OWNER": "Właściciele",
         "ROOM": "Pomieszczenia"
-      },
-      "DISPLAY_TYPE": {
-        "DISPLAY": "Wyświetl",
-        "SUMS": "Sumy",
-        "ALL": "Wszystko"
       }
+    },
+    "ADD_RECORD": {
+      "TITLE": "Dodaj rekord"
     }
   },
   "TABLE_HEADERS": {
