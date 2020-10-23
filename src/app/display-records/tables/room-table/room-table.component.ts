@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { RoomService } from "../../../core/services/room.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
-import { TableData } from "../table.data";
+import { TableData } from "../../../shared/table.data";
 
 @Component({
   selector: "app-room-table",
@@ -40,7 +40,7 @@ export class RoomTableComponent extends Table implements OnInit {
 
   getRecords() {
     this.apiSub = this.roomService
-      .getAllRooms(
+      .getAllRoomsWithDevicesCount(
         this.currentPage,
         this.sort.value,
         this.sort.type,

@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class DeviceSetService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllDeviceSets(
+  getAllDeviceSetsWithDevicesCount(
     page: number,
     orderBy: string,
     sortType: string,
@@ -31,6 +31,11 @@ export class DeviceSetService {
 
     console.log(url);
 
+    return this.http.get(url);
+  }
+
+  getAllDeviceSets() {
+    var url = this.config.deviceSetUrl + "/all";
     return this.http.get(url);
   }
 }

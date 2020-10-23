@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class ModelService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllModels(
+  getAllModelsWithDeviceCount(
     page: number,
     orderBy: string,
     sortType: string,
@@ -29,6 +29,11 @@ export class ModelService {
       url += this.config.search + searchValue;
     }
 
+    return this.http.get(url);
+  }
+
+  getAllModels() {
+    var url = this.config.modelUrl + "/all";
     return this.http.get(url);
   }
 }

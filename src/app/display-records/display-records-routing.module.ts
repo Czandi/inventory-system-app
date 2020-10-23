@@ -14,6 +14,10 @@ const routes: Routes = [
     path: "display-records",
     component: DisplayRecordsComponent,
     children: [
+      // {
+      //   path: "",
+      //   component: DeviceTableComponent,
+      // },
       {
         path: "device-table/:current-page",
         component: DeviceTableComponent,

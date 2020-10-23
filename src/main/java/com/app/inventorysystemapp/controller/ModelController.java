@@ -2,9 +2,12 @@ package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.ModelDto;
 import com.app.inventorysystemapp.controller.mapper.ModelDtoMapper;
+import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.service.ModelService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,5 +27,10 @@ public class ModelController {
                                @RequestParam(required = false) String sortType,
                                @RequestParam(required = false) String search) {
     return ModelDtoMapper.mapToModelDtos(modelService.getModels(page, pageSize, orderBy, sortType, search));
+  }
+
+  @GetMapping("/models/all")
+  public List<Model> getAllModels(){
+    return modelService.getAllModels();
   }
 }

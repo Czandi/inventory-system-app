@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class OwnerService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllOwners(
+  getAllOwnersWithDevicesCount(
     page: number,
     orderBy: string,
     sortType: string,
@@ -29,6 +29,11 @@ export class OwnerService {
       url += this.config.search + searchValue;
     }
 
+    return this.http.get(url);
+  }
+
+  getAllOwners() {
+    var url = this.config.ownerUrl + "/all";
     return this.http.get(url);
   }
 }

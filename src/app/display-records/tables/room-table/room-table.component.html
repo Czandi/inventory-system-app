@@ -3,7 +3,7 @@
     <tr>
       <th *ngFor="let item of tableData">
         <span (click)="setSortValue(item.id)"
-          >{{ "TABLE_HEADERS." + item.header | translate }}
+          >{{ item.header | translate }}
         </span>
         <img
           src="../../../../../assets/icons/sort_arrow_up.svg"

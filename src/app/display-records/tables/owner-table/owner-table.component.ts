@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { OwnerService } from "../../../core/services/owner.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
-import { TableData } from "../table.data";
+import { TableData } from "../../../shared/table.data";
 
 @Component({
   selector: "app-owner-table",
@@ -40,7 +40,7 @@ export class OwnerTableComponent extends Table implements OnInit {
 
   getRecords() {
     this.apiSub = this.ownerService
-      .getAllOwners(
+      .getAllOwnersWithDevicesCount(
         this.currentPage,
         this.sort.value,
         this.sort.type,

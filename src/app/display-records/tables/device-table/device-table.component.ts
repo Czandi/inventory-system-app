@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { DeviceService } from "../../../core/services/device.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
-import { TableData } from "../table.data";
+import { TableData } from "../../../shared/table.data";
 
 @Component({
   selector: "app-device-table",

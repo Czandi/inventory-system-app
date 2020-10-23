@@ -83,6 +83,10 @@
       <img src="../../assets/icons/add_record_icon.svg" />
       <a>{{ "NAVBAR.ADD_RECORD.TITLE" | translate }}</a>
     </div>
+    <app-subnavbar
+      elementId="addRecord"
+      [items]="addRecordSubnavbarItems"
+    ></app-subnavbar>
   </div>
   <div class="wave" #wave>
     <img src="../../assets/icons/wave.svg" />

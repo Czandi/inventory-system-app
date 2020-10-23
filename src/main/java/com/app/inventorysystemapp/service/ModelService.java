@@ -1,5 +1,6 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.model.interfaces.IModel;
 import com.app.inventorysystemapp.repository.ModelRepository;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ModelService {
@@ -62,4 +65,7 @@ public class ModelService {
     }
   }
 
+  public List<Model> getAllModels() {
+    return modelRepository.findAll();
+  }
 }

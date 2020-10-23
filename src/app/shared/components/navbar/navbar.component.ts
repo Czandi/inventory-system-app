@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { SubjectService } from "../../../core/services/subjectService";
 
 @Component({
@@ -21,6 +22,17 @@ export class NavbarComponent implements OnInit {
   @ViewChild("importExport") importExport: ElementRef;
   @ViewChild("history") history: ElementRef;
   @ViewChild("addRecord") addRecord: ElementRef;
+
+  public addRecordSubnavbarItems = [
+    {
+      item: "NAVBAR.ADD_RECORD.SUBMENU.DEVICE",
+      route: "/add-record/device",
+    },
+    {
+      item: "NAVBAR.ADD_RECORD.SUBMENU.DEVICE_SET",
+      route: "/add-record/device-set",
+    },
+  ];
 
   private names = [
     "dashboard",
@@ -38,7 +50,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private service: SubjectService,
-    private route: Router
+    private route: Router,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {}

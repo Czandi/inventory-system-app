@@ -1,12 +1,15 @@
 <div class="container" [id]="elementId + '-submenu'">
   <p
     *ngFor="let item of items"
+    (click)="activateItem(item.item, item.route)"
+    [id]="item.item"
+    [routerLink]="item.route"
     [@openClose]="
-      activeId == elementId && activeItems.indexOf(item) > -1
+      activeId == elementId && activeItems.indexOf(item.item) > -1
         ? 'open'
         : 'closed'
     "
   >
-    {{ item }}
+    {{ item.item | translate }}
   </p>
 </div>

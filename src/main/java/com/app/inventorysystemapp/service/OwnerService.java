@@ -1,5 +1,6 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.model.Owner;
 import com.app.inventorysystemapp.model.interfaces.IOwner;
 import com.app.inventorysystemapp.repository.OwnerRepository;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OwnerService {
@@ -63,5 +66,9 @@ public class OwnerService {
     }else{
       return ownerRepository.findAllOwnersWithItemsCountByContaining(search, paging);
     }
+  }
+
+  public List<Owner> getAllOwners() {
+    return ownerRepository.findAll();
   }
 }

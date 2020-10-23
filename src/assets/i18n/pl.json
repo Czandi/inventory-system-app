@@ -59,7 +59,8 @@
       }
     },
     "ADD_RECORD": {
-      "TITLE": "Dodaj rekord"
+      "TITLE": "Dodaj rekord",
+      "ADD": "Dodaj"
     }
   },
   "TABLE_HEADERS": {
@@ -93,6 +94,9 @@
     "ROOM": {
       "ROOM_NAME": "Pokój",
       "ITEMS_IN_ROOM": "Liczba przedmiotów"
+    },
+    "ADDITIONALS": {
+      "COMMENT": "Komentarz"
     }
   }
 }

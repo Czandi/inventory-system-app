@@ -59,7 +59,8 @@ var slideDown = [
 export const SlideInAnimation = trigger("routeAnimations", [
   transition("Dashboard => *", slideUp),
   transition("* => Dashboard", slideDown),
-  transition("AddRecord => *", slideDown),
   transition("DeviceTable => *", slideDown),
   transition("* => DeviceTable", slideUp),
+  transition("AddRecord => *", slideDown),
+  transition("* => AddRecord", slideUp),
 ]);

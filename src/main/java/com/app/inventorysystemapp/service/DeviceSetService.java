@@ -1,5 +1,6 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.model.DeviceSet;
 import com.app.inventorysystemapp.model.interfaces.IDeviceSet;
 import com.app.inventorysystemapp.repository.DeviceSetRepository;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DeviceSetService {
@@ -62,5 +65,9 @@ public class DeviceSetService {
       return deviceSetRepository.findAllDevicesSetWithCountByContaining(search, paging);
     }
 
+  }
+
+  public List<DeviceSet> getAllDeviceSets() {
+    return deviceSetRepository.findAll();
   }
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { DeviceSetService } from "app/core/services/device-set.service";
 import { SubjectService } from "../../../core/services/subjectService";
 import { Table } from "../table.class";
-import { TableData } from "../table.data";
+import { TableData } from "../../../shared/table.data";
 
 @Component({
   selector: "app-device-set-table",
@@ -40,7 +40,7 @@ export class DeviceSetTableComponent extends Table implements OnInit {
 
   getRecords() {
     this.apiSub = this.deviceSetService
-      .getAllDeviceSets(
+      .getAllDeviceSetsWithDevicesCount(
         this.currentPage,
         this.sort.value,
         this.sort.type,

@@ -9,6 +9,10 @@ body {
   background-color: #1d455b;
 }
 
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
 p,
 a {
   font-size: 10pt;
@@ -36,12 +40,40 @@ a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -47%);
+  width: fit-content;
 }
 
 input,
-select {
+select,
+textarea {
   border-radius: 5px;
+  padding: 7px 7px;
+  background-color: white;
+  border: none;
   &:focus {
     outline: none;
+  }
+}
+
+textarea {
+  resize: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+.button {
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 7px 15px;
+  border-radius: 5px;
+  min-width: 130px;
+
+  &.primary {
+    background-color: #f56b16;
+  }
+
+  &.secondary {
+    border: solid 2px #f56b16;
+    background-color: transparent;
   }
 }

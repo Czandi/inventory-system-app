@@ -7,10 +7,7 @@ import {
   animate,
   transition,
 } from "@angular/animations";
-import { ThrowStmt } from "@angular/compiler";
-import { CombineLatestOperator } from "rxjs/internal/observable/combineLatest";
-import { Subscription } from "rxjs";
-import { time } from "console";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-subnavbar",
@@ -46,8 +43,10 @@ export class SubnavbarComponent implements OnInit {
   static activeItems: Array<string> = [];
 
   private OFFSET = 50;
+  private static lastItemIndex = null;
+  private static lastRoute = null;
 
-  constructor(private service: SubjectService) {}
+  constructor(private service: SubjectService, private router: Router) {}
   ngOnInit(): void {
     this.service.submenuEmitter.subscribe((event) => {
       this.hideCurrentEjectedItems();
@@ -70,12 +69,31 @@ export class SubnavbarComponent implements OnInit {
 
   triggerOpenAnimate(timeout: number) {
     for (let i in this.items) {
-      let item = this.items[i];
+      let item = this.items[i].item;
+      let route = this.items[i].route;
 
       let itemTimeout = timeout + this.OFFSET * (+i + 1);
 
       this.ejectItem(item, itemTimeout);
+
+      if (SubnavbarComponent.lastItemIndex === null && +i === 0) {
+        this.firstActivateItem(item, itemTimeout);
+
+        this.router.navigate([route]);
+
+        this.setStaticVariables(0, route);
+      } else if (+i === SubnavbarComponent.lastItemIndex) {
+        this.firstActivateItem(item, itemTimeout);
+
+        this.router.navigate([SubnavbarComponent.lastRoute]);
+      }
     }
+  }
+
+  firstActivateItem(item, timeout) {
+    setTimeout(() => {
+      document.getElementById(item).classList.add("active");
+    }, timeout);
   }
 
   hideCurrentEjectedItems() {
@@ -84,6 +102,7 @@ export class SubnavbarComponent implements OnInit {
 
       this.hideItem(timeout);
     }
+    this.clearActiveItem();
   }
 
   ejectItem(item, timeout) {
@@ -96,5 +115,24 @@ export class SubnavbarComponent implements OnInit {
     setTimeout(() => {
       this.activeItems.splice(0, 1);
     }, timeout);
+  }
+
+  activateItem(item, route) {
+    this.clearActiveItem();
+    let itemElement = document.getElementById(item);
+    itemElement.classList.add("active");
+    let indexOfItem = this.activeItems.indexOf(item);
+    this.setStaticVariables(indexOfItem, route);
+  }
+
+  clearActiveItem() {
+    for (let item of this.activeItems) {
+      document.getElementById(item).classList.remove("active");
+    }
+  }
+
+  setStaticVariables(indexOfItem, route) {
+    SubnavbarComponent.lastItemIndex = indexOfItem;
+    SubnavbarComponent.lastRoute = route;
   }
 }

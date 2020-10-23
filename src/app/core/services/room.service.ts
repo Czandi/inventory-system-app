@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class RoomService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  getAllRooms(
+  getAllRoomsWithDevicesCount(
     page: number,
     orderBy: string,
     sortType: string,
@@ -29,6 +29,11 @@ export class RoomService {
       url += this.config.search + searchValue;
     }
 
+    return this.http.get(url);
+  }
+
+  getAllRooms() {
+    var url = this.config.roomUrl + "/all";
     return this.http.get(url);
   }
 }

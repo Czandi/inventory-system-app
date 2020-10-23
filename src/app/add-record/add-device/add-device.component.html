@@ -1,0 +1,77 @@
+<div class="form-container">
+  <form>
+    <div class="item-row">
+      <div class="item">
+        <label for="serial-number">
+          {{ "TABLE_HEADERS.DEVICE.SERIAL_NUMBER" | translate }}</label
+        >
+        <input
+          id="serial-number"
+          type="text"
+          [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
+        />
+      </div>
+      <div class="item">
+        <label for="device_model">
+          {{ "TABLE_HEADERS.DEVICE.DEVICE_MODEL" | translate }}</label
+        >
+        <input
+          id="device_model"
+          type="text"
+          [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
+        />
+      </div>
+      <div class="item">
+        <label for="device-type">
+          {{ "TABLE_HEADERS.DEVICE.DEVICE_TYPE" | translate }}</label
+        >
+        <input
+          id="device-type"
+          type="text"
+          [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
+        />
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item">
+        <label for="room"> {{ "TABLE_HEADERS.DEVICE.ROOM" | translate }}</label>
+        <input
+          id="room"
+          type="text"
+          [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
+        />
+      </div>
+      <div class="item">
+        <label for="owner">
+          {{ "TABLE_HEADERS.DEVICE.OWNER" | translate }}</label
+        >
+        <input
+          id="owner"
+          type="text"
+          [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
+        />
+      </div>
+      <div class="item">
+        <label for="device-set">
+          {{ "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate }}</label
+        >
+        <input
+          id="device-set"
+          type="text"
+          [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
+        />
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item text-area">
+        <label for="comment">{{
+          "TABLE_HEADERS.ADDITIONALS.COMMENT" | translate
+        }}</label>
+        <textarea
+          id="comment"
+          [placeholder]="'TABLE_HEADERS.ADDITIONALS.COMMENT' | translate"
+        ></textarea>
+      </div>
+    </div>
+  </form>
+</div>

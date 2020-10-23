@@ -17,8 +17,18 @@ p {
   z-index: -4;
   margin-top: 9px;
   margin-bottom: 9px;
+
   &:hover {
     width: 220px;
     cursor: pointer;
+  }
+
+  &.active {
+    width: 220px;
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
