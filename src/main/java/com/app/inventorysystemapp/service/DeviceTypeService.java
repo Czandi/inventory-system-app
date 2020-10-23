@@ -69,4 +69,12 @@ public class DeviceTypeService {
   public List<DeviceType> getAllDeviceTypes() {
     return deviceTypeRepository.findAll();
   }
+
+  public DeviceType findTypeById(Long id){
+    return deviceTypeRepository.findById(id).orElseThrow();
+  }
+
+  public DeviceType insertDeviceType(DeviceType deviceType) {
+    return deviceTypeRepository.save(deviceType);
+  }
 }

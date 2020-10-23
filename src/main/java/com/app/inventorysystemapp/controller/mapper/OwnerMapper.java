@@ -4,7 +4,7 @@ import com.app.inventorysystemapp.controller.dto.OwnerDto;
 import com.app.inventorysystemapp.model.interfaces.IOwner;
 import org.springframework.data.domain.Page;
 
-public class OwnerDtoMapper {
+public class OwnerMapper {
 
   public static Page<OwnerDto> mapToOwnerDtos(Page<IOwner> owners) {
     return owners.map(owner -> mapToOwnerDto(owner));

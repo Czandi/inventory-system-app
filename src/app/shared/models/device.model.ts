@@ -1,12 +1,24 @@
 export class Device {
-  id: number;
   serialNumber: number;
-  room: string;
-  model: string;
-  owner: string;
-  type: string;
-  setNumber: string;
-  barCode: number;
-  comments: string;
-  createdDate: Date;
+  idRoom: number;
+  idModel: number;
+  idOwner: number;
+  idDeviceSet: number;
+  comment: string;
+
+  public Device(
+    serialNumber: number,
+    idRoom: number,
+    idModel: number,
+    idOwner: number,
+    idDeviceSet: number,
+    comment: string
+  ) {
+    this.serialNumber = serialNumber;
+    this.idModel = idModel;
+    this.idRoom = idRoom;
+    this.idOwner = idOwner;
+    this.idDeviceSet = idDeviceSet;
+    this.comment = comment;
+  }
 }

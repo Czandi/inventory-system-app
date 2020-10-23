@@ -70,4 +70,12 @@ public class DeviceSetService {
   public List<DeviceSet> getAllDeviceSets() {
     return deviceSetRepository.findAll();
   }
+
+  public DeviceSet insertDeviceSet(DeviceSet deviceSet) {
+    return deviceSetRepository.save(deviceSet);
+  }
+
+  public DeviceSet findDeviceSetById(long id){
+    return deviceSetRepository.findById(id).orElseThrow();
+  }
 }

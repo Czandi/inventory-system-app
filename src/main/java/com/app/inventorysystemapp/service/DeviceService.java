@@ -1,5 +1,6 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.controller.postModels.DevicePost;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeviceRepository;
@@ -17,9 +18,26 @@ import java.util.Map;
 public class DeviceService {
 
   private final DeviceRepository deviceRepository;
+  private final DeviceSetService deviceSetService;
+  private final DeviceTypeService deviceTypeService;
+  private final ModelService modelService;
+  private final OwnerService ownerService;
+  private final RoomService roomService;
 
-  public DeviceService(DeviceRepository deviceRepository) {
+  private final String MARK = "US";
+
+  public DeviceService(DeviceRepository deviceRepository,
+                       DeviceSetService deviceSetService,
+                       DeviceTypeService deviceTypeService,
+                       ModelService modelService,
+                       OwnerService ownerService,
+                       RoomService roomService) {
     this.deviceRepository = deviceRepository;
+    this.deviceSetService = deviceSetService;
+    this.deviceTypeService = deviceTypeService;
+    this.modelService = modelService;
+    this.ownerService = ownerService;
+    this.roomService = roomService;
   }
 
   public Page<Device> getDevices(int page, int pageSize, String orderBy, String sortType, String search) {
@@ -70,9 +88,22 @@ public class DeviceService {
     return deviceRepository.getCountedModels(paging);
   }
 
-  public Device insertDevice(Device device) {
-    deviceRepository.save(device);
-    return device;
+  public Device insertDevice(DevicePost device) {
+    Room room = roomService.findRoomById(device.getIdRoom());
+    Model model = modelService.findModelById(device.getIdModel());
+    Owner owner = ownerService.findOwnerById(device.getIdOwner());
+    DeviceSet deviceSet = deviceSetService.findDeviceSetById(device.getIdDeviceSet());
+    String serialNumber = device.getSerialNumber();
+    String comments = "";
+    if(device.getComment() != null){
+      comments = device.getComment();
+    }
+
+    Device newDevice = new Device(serialNumber, room, model, owner, deviceSet, comments);
+    newDevice.generateBarCode();
+
+    deviceRepository.save(newDevice);
+    return newDevice;
   }
 
   public ResponseEntity<Device> updateDevice(long id, Device details) throws ResourceNotFoundException {

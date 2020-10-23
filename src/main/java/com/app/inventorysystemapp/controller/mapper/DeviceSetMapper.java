@@ -4,7 +4,7 @@ import com.app.inventorysystemapp.controller.dto.DeviceSetDto;
 import com.app.inventorysystemapp.model.interfaces.IDeviceSet;
 import org.springframework.data.domain.Page;
 
-public class DeviceSetDtoMapper {
+public class DeviceSetMapper {
 
   public static Page<DeviceSetDto> mapToDeviceSetDtos(Page<IDeviceSet> deviceSets) {
     return deviceSets.map(deviceSet -> mapToDeviceSetDto(deviceSet));

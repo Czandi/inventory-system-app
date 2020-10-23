@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ConfigService } from "./config.service";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
+import { Device } from "app/shared/models/device.model";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -30,5 +32,10 @@ export class DeviceService {
     }
 
     return this.http.get(url);
+  }
+
+  insertDevice(device: Device): Observable<Device> {
+    console.log("Inserting " + device);
+    return this.http.post<Device>(this.config.deviceUrl, device);
   }
 }

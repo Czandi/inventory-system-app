@@ -1,7 +1,10 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.controller.mapper.ModelMapper;
+import com.app.inventorysystemapp.model.DeviceType;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.model.interfaces.IModel;
+import com.app.inventorysystemapp.controller.postModels.ModelPost;
 import com.app.inventorysystemapp.repository.ModelRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,9 +18,11 @@ import java.util.List;
 public class ModelService {
 
   private final ModelRepository modelRepository;
+  private final DeviceTypeService deviceTypeService;
 
-  public ModelService(ModelRepository modelRepository) {
+  public ModelService(ModelRepository modelRepository, DeviceTypeService deviceTypeService) {
     this.modelRepository = modelRepository;
+    this.deviceTypeService = deviceTypeService;
   }
 
   public Page<IModel> getModels(int page, int pageSize, String orderBy, String sortType, String search){
@@ -67,5 +72,18 @@ public class ModelService {
 
   public List<Model> getAllModels() {
     return modelRepository.findAll();
+  }
+
+  public Model insertModel(ModelPost model) {
+    System.out.println(model);
+    DeviceType deviceType = deviceTypeService.findTypeById(model.getIdType());
+    String name = model.getName();
+
+    Model newModel = new Model(name, deviceType);
+    return modelRepository.save(newModel);
+  }
+
+  public Model findModelById(long id){
+    return modelRepository.findById(id).orElseThrow();
   }
 }

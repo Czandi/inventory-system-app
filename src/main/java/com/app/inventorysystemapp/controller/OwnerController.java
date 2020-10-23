@@ -1,14 +1,11 @@
 package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.OwnerDto;
-import com.app.inventorysystemapp.controller.mapper.OwnerDtoMapper;
+import com.app.inventorysystemapp.controller.mapper.OwnerMapper;
 import com.app.inventorysystemapp.model.Owner;
 import com.app.inventorysystemapp.service.OwnerService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,11 +25,16 @@ public class OwnerController {
                                   @RequestParam(required = false) String orderBy,
                                   @RequestParam(required = false) String sortType,
                                   @RequestParam(required = false) String search) {
-    return OwnerDtoMapper.mapToOwnerDtos(ownerService.getOwners(page, pageSize, orderBy, sortType, search));
+    return OwnerMapper.mapToOwnerDtos(ownerService.getOwners(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/owners/all")
   public List<Owner> getAllOwners(){
     return ownerService.getAllOwners();
+  }
+
+  @PostMapping("/owners")
+  public Owner insertOwner(@RequestBody Owner owner){
+    return ownerService.insertOwner(owner);
   }
 }

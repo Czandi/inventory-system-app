@@ -69,4 +69,12 @@ public class RoomService {
   public List<Room> getAllRooms() {
     return roomRepository.findAll();
   }
+
+  public Room insertRoom(Room room) {
+    return roomRepository.save(room);
+  }
+
+  public Room findRoomById(long id){
+    return roomRepository.findById(id).orElseThrow();
+  }
 }

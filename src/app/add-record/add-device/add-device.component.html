@@ -9,6 +9,8 @@
           id="serial-number"
           type="text"
           [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
+          autocomplete="off"
+          #serialNumber
         />
       </div>
       <div class="item">
@@ -17,19 +19,34 @@
         >
         <input
           id="device_model"
+          list="models"
           type="text"
           [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
+          autocomplete="off"
+          #deviceModel
         />
       </div>
+      <datalist id="models">
+        <option *ngFor="let option of modelOptions" [value]="option"></option>
+      </datalist>
       <div class="item">
         <label for="device-type">
           {{ "TABLE_HEADERS.DEVICE.DEVICE_TYPE" | translate }}</label
         >
         <input
           id="device-type"
+          list="device-types"
           type="text"
           [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
+          autocomplete="off"
+          #deviceType
         />
+        <datalist id="device-types">
+          <option
+            *ngFor="let option of deviceTypeOptions"
+            [value]="option"
+          ></option>
+        </datalist>
       </div>
     </div>
     <div class="item-row">
@@ -37,30 +54,51 @@
         <label for="room"> {{ "TABLE_HEADERS.DEVICE.ROOM" | translate }}</label>
         <input
           id="room"
+          list="rooms"
           type="text"
           [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
+          autocomplete="off"
+          #room
         />
       </div>
+      <datalist id="rooms">
+        <option *ngFor="let option of roomOptions" [value]="option"></option>
+      </datalist>
       <div class="item">
         <label for="owner">
           {{ "TABLE_HEADERS.DEVICE.OWNER" | translate }}</label
         >
         <input
           id="owner"
+          list="owners"
           type="text"
           [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
+          autocomplete="off"
+          #owner
         />
       </div>
+      <datalist id="owners">
+        <option *ngFor="let option of ownerOptions" [value]="option"></option>
+      </datalist>
       <div class="item">
         <label for="device-set">
           {{ "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate }}</label
         >
         <input
           id="device-set"
+          list="device-sets"
           type="text"
           [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
+          autocomplete="off"
+          #deviceSet
         />
       </div>
+      <datalist id="device-sets">
+        <option
+          *ngFor="let option of deviceSetOptions"
+          [value]="option"
+        ></option>
+      </datalist>
     </div>
     <div class="item-row">
       <div class="item text-area">
@@ -70,8 +108,12 @@
         <textarea
           id="comment"
           [placeholder]="'TABLE_HEADERS.ADDITIONALS.COMMENT' | translate"
+          #comment
         ></textarea>
       </div>
     </div>
   </form>
 </div>
+<button class="button primary" (click)="addDevice()">
+  {{ "PAGES.ADD_RECORD.ADD" | translate }}
+</button>

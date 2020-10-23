@@ -71,4 +71,12 @@ public class OwnerService {
   public List<Owner> getAllOwners() {
     return ownerRepository.findAll();
   }
+
+  public Owner insertOwner(Owner owner) {
+    return ownerRepository.save(owner);
+  }
+
+  public Owner findOwnerById(long id){
+    return ownerRepository.findById(id).orElseThrow();
+  }
 }

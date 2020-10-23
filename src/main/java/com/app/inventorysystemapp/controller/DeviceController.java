@@ -1,7 +1,8 @@
 package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.DeviceDto;
-import com.app.inventorysystemapp.controller.mapper.DeviceDtoMapper;
+import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
+import com.app.inventorysystemapp.controller.postModels.DevicePost;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Device;
 import com.app.inventorysystemapp.service.DeviceService;
@@ -27,7 +28,7 @@ public class DeviceController {
                                     @RequestParam(required = false) String orderBy,
                                     @RequestParam(required = false) String sortType,
                                     @RequestParam(required = false) String search) {
-    return DeviceDtoMapper.mapToDeviceDtos(deviceService.getDevices(page, pageSize, orderBy, sortType, search));
+    return DeviceMapper.mapToDeviceDtos(deviceService.getDevices(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/devices/{id}")
@@ -42,7 +43,7 @@ public class DeviceController {
   }
 
   @PostMapping("/devices")
-  public Device insertDevice(@RequestBody Device device) {
+  public Device insertDevice(@RequestBody DevicePost device) {
     return deviceService.insertDevice(device);
   }
 

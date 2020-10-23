@@ -1,12 +1,13 @@
 package com.app.inventorysystemapp.controller.mapper;
 
 import com.app.inventorysystemapp.controller.dto.DeviceDto;
+import com.app.inventorysystemapp.controller.postModels.DevicePost;
 import com.app.inventorysystemapp.model.Device;
 import org.springframework.data.domain.Page;
 
-public class DeviceDtoMapper {
+public class DeviceMapper {
 
-  private DeviceDtoMapper(){
+  private DeviceMapper(){
   }
 
   public static Page<DeviceDto> mapToDeviceDtos(Page<Device> devices) {

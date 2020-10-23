@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 @Data
 @Builder
-public class RoomDtoMapper {
+public class RoomMapper {
 
   public static Page<RoomDto> mapToRoomDtos(Page<IRoom> rooms) {
     return rooms.map(room -> mapToRoomDto(room));
