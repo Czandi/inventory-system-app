@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { Observable } from "rxjs";
+import { Model } from "../../shared/models/model.model";
 
 @Injectable({
   providedIn: "root",
@@ -35,5 +36,9 @@ export class ModelService {
   getAllModels() {
     var url = this.config.modelUrl + "/all";
     return this.http.get(url);
+  }
+
+  insertModel(model: Model): Observable<Model> {
+    return this.http.post<Model>(this.config.modelUrl, model);
   }
 }

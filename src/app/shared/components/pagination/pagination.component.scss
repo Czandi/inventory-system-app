@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .pagination {
   position: absolute;
   bottom: 0;
@@ -27,11 +29,11 @@
 
     &:hover {
       cursor: pointer;
-      color: rgba(255, 255, 255, 1);
+      color: white;
     }
 
     &.active {
-      color: #f56b16;
+      color: $secondary;
       font-weight: bold;
 
       &:hover {

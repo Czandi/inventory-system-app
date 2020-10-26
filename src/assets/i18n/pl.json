@@ -60,7 +60,8 @@
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",
-      "ADD": "Dodaj"
+      "ADD": "Dodaj",
+      "NEW_RECORDS": "Nowe rekordy"
     }
   },
   "TABLE_HEADERS": {

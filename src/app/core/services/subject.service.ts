@@ -6,4 +6,5 @@ export class SubjectService {
   currentPageEmitter = new Subject<any>();
   sortValueEmitter = new Subject<any>();
   totalPageNumber = new Subject<any>();
+  reloadAddRecordPageData = new Subject<any>();
 }

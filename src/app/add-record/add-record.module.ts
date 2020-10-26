@@ -1,15 +1,21 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AddRecordComponent } from "./add-record.component";
 
 import { AddRecordRoutingModule } from "./add-record-routing.module";
 import { SharedModule } from "../shared/shared.module";
-import { AddDeviceComponent } from "./add-device/add-device.component";
-import { AddDeviceSetComponent } from "./add-device-set/add-device-set.component";
+import { AlertBoxComponent } from "./alert-box/alert-box.component";
 
 @NgModule({
-  declarations: [AddRecordComponent, AddDeviceComponent, AddDeviceSetComponent],
-  imports: [CommonModule, SharedModule, AddRecordRoutingModule],
+  declarations: [AddRecordComponent, AlertBoxComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    AddRecordRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class AddRecordModule {}

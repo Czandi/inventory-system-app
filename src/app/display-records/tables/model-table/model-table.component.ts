@@ -8,9 +8,9 @@ import {
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ModelService } from "app/core/services/model.service";
-import { SubjectService } from "../../../core/services/subjectService";
+import { SubjectService } from "../../../core/services/subject.service";
 import { Table } from "../table.class";
-import { TableData } from "../../../shared/table.data";
+import { Data } from "../../../shared/data";
 
 @Component({
   selector: "app-model-table",
@@ -36,7 +36,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.tableData = TableData.getModelTableData();
+    this.tableData = Data.getModelTableData();
     this.initialize();
   }
 

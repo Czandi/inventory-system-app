@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { SubjectService } from "../../../core/services/subjectService";
+import { SubjectService } from "../../../core/services/subject.service";
 
 @Component({
   selector: "app-navbar",
@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    private service: SubjectService,
+    private subjectService: SubjectService,
     private route: Router,
     private translate: TranslateService
   ) {}
@@ -102,7 +102,7 @@ export class NavbarComponent implements OnInit {
     setTimeout(() => {
       this.activeEl.nativeElement.classList.toggle("active");
     }, 250);
-    this.service.submenuEmitter.next(name);
+    this.subjectService.submenuEmitter.next(name);
   }
 
   calculateOffset() {

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { Observable } from "rxjs";
+import { Room } from "../../shared/models/room.model";
 
 @Injectable({
   providedIn: "root",
@@ -35,5 +36,9 @@ export class RoomService {
   getAllRooms() {
     var url = this.config.roomUrl + "/all";
     return this.http.get(url);
+  }
+
+  insertRoom(room: Room): Observable<Room> {
+    return this.http.post<Room>(this.config.roomUrl, room);
   }
 }

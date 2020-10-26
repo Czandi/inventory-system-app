@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { SubjectService } from "../core/services/subjectService";
+import { SubjectService } from "../core/services/subject.service";
 import { DeviceTableComponent } from "./tables/device-table/device-table.component";
 
 @Component({

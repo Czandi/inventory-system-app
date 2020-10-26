@@ -6,7 +6,7 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
-import { SubjectService } from "../../../core/services/subjectService";
+import { SubjectService } from "../../../core/services/subject.service";
 import { ContextMenu } from "../../models/context-menu.model";
 
 @Component({

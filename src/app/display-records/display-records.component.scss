@@ -1,3 +1,5 @@
+@import "../shared/variables.scss";
+
 .select-table,
 .select-display-type,
 .select-display {
@@ -35,7 +37,7 @@
     display: inline-block;
     border-style: solid;
     border-width: 1.7px;
-    border-color: #0a2839;
+    border-color: $primary-dark;
     padding: 10px;
     color: white;
     border-radius: 5px;
@@ -44,7 +46,7 @@
     background-color: transparent;
     transition: background-color 0.2s ease;
     &.active {
-      background-color: #0a2839;
+      background-color: $primary-dark;
     }
 
     &:first-of-type {

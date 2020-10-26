@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 :host {
   position: absolute;
   margin-left: -20px;
@@ -7,7 +9,7 @@
 }
 
 p {
-  background-color: #0a2839;
+  background-color: $primary-dark;
   border-radius: 0 150px 150px 0;
   width: 200px;
   padding-top: 20px;

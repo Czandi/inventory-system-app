@@ -1,0 +1,32 @@
+@import "../../variables.scss";
+
+:host {
+  display: inline-block;
+  min-width: 130px;
+}
+
+.button {
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 7px 15px;
+  border-radius: 5px;
+  width: 100%;
+
+  &.primary {
+    background-color: $secondary;
+  }
+
+  &.secondary {
+    border: solid 2px $secondary;
+    background-color: transparent;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

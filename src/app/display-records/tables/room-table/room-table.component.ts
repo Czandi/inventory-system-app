@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { RoomService } from "../../../core/services/room.service";
-import { SubjectService } from "../../../core/services/subjectService";
+import { SubjectService } from "../../../core/services/subject.service";
 import { Table } from "../table.class";
-import { TableData } from "../../../shared/table.data";
+import { Data } from "../../../shared/data";
 
 @Component({
   selector: "app-room-table",
@@ -29,7 +29,7 @@ export class RoomTableComponent extends Table implements OnInit {
   }
 
   ngOnInit() {
-    this.tableData = TableData.getRoomTableData();
+    this.tableData = Data.getRoomTableData();
     this.initialize();
   }
 

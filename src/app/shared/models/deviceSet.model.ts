@@ -1,4 +1,3 @@
-export class DevicesSet {
-  id: number;
+export class DeviceSet {
   name: string;
 }

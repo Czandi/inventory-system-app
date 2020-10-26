@@ -33,13 +33,13 @@
       <img src="../../assets/icons/update_record_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</a>
     </div>
-    <app-subnavbar
+    <!-- <app-subnavbar
       elementId="updateRecords"
       [items]="[
         'NAVBAR.UPDATE_RECORDS.SUBMENU.ROOMS' | translate,
         'NAVBAR.UPDATE_RECORDS.SUBMENU.SETS' | translate
       ]"
-    ></app-subnavbar>
+    ></app-subnavbar> -->
   </div>
   <div class="item import-export" #importExport>
     <div
@@ -51,15 +51,7 @@
       <img src="../../assets/icons/export_icon.svg" />
       <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT.TITLE" | translate }}</a>
     </div>
-    <div class="submenu">
-      <app-subnavbar
-        elementId="importExport"
-        [items]="[
-          'NAVBAR.IMPORT_EXPORT.SUBMENU.EXPORT' | translate,
-          'NAVBAR.IMPORT_EXPORT.SUBMENU.IMPORT' | translate
-        ]"
-      ></app-subnavbar>
-    </div>
+    <div class="submenu"></div>
   </div>
   <div class="item history" #history>
     <div
@@ -83,10 +75,6 @@
       <img src="../../assets/icons/add_record_icon.svg" />
       <a>{{ "NAVBAR.ADD_RECORD.TITLE" | translate }}</a>
     </div>
-    <app-subnavbar
-      elementId="addRecord"
-      [items]="addRecordSubnavbarItems"
-    ></app-subnavbar>
   </div>
   <div class="wave" #wave>
     <img src="../../assets/icons/wave.svg" />

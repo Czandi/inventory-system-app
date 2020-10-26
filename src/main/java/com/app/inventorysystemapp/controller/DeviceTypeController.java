@@ -33,7 +33,7 @@ public class DeviceTypeController {
     return deviceTypeService.getAllDeviceTypes();
   }
 
-  @PostMapping("/devie-types")
+  @PostMapping("/device-types")
   public DeviceType insertDeviceType(@RequestBody DeviceType deviceType){
     return deviceTypeService.insertDeviceType(deviceType);
   }

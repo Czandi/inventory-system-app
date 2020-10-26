@@ -1,4 +1,4 @@
-export class TableData {
+export class Data {
   static getDeviceTableData() {
     return [
       { header: "TABLE_HEADERS.DEVICE.SERIAL_NUMBER", id: "serialNumber" },
@@ -45,6 +45,17 @@ export class TableData {
     return [
       { header: "TABLE_HEADERS.ROOM.ROOM_NAME", id: "name" },
       { header: "TABLE_HEADERS.ROOM.ITEMS_IN_ROOM", id: "count" },
+    ];
+  }
+
+  static getAddDeviceData() {
+    return [
+      { text: "TABLE_HEADERS.DEVICE.SERIAL_NUMBER", id: "serialNumber" },
+      { text: "TABLE_HEADERS.DEVICE.DEVICE_MODEL", id: "deviceModel" },
+      { text: "TABLE_HEADERS.DEVICE.DEVICE_TYPE", id: "deviceType" },
+      { text: "TABLE_HEADERS.DEVICE.ROOM", id: "deviceRoom" },
+      { text: "TABLE_HEADERS.DEVICE.OWNER", id: "deviceOwner" },
+      { text: "TABLE_HEADERS.DEVICE.SET_NUMBER", id: "deviceSet" },
     ];
   }
 }

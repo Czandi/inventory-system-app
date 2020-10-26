@@ -35,7 +35,6 @@ export class DeviceService {
   }
 
   insertDevice(device: Device): Observable<Device> {
-    console.log("Inserting " + device);
     return this.http.post<Device>(this.config.deviceUrl, device);
   }
 }

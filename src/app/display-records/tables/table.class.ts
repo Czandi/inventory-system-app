@@ -1,5 +1,5 @@
 import { OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
-import { SubjectService } from "../../core/services/subjectService";
+import { SubjectService } from "../../core/services/subject.service";
 import { ContextMenu } from "../../shared/models/context-menu.model";
 import { Subject, Subscription } from "rxjs";
 import { SortInfo } from "../../shared/models/sortInfo.model";

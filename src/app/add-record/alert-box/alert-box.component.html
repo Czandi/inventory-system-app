@@ -1,0 +1,25 @@
+<div class="alert" #alert>
+  <div class="box">
+    <h3>{{ "PAGES.ADD_RECORD.NEW_RECORDS" | translate }}</h3>
+    <div class="alert-item" *ngFor="let item of newRecords">
+      <p>
+        {{ item.text | translate }}:
+        <b>{{ item.name }}</b>
+      </p>
+      <app-button
+        type="secondary"
+        class="add-record-btn"
+        text="Dodaj"
+        (click)="addRecord(item)"
+        btnMin
+      ></app-button>
+    </div>
+    <app-button
+      class="cancel"
+      type="primary"
+      text="Anuluj"
+      (click)="closeAlert()"
+      btnFull
+    ></app-button>
+  </div>
+</div>

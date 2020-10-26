@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { DeviceTypeService } from "../../../core/services/device-type.service";
-import { SubjectService } from "../../../core/services/subjectService";
+import { SubjectService } from "../../../core/services/subject.service";
 import { Table } from "../table.class";
-import { TableData } from "../../../shared/table.data";
+import { Data } from "../../../shared/data";
 
 @Component({
   selector: "app-device-type-table",
@@ -29,7 +29,7 @@ export class DeviceTypeTableComponent extends Table implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tableData = TableData.getDeviceTypeTableData();
+    this.tableData = Data.getDeviceTypeTableData();
     this.initialize();
   }
 

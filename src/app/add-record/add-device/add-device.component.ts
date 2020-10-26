@@ -1,129 +1,292 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { map, startWith } from "rxjs/operators";
+// import {
+//   Component,
+//   ElementRef,
+//   OnDestroy,
+//   OnInit,
+//   ViewChild,
+// } from "@angular/core";
 
-import { Device } from "../../shared/models/device.model";
-import { RoomService } from "../../core/services/room.service";
-import { OwnerService } from "../../core/services/owner.service";
-import { DeviceSetService } from "../../core/services/device-set.service";
-import { DeviceTypeService } from "../../core/services/device-type.service";
-import { ModelService } from "../../core/services/model.service";
-import { DeviceService } from "app/core/services/device.service";
+// import { Device } from "../../shared/models/device.model";
+// import { RoomService } from "../../core/services/room.service";
+// import { OwnerService } from "../../core/services/owner.service";
+// import { DeviceSetService } from "../../core/services/device-set.service";
+// import { DeviceTypeService } from "../../core/services/device-type.service";
+// import { ModelService } from "../../core/services/model.service";
+// import { DeviceService } from "app/core/services/device.service";
+// import { SubjectService } from "app/core/services/subject.service";
+// import { FormControl, FormGroup, Validators } from "@angular/forms";
+// import { Data } from "../../shared/data";
 
-@Component({
-  selector: "app-add-device",
-  templateUrl: "./add-device.component.html",
-  styleUrls: ["./add-device.component.scss"],
-})
-export class AddDeviceComponent implements OnInit {
-  @ViewChild("serialNumber") serialNumberInput: ElementRef;
-  @ViewChild("deviceModel") deviceModelInput: ElementRef;
-  @ViewChild("deviceType") deviceTypeInput: ElementRef;
-  @ViewChild("room") roomInput: ElementRef;
-  @ViewChild("owner") ownerInput: ElementRef;
-  @ViewChild("deviceSet") deviceSetInput: ElementRef;
-  @ViewChild("comment") commentInput: ElementRef;
+// @Component({
+//   selector: "app-add-device",
+//   templateUrl: "./add-device.component.html",
+//   styleUrls: ["./add-device.component.scss"],
+// })
+// export class AddDeviceComponent implements OnInit, OnDestroy {
+//   @ViewChild("alertBox") alertBox;
 
-  public deviceSetOptions = [];
-  public deviceTypeOptions = [];
-  public ownerOptions = [];
-  public roomOptions = [];
-  public modelOptions = [];
+//   public newRecords = [];
+//   public addDeviceData;
+//   public records: any = {};
+//   public deviceForm;
+//   public deviceTypeInactive = false;
 
-  private deviceSetIds = [];
-  private deviceTypeIds = [];
-  private ownerIds = [];
-  private roomIds = [];
-  private modelIds = [];
+//   private ids: any = {};
+//   private modelsWithTypes = [];
+//   private deviceRoomName: string;
+//   private deviceModelName: string;
+//   private deviceOwnerName: string;
+//   private deviceSetName: string;
+//   private deviceTypeName: string;
+//   private typeInputElement;
 
-  constructor(
-    private roomService: RoomService,
-    private ownerService: OwnerService,
-    private deviceSetService: DeviceSetService,
-    private deviceTypeService: DeviceTypeService,
-    private modelService: ModelService,
-    private deviceService: DeviceService
-  ) {}
+//   private deviceSetSub;
+//   private deviceTypeSub;
+//   private deviceOwnerSub;
+//   private deviceRoomSub;
+//   private deviceModelSub;
+//   private alertSub;
 
-  ngOnInit(): void {
-    this.deviceSetService.getAllDeviceSets().subscribe((data) => {
-      this.insertNames(data, this.deviceSetOptions);
-      this.createIndexSignatureArray(data, this.deviceSetIds);
-    });
-    this.deviceTypeService.getAllDeviceTypes().subscribe((data) => {
-      this.insertNames(data, this.deviceTypeOptions);
-      this.createIndexSignatureArray(data, this.deviceTypeIds);
-    });
-    this.ownerService.getAllOwners().subscribe((data) => {
-      this.insertNames(data, this.ownerOptions);
-      this.createIndexSignatureArray(data, this.ownerIds);
-      console.log(this.ownerIds);
-    });
-    this.roomService.getAllRooms().subscribe((data) => {
-      this.insertNames(data, this.roomOptions);
-      this.createIndexSignatureArray(data, this.roomIds);
-    });
-    this.modelService.getAllModels().subscribe((data) => {
-      this.insertNames(data, this.modelOptions);
-      this.createIndexSignatureArray(data, this.modelIds);
-    });
-  }
+//   constructor(
+//     private roomService: RoomService,
+//     private ownerService: OwnerService,
+//     private deviceSetService: DeviceSetService,
+//     private deviceTypeService: DeviceTypeService,
+//     private modelService: ModelService,
+//     private deviceService: DeviceService,
+//     private subjectService: SubjectService
+//   ) {}
 
-  private createIndexSignatureArray(from, to) {
-    for (let item of from) {
-      let s: string = item["name"];
-      to[s.toLowerCase()] = item["id"];
-    }
-  }
+//   ngOnInit(): void {
+//     this.getAutocompleteData();
+//     this.createAlertClosingListener();
+//     this.initFormGroup();
+//     this.addDeviceData = Data.getAddDeviceData();
+//   }
 
-  private insertNames(from, to) {
-    for (let name of from) {
-      let s: string = name["name"];
-      to.push(s.toLowerCase());
-    }
-  }
+//   ngAfterViewInit() {
+//     this.typeInputElement = document.getElementById("deviceType");
+//   }
 
-  addDevice() {
-    let roomName: string = this.roomInput.nativeElement.value;
-    let idRoom: number = this.getNameIdFromArray(roomName, this.roomIds);
-    let modelName: string = this.deviceModelInput.nativeElement.value;
-    let idModel: number = this.getNameIdFromArray(modelName, this.modelIds);
-    let ownerName: string = this.ownerInput.nativeElement.value;
-    let idOwner: number = this.getNameIdFromArray(ownerName, this.ownerIds);
-    let deviceSetName: string = this.deviceSetInput.nativeElement.value;
-    let idDeviceSet: number = this.getNameIdFromArray(
-      deviceSetName,
-      this.deviceSetIds
-    );
-    let serialNumber = this.serialNumberInput.nativeElement.value;
-    let comment = this.commentInput.nativeElement.value;
-    console.log(comment);
+//   ngOnDestroy(): void {
+//     this.deviceSetSub.unsubscribe();
+//     this.deviceTypeSub.unsubscribe();
+//     this.deviceOwnerSub.unsubscribe();
+//     this.deviceRoomSub.unsubscribe();
+//     this.deviceModelSub.unsubscribe();
+//     this.alertSub.unsubscribe();
+//   }
 
-    let device = new Device();
-    device.serialNumber = serialNumber;
-    device.idModel = idModel;
-    device.idRoom = idRoom;
-    device.idOwner = idOwner;
-    device.idDeviceSet = idDeviceSet;
-    device.comment = comment;
+//   initFormGroup() {
+//     this.deviceForm = new FormGroup({
+//       serialNumber: new FormControl("", Validators.required),
+//       deviceModel: new FormControl("", Validators.required),
+//       deviceType: new FormControl("", Validators.required),
+//       deviceRoom: new FormControl("", Validators.required),
+//       deviceOwner: new FormControl("", Validators.required),
+//       deviceSet: new FormControl("", Validators.required),
+//       deviceComment: new FormControl(""),
+//     });
+//   }
 
-    this.deviceService
-      .insertDevice(device)
-      .subscribe((device) => console.log(device));
-  }
+//   createAlertClosingListener() {
+//     this.alertSub = this.subjectService.reloadAddRecordPageData.subscribe(
+//       (newRecords) => {
+//         this.getAutocompleteData();
+//         if (newRecords.indexOf("deviceModel") != -1) {
+//           setTimeout(() => {
+//             this.insertDeviceType();
+//           }, 500);
+//         }
+//       }
+//     );
+//   }
 
-  getNameIdFromArray(name, array): number {
-    if (this.checkIfNameExists(name, array)) {
-      return array[name];
-    } else {
-      return 0;
-    }
-  }
+//   private insertModelsWithTypes(data) {
+//     for (let record of data) {
+//       this.modelsWithTypes[record.name] = record.type.name;
+//     }
+//   }
 
-  checkIfNameExists(name, table): boolean {
-    if (table[name] != null) {
-      return true;
-    }
-    return false;
-  }
-}
+//   private insertIds(data, id) {
+//     this.ids[id] = [];
+//     for (let item of data) {
+//       let itemName = item["name"];
+//       let itemId = item["id"];
+//       this.ids[id][itemName] = itemId;
+//     }
+//   }
+
+//   private insertNames(data, id) {
+//     this.records[id] = [];
+//     for (let name of data) {
+//       let itemId = name["name"];
+//       this.records[id].push(itemId);
+//     }
+//   }
+
+//   getAutocompleteData() {
+//     this.deviceSetSub = this.deviceSetService
+//       .getAllDeviceSets()
+//       .subscribe((data) => {
+//         this.insertNames(data, "deviceSet");
+//         this.insertIds(data, "deviceSet");
+//       });
+//     this.deviceTypeSub = this.deviceTypeService
+//       .getAllDeviceTypes()
+//       .subscribe((data) => {
+//         this.insertNames(data, "deviceType");
+//         this.insertIds(data, "deviceType");
+//       });
+//     this.deviceOwnerSub = this.ownerService.getAllOwners().subscribe((data) => {
+//       this.insertNames(data, "deviceOwner");
+//       this.insertIds(data, "deviceOwner");
+//     });
+//     this.deviceRoomSub = this.roomService.getAllRooms().subscribe((data) => {
+//       this.insertNames(data, "deviceRoom");
+//       this.insertIds(data, "deviceRoom");
+//     });
+//     this.deviceModelSub = this.modelService.getAllModels().subscribe((data) => {
+//       this.insertNames(data, "deviceModel");
+//       this.insertIds(data, "deviceModel");
+//       this.insertModelsWithTypes(data);
+//     });
+//   }
+
+//   addDevice() {
+//     this.deviceRoomName = this.deviceForm.get("deviceRoom").value;
+//     let idRoom: number = this.getNameIdFromArray(
+//       this.deviceRoomName,
+//       "deviceRoom"
+//     );
+//     this.deviceOwnerName = this.deviceForm.get("deviceOwner").value;
+//     let idOwner: number = this.getNameIdFromArray(
+//       this.deviceOwnerName,
+//       "deviceOwner"
+//     );
+//     this.deviceSetName = this.deviceForm.get("deviceSet").value;
+//     let idDeviceSet: number = this.getNameIdFromArray(
+//       this.deviceSetName,
+//       "deviceSet"
+//     );
+//     this.deviceModelName = this.deviceForm.get("deviceModel").value;
+//     let idModel: number = this.getNameIdFromArray(
+//       this.deviceModelName,
+//       "deviceModel"
+//     );
+//     this.deviceTypeName = this.deviceForm.get("deviceType").value;
+//     let idDeviceType: number = this.getNameIdFromArray(
+//       this.deviceTypeName,
+//       "deviceType"
+//     );
+//     let serialNumber = this.deviceForm.get("serialNumber").value;
+//     let comment = this.deviceForm.get("deviceComment").value;
+
+//     let device = new Device();
+//     device.serialNumber = serialNumber.toLowerCase();
+//     device.idModel = idModel;
+//     device.idRoom = idRoom;
+//     device.idOwner = idOwner;
+//     device.idDeviceSet = idDeviceSet;
+//     device.comment = comment.toLowerCase();
+//     if (this.deviceForm.valid) {
+//       if (this.validateDeviceData(device, idDeviceType)) {
+//         this.insertDevice(device);
+//       } else {
+//         this.alertBox.openAlert();
+//       }
+//     }
+//   }
+
+//   insertDevice(device) {
+//     this.deviceService
+//       .insertDevice(device)
+//       .subscribe((device) => console.log(device));
+//   }
+
+//   getNameIdFromArray(name, id): number {
+//     if (this.checkIfNameExists(name, id)) {
+//       return this.ids[id][name];
+//     } else {
+//       return 0;
+//     }
+//   }
+
+//   checkIfNameExists(name, id): boolean {
+//     if (this.ids[id][name] != null) {
+//       return true;
+//     }
+//     return false;
+//   }
+
+//   validateDeviceData(device, idDeviceType): boolean {
+//     this.newRecords = [];
+
+//     if (!this.validateId(device.idRoom)) {
+//       this.newRecords.push({
+//         text: "TABLE_HEADERS.DEVICE.ROOM",
+//         name: this.deviceRoomName,
+//         type: "deviceRoom",
+//       });
+//     }
+
+//     if (!this.validateId(device.idModel)) {
+//       this.newRecords.push({
+//         text: "TABLE_HEADERS.DEVICE.DEVICE_MODEL",
+//         name: this.deviceModelName,
+//         deviceTypeId: idDeviceType,
+//         deviceTypeName: this.deviceTypeName,
+//         type: "deviceModel",
+//       });
+//     }
+
+//     if (!this.validateId(device.idOwner)) {
+//       this.newRecords.push({
+//         text: "TABLE_HEADERS.DEVICE.OWNER",
+//         name: this.deviceOwnerName,
+//         type: "deviceOwner",
+//       });
+//     }
+
+//     if (!this.validateId(device.idDeviceSet)) {
+//       this.newRecords.push({
+//         text: "TABLE_HEADERS.DEVICE.SET_NUMBER",
+//         name: this.deviceSetName,
+//         type: "deviceSet",
+//       });
+//     }
+
+//     if (device.serialNumber === null || device.serialNumber === "") {
+//       return false;
+//     }
+
+//     if (this.newRecords.length != 0) {
+//       return false;
+//     }
+
+//     return true;
+//   }
+
+//   validateId(data): boolean {
+//     if (data != null && data != "" && data != 0) return true;
+//     return false;
+//   }
+
+//   insertDeviceType() {
+//     let modelValue = this.deviceForm.get("deviceModel").value;
+
+//     console.log(modelValue);
+
+//     if (this.records["deviceModel"].includes(modelValue)) {
+//       let type = this.modelsWithTypes[modelValue];
+//       console.log(type);
+//       this.typeInputElement.classList.add("inactive");
+//       this.typeInputElement.value = type;
+//       this.deviceTypeInactive = true;
+//     } else {
+//       this.typeInputElement.classList.remove("inactive");
+//       this.typeInputElement.value = "";
+//       this.deviceTypeInactive = false;
+//     }
+//   }
+// }

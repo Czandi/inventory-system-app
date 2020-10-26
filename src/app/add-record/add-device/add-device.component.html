@@ -1,119 +1,59 @@
-<div class="form-container">
-  <form>
-    <div class="item-row">
-      <div class="item">
-        <label for="serial-number">
-          {{ "TABLE_HEADERS.DEVICE.SERIAL_NUMBER" | translate }}</label
+<!-- <div class="content-container">
+  <h1 class="header">{{ "PAGES.ADD_RECORD.TITLE" | translate }}</h1>
+  <div class="center">
+    <div class="form-container">
+      <form (ngSubmit)="addDevice()" [formGroup]="deviceForm" id="device-form">
+        <div
+          *ngFor="let data of addDeviceData"
+          class="item"
+          [ngClass]="
+            this.deviceForm.get(data.id).invalid &&
+            (this.deviceForm.get(data.id).dirty ||
+              this.deviceForm.get(data.id).touched)
+              ? 'invalid'
+              : ''
+          "
         >
-        <input
-          id="serial-number"
-          type="text"
-          [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
-          autocomplete="off"
-          #serialNumber
-        />
-      </div>
-      <div class="item">
-        <label for="device_model">
-          {{ "TABLE_HEADERS.DEVICE.DEVICE_MODEL" | translate }}</label
-        >
-        <input
-          id="device_model"
-          list="models"
-          type="text"
-          [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
-          autocomplete="off"
-          #deviceModel
-        />
-      </div>
-      <datalist id="models">
-        <option *ngFor="let option of modelOptions" [value]="option"></option>
-      </datalist>
-      <div class="item">
-        <label for="device-type">
-          {{ "TABLE_HEADERS.DEVICE.DEVICE_TYPE" | translate }}</label
-        >
-        <input
-          id="device-type"
-          list="device-types"
-          type="text"
-          [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
-          autocomplete="off"
-          #deviceType
-        />
-        <datalist id="device-types">
-          <option
-            *ngFor="let option of deviceTypeOptions"
-            [value]="option"
-          ></option>
-        </datalist>
-      </div>
+          <label [class]="data.id" [for]="data.id">{{
+            data.text | translate
+          }}</label>
+          <input
+            (change)="data.id === 'deviceModel' ? insertDeviceType() : ''"
+            [readOnly]="data.id === 'deviceType' && deviceTypeInactive"
+            [formControlName]="data.id"
+            type="text"
+            [class]="data.id"
+            [id]="data.id"
+            [attr.list]="data.id + 's'"
+            [placeholder]="data.text | translate"
+            autocomplete="off"
+            required
+          />
+          <datalist [id]="data.id + 's'">
+            <option
+              *ngFor="let item of records[data.id]"
+              [value]="item"
+            ></option>
+          </datalist>
+        </div>
+        <div class="item-row">
+          <div class="item text-area">
+            <label for="comment">{{
+              "TABLE_HEADERS.ADDITIONALS.COMMENT" | translate
+            }}</label>
+            <textarea
+              id="deviceComment"
+              formControlName="deviceComment"
+              [placeholder]="'TABLE_HEADERS.ADDITIONALS.COMMENT' | translate"
+              #comment
+            ></textarea>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="item-row">
-      <div class="item">
-        <label for="room"> {{ "TABLE_HEADERS.DEVICE.ROOM" | translate }}</label>
-        <input
-          id="room"
-          list="rooms"
-          type="text"
-          [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
-          autocomplete="off"
-          #room
-        />
-      </div>
-      <datalist id="rooms">
-        <option *ngFor="let option of roomOptions" [value]="option"></option>
-      </datalist>
-      <div class="item">
-        <label for="owner">
-          {{ "TABLE_HEADERS.DEVICE.OWNER" | translate }}</label
-        >
-        <input
-          id="owner"
-          list="owners"
-          type="text"
-          [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
-          autocomplete="off"
-          #owner
-        />
-      </div>
-      <datalist id="owners">
-        <option *ngFor="let option of ownerOptions" [value]="option"></option>
-      </datalist>
-      <div class="item">
-        <label for="device-set">
-          {{ "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate }}</label
-        >
-        <input
-          id="device-set"
-          list="device-sets"
-          type="text"
-          [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
-          autocomplete="off"
-          #deviceSet
-        />
-      </div>
-      <datalist id="device-sets">
-        <option
-          *ngFor="let option of deviceSetOptions"
-          [value]="option"
-        ></option>
-      </datalist>
-    </div>
-    <div class="item-row">
-      <div class="item text-area">
-        <label for="comment">{{
-          "TABLE_HEADERS.ADDITIONALS.COMMENT" | translate
-        }}</label>
-        <textarea
-          id="comment"
-          [placeholder]="'TABLE_HEADERS.ADDITIONALS.COMMENT' | translate"
-          #comment
-        ></textarea>
-      </div>
-    </div>
-  </form>
-</div>
-<button class="button primary" (click)="addDevice()">
-  {{ "PAGES.ADD_RECORD.ADD" | translate }}
-</button>
+  </div>
+  <button class="add-device-btn" form="device-form">
+    {{ "PAGES.ADD_RECORD.ADD" | translate }}
+  </button>
+  <app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
+</div> -->

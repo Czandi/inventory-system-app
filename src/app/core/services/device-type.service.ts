@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { Observable } from "rxjs";
+import { DeviceType } from "app/shared/models/type.model";
 
 @Injectable({
   providedIn: "root",
@@ -37,5 +38,9 @@ export class DeviceTypeService {
   getAllDeviceTypes() {
     var url = this.config.deviceTypeUrl + "/all";
     return this.http.get(url);
+  }
+
+  insertDeviceType(deviceType: DeviceType): Observable<DeviceType> {
+    return this.http.post<DeviceType>(this.config.deviceTypeUrl, deviceType);
   }
 }
