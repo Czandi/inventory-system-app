@@ -36,7 +36,6 @@ export class Data {
   static getOwnerTableData() {
     return [
       { header: "TABLE_HEADERS.OWNER.OWNER_NAME", id: "name" },
-      { header: "TABLE_HEADERS.OWNER.OWNER_SURNAME", id: "surname" },
       { header: "TABLE_HEADERS.OWNER.ITEMS_COUNT", id: "count" },
     ];
   }

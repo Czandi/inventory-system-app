@@ -1,6 +1,6 @@
 <div class="table-container">
   <table class="records full-view">
-    <tr>
+    <tr [ngClass]="blured === true ? 'blur' : ''">
       <th *ngFor="let item of tableData">
         <span (click)="setSortValue(item.id)"
           >{{ item.header | translate }}
@@ -11,24 +11,70 @@
         />
       </th>
     </tr>
-    <tr class="line">
+    <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
       <td colspan="7">
         <div></div>
       </td>
     </tr>
-    <tr
-      *ngFor="let device of devices"
-      (contextmenu)="onRightClick($event, device.id)"
-      [id]="'device' + device.id"
-    >
-      <td>{{ device.serialNumber }}</td>
-      <td>{{ device.model }}</td>
-      <td>{{ device.type }}</td>
-      <td>{{ device.room }}</td>
-      <td>{{ device.owner }}</td>
-      <td>{{ device.barCode }}</td>
-      <td>{{ device.deviceSet }}</td>
-    </tr>
+    <ng-container *ngFor="let device of devices">
+      <tr
+        (contextmenu)="onRightClick($event, device.id)"
+        [id]="'device' + device.id"
+        [ngClass]="
+          editedRecord === 0
+            ? ''
+            : editedRecord != device.id
+            ? 'blur'
+            : 'edited-value'
+        "
+      >
+        <ng-container *ngIf="editedRecord != device.id">
+          <td>{{ device.serialNumber }}</td>
+          <td>{{ device.model }}</td>
+          <td>{{ device.type }}</td>
+          <td>{{ device.room }}</td>
+          <td>{{ device.owner }}</td>
+          <td>{{ device.barCode }}</td>
+          <td>{{ device.deviceSet }}</td>
+        </ng-container>
+
+        <ng-container *ngIf="editedRecord === device.id">
+          <td>
+            <input type="text" [value]="device.serialNumber" />
+          </td>
+          <td>
+            <input type="text" [value]="device.model" />
+          </td>
+          <td>
+            <input type="text" [value]="device.type" />
+          </td>
+          <td>
+            <input type="text" [value]="device.room" />
+          </td>
+          <td>
+            <input type="text" [value]="device.owner" />
+          </td>
+          <td>
+            <input type="text" [value]="device.barCode" />
+          </td>
+          <td>
+            <input type="text" [value]="device.deviceSet" />
+          </td>
+          <app-button
+            class="delete-button"
+            type="primary"
+            [id]="'button' + device.id"
+            text="Aktualizuj"
+            (click)="updateRecord(device.id)"
+          ></app-button>
+        </ng-container>
+        <!-- <app-button
+        class="delete-button"
+        type="primary"
+        [id]="'button' + device.id"
+      ></app-button> -->
+      </tr>
+    </ng-container>
 
     <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr>
   </table>

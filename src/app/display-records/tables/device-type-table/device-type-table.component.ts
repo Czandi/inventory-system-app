@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DeviceTypeService } from "../../../core/services/device-type.service";
 import { SubjectService } from "../../../core/services/subject.service";
 import { Table } from "../table.class";
@@ -18,10 +18,11 @@ export class DeviceTypeTableComponent extends Table implements OnInit {
 
   constructor(
     subjectService: SubjectService,
-    route: ActivatedRoute,
+    activatedRoute: ActivatedRoute,
+    route: Router,
     private deviceTypeService: DeviceTypeService
   ) {
-    super(subjectService, route, "name", "asc", [
+    super(subjectService, activatedRoute, route, "name", "asc", [
       "Option one",
       "Option two",
       "Option three",

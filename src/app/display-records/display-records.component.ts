@@ -5,10 +5,9 @@ import {
   ViewChild,
   OnDestroy,
 } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SubjectService } from "../core/services/subject.service";
-import { DeviceTableComponent } from "./tables/device-table/device-table.component";
 
 @Component({
   selector: "app-display-records",
@@ -28,14 +27,20 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
   public currentPage = 1;
   public searchValue = "";
   public currentRoute;
+  public blured = false;
 
   private activeTableButton;
   private search = "";
   private searchTimeout;
   private paginationSub: Subscription;
   private pageSub: Subscription;
+  private paramsSub: Subscription;
 
-  constructor(private subjectService: SubjectService, private router: Router) {}
+  constructor(
+    private subjectService: SubjectService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.paginationSub = this.subjectService.currentPageEmitter.subscribe(
@@ -61,6 +66,11 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
     } else {
       this.currentRoute = "/device-table";
     }
+
+    this.subjectService.blur.subscribe((blur) => {
+      this.blured = blur;
+    });
+
     this.updateRoute();
   }
 
@@ -103,14 +113,16 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
   }
 
   updateRoute() {
-    this.router.navigate([
-      "/display-records/" +
-        this.currentRoute +
-        "/" +
-        this.currentPage +
-        "/" +
-        this.searchValue,
-    ]);
+    if (!this.router.url.includes("edit")) {
+      this.router.navigate([
+        "/display-records/" +
+          this.currentRoute +
+          "/" +
+          this.currentPage +
+          "/" +
+          this.searchValue,
+      ]);
+    }
   }
 
   ngOnDestroy() {

@@ -5,7 +5,7 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router, RoutesRecognized } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { SubjectService } from "../../../core/services/subject.service";
 
@@ -50,11 +50,16 @@ export class NavbarComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private subjectService: SubjectService,
-    private route: Router,
-    private translate: TranslateService
+    private router: Router,
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.setActiveAfterReload(this.router.url);
+    }, 100);
+  }
 
   ngAfterViewInit() {
     this.activeEl = this.dashboard;
@@ -145,5 +150,31 @@ export class NavbarComponent implements OnInit {
     }
 
     this.updateWavePosition();
+  }
+
+  setActiveAfterReload(route) {
+    let s = route.slice(1);
+    let item = s.slice(0, s.length - s.indexOf("/"));
+
+    switch (item) {
+      case "dashboard":
+        this.onClick(1);
+        break;
+      case "display-records":
+        this.onClick(2);
+        break;
+      case "update-records":
+        this.onClick(3);
+        break;
+      case "import-export":
+        this.onClick(4);
+        break;
+      case "history":
+        this.onClick(5);
+        break;
+      case "add-record":
+        this.onClick(6);
+        break;
+    }
   }
 }

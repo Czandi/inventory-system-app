@@ -35,8 +35,7 @@
 
   tr {
     border-radius: 5px;
-    transition: background-color 0.05s ease;
-
+    transition: filter 0.2s ease-in-out, background-color 0.05s ease;
     &:first-of-type {
       &:hover {
         background-color: transparent;
@@ -59,7 +58,31 @@
       background-color: rgba(0, 0, 0, 0.3);
     }
 
+    &.edited-value {
+      background-color: transparent;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      td {
+        padding-top: 6px;
+        padding-bottom: 6px;
+
+        input {
+          background-color: rgba(0, 0, 0, 0.3);
+          text-align: center;
+          width: 90px;
+          margin: 0;
+          padding: 9px;
+          color: white;
+          font-size: 11pt;
+        }
+      }
+    }
+
     td {
+      text-transform: capitalize;
       &:first-of-type {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
@@ -103,18 +126,10 @@
   }
 }
 
-// .records {
-//   color: white;
-//   font-size: 11pt;
-//   width: 80vw;
-
-//   p {
-//     display: inline-block;
-
-//     span {
-//       &:hover {
-//         cursor: pointer;
-//       }
-//     }
-//   }
-// }
+.delete-button {
+  z-index: 10;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 100px);
+  margin-top: 7px;
+}

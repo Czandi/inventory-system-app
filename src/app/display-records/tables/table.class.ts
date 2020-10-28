@@ -3,10 +3,14 @@ import { SubjectService } from "../../core/services/subject.service";
 import { ContextMenu } from "../../shared/models/context-menu.model";
 import { Subject, Subscription } from "rxjs";
 import { SortInfo } from "../../shared/models/sortInfo.model";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ThrowStmt } from "@angular/compiler";
 
 export class Table implements OnDestroy {
   devices = [];
+
+  public editedRecord = 0;
+  public blured = false;
 
   protected contextMenuData = new ContextMenu();
   protected clickedElement;
@@ -24,10 +28,11 @@ export class Table implements OnDestroy {
 
   constructor(
     protected subjectService: SubjectService,
-    protected route: ActivatedRoute,
+    protected activatedRoute: ActivatedRoute,
+    protected route: Router,
     currentSortValue: string,
     currentSortType: string,
-    contextMenuOptions: Array<string>
+    contextMenuOptions: Array<{}>
   ) {
     this.currentSortValue = currentSortValue;
     this.currentSortType = currentSortType;
@@ -36,16 +41,29 @@ export class Table implements OnDestroy {
     this.sort.value = this.currentSortValue;
     this.sort.type = this.currentSortType;
     this.subjectService.sortValueEmitter.next(sort);
+
+    this.activatedRoute.params.subscribe((params) => {
+      if (params.id) {
+        this.editedRecord = !params.id ? 0 : +params.id;
+        this.blured = true;
+      } else {
+        this.editedRecord = 0;
+        this.blured = false;
+      }
+      this.subjectService.blur.next(this.blured);
+    });
   }
 
   initialize() {
-    this.routeSub = this.route.params.subscribe((params) => {
+    this.routeSub = this.activatedRoute.params.subscribe((params) => {
       this.validateAndSetSearchValue(params["search-value"]);
-      this.currentPage = this.route.snapshot.params["current-page"];
+      this.currentPage = this.activatedRoute.snapshot.params["page"];
       this.getRecords();
     });
-    this.currentPage = this.route.snapshot.params["current-page"];
-    this.validateAndSetSearchValue(this.route.snapshot.params["search-value"]);
+    this.currentPage = this.activatedRoute.snapshot.params["page"];
+    this.validateAndSetSearchValue(
+      this.activatedRoute.snapshot.params["search-value"]
+    );
     this.getRecords();
     this.initialized = true;
   }
@@ -112,5 +130,9 @@ export class Table implements OnDestroy {
     } else if (this.sort.type === "desc") {
       this.sort.type = "asc";
     }
+  }
+
+  updateRecord() {
+    this.route.navigate(["display-records/device-table/1"]);
   }
 }

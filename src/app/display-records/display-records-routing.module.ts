@@ -14,54 +14,56 @@ const routes: Routes = [
     path: "display-records",
     component: DisplayRecordsComponent,
     children: [
-      // {
-      //   path: "",
-      //   component: DeviceTableComponent,
-      // },
       {
-        path: "device-table/:current-page",
+        path: "device-table/:page",
         component: DeviceTableComponent,
         data: { animation: "DeviceTable" },
       },
       {
-        path: "device-table/:current-page/:search-value",
+        path: "device-table/:page/:search-value",
+        component: DeviceTableComponent,
+        pathMatch: "full",
+        data: { animation: "DeviceTable" },
+      },
+      {
+        path: "device-table/:page/edit/:id",
         component: DeviceTableComponent,
         data: { animation: "DeviceTable" },
       },
       {
-        path: "device-set-table/:current-page",
+        path: "device-set-table/:page",
         component: DeviceSetTableComponent,
       },
       {
-        path: "device-set-table/:current-page/:search-value",
+        path: "device-set-table/:page/:search-value",
         component: DeviceSetTableComponent,
       },
       {
-        path: "device-type-table/:current-page",
+        path: "device-type-table/:page",
         component: DeviceTypeTableComponent,
       },
       {
-        path: "device-type-table/:current-page/:search-value",
+        path: "device-type-table/:page/:search-value",
         component: DeviceTypeTableComponent,
       },
       {
-        path: "model-table/:current-page",
+        path: "model-table/:page",
         component: ModelTableComponent,
         data: { animation: "ModelTable" },
       },
       {
-        path: "model-table/:current-page/:search-value",
+        path: "model-table/:page/:search-value",
         component: ModelTableComponent,
         data: { animation: "ModelTable" },
       },
-      { path: "owner-table/:current-page", component: OwnerTableComponent },
+      { path: "owner-table/:page", component: OwnerTableComponent },
       {
-        path: "owner-table/:current-page/:search-value",
+        path: "owner-table/:page/:search-value",
         component: OwnerTableComponent,
       },
-      { path: "room-table/:current-page", component: RoomTableComponent },
+      { path: "room-table/:page", component: RoomTableComponent },
       {
-        path: "room-table/:current-page/:search-value",
+        path: "room-table/:page/:search-value",
         component: RoomTableComponent,
       },
     ],

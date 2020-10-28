@@ -99,5 +99,9 @@
     "ADDITIONALS": {
       "COMMENT": "Komentarz"
     }
+  },
+  "CONTEXT_MENU": {
+    "EDIT": "Edytuj",
+    "DELETE": "Usuń"
   }
 }

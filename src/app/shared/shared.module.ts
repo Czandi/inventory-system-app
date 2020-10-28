@@ -6,6 +6,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { PageNotFoundComponent } from "./components/";
 import { WebviewDirective } from "./directives/";
 import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
 import { PaginationComponent } from "./components/pagination/pagination.component";
 import { ContextMenuComponent } from "./components/context-menu/context-menu.component";
@@ -23,7 +24,7 @@ import { BtnFullDirective } from "./directives/btn-full.directive";
     BtnMinDirective,
     BtnFullDirective,
   ],
-  imports: [CommonModule, TranslateModule, FormsModule],
+  imports: [CommonModule, TranslateModule, FormsModule, RouterModule],
   exports: [
     TranslateModule,
     WebviewDirective,

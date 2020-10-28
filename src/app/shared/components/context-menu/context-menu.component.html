@@ -1,8 +1,10 @@
 <div class="context-menu" #contextMenu>
   <ul>
-    <li>Option one</li>
-    <li>Option two</li>
-    <li>Option three</li>
-    <li>Option four</li>
+    <li
+      *ngFor="let option of contextMenuOptions"
+      [routerLink]="option.route + '/' + recordId"
+    >
+      {{ "CONTEXT_MENU." + option.name | translate }}
+    </li>
   </ul>
 </div>

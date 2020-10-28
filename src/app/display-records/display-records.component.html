@@ -1,24 +1,26 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.DISPLAY_RECORDS.TITLE" | translate }}</h1>
   <div class="center">
-    <div class="tables">
+    <div [ngClass]="blured ? 'blur' : ''" class="tables">
       <p
-        id="device"
-        (click)="setRouterLink('device-table', device, 'device')"
+        id="deviceSelect"
+        (click)="setRouterLink('device-table', device, 'deviceSelect')"
         #device
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}</span>
       </p>
       <p
-        id="model"
-        (click)="setRouterLink('model-table', model, 'model')"
+        id="modelSelect"
+        (click)="setRouterLink('model-table', model, 'modelSelect')"
         #model
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}</span>
       </p>
       <p
-        id="deviceSet"
-        (click)="setRouterLink('device-set-table', deviceSet, 'deviceSet')"
+        id="deviceSetSelect"
+        (click)="
+          setRouterLink('device-set-table', deviceSet, 'deviceSetSelect')
+        "
         #deviceSet
       >
         <span>{{
@@ -26,8 +28,10 @@
         }}</span>
       </p>
       <p
-        id="deviceType"
-        (click)="setRouterLink('device-type-table', deviceType, 'deviceType')"
+        id="deviceTypeSelect"
+        (click)="
+          setRouterLink('device-type-table', deviceType, 'deviceTypeSelect')
+        "
         #deviceType
       >
         <span>{{
@@ -35,18 +39,22 @@
         }}</span>
       </p>
       <p
-        id="owner"
-        (click)="setRouterLink('owner-table', owner, 'owner')"
+        id="ownerSelect"
+        (click)="setRouterLink('owner-table', owner, 'ownerSelect')"
         #owner
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}</span>
       </p>
-      <p id="room" (click)="setRouterLink('room-table', room, 'room')" #room>
+      <p
+        id="roomSelect"
+        (click)="setRouterLink('room-table', room, 'roomSelect')"
+        #room
+      >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}</span>
       </p>
     </div>
 
-    <div class="search-bar">
+    <div [ngClass]="blured ? 'blur' : ''" class="search-bar">
       <input
         type="text"
         [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
@@ -59,6 +67,7 @@
   </div>
 
   <app-pagination
+    [ngClass]="blured ? 'blur' : ''"
     [currentPage]="currentPage"
     [pages]="pages"
     [totalPages]="totalPages"

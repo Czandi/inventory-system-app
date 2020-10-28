@@ -12,23 +12,23 @@ import org.springframework.stereotype.Repository;
 public interface DeviceTypeRepository extends JpaRepository<DeviceType, Long> {
 
   @Query("Select " +
-    "ds.id as deviceTypeId, " +
-    "ds.name as deviceTypeName, " +
-    "count(ds) as deviceTypeCount " +
+    "dt.id as deviceTypeId, " +
+    "dt.name as deviceTypeName, " +
+    "count(dt) as deviceTypeCount " +
     "from Device d " +
-    "inner join d.deviceSet ds " +
-    "group by ds.id")
+    "inner join d.model.type dt " +
+    "group by dt.id")
   Page<IDeviceType> findAllDeviceTypesWithCount(Pageable page);
 
   @Query("Select " +
-    "ds.id as deviceTypeId, " +
-    "ds.name as deviceTypeName, " +
-    "count(ds) as deviceTypeCount " +
+    "dt.id as deviceTypeId, " +
+    "dt.name as deviceTypeName, " +
+    "count(dt) as deviceTypeCount " +
     "from Device d " +
-    "inner join d.deviceSet ds " +
-    "group by ds.id " +
-    "having ds.name like concat('%', ?1, '%') " +
-    "or count(ds) = ?1")
+    "inner join d.model.type dt " +
+    "group by dt.id " +
+    "having dt.name like concat('%', ?1, '%') " +
+    "or count(dt) = ?1")
   Page<IDeviceType> findAllDeviceTypesWithCountByContaining(String search, Pageable page);
 
 }

@@ -17,7 +17,7 @@ export class DeviceTypeService {
     searchValue?: string
   ): Observable<any> {
     var url =
-      this.config.deviceSetUrl +
+      this.config.deviceTypeUrl +
       this.config.page +
       page +
       this.config.pageSize +

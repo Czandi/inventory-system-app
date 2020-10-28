@@ -1,6 +1,6 @@
 export class ContextMenu {
   mouseX: number;
   mouseY: number;
-  options: Array<string>;
+  options: Array<{}>;
   recordId: number;
 }
