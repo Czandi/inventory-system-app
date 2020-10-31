@@ -19,13 +19,12 @@ export class DeviceSetTableComponent extends Table implements OnInit {
   constructor(
     subjectService: SubjectService,
     activatedRoute: ActivatedRoute,
-    route: Router,
+    router: Router,
     private deviceSetService: DeviceSetService
   ) {
-    super(subjectService, activatedRoute, route, "name", "asc", [
-      "Option one",
-      "Option two",
-      "Option three",
+    super(subjectService, activatedRoute, router, "name", "asc", [
+      { name: "EDIT", route: router.url + "/edit" },
+      { name: "DELETE", route: router.url + "/delete" },
     ]);
   }
 

@@ -35,7 +35,7 @@ export class DeviceSetService {
     return this.http.get(url);
   }
 
-  getAllDeviceSets() {
+  getAllDeviceSets(): Observable<any> {
     var url = this.config.deviceSetUrl + "/all";
     return this.http.get(url);
   }

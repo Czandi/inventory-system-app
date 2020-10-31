@@ -34,13 +34,8 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
   private searchTimeout;
   private paginationSub: Subscription;
   private pageSub: Subscription;
-  private paramsSub: Subscription;
 
-  constructor(
-    private subjectService: SubjectService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private subjectService: SubjectService, private router: Router) {}
 
   ngOnInit(): void {
     this.paginationSub = this.subjectService.currentPageEmitter.subscribe(

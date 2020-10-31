@@ -26,13 +26,12 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   constructor(
     subjectService: SubjectService,
     activatedRoute: ActivatedRoute,
-    route: Router,
+    router: Router,
     private modelService: ModelService
   ) {
-    super(subjectService, activatedRoute, route, "name", "asc", [
-      "Option one",
-      "Option two",
-      "Option three",
+    super(subjectService, activatedRoute, router, "name", "asc", [
+      { name: "EDIT", route: router.url + "/edit" },
+      { name: "DELETE", route: router.url + "/delete" },
     ]);
   }
 

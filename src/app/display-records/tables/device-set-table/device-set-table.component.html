@@ -1,6 +1,6 @@
 <div class="table-container">
   <table class="records">
-    <tr>
+    <tr [ngClass]="blured === true ? 'blur' : ''">
       <th *ngFor="let item of tableData">
         <span (click)="setSortValue(item.id)"
           >{{ item.header | translate }}
@@ -11,7 +11,7 @@
         />
       </th>
     </tr>
-    <tr class="line">
+    <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
       <td colspan="7">
         <div></div>
       </td>
@@ -20,9 +20,29 @@
       *ngFor="let deviceSet of deviceSets"
       (contextmenu)="onRightClick($event, deviceSet.id)"
       [id]="'device' + deviceSet.id"
+      [ngClass]="
+        editedRecord === 0
+          ? ''
+          : editedRecord != deviceSet.id
+          ? 'blur'
+          : 'edited-value'
+      "
     >
-      <td>{{ deviceSet.name }}</td>
-      <td>{{ deviceSet.count }}</td>
+      <ng-container *ngIf="editedRecord != deviceSet.id">
+        <td>{{ deviceSet.name }}</td>
+        <td>{{ deviceSet.count }}</td>
+      </ng-container>
+      <ng-container *ngIf="editedRecord === deviceSet.id">
+        <td><input type="text" [value]="deviceSet.name" /></td>
+        <td>{{ deviceSet.count }}</td>
+        <app-button
+          class="delete-button"
+          type="primary"
+          [id]="'button' + deviceSet.id"
+          text="Aktualizuj"
+          (click)="updateRecord(deviceSet.id)"
+        ></app-button>
+      </ng-container>
     </tr>
 
     <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr>

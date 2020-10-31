@@ -19,7 +19,6 @@ export class DeviceTableComponent extends Table implements OnInit {
   constructor(
     subjectService: SubjectService,
     activatedRoute: ActivatedRoute,
-    route: Router,
     private deviceService: DeviceService,
     router: Router
   ) {
@@ -51,5 +50,9 @@ export class DeviceTableComponent extends Table implements OnInit {
         this.devices = data.content;
         this.subjectService.totalPageNumber.next(data.totalPages);
       });
+  }
+
+  updateRecord() {
+    this.route.navigate(["display-records/device-table/1"]);
   }
 }

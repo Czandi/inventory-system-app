@@ -39,11 +39,19 @@ const routes: Routes = [
         component: DeviceSetTableComponent,
       },
       {
+        path: "device-set-table/:page/edit/:id",
+        component: DeviceSetTableComponent,
+      },
+      {
         path: "device-type-table/:page",
         component: DeviceTypeTableComponent,
       },
       {
         path: "device-type-table/:page/:search-value",
+        component: DeviceTypeTableComponent,
+      },
+      {
+        path: "device-type-table/:page/edit/:id",
         component: DeviceTypeTableComponent,
       },
       {
@@ -56,16 +64,23 @@ const routes: Routes = [
         component: ModelTableComponent,
         data: { animation: "ModelTable" },
       },
+      {
+        path: "model-table/:page/edit/:id",
+        component: ModelTableComponent,
+        data: { animation: "ModelTable" },
+      },
       { path: "owner-table/:page", component: OwnerTableComponent },
       {
         path: "owner-table/:page/:search-value",
         component: OwnerTableComponent,
       },
+      { path: "owner-table/:page/edit/:id", component: OwnerTableComponent },
       { path: "room-table/:page", component: RoomTableComponent },
       {
         path: "room-table/:page/:search-value",
         component: RoomTableComponent,
       },
+      { path: "room-table/:page/edit/:id", component: RoomTableComponent },
     ],
     data: { animation: "DisplayRecords" },
   },

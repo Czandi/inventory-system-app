@@ -43,6 +43,7 @@ export class Table implements OnDestroy {
     this.subjectService.sortValueEmitter.next(sort);
 
     this.activatedRoute.params.subscribe((params) => {
+      console.log("Check");
       if (params.id) {
         this.editedRecord = !params.id ? 0 : +params.id;
         this.blured = true;
@@ -132,7 +133,5 @@ export class Table implements OnDestroy {
     }
   }
 
-  updateRecord() {
-    this.route.navigate(["display-records/device-table/1"]);
-  }
+  updateRecord() {}
 }
