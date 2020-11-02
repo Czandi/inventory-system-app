@@ -58,4 +58,8 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
         this.subjectService.totalPageNumber.next(data.totalPages);
       });
   }
+
+  updateRecord() {
+    this.navigateAfterUpdateRecord();
+  }
 }

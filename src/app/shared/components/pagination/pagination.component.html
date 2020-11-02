@@ -3,7 +3,12 @@
     (click)="prevPage()"
     src="../../assets/icons/pagination_arrow_left.svg"
   />
-  <p *ngFor="let page of pages" (click)="loadPage(page)">{{ page }}</p>
+  <p
+    *ngFor="let item of [].constructor(totalPages); let i = index"
+    (click)="loadPage(i + 1)"
+  >
+    {{ i + 1 }}
+  </p>
   <img
     (click)="nextPage()"
     src="../../assets/icons/pagination_arrow_right.svg"

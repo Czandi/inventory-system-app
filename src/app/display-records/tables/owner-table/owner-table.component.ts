@@ -51,4 +51,8 @@ export class OwnerTableComponent extends Table implements OnInit {
         this.subjectService.totalPageNumber.next(data.totalPages);
       });
   }
+
+  updateRecord() {
+    this.navigateAfterUpdateRecord();
+  }
 }

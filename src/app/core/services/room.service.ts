@@ -33,7 +33,7 @@ export class RoomService {
     return this.http.get(url);
   }
 
-  getAllRooms() {
+  getAllRooms(): Observable<any> {
     var url = this.config.roomUrl + "/all";
     return this.http.get(url);
   }

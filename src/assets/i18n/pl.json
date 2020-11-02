@@ -56,7 +56,8 @@
         "DEVICE_TYPE": "Typy urządzeń",
         "OWNER": "Właściciele",
         "ROOM": "Pomieszczenia"
-      }
+      },
+      "UPDATE": "Aktualizuj"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",

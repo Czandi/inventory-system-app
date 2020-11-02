@@ -3,10 +3,9 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
-  OnDestroy,
+  ChangeDetectorRef,
 } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SubjectService } from "../core/services/subject.service";
 
 @Component({
@@ -14,71 +13,55 @@ import { SubjectService } from "../core/services/subject.service";
   templateUrl: "./display-records.component.html",
   styleUrls: ["./display-records.component.scss"],
 })
-export class DisplayRecordsComponent implements OnInit, OnDestroy {
+export class DisplayRecordsComponent implements OnInit {
   @ViewChild("searchBar") searchBar: ElementRef;
   @ViewChild("device") deviceTableButton: ElementRef;
 
-  private static lastRoute;
-  private static lastTableButtonId;
-
   public records = [];
-  public pages = [];
   public totalPages: number;
   public currentPage = 1;
   public searchValue = "";
   public currentRoute;
   public blured = false;
 
-  private activeTableButton;
   private search = "";
   private searchTimeout;
-  private paginationSub: Subscription;
-  private pageSub: Subscription;
 
-  constructor(private subjectService: SubjectService, private router: Router) {}
+  constructor(
+    private subjectService: SubjectService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.paginationSub = this.subjectService.currentPageEmitter.subscribe(
-      (page) => {
-        this.currentPage = page;
-        this.updateRoute();
+    this.subjectService.totalPageNumber.subscribe((totalPages) => {
+      this.totalPages = totalPages;
+    }).unsubscribe;
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params["edit"] !== undefined) {
+        this.blured = true;
+      } else {
+        this.blured = false;
       }
-    );
-
-    this.pageSub = this.subjectService.totalPageNumber.subscribe(
-      (totalPages) => {
-        this.totalPages = totalPages;
-        this.pages = [];
-        for (let i = 0; i < this.totalPages; i++) {
-          this.pages.push(i + 1);
-        }
-        this.updateRoute();
-      }
-    );
-
-    if (DisplayRecordsComponent.lastRoute) {
-      this.currentRoute = DisplayRecordsComponent.lastRoute;
-    } else {
-      this.currentRoute = "/device-table";
-    }
-
-    this.subjectService.blur.subscribe((blur) => {
-      this.blured = blur;
     });
 
-    this.updateRoute();
+    // if (DisplayRecordsComponent.lastRoute) {
+    //   this.currentRoute = DisplayRecordsComponent.lastRoute;
+    // } else {
+    //   this.currentRoute = "/device-table";
+    // }
   }
 
-  ngAfterViewInit() {
-    if (DisplayRecordsComponent.lastTableButtonId) {
-      this.activeTableButton = document.getElementById(
-        DisplayRecordsComponent.lastTableButtonId
-      );
-      console.log(this.activeTableButton);
-    } else {
-      this.activeTableButton = this.deviceTableButton.nativeElement;
-    }
-    this.activeTableButton.classList.add("active");
+  ngAfterViewChecked() {
+    // if (DisplayRecordsComponent.lastTableButtonId) {
+    //   this.activeTableButton = document.getElementById(
+    //     DisplayRecordsComponent.lastTableButtonId
+    //   );
+    //   console.log(this.activeTableButton);
+    // } else {
+    //   this.activeTableButton = this.deviceTableButton.nativeElement;
+    // }
   }
 
   onTyping() {
@@ -90,38 +73,18 @@ export class DisplayRecordsComponent implements OnInit, OnDestroy {
     window.clearTimeout(this.searchTimeout);
     this.searchTimeout = window.setTimeout(() => {
       this.searchValue = this.search;
-      this.updateRoute();
+      this.router.navigate([], {
+        queryParams: { search: this.searchValue },
+        queryParamsHandling: "merge",
+      });
     }, 500);
-  }
-
-  setRouterLink(route, element, elementId) {
-    this.currentPage = 1;
-    this.searchValue = "";
-    this.currentRoute = route;
-    this.activeTableButton.classList.remove("active");
-    this.activeTableButton = element;
-    DisplayRecordsComponent.lastTableButtonId = elementId;
-    this.activeTableButton.classList.add("active");
-    DisplayRecordsComponent.lastRoute = this.currentRoute;
-    console.log(this.activeTableButton);
-    this.updateRoute();
   }
 
   updateRoute() {
     if (!this.router.url.includes("edit")) {
-      this.router.navigate([
-        "/display-records/" +
-          this.currentRoute +
-          "/" +
-          this.currentPage +
-          "/" +
-          this.searchValue,
-      ]);
+      this.router.navigate(["/display-records/" + this.currentRoute], {
+        queryParams: { page: this.currentPage, search: this.searchValue },
+      });
     }
-  }
-
-  ngOnDestroy() {
-    this.paginationSub.unsubscribe();
-    this.pageSub.unsubscribe();
   }
 }

@@ -1,14 +1,11 @@
-import { OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
+import { OnDestroy } from "@angular/core";
 import { SubjectService } from "../../core/services/subject.service";
 import { ContextMenu } from "../../shared/models/context-menu.model";
-import { Subject, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { SortInfo } from "../../shared/models/sortInfo.model";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ThrowStmt } from "@angular/compiler";
 
 export class Table implements OnDestroy {
-  devices = [];
-
   public editedRecord = 0;
   public blured = false;
 
@@ -29,7 +26,7 @@ export class Table implements OnDestroy {
   constructor(
     protected subjectService: SubjectService,
     protected activatedRoute: ActivatedRoute,
-    protected route: Router,
+    protected router: Router,
     currentSortValue: string,
     currentSortType: string,
     contextMenuOptions: Array<{}>
@@ -41,40 +38,36 @@ export class Table implements OnDestroy {
     this.sort.value = this.currentSortValue;
     this.sort.type = this.currentSortType;
     this.subjectService.sortValueEmitter.next(sort);
-
-    this.activatedRoute.params.subscribe((params) => {
-      console.log("Check");
-      if (params.id) {
-        this.editedRecord = !params.id ? 0 : +params.id;
-        this.blured = true;
-      } else {
-        this.editedRecord = 0;
-        this.blured = false;
-      }
-      this.subjectService.blur.next(this.blured);
-    });
   }
 
   initialize() {
-    this.routeSub = this.activatedRoute.params.subscribe((params) => {
-      this.validateAndSetSearchValue(params["search-value"]);
-      this.currentPage = this.activatedRoute.snapshot.params["page"];
-      this.getRecords();
+    this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
+      if (
+        params["search"] !== undefined &&
+        params["search"] !== this.searchValue
+      ) {
+        this.searchValue = params["search"];
+        this.getRecords();
+      } else {
+        this.searchValue = "";
+      }
+
+      if (params["page"] !== undefined && params["page"] !== this.currentPage) {
+        this.currentPage = params["page"];
+        this.getRecords();
+      }
+
+      if (params["edit"] !== undefined) {
+        this.blured = true;
+        this.editedRecord = +params["edit"];
+      } else {
+        this.blured = false;
+        this.editedRecord = 0;
+      }
     });
-    this.currentPage = this.activatedRoute.snapshot.params["page"];
-    this.validateAndSetSearchValue(
-      this.activatedRoute.snapshot.params["search-value"]
-    );
+
     this.getRecords();
     this.initialized = true;
-  }
-
-  validateAndSetSearchValue(searchValue) {
-    if (!searchValue) {
-      this.searchValue = "";
-    } else {
-      this.searchValue = searchValue;
-    }
   }
 
   ngOnDestroy(): void {
@@ -123,8 +116,6 @@ export class Table implements OnDestroy {
     this.getRecords();
   }
 
-  getRecords() {}
-
   switchSortType() {
     if (this.sort.type === "asc") {
       this.sort.type = "desc";
@@ -132,6 +123,17 @@ export class Table implements OnDestroy {
       this.sort.type = "asc";
     }
   }
+
+  navigateAfterUpdateRecord() {
+    this.router.navigate([], {
+      queryParams: { edit: null },
+      queryParamsHandling: "merge",
+    });
+  }
+
+  getAutoCompleteData() {}
+
+  getRecords() {}
 
   updateRecord() {}
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SubjectService } from "../../../core/services/subject.service";
 
 @Component({
@@ -7,34 +8,44 @@ import { SubjectService } from "../../../core/services/subject.service";
   styleUrls: ["./pagination.component.scss"],
 })
 export class PaginationComponent implements OnInit {
-  @Input() pages;
+  public pages = [];
   @Input() totalPages;
   @Input() currentPage;
 
-  constructor(private subjectService: SubjectService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.subjectService.currentPageEmitter.next(this.currentPage);
-  }
+  ngOnInit(): void {}
 
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.subjectService.currentPageEmitter.next(this.currentPage);
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: { page: this.currentPage },
+        queryParamsHandling: "merge",
+      });
     }
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.subjectService.currentPageEmitter.next(this.currentPage);
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: { page: this.currentPage },
+        queryParamsHandling: "merge",
+      });
     }
   }
 
   loadPage(page: number) {
     if (page > 0 && page <= this.totalPages) {
       this.currentPage = page;
-      this.subjectService.currentPageEmitter.next(this.currentPage);
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: { page: this.currentPage },
+        queryParamsHandling: "merge",
+      });
     }
   }
 }

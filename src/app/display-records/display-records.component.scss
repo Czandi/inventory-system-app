@@ -33,6 +33,8 @@
 .tables {
   margin-bottom: 1.5vw;
   width: 80vw;
+  transition: filter 0.2s ease-in-out, background-color 0.05s ease;
+
   p {
     display: inline-block;
     border-style: solid;
@@ -49,6 +51,10 @@
       background-color: $primary-dark;
     }
 
+    &:focus {
+      outline: none;
+    }
+
     &:first-of-type {
       margin-left: 0;
     }
@@ -61,4 +67,5 @@
 
 .search-bar {
   margin-bottom: 3vw;
+  transition: filter 0.2s ease-in-out, background-color 0.05s ease;
 }

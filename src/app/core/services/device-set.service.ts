@@ -30,8 +30,6 @@ export class DeviceSetService {
       url += this.config.search + searchValue;
     }
 
-    console.log(url);
-
     return this.http.get(url);
   }
 

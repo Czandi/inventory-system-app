@@ -39,12 +39,10 @@
           class="delete-button"
           type="primary"
           [id]="'button' + deviceSet.id"
-          text="Aktualizuj"
+          [text]="'PAGES.DISPLAY_RECORDS.UPDATE' | translate"
           (click)="updateRecord(deviceSet.id)"
         ></app-button>
       </ng-container>
     </tr>
-
-    <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr>
   </table>
 </div>

@@ -2,7 +2,9 @@
   <ul>
     <li
       *ngFor="let option of contextMenuOptions"
-      [routerLink]="option.route + '/' + recordId"
+      [routerLink]="[]"
+      [queryParams]="{ edit: recordId }"
+      queryParamsHandling="merge"
     >
       {{ "CONTEXT_MENU." + option.name | translate }}
     </li>

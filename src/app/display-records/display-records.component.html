@@ -4,23 +4,27 @@
     <div [ngClass]="blured ? 'blur' : ''" class="tables">
       <p
         id="deviceSelect"
-        (click)="setRouterLink('device-table', device, 'deviceSelect')"
+        routerLink="/display-records/device-table"
+        routerLinkActive="active"
+        [queryParams]="{ page: '1' }"
         #device
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}</span>
       </p>
       <p
         id="modelSelect"
-        (click)="setRouterLink('model-table', model, 'modelSelect')"
+        routerLink="/display-records/model-table"
+        routerLinkActive="active"
+        [queryParams]="{ page: '1' }"
         #model
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}</span>
       </p>
       <p
         id="deviceSetSelect"
-        (click)="
-          setRouterLink('device-set-table', deviceSet, 'deviceSetSelect')
-        "
+        routerLink="/display-records/device-set-table"
+        routerLinkActive="active"
+        [queryParams]="{ page: '1' }"
         #deviceSet
       >
         <span>{{
@@ -29,9 +33,9 @@
       </p>
       <p
         id="deviceTypeSelect"
-        (click)="
-          setRouterLink('device-type-table', deviceType, 'deviceTypeSelect')
-        "
+        routerLink="/display-records/device-type-table"
+        routerLinkActive="active"
+        [queryParams]="{ page: '1' }"
         #deviceType
       >
         <span>{{
@@ -40,14 +44,18 @@
       </p>
       <p
         id="ownerSelect"
-        (click)="setRouterLink('owner-table', owner, 'ownerSelect')"
+        routerLink="/display-records/owner-table"
+        routerLinkActive="active"
+        [queryParams]="{ page: '1' }"
         #owner
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}</span>
       </p>
       <p
         id="roomSelect"
-        (click)="setRouterLink('room-table', room, 'roomSelect')"
+        routerLink="/display-records/room-table"
+        routerLinkActive="active"
+        [queryParams]="{ page: '1' }"
         #room
       >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}</span>
@@ -58,6 +66,7 @@
       <input
         type="text"
         [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
+        value=""
         #searchBar
         (keyup)="onTyping()"
       />
@@ -69,7 +78,6 @@
   <app-pagination
     [ngClass]="blured ? 'blur' : ''"
     [currentPage]="currentPage"
-    [pages]="pages"
     [totalPages]="totalPages"
   ></app-pagination>
 

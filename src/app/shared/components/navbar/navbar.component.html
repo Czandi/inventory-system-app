@@ -17,7 +17,8 @@
       (mouseover)="mouseEnter(2)"
       (mouseleave)="mouseLeave(2)"
       (click)="onClick(2)"
-      routerLink="/display-records"
+      routerLink="/display-records/device-table"
+      [queryParams]="{ page: '1' }"
     >
       <img src="../../assets/icons/show_record_icon.svg" />
       <a>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</a>
