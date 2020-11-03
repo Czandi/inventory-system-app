@@ -2,10 +2,12 @@ package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.ModelDto;
 import com.app.inventorysystemapp.controller.mapper.ModelMapper;
+import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.controller.requestModels.ModelRequest;
 import com.app.inventorysystemapp.service.ModelService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,11 @@ public class ModelController {
     return ModelMapper.mapToModelDtos(modelService.getModels(page, pageSize, orderBy, sortType, search));
   }
 
+  @GetMapping("/models/{id}")
+  public ModelDto getSingleModel(@PathVariable long id) {
+    return ModelMapper.mapToModelDto(modelService.getSingleModel(id));
+  }
+
   @GetMapping("/models/all")
   public List<Model> getAllModels(){
     return modelService.getAllModels();
@@ -38,5 +45,10 @@ public class ModelController {
   @PostMapping("/models")
   public Model insertModel(@RequestBody ModelRequest model){
     return modelService.insertModel(model);
+  }
+
+  @PutMapping("/models/{id}")
+  public ResponseEntity<Model> updateModel(@PathVariable(value = "id") Long id, @RequestBody ModelRequest details) {
+    return modelService.updateModel(id, details);
   }
 }

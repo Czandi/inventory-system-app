@@ -10,7 +10,7 @@ import { RouterModule } from "@angular/router";
 
 import { PaginationComponent } from "./components/pagination/pagination.component";
 import { ContextMenuComponent } from "./components/context-menu/context-menu.component";
-import { AlertBoxComponent } from "./components/alert-box/alert-box.component";
+import { NewRecordsAlertBoxComponent } from "./components/new-records-alert-box/new-records-alert-box.component";
 import { ButtonComponent } from "./components/button/button.component";
 import { BtnMinDirective } from "./directives/btn-min.directive";
 import { BtnFullDirective } from "./directives/btn-full.directive";
@@ -24,7 +24,7 @@ import { BtnFullDirective } from "./directives/btn-full.directive";
     ButtonComponent,
     BtnMinDirective,
     BtnFullDirective,
-    AlertBoxComponent,
+    NewRecordsAlertBoxComponent,
   ],
   imports: [CommonModule, TranslateModule, FormsModule, RouterModule],
   exports: [
@@ -36,7 +36,7 @@ import { BtnFullDirective } from "./directives/btn-full.directive";
     ButtonComponent,
     BtnMinDirective,
     BtnFullDirective,
-    AlertBoxComponent,
+    NewRecordsAlertBoxComponent,
   ],
 })
 export class SharedModule {}

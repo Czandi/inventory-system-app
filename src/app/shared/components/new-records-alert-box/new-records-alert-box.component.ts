@@ -13,10 +13,10 @@ import { DeviceType } from "../../models/type.model";
 
 @Component({
   selector: "app-alert-box",
-  templateUrl: "./alert-box.component.html",
-  styleUrls: ["./alert-box.component.scss"],
+  templateUrl: "./new-records-alert-box.component.html",
+  styleUrls: ["./new-records-alert-box.component.scss"],
 })
-export class AlertBoxComponent implements OnInit {
+export class NewRecordsAlertBoxComponent implements OnInit {
   @Input() newRecords;
   @ViewChild("alert") alert;
 

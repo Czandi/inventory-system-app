@@ -25,6 +25,17 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "m.name as modelName, " +
     "m.id as modelId, " +
     "m.type.name as typeName, " +
+    "count(m.name) as modelCount " +
+    "from Device d " +
+    "inner join d.model m " +
+    "group by m.id " +
+    "having m.id like ?1")
+  IModel findByIdWithCount(long id);
+
+  @Query("Select " +
+    "m.name as modelName, " +
+    "m.id as modelId, " +
+    "m.type.name as typeName, " +
     "count(d.model.name) as modelCount " +
     "from Device d " +
     "inner join d.model m " +

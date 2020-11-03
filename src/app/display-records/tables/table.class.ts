@@ -22,6 +22,7 @@ export class Table implements OnDestroy {
   protected apiSub: Subscription;
   protected routeSub: Subscription;
   protected initialized = false;
+  protected alertSub;
 
   constructor(
     protected subjectService: SubjectService,
@@ -67,6 +68,8 @@ export class Table implements OnDestroy {
       }
     });
 
+    this.createAlertClosingListener();
+
     this.getAutoCompleteData();
     this.getRecords();
     this.initialized = true;
@@ -74,6 +77,7 @@ export class Table implements OnDestroy {
 
   ngOnDestroy(): void {
     this.apiSub.unsubscribe();
+    this.alertSub.unsubscribe();
   }
 
   onRightClick(event, id: number) {
@@ -133,6 +137,21 @@ export class Table implements OnDestroy {
       queryParamsHandling: "merge",
     });
   }
+
+  createAlertClosingListener() {
+    this.alertSub = this.subjectService.reloadAddRecordPageData.subscribe(
+      (newRecords) => {
+        this.getAutoCompleteData();
+        if (newRecords.indexOf("deviceModel") != -1) {
+          setTimeout(() => {
+            this.insertDeviceType();
+          }, 500);
+        }
+      }
+    );
+  }
+
+  insertDeviceType() {}
 
   getAutoCompleteData() {}
 

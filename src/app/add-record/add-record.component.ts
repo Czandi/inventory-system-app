@@ -26,8 +26,6 @@ export class AddRecordComponent implements OnInit, OnDestroy {
   public deviceForm;
   public deviceTypeInactive = false;
 
-  private ids: any = {};
-  private modelsWithTypes = [];
   private typeInputElement;
 
   private alertSub;
@@ -109,12 +107,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       this.deviceDataValidator.insertModelsWithTypes(data);
     }).unsubscribe;
 
-    this.ids = this.deviceDataValidator.ids;
     this.records = this.deviceDataValidator.names;
-    this.modelsWithTypes = this.deviceDataValidator.modelsWithTypes;
-    console.log(this.ids);
-    console.log(this.records);
-    console.log(this.modelsWithTypes);
   }
 
   addDevice() {
@@ -166,6 +159,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       this.typeInputElement.classList.remove("inactive");
       this.typeInputElement.value = "";
       this.deviceTypeInactive = false;
+      this.deviceForm.get("deviceType").setValue("");
     }
   }
 }

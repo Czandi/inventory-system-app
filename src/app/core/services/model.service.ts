@@ -38,7 +38,15 @@ export class ModelService {
     return this.http.get(url);
   }
 
+  getSingleModel(id: number) {
+    return this.http.get(this.config.modelUrl + "/" + id);
+  }
+
   insertModel(model: Model): Observable<Model> {
     return this.http.post<Model>(this.config.modelUrl, model);
+  }
+
+  updateModel(id: number, model: Model): Observable<Model> {
+    return this.http.put<Model>(this.config.modelUrl + "/" + id, model);
   }
 }

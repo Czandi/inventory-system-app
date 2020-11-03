@@ -47,15 +47,9 @@ form {
 .invalid {
   label {
     color: $error;
-    &.deviceType {
-      color: white;
-    }
   }
   input {
     border: 2px solid $error;
-    &.deviceType {
-      border: 2px solid white;
-    }
   }
 }
 

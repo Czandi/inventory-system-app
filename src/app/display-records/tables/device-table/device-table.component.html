@@ -49,7 +49,15 @@
               required
             />
           </td>
-          <td>
+          <td
+            [ngClass]="
+              this.deviceForm.get('deviceModel').invalid &&
+              (this.deviceForm.get('deviceModel').dirty ||
+                this.deviceForm.get('deviceModel').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
             <input
               type="text"
               [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
@@ -65,7 +73,15 @@
               ></option>
             </datalist>
           </td>
-          <td>
+          <td
+            [ngClass]="
+              this.deviceForm.get('deviceType').invalid &&
+              (this.deviceForm.get('deviceType').dirty ||
+                this.deviceForm.get('deviceType').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
             <input
               type="text"
               [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
@@ -83,7 +99,15 @@
               ></option>
             </datalist>
           </td>
-          <td>
+          <td
+            [ngClass]="
+              this.deviceForm.get('deviceRoom').invalid &&
+              (this.deviceForm.get('deviceRoom').dirty ||
+                this.deviceForm.get('deviceRoom').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
             <input
               type="text"
               [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
@@ -98,7 +122,15 @@
               ></option>
             </datalist>
           </td>
-          <td>
+          <td
+            [ngClass]="
+              this.deviceForm.get('deviceOwner').invalid &&
+              (this.deviceForm.get('deviceOwner').dirty ||
+                this.deviceForm.get('deviceOwner').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
             <input
               type="text"
               [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
@@ -113,16 +145,33 @@
               ></option>
             </datalist>
           </td>
-          <td>
+          <td
+            [ngClass]="
+              this.deviceForm.get('deviceBarCode').invalid &&
+              (this.deviceForm.get('deviceBarCode').dirty ||
+                this.deviceForm.get('deviceBarCode').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
             <input
               type="text"
               readonly="true"
               formControlName="deviceBarCode"
+              [placeholder]="'TABLE_HEADERS.DEVICE.BAR_CODE' | translate"
               required
               class="inactive"
             />
           </td>
-          <td>
+          <td
+            [ngClass]="
+              this.deviceForm.get('deviceSet').invalid &&
+              (this.deviceForm.get('deviceSet').dirty ||
+                this.deviceForm.get('deviceSet').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
             <input
               type="text"
               [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"

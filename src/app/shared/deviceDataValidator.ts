@@ -1,4 +1,3 @@
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { Device } from "./models/device.model";
 
 export class DeviceDataValidator {

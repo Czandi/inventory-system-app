@@ -12,7 +12,7 @@ public class ModelMapper {
     return models.map(model -> mapToModelDto(model));
   }
 
-  private static ModelDto mapToModelDto(IModel model) {
+  public static ModelDto mapToModelDto(IModel model) {
     return ModelDto.builder()
       .id(model.getModelId())
       .name(model.getModelName())

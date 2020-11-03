@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -84,5 +85,21 @@ public class ModelService {
 
   public Model findModelById(long id){
     return modelRepository.findById(id).orElseThrow();
+  }
+
+  public IModel getSingleModel(long id) {
+    return modelRepository.findByIdWithCount(id);
+  }
+
+  public ResponseEntity<Model> updateModel(Long id, ModelRequest details) {
+
+    DeviceType deviceType = deviceTypeService.findTypeById(details.getIdType());
+
+    Model model = modelRepository.findById(id).orElseThrow();
+    model.setName(details.getName());
+    model.setType(deviceType);
+
+    final Model updatedModel = modelRepository.save(model);
+    return ResponseEntity.ok(updatedModel);
   }
 }
