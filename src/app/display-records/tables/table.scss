@@ -35,7 +35,7 @@
 
   tr {
     border-radius: 5px;
-    transition: filter 0.2s ease-in-out, background-color 0.05s ease;
+    // transition: filter 0.2s ease-in-out, background-color 0.05s ease;
 
     &:first-of-type {
       &:hover {
@@ -138,7 +138,7 @@
 }
 
 .delete-button {
-  z-index: 10;
+  z-index: 2;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 100px);

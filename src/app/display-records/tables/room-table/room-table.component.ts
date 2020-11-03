@@ -52,7 +52,7 @@ export class RoomTableComponent extends Table implements OnInit {
       });
   }
 
-  updateRecord() {
+  validateData() {
     this.navigateAfterUpdateRecord();
   }
 }

@@ -1,6 +1,6 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.controller.postModels.DevicePost;
+import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeviceRepository;
@@ -88,33 +88,39 @@ public class DeviceService {
     return deviceRepository.getCountedModels(paging);
   }
 
-  public Device insertDevice(DevicePost device) {
+  public Device insertDevice(DeviceRequest device) {
     Room room = roomService.findRoomById(device.getIdRoom());
     Model model = modelService.findModelById(device.getIdModel());
     Owner owner = ownerService.findOwnerById(device.getIdOwner());
     DeviceSet deviceSet = deviceSetService.findDeviceSetById(device.getIdDeviceSet());
     String serialNumber = device.getSerialNumber();
-    String comments = "";
+    String comment = "";
     if(device.getComment() != null){
-      comments = device.getComment();
+      comment = device.getComment();
     }
 
-    Device newDevice = new Device(serialNumber, room, model, owner, deviceSet, comments);
+    Device newDevice = new Device(serialNumber, room, model, owner, deviceSet, comment);
     newDevice.generateBarCode();
 
     deviceRepository.save(newDevice);
     return newDevice;
   }
 
-  public ResponseEntity<Device> updateDevice(long id, Device details) throws ResourceNotFoundException {
+  public ResponseEntity<Device> updateDevice(long id, DeviceRequest details) throws ResourceNotFoundException {
+    Room room = roomService.findRoomById(details.getIdRoom());
+    Model model = modelService.findModelById(details.getIdModel());
+    Owner owner = ownerService.findOwnerById(details.getIdOwner());
+    DeviceSet deviceSet = deviceSetService.findDeviceSetById(details.getIdDeviceSet());
+    String serialNumber = details.getSerialNumber();
+    String comment = details.getComment();
+
     Device device = this.getSingleDevice(id);
-    device.setSerialNumber(details.getSerialNumber());
-    device.setRoom(details.getRoom());
-    device.setDeviceSet(details.getDeviceSet());
-    device.setModel(details.getModel());
-    device.setOwner(details.getOwner());
-    device.setComments(details.getComments());
-    device.setBarCode(details.getBarCode());
+    device.setSerialNumber(serialNumber);
+    device.setRoom(room);
+    device.setDeviceSet(deviceSet);
+    device.setModel(model);
+    device.setOwner(owner);
+    device.setComments(comment);
     final Device updatedDevice = deviceRepository.save(device);
     return ResponseEntity.ok(updatedDevice);
   }

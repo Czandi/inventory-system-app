@@ -52,7 +52,7 @@ export class OwnerTableComponent extends Table implements OnInit {
       });
   }
 
-  updateRecord() {
+  validateData() {
     this.navigateAfterUpdateRecord();
   }
 }

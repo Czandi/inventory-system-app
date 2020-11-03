@@ -1,9 +1,9 @@
-package com.app.inventorysystemapp.controller.postModels;
+package com.app.inventorysystemapp.controller.requestModels;
 
 import lombok.Data;
 
 @Data
-public class DevicePost {
+public class DeviceRequest {
   private String serialNumber;
   private long idRoom;
   private long idModel;

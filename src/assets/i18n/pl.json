@@ -57,7 +57,8 @@
         "OWNER": "Właściciele",
         "ROOM": "Pomieszczenia"
       },
-      "UPDATE": "Aktualizuj"
+      "UPDATE": "Aktualizuj",
+      "SAVE": "Zapisz"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",

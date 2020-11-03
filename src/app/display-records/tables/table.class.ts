@@ -58,14 +58,16 @@ export class Table implements OnDestroy {
       }
 
       if (params["edit"] !== undefined) {
-        this.blured = true;
         this.editedRecord = +params["edit"];
+        this.updateInputValue();
+        this.blured = true;
       } else {
         this.blured = false;
         this.editedRecord = 0;
       }
     });
 
+    this.getAutoCompleteData();
     this.getRecords();
     this.initialized = true;
   }
@@ -125,6 +127,7 @@ export class Table implements OnDestroy {
   }
 
   navigateAfterUpdateRecord() {
+    this.getRecords();
     this.router.navigate([], {
       queryParams: { edit: null },
       queryParamsHandling: "merge",
@@ -135,5 +138,7 @@ export class Table implements OnDestroy {
 
   getRecords() {}
 
-  updateRecord() {}
+  validateData() {}
+
+  updateInputValue() {}
 }

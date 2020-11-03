@@ -3,7 +3,7 @@ package com.app.inventorysystemapp.controller;
 import com.app.inventorysystemapp.controller.dto.ModelDto;
 import com.app.inventorysystemapp.controller.mapper.ModelMapper;
 import com.app.inventorysystemapp.model.Model;
-import com.app.inventorysystemapp.controller.postModels.ModelPost;
+import com.app.inventorysystemapp.controller.requestModels.ModelRequest;
 import com.app.inventorysystemapp.service.ModelService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +36,7 @@ public class ModelController {
   }
 
   @PostMapping("/models")
-  public Model insertModel(@RequestBody ModelPost model){
+  public Model insertModel(@RequestBody ModelRequest model){
     return modelService.insertModel(model);
   }
 }

@@ -27,7 +27,7 @@ export class DeviceService {
       this.config.orderBy +
       orderBy;
 
-    if (searchValue != "") {
+    if (searchValue !== "") {
       url += this.config.search + searchValue;
     }
 
@@ -36,7 +36,15 @@ export class DeviceService {
     return this.http.get(url);
   }
 
+  getSingleDevice(id: number) {
+    return this.http.get(this.config.deviceUrl + "/" + id);
+  }
+
   insertDevice(device: Device): Observable<Device> {
     return this.http.post<Device>(this.config.deviceUrl, device);
+  }
+
+  updateDevice(id: number, device: Device): Observable<Device> {
+    return this.http.put<Device>(this.config.deviceUrl + "/" + id, device);
   }
 }

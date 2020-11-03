@@ -154,7 +154,7 @@ export class NavbarComponent implements OnInit {
 
   setActiveAfterReload(route) {
     let s = route.slice(1);
-    let item = s.slice(0, s.length - s.indexOf("/"));
+    let item = s.slice(0, s.indexOf("/"));
 
     switch (item) {
       case "dashboard":

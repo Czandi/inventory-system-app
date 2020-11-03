@@ -1,10 +1,9 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.controller.mapper.ModelMapper;
 import com.app.inventorysystemapp.model.DeviceType;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.model.interfaces.IModel;
-import com.app.inventorysystemapp.controller.postModels.ModelPost;
+import com.app.inventorysystemapp.controller.requestModels.ModelRequest;
 import com.app.inventorysystemapp.repository.ModelRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,7 +73,7 @@ public class ModelService {
     return modelRepository.findAll();
   }
 
-  public Model insertModel(ModelPost model) {
+  public Model insertModel(ModelRequest model) {
     System.out.println(model);
     DeviceType deviceType = deviceTypeService.findTypeById(model.getIdType());
     String name = model.getName();

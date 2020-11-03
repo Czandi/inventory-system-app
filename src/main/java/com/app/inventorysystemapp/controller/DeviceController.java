@@ -2,7 +2,7 @@ package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.DeviceDto;
 import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
-import com.app.inventorysystemapp.controller.postModels.DevicePost;
+import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Device;
 import com.app.inventorysystemapp.service.DeviceService;
@@ -43,12 +43,12 @@ public class DeviceController {
   }
 
   @PostMapping("/devices")
-  public Device insertDevice(@RequestBody DevicePost device) {
+  public Device insertDevice(@RequestBody DeviceRequest device) {
     return deviceService.insertDevice(device);
   }
 
   @PutMapping("/devices/{id}")
-  public ResponseEntity<Device> updateDevice(@PathVariable(value = "id") Long id, @RequestBody Device details) throws ResourceNotFoundException {
+  public ResponseEntity<Device> updateDevice(@PathVariable(value = "id") Long id, @RequestBody DeviceRequest details) throws ResourceNotFoundException {
     return deviceService.updateDevice(id, details);
   }
 

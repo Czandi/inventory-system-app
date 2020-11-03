@@ -52,7 +52,7 @@ export class DeviceTypeTableComponent extends Table implements OnInit {
       });
   }
 
-  updateRecord() {
+  validateData() {
     this.navigateAfterUpdateRecord();
   }
 }

@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  Input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -59,7 +58,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
       });
   }
 
-  updateRecord() {
+  validateData() {
     this.navigateAfterUpdateRecord();
   }
 }

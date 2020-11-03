@@ -9,7 +9,7 @@ import { Model } from "app/shared/models/model.model";
 import { Owner } from "app/shared/models/owner.model";
 import { Room } from "app/shared/models/room.model";
 import { DeviceSet } from "app/shared/models/deviceSet.model";
-import { DeviceType } from "../../shared/models/type.model";
+import { DeviceType } from "../../models/type.model";
 
 @Component({
   selector: "app-alert-box",

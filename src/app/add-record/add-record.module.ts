@@ -6,10 +6,9 @@ import { AddRecordComponent } from "./add-record.component";
 
 import { AddRecordRoutingModule } from "./add-record-routing.module";
 import { SharedModule } from "../shared/shared.module";
-import { AlertBoxComponent } from "./alert-box/alert-box.component";
 
 @NgModule({
-  declarations: [AddRecordComponent, AlertBoxComponent],
+  declarations: [AddRecordComponent],
   imports: [
     CommonModule,
     SharedModule,

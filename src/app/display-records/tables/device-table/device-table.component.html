@@ -1,151 +1,151 @@
+<app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
 <div class="table-container">
-  <table class="records full-view">
-    <tr [ngClass]="blured === true ? 'blur' : ''">
-      <th *ngFor="let item of tableData">
-        <span (click)="setSortValue(item.id)"
-          >{{ item.header | translate }}
-        </span>
-        <img
-          src="../../../../../assets/icons/sort_arrow_up.svg"
-          [id]="item.id"
-        />
-      </th>
-    </tr>
-    <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
-      <td colspan="7">
-        <div></div>
-      </td>
-    </tr>
-    <tr
-      *ngFor="let device of devices"
-      (contextmenu)="onRightClick($event, device.id)"
-      [id]="'device' + device.id"
-      [ngClass]="
-        editedRecord === 0
-          ? ''
-          : editedRecord != device.id
-          ? 'blur'
-          : 'edited-value'
-      "
-    >
-      <ng-container *ngIf="editedRecord != device.id">
-        <td>{{ device.serialNumber }}</td>
-        <td>{{ device.model }}</td>
-        <td>{{ device.type }}</td>
-        <td>{{ device.room }}</td>
-        <td>{{ device.owner }}</td>
-        <td>{{ device.barCode }}</td>
-        <td>{{ device.deviceSet }}</td>
-      </ng-container>
-
-      <ng-container
-        *ngIf="editedRecord === device.id"
-        ng-init="consoleLog()"
-        id="device-form"
+  <form [formGroup]="deviceForm" (ngSubmit)="validateData()" id="device-form">
+    <table class="records full-view" (keydown.enter)="$event.preventDefault()">
+      <tr [ngClass]="blured === true ? 'blur' : ''">
+        <th *ngFor="let item of tableData">
+          <span (click)="setSortValue(item.id)"
+            >{{ item.header | translate }}
+          </span>
+          <img
+            src="../../../../../assets/icons/sort_arrow_up.svg"
+            [id]="item.id"
+          />
+        </th>
+      </tr>
+      <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
+        <td colspan="7">
+          <div></div>
+        </td>
+      </tr>
+      <tr
+        *ngFor="let device of devices"
+        (contextmenu)="onRightClick($event, device.id)"
+        [id]="'device' + device.id"
+        [ngClass]="
+          editedRecord === 0
+            ? ''
+            : editedRecord != device.id
+            ? 'blur'
+            : 'edited-value'
+        "
       >
-        <td>
-          <input
-            type="text"
-            [value]="device.serialNumber"
-            [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
-            required
-          />
-        </td>
-        <td>
-          <input
-            type="text"
-            [value]="device.model"
-            [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
-            (change)="insertDeviceType()"
-            list="models"
-            required
-          />
-          <datalist id="models">
-            <option
-              *ngFor="let item of records['deviceModel']"
-              [value]="item"
-            ></option>
-          </datalist>
-        </td>
-        <td>
-          <input
-            type="text"
-            [value]="device.type"
-            [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
-            list="types"
-            required
-          />
-          <datalist id="types">
-            <option
-              *ngFor="let item of records['deviceType']"
-              [value]="item"
-            ></option>
-          </datalist>
-        </td>
-        <td>
-          <input
-            type="text"
-            [value]="device.room"
-            [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
-            list="rooms"
-            required
-          />
-          <datalist id="rooms">
-            <option
-              *ngFor="let item of records['deviceRoom']"
-              [value]="item"
-            ></option>
-          </datalist>
-        </td>
-        <td>
-          <input
-            type="text"
-            [value]="device.owner"
-            [placeholder]="'TABLE_HEADERS.DEVICE.OWNER'"
-            list="owners"
-            required
-          />
-          <datalist id="owners">
-            <option
-              *ngFor="let item of records['deviceOwner']"
-              [value]="item"
-            ></option>
-          </datalist>
-        </td>
-        <td>
-          <input
-            type="text"
-            [value]="device.barCode"
-            readonly="true"
-            required
-            class="inactive"
-          />
-        </td>
-        <td>
-          <input
-            type="text"
-            [value]="device.deviceSet"
-            [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUBMER' | translate"
-            list="sets"
-            required
-          />
-          <datalist id="sets">
-            <option
-              *ngFor="let item of records['deviceSet']"
-              [value]="item"
-            ></option>
-          </datalist>
-        </td>
-        <app-button
-          class="delete-button"
-          type="primary"
-          [id]="'button' + device.id"
-          text="Aktualizuj"
-          (click)="updateRecord()"
-        ></app-button>
-      </ng-container>
-    </tr>
+        <ng-container *ngIf="editedRecord != device.id">
+          <td>{{ device.serialNumber }}</td>
+          <td>{{ device.model }}</td>
+          <td>{{ device.type }}</td>
+          <td>{{ device.room }}</td>
+          <td>{{ device.owner }}</td>
+          <td>{{ device.barCode }}</td>
+          <td>{{ device.deviceSet }}</td>
+        </ng-container>
 
-    <!-- <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr> -->
-  </table>
+        <ng-container *ngIf="editedRecord === device.id" ng-init="consoleLog()">
+          <td>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
+              formControlName="serialNumber"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
+              formControlName="deviceModel"
+              (change)="insertDeviceType()"
+              list="models"
+              required
+            />
+            <datalist id="models">
+              <option
+                *ngFor="let item of records['deviceModel']"
+                [value]="item"
+              ></option>
+            </datalist>
+          </td>
+          <td>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
+              [readOnly]="deviceTypeInactive"
+              class="inactive"
+              formControlName="deviceType"
+              list="types"
+              required
+              #deviceType
+            />
+            <datalist id="types">
+              <option
+                *ngFor="let item of records['deviceType']"
+                [value]="item"
+              ></option>
+            </datalist>
+          </td>
+          <td>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
+              formControlName="deviceRoom"
+              list="rooms"
+              required
+            />
+            <datalist id="rooms">
+              <option
+                *ngFor="let item of records['deviceRoom']"
+                [value]="item"
+              ></option>
+            </datalist>
+          </td>
+          <td>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
+              formControlName="deviceOwner"
+              list="owners"
+              required
+            />
+            <datalist id="owners">
+              <option
+                *ngFor="let item of records['deviceOwner']"
+                [value]="item"
+              ></option>
+            </datalist>
+          </td>
+          <td>
+            <input
+              type="text"
+              readonly="true"
+              formControlName="deviceBarCode"
+              required
+              class="inactive"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
+              formControlName="deviceSet"
+              list="sets"
+              required
+            />
+            <datalist id="sets">
+              <option
+                *ngFor="let item of records['deviceSet']"
+                [value]="item"
+              ></option>
+            </datalist>
+          </td>
+          <app-button
+            class="delete-button"
+            type="primary"
+            [id]="'button' + device.id"
+            [text]="'PAGES.DISPLAY_RECORDS.SAVE' | translate"
+            form="device-form"
+          ></app-button>
+        </ng-container>
+      </tr>
+    </table>
+  </form>
 </div>

@@ -1,10 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-  ChangeDetectorRef,
-} from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SubjectService } from "../core/services/subject.service";
 
@@ -23,6 +18,7 @@ export class DisplayRecordsComponent implements OnInit {
   public searchValue = "";
   public currentRoute;
   public blured = false;
+  public deviceForm;
 
   private search = "";
   private searchTimeout;
