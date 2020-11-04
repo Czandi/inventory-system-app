@@ -14,11 +14,11 @@ public class RoomMapper {
     return rooms.map(room -> mapToRoomDto(room));
   }
 
-  private static RoomDto mapToRoomDto(IRoom room) {
+  public static RoomDto mapToRoomDto(IRoom room) {
     return RoomDto.builder()
       .id(room.getRoomId())
       .name(room.getRoomName())
-      .itemsInRoom(room.getItemsInRoomCount())
+      .count(room.getCount())
       .build();
   }
 

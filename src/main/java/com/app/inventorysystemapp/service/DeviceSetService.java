@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,5 +78,17 @@ public class DeviceSetService {
 
   public DeviceSet findDeviceSetById(long id){
     return deviceSetRepository.findById(id).orElseThrow();
+  }
+
+  public IDeviceSet getSingleDeviceSet(long id) {
+    return deviceSetRepository.findByIdWithCount(id);
+  }
+
+  public ResponseEntity<DeviceSet> updateDeviceSet(long id, String name) {
+    DeviceSet deviceSet = deviceSetRepository.findById(id).orElseThrow();
+    deviceSet.setName(name);
+
+    final DeviceSet updatedDeviceSet = deviceSetRepository.save(deviceSet);
+    return ResponseEntity.ok(updatedDeviceSet);
   }
 }

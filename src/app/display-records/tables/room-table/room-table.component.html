@@ -1,51 +1,78 @@
 <div class="table-container">
-  <table class="records">
-    <tr [ngClass]="blured === true ? 'blur' : ''">
-      <th *ngFor="let item of tableData">
-        <span (click)="setSortValue(item.id)"
-          >{{ item.header | translate }}
-        </span>
-        <img
-          src="../../../../../assets/icons/sort_arrow_up.svg"
-          [id]="item.id"
-        />
-      </th>
-    </tr>
-    <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
-      <td colspan="7">
-        <div></div>
-      </td>
-    </tr>
-    <tr
-      *ngFor="let room of rooms"
-      (contextmenu)="onRightClick($event, room.id)"
-      [id]="'device' + room.id"
-      [ngClass]="
-        editedRecord === 0
-          ? ''
-          : editedRecord != room.id
-          ? 'blur'
-          : 'edited-value'
-      "
-    >
-      <ng-container *ngIf="editedRecord != room.id">
-        <td>{{ room.name }}</td>
-        <td>{{ room.itemsInRoom }}</td>
-      </ng-container>
+  <form [formGroup]="roomForm" (ngSubmit)="validateData()" id="room-form">
+    <table class="records">
+      <tr [ngClass]="blured === true ? 'blur' : ''">
+        <th *ngFor="let item of tableData">
+          <span (click)="setSortValue(item.id)"
+            >{{ item.header | translate }}
+          </span>
+          <img
+            src="../../../../../assets/icons/sort_arrow_up.svg"
+            [id]="item.id"
+          />
+        </th>
+      </tr>
+      <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
+        <td colspan="7">
+          <div></div>
+        </td>
+      </tr>
+      <tr
+        *ngFor="let room of rooms"
+        (contextmenu)="onRightClick($event, room.id)"
+        [id]="'device' + room.id"
+        [ngClass]="
+          editedRecord === 0
+            ? ''
+            : editedRecord != room.id
+            ? 'blur'
+            : 'edited-value'
+        "
+      >
+        <ng-container *ngIf="editedRecord != room.id">
+          <td>{{ room.name }}</td>
+          <td>{{ room.count }}</td>
+        </ng-container>
 
-      <ng-container *ngIf="editedRecord === room.id">
-        <td><input type="text" [value]="room.name" /></td>
-        <td>{{ room.itemsInRoom }}</td>
-        <app-button
-          class="delete-button"
-          type="primary"
-          [id]="'button' + room.id"
-          text="Aktualizuj"
-          (click)="updateRecord(room.id)"
-        ></app-button>
-      </ng-container>
-    </tr>
+        <ng-container *ngIf="editedRecord === room.id">
+          <td
+            [ngClass]="
+              this.roomForm.get('roomName').invalid &&
+              (this.roomForm.get('roomName').dirty ||
+                this.roomForm.get('roomName').touched)
+                ? 'invalid'
+                : ''
+            "
+          >
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.ROOM.ROOM_NAME' | translate"
+              formControlName="roomName"
+              (change)="checkIfNameExists()"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              readonly="true"
+              [placeholder]="'TABLE_HEADERS.ROOM.ROOM_NAME' | translate"
+              formControlName="roomCount"
+              class="inactive"
+              required
+            />
+          </td>
+          <app-button
+            class="delete-button"
+            type="primary"
+            [id]="'button' + room.id"
+            text="Aktualizuj"
+            form="room-form"
+          ></app-button>
+        </ng-container>
+      </tr>
 
-    <!-- <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr> -->
-  </table>
+      <!-- <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr> -->
+    </table>
+  </form>
 </div>

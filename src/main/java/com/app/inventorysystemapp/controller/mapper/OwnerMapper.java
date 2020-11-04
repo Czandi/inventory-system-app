@@ -10,11 +10,10 @@ public class OwnerMapper {
     return owners.map(owner -> mapToOwnerDto(owner));
   }
 
-  private static OwnerDto mapToOwnerDto(IOwner owner) {
+  public static OwnerDto mapToOwnerDto(IOwner owner) {
     return OwnerDto.builder()
       .id(owner.getOwnerId())
       .name(owner.getOwnerName())
-      .surname(owner.getOwnerSurname())
       .itemsCount(owner.getOwnerItemsCount())
       .build();
   }

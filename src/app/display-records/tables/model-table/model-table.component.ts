@@ -32,6 +32,8 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   public newRecords = [];
 
   private gdv;
+  private currentName;
+  private currentType;
 
   constructor(
     subjectService: SubjectService,
@@ -100,11 +102,19 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
     let newModelType = this.modelForm.get("modelType").value;
 
     if (this.modelForm.valid) {
-      if (!this.modelExists(newModelName, newModelType)) {
+      if (
+        !this.modelExists(newModelName, newModelType) &&
+        this.typeExists(newModelType)
+      ) {
         let model = new Model();
         model.name = newModelName;
         model.idType = this.gdv.ids["modelType"][newModelType];
         this.updateRecordAndRedirect(model);
+      } else if (
+        this.currentName === newModelName &&
+        this.currentType === newModelType
+      ) {
+        this.navigateAfterUpdateRecord();
       } else {
         this.newRecords = this.gdv.newRecords;
         this.alertBox.openAlert();
@@ -114,6 +124,14 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
 
   modelExists(modelName, modelType) {
     if (this.gdv.modelsWithTypes[modelName] === modelType) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  typeExists(modelType) {
+    if (this.gdv.names["modelType"].includes(modelType)) {
       return true;
     } else {
       return false;
@@ -134,9 +152,22 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
       let modelType = model["type"];
       let modelCount = model["count"];
 
+      this.currentName = modelName;
+      this.currentType = modelType;
+
       this.modelForm.controls["modelName"].setValue(modelName);
       this.modelForm.controls["modelType"].setValue(modelType);
       this.modelForm.controls["modelCount"].setValue(modelCount);
     });
+  }
+
+  checkIfNameExists() {
+    let modelName = this.modelForm.get("modelName").value;
+    if (
+      this.gdv.names["modelName"].includes(modelName.toLowerCase()) &&
+      modelName !== this.currentName
+    ) {
+      this.modelForm.controls["modelName"].setErrors({ incorrect: true });
+    }
   }
 }

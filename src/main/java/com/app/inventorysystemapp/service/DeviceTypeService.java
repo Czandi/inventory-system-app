@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,5 +77,17 @@ public class DeviceTypeService {
 
   public DeviceType insertDeviceType(DeviceType deviceType) {
     return deviceTypeRepository.save(deviceType);
+  }
+
+  public IDeviceType getSingleDeviceType(long id) {
+    return deviceTypeRepository.findByIdWithCount(id);
+  }
+
+  public ResponseEntity<DeviceType> updateDeviceType(long id, String name) {
+    DeviceType deviceType = deviceTypeRepository.findById(id).orElseThrow();
+    deviceType.setName(name);
+
+    final DeviceType updatedDeviceType = deviceTypeRepository.save(deviceType);
+    return ResponseEntity.ok(updatedDeviceType);
   }
 }

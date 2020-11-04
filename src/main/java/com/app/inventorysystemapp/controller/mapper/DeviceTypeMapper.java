@@ -10,7 +10,7 @@ public class DeviceTypeMapper {
     return deviceTypes.map(deviceType -> mapToDeviceTypeDto(deviceType));
   }
 
-  private static DeviceTypeDto mapToDeviceTypeDto(IDeviceType deviceType) {
+  public static DeviceTypeDto mapToDeviceTypeDto(IDeviceType deviceType) {
     return DeviceTypeDto.builder()
       .id(deviceType.getDeviceTypeId())
       .name(deviceType.getDeviceTypeName())

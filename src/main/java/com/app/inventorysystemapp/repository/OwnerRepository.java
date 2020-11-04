@@ -27,8 +27,17 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     "from Device d " +
     "inner join d.owner o " +
     "group by o.id " +
+    "having o.id like ?1 ")
+  IOwner findByIdWithCount(long id);
+
+  @Query("Select " +
+    "o.id as ownerId, " +
+    "o.name as ownerName, " +
+    "count(o.id) as ownerItemsCount " +
+    "from Device d " +
+    "inner join d.owner o " +
+    "group by o.id " +
     "having o.name like concat('%', ?1, '%') " +
     "or count(o.id) = ?1")
   Page<IOwner> findAllOwnersWithItemsCountByContaining(String search, Pageable page);
-
 }

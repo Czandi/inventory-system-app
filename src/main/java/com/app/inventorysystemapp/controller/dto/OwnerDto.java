@@ -8,6 +8,5 @@ import lombok.Data;
 public class OwnerDto {
   Long id;
   String name;
-  String surname;
   Integer itemsCount;
 }

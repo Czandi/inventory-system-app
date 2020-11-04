@@ -10,7 +10,7 @@ public class DeviceSetMapper {
     return deviceSets.map(deviceSet -> mapToDeviceSetDto(deviceSet));
   }
 
-  private static DeviceSetDto mapToDeviceSetDto(IDeviceSet deviceSet) {
+  public static DeviceSetDto mapToDeviceSetDto(IDeviceSet deviceSet) {
     return DeviceSetDto.builder()
       .id(deviceSet.getDeviceSetId())
       .name(deviceSet.getDeviceSetName())

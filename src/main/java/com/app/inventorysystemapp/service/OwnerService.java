@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -78,5 +79,17 @@ public class OwnerService {
 
   public Owner findOwnerById(long id){
     return ownerRepository.findById(id).orElseThrow();
+  }
+
+  public IOwner getSingleOwner(long id) {
+    return ownerRepository.findByIdWithCount(id);
+  }
+
+  public ResponseEntity<Owner> updateOwner(long id, String name) {
+    Owner owner = ownerRepository.findById(id).orElseThrow();
+    owner.setName(name);
+
+    final Owner updatedOwner = ownerRepository.save(owner);
+    return ResponseEntity.ok(updatedOwner);
   }
 }

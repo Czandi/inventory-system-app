@@ -38,7 +38,15 @@ export class RoomService {
     return this.http.get(url);
   }
 
+  getSingleRoom(id: number) {
+    return this.http.get(this.config.roomUrl + "/" + id);
+  }
+
   insertRoom(room: Room): Observable<Room> {
     return this.http.post<Room>(this.config.roomUrl, room);
+  }
+
+  updateRoom(id: number, name: String): Observable<Room> {
+    return this.http.put<Room>(this.config.roomUrl + "/" + id, name);
   }
 }

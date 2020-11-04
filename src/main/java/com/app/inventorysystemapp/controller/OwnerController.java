@@ -5,6 +5,7 @@ import com.app.inventorysystemapp.controller.mapper.OwnerMapper;
 import com.app.inventorysystemapp.model.Owner;
 import com.app.inventorysystemapp.service.OwnerService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,11 @@ public class OwnerController {
     return OwnerMapper.mapToOwnerDtos(ownerService.getOwners(page, pageSize, orderBy, sortType, search));
   }
 
+  @GetMapping("/owners/{id}")
+  public OwnerDto getSingleOwner(@PathVariable long id){
+    return OwnerMapper.mapToOwnerDto(ownerService.getSingleOwner(id));
+  }
+
   @GetMapping("/owners/all")
   public List<Owner> getAllOwners(){
     return ownerService.getAllOwners();
@@ -36,5 +42,10 @@ public class OwnerController {
   @PostMapping("/owners")
   public Owner insertOwner(@RequestBody Owner owner){
     return ownerService.insertOwner(owner);
+  }
+
+  @PutMapping("/owners/{id}")
+  public ResponseEntity<Owner> updateOwner(@PathVariable long id, @RequestBody String name){
+    return ownerService.updateOwner(id, name);
   }
 }

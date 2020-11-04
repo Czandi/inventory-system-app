@@ -5,6 +5,7 @@ import com.app.inventorysystemapp.controller.mapper.DeviceTypeMapper;
 import com.app.inventorysystemapp.model.DeviceType;
 import com.app.inventorysystemapp.service.DeviceTypeService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,11 @@ public class DeviceTypeController {
     return DeviceTypeMapper.mapToDeviceTypeDtos(deviceTypeService.getDeviceTypes(page, pageSize, orderBy, sortType, search));
   }
 
+  @GetMapping("/device-types/{id}")
+  public DeviceTypeDto getSingleDeviceSet(@PathVariable long id) {
+    return DeviceTypeMapper.mapToDeviceTypeDto(deviceTypeService.getSingleDeviceType(id));
+  }
+
   @GetMapping("/device-types/all")
   public List<DeviceType> getAllDeviceTypes(){
     return deviceTypeService.getAllDeviceTypes();
@@ -36,5 +42,10 @@ public class DeviceTypeController {
   @PostMapping("/device-types")
   public DeviceType insertDeviceType(@RequestBody DeviceType deviceType){
     return deviceTypeService.insertDeviceType(deviceType);
+  }
+
+  @PutMapping("/device-types/{id}")
+  public ResponseEntity<DeviceType> updateDeviceType(@PathVariable(value = "id") long id, @RequestBody String name){
+    return deviceTypeService.updateDeviceType(id, name);
   }
 }

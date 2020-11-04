@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { Observable } from "rxjs";
 import { DeviceSet } from "../../shared/models/deviceSet.model";
+import { Device } from "app/shared/models/device.model";
 
 @Injectable({
   providedIn: "root",
@@ -38,7 +39,15 @@ export class DeviceSetService {
     return this.http.get(url);
   }
 
+  getSingleDeviceSet(id: number): Observable<any> {
+    return this.http.get(this.config.deviceSetUrl + "/" + id);
+  }
+
   insertDeviceSet(deviceSet: DeviceSet): Observable<DeviceSet> {
     return this.http.post<DeviceSet>(this.config.ownerUrl, deviceSet);
+  }
+
+  updateDeviceSet(id: number, name: String): Observable<DeviceSet> {
+    return this.http.put<DeviceSet>(this.config.deviceSetUrl + "/" + id, name);
   }
 }

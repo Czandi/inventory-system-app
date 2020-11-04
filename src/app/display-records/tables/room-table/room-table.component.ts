@@ -4,6 +4,8 @@ import { RoomService } from "../../../core/services/room.service";
 import { SubjectService } from "../../../core/services/subject.service";
 import { Table } from "../table.class";
 import { Data } from "../../../shared/data";
+import { GlobalDataValidator } from "app/shared/globalDataValidator";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-room-table",
@@ -15,6 +17,10 @@ export class RoomTableComponent extends Table implements OnInit {
 
   public tableData = [];
   public rooms;
+  public roomForm;
+
+  private gdv;
+  private currentName;
 
   constructor(
     subjectService: SubjectService,
@@ -26,16 +32,33 @@ export class RoomTableComponent extends Table implements OnInit {
       { name: "EDIT", route: router.url + "/edit" },
       { name: "DELETE", route: router.url + "/delete" },
     ]);
+
+    this.gdv = new GlobalDataValidator();
   }
 
   ngOnInit() {
     this.tableData = Data.getRoomTableData();
+    this.initFormGroup();
     this.initialize();
   }
 
   ngAfterViewInit() {
     this.currentArrow = document.getElementById("name");
     this.currentArrow.classList.add("active");
+  }
+
+  initFormGroup() {
+    this.roomForm = new FormGroup({
+      roomName: new FormControl("", Validators.required),
+      roomCount: new FormControl("", Validators.required),
+    });
+  }
+
+  getAutoCompleteData() {
+    this.roomService.getAllRooms().subscribe((data) => {
+      this.gdv.insertNames(data, "roomName");
+      this.gdv.insertIds(data, "roomName");
+    });
   }
 
   getRecords() {
@@ -53,6 +76,52 @@ export class RoomTableComponent extends Table implements OnInit {
   }
 
   validateData() {
+    let newRoomName = this.roomForm.get("roomName").value;
+
+    if (this.roomForm.valid) {
+      if (!this.roomExists(newRoomName)) {
+        this.updateRecordAndRedirect(newRoomName);
+      } else if (this.currentName === newRoomName) {
+        this.navigateAfterUpdateRecord();
+      }
+    }
+
     this.navigateAfterUpdateRecord();
+  }
+
+  roomExists(name) {
+    if (this.gdv.names[name]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  updateRecordAndRedirect(record) {
+    this.roomService.updateRoom(this.editedRecord, record).subscribe(() => {
+      this.navigateAfterUpdateRecord();
+    });
+  }
+
+  updateInputValue() {
+    this.roomService.getSingleRoom(this.editedRecord).subscribe((room) => {
+      let roomName = room["name"];
+      let roomCount = room["count"];
+
+      this.currentName = roomName;
+
+      this.roomForm.controls["roomName"].setValue(roomName);
+      this.roomForm.controls["roomCount"].setValue(roomCount);
+    });
+  }
+
+  checkIfNameExists() {
+    let roomName = this.roomForm.get("roomName").value;
+    if (
+      this.gdv.names["roomName"].includes(roomName.toLowerCase()) &&
+      roomName !== this.currentName
+    ) {
+      this.roomForm.controls["roomName"].setErrors({ incorrect: true });
+    }
   }
 }

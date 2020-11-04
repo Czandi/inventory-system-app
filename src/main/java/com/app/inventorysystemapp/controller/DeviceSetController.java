@@ -5,6 +5,7 @@ import com.app.inventorysystemapp.controller.mapper.DeviceSetMapper;
 import com.app.inventorysystemapp.model.DeviceSet;
 import com.app.inventorysystemapp.service.DeviceSetService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,11 @@ public class DeviceSetController {
     return DeviceSetMapper.mapToDeviceSetDtos(deviceSetService.getDeviceSets(page, pageSize, orderBy, sortType, search));
   }
 
+  @GetMapping("/device-sets/{id}")
+  public DeviceSetDto getSingleDeviceSet(@PathVariable long id) {
+    return DeviceSetMapper.mapToDeviceSetDto(deviceSetService.getSingleDeviceSet(id));
+  }
+
   @GetMapping("/device-sets/all")
   public List<DeviceSet> getAllDeviceSets(){
     return deviceSetService.getAllDeviceSets();
@@ -36,5 +42,10 @@ public class DeviceSetController {
   @PostMapping("/device-sets")
   public DeviceSet insertDeviceSet(@RequestBody DeviceSet deviceSet){
     return deviceSetService.insertDeviceSet(deviceSet);
+  }
+
+  @PutMapping("/device-sets/{id}")
+  public ResponseEntity<DeviceSet> updateDeviceSet(@PathVariable(value = "id") long id, @RequestBody String name) {
+    return deviceSetService.updateDeviceSet(id, name);
   }
 }

@@ -14,7 +14,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
   @Query("Select " +
     "r.id as roomId, " +
     "r.name as roomName, " +
-    "count(r.id) as itemsInRoomCount " +
+    "count(r.id) as count " +
     "from Device d " +
     "inner join d.room r " +
     "group by r.id")
@@ -23,9 +23,19 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
   @Query("Select " +
     "r.id as roomId, " +
     "r.name as roomName, " +
-    "count(r.id) as itemsInRoom " +
+    "count(r.id) as count " +
     "from Device d " +
-    "inner join Room r " +
+    "inner join d.room r " +
+    "group by r.id " +
+    "having r.id like ?1")
+  IRoom findByIdWithCount(long id);
+
+  @Query("Select " +
+    "r.id as roomId, " +
+    "r.name as roomName, " +
+    "count(r.id) as count " +
+    "from Device d " +
+    "inner join d.room r " +
     "group by r.id " +
     "having r.name like concat('%', ?1, '%') " +
     "or count(r.id) = ?1")

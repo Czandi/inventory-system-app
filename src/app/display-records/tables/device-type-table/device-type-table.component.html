@@ -1,52 +1,83 @@
 <div class="table-container">
-  <table class="records">
-    <tr [ngClass]="blured === true ? 'blure' : ''">
-      <th *ngFor="let item of tableData">
-        <span (click)="setSortValue(item.id)"
-          >{{ item.header | translate }}
-        </span>
-        <img
-          src="../../../../../assets/icons/sort_arrow_up.svg"
-          [id]="item.id"
-        />
-      </th>
-    </tr>
-    <tr [ngClass]="blured === true ? 'blure' : ''" class="line">
-      <td colspan="7">
-        <div></div>
-      </td>
-    </tr>
-    <ng-container *ngFor="let deviceType of deviceTypes">
-      <tr
-        (contextmenu)="onRightClick($event, deviceType.id)"
-        [id]="'device' + deviceType.id"
-        [ngClass]="
-          editedRecord === 0
-            ? ''
-            : editedRecord != deviceType.id
-            ? 'blur'
-            : 'edited-value'
-        "
-      >
-        <ng-container *ngIf="editedRecord != deviceType.id">
-          <td>{{ deviceType.name }}</td>
-          <td>{{ deviceType.count }}</td>
-        </ng-container>
-
-        <ng-container *ngIf="editedRecord === deviceType.id">
-          <td><input type="text" [value]="deviceType.name" /></td>
-          <td>{{ deviceType.count }}</td>
-          <app-button
-            class="delete-button"
-            type="primary"
-            [id]="'button' + deviceType.id"
-            text="Aktualizuj"
-            (click)="updateRecord(deviceType.id)"
-          ></app-button>
-        </ng-container>
+  <form [formGroup]="typeForm" (ngSubmit)="validateData()" id="type-form">
+    <table class="records">
+      <tr [ngClass]="blured === true ? 'blure' : ''">
+        <th *ngFor="let item of tableData">
+          <span (click)="setSortValue(item.id)"
+            >{{ item.header | translate }}
+          </span>
+          <img
+            src="../../../../../assets/icons/sort_arrow_up.svg"
+            [id]="item.id"
+          />
+        </th>
       </tr>
-    </ng-container>
+      <tr [ngClass]="blured === true ? 'blure' : ''" class="line">
+        <td colspan="7">
+          <div></div>
+        </td>
+      </tr>
+      <ng-container *ngFor="let deviceType of deviceTypes">
+        <tr
+          (contextmenu)="onRightClick($event, deviceType.id)"
+          [id]="'device' + deviceType.id"
+          [ngClass]="
+            editedRecord === 0
+              ? ''
+              : editedRecord != deviceType.id
+              ? 'blur'
+              : 'edited-value'
+          "
+        >
+          <ng-container *ngIf="editedRecord != deviceType.id">
+            <td>{{ deviceType.name }}</td>
+            <td>{{ deviceType.count }}</td>
+          </ng-container>
 
-    <!-- <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr> -->
-  </table>
+          <ng-container *ngIf="editedRecord === deviceType.id">
+            <td
+              [ngClass]="
+                this.typeForm.get('typeName').invalid &&
+                (this.typeForm.get('typeName').dirty ||
+                  this.typeForm.get('typeName').touched)
+                  ? 'invalid'
+                  : ''
+              "
+            >
+              <input
+                type="text"
+                [placeholder]="
+                  'TABLE_HEADERS.DEVICE_TYPE.DEVICE_TYPE_NAME' | translate
+                "
+                formControlName="typeName"
+                (change)="checkIfNameExists()"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                readonly="true"
+                [placeholder]="
+                  'TABLE_HEADERS.DEVICE_TYPE.DEVICE_AMOUNT' | translate
+                "
+                formControlName="typeCount"
+                class="inactive"
+                required
+              />
+            </td>
+            <app-button
+              class="delete-button"
+              type="primary"
+              [id]="'button' + deviceType.id"
+              text="Aktualizuj"
+              form="type-form"
+            ></app-button>
+          </ng-container>
+        </tr>
+      </ng-container>
+
+      <!-- <tr *ngFor="let i of [].constructor(10 - devices.length)"></tr> -->
+    </table>
+  </form>
 </div>

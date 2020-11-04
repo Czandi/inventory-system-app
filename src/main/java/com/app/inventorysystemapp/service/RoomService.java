@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,5 +77,17 @@ public class RoomService {
 
   public Room findRoomById(long id){
     return roomRepository.findById(id).orElseThrow();
+  }
+
+  public IRoom getSingleRoom(long id) {
+    return roomRepository.findByIdWithCount(id);
+  }
+
+  public ResponseEntity<Room> updateRoom(long id, String name) {
+    Room room = roomRepository.findById(id).orElseThrow();
+    room.setName(name);
+
+    final Room updatedRoom = roomRepository.save(room);
+    return ResponseEntity.ok(updatedRoom);
   }
 }

@@ -8,5 +8,5 @@ import lombok.Data;
 public class RoomDto {
   Long id;
   String name;
-  Integer itemsInRoom;
+  Integer count;
 }

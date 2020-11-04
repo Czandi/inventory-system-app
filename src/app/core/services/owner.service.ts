@@ -38,7 +38,15 @@ export class OwnerService {
     return this.http.get(url);
   }
 
+  getSingleOwner(id: number) {
+    return this.http.get(this.config.ownerUrl + "/" + id);
+  }
+
   insertOwner(owner: Owner): Observable<Owner> {
     return this.http.post<Owner>(this.config.ownerUrl, owner);
+  }
+
+  updateOwner(id: number, name: String): Observable<Owner> {
+    return this.http.put<Owner>(this.config.ownerUrl + "/" + id, name);
   }
 }

@@ -50,15 +50,9 @@
               type="text"
               [placeholder]="'TABLE_HEADERS.MODEL.MODEL_NAME' | translate"
               formControlName="modelName"
-              list="names"
+              (change)="checkIfNameExists()"
               required
             />
-            <datalist id="names">
-              <option
-                *ngFor="let name of names['modelName']"
-                [value]="name"
-              ></option>
-            </datalist>
           </td>
           <td
             [ngClass]="

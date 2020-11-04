@@ -38,7 +38,18 @@ export class DeviceTypeService {
     return this.http.get(url);
   }
 
+  getSingleDeviceType(id: number): Observable<any> {
+    return this.http.get(this.config.deviceTypeUrl + "/" + id);
+  }
+
   insertDeviceType(deviceType: DeviceType): Observable<DeviceType> {
     return this.http.post<DeviceType>(this.config.deviceTypeUrl, deviceType);
+  }
+
+  updateDeviceType(id: number, name: String): Observable<any> {
+    return this.http.put<DeviceType>(
+      this.config.deviceTypeUrl + "/" + id,
+      name
+    );
   }
 }
