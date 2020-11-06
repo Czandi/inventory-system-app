@@ -114,5 +114,13 @@ export class NewRecordsAlertBoxComponent implements OnInit {
     let index = this.newRecords.indexOf(record);
     this.newRecords.splice(index, 1);
     this.addedRecords = record.type;
+    this.checkIfNewRecordsIsEmpty();
+  }
+
+  checkIfNewRecordsIsEmpty() {
+    if (this.newRecords.length === 0) {
+      this.host.nativeElement.classList.remove("active");
+      this.closeAlert();
+    }
   }
 }

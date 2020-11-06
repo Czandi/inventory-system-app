@@ -5,7 +5,6 @@ import {
   style,
   animate,
   group,
-  animateChild,
 } from "@angular/animations";
 
 var slideUp = [
@@ -57,10 +56,10 @@ var slideDown = [
 ];
 
 export const SlideInAnimation = trigger("routeAnimations", [
-  transition("Dashboard => *", slideUp),
-  transition("* => Dashboard", slideDown),
-  transition("DeviceTable => *", slideDown),
-  transition("* => DeviceTable", slideUp),
-  transition("AddRecord => *", slideDown),
-  transition("* => AddRecord", slideUp),
+  // transition("Dashboard => *", slideUp),
+  // transition("* => Dashboard", slideDown),
+  // transition("AddRecord => *", slideDown),
+  // transition("* => AddRecord", slideUp),
+  // transition("DisplayRecords => UpdateRecords", slideDown),
+  // transition("UpdateRecords => DisplayRecords", slideUp),
 ]);

@@ -63,11 +63,18 @@
             />
           </td>
           <app-button
-            class="delete-button"
+            class="save-button"
             type="primary"
             [id]="'button' + owner.id"
-            text="Aktualizuj"
-            form="owner-form"
+            [text]="'PAGES.DISPLAY_RECORDS.SAVE' | translate"
+            (click)="accept()"
+          ></app-button>
+          <app-button
+            class="cancel-button"
+            type="primary"
+            [id]="'button' + owner.id"
+            [text]="'PAGES.DISPLAY_RECORDS.CANCEL' | translate"
+            (click)="cancel()"
           ></app-button>
         </ng-container>
       </tr>

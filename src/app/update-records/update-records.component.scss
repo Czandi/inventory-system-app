@@ -1,0 +1,173 @@
+@import "../shared/variables.scss";
+
+$firstDotSize: 20px;
+$secondDotSize: 12.5px;
+$thirdDotSize: 5px;
+
+h2,
+span,
+p,
+label {
+  color: white;
+}
+
+.top-section {
+  margin-bottom: 100px;
+  height: 190px;
+  position: relative;
+  width: 70vw;
+
+  h2 {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .room-select {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: fit-content;
+    width: fit-content;
+    text-align: left;
+
+    label {
+      &.inactive {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    input {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 250px;
+
+      &.invalid {
+        border: 2px solid $error;
+        padding: 5px 5px;
+      }
+
+      &.inactive {
+        background-color: transparent;
+        border: 2px solid rgba(0, 0, 0, 0.3);
+        padding: 7px;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.5);
+
+        &:hover {
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+.bottom-section {
+  min-height: 400px;
+  position: relative;
+  width: 70vw;
+
+  .info {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .dots {
+      margin: 35px 0;
+
+      .dot {
+        display: inline-block;
+        background-color: white;
+        border-radius: 50%;
+        width: $firstDotSize;
+        height: $firstDotSize;
+        margin-right: 50px;
+
+        &:nth-of-type(2) {
+          width: $secondDotSize;
+          height: $secondDotSize;
+          margin-bottom: ($firstDotSize - $secondDotSize) / 2;
+        }
+
+        &:nth-of-type(3) {
+          width: $thirdDotSize;
+          height: $thirdDotSize;
+          margin-bottom: ($firstDotSize - $thirdDotSize) / 2;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .scanned-devices {
+    text-align: left;
+    width: 70vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 20px;
+
+    .device-container {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 0 50px;
+      margin-top: -20px;
+
+      .device {
+        background-color: rgba(0, 0, 0, 0.3);
+        width: fit-content;
+        position: relative;
+        padding: 7px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 30px;
+        text-align: center;
+
+        span {
+          line-height: 20px;
+        }
+
+        .x {
+          display: inline-block;
+          width: 8.5px;
+          height: 8.5px;
+          margin-bottom: 3px;
+          margin-left: 15px;
+
+          .line {
+            width: 2px;
+            height: 10px;
+            background-color: white;
+            position: absolute;
+
+            &:nth-of-type(1) {
+              transform: rotate(45deg);
+            }
+
+            &:nth-of-type(2) {
+              transform: rotate(-45deg);
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+.accept-button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -41,3 +41,4 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     "or count(r.id) = ?1")
   Page<IRoom> findAllRoomsWithItemsCountByContaining(String search, Pageable page);
 }
+

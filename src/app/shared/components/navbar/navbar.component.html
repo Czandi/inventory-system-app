@@ -30,17 +30,15 @@
       (mouseover)="mouseEnter(3)"
       (mouseleave)="mouseLeave(3)"
       (click)="onClick(3)"
+      routerLink="/update-records/update-room"
     >
       <img src="../../assets/icons/update_record_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</a>
+      <a>{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</a>
     </div>
-    <!-- <app-subnavbar
+    <app-subnavbar
       elementId="updateRecords"
-      [items]="[
-        'NAVBAR.UPDATE_RECORDS.SUBMENU.ROOMS' | translate,
-        'NAVBAR.UPDATE_RECORDS.SUBMENU.SETS' | translate
-      ]"
-    ></app-subnavbar> -->
+      [items]="updateRecordsSubnavbarItems"
+    ></app-subnavbar>
   </div>
   <div class="item import-export" #importExport>
     <div

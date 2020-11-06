@@ -151,6 +151,14 @@ export class Table implements OnDestroy {
     );
   }
 
+  cancel() {
+    this.navigateAfterUpdateRecord();
+  }
+
+  accept() {
+    this.validateData();
+  }
+
   insertDeviceType() {}
 
   getAutoCompleteData() {}

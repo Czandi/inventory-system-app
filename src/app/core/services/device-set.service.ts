@@ -44,7 +44,7 @@ export class DeviceSetService {
   }
 
   insertDeviceSet(deviceSet: DeviceSet): Observable<DeviceSet> {
-    return this.http.post<DeviceSet>(this.config.ownerUrl, deviceSet);
+    return this.http.post<DeviceSet>(this.config.deviceSetUrl, deviceSet);
   }
 
   updateDeviceSet(id: number, name: String): Observable<DeviceSet> {

@@ -34,6 +34,17 @@ export class NavbarComponent implements OnInit {
     },
   ];
 
+  public updateRecordsSubnavbarItems = [
+    {
+      item: "NAVBAR.UPDATE_RECORDS.SUBMENU.ROOMS",
+      route: "/update-records/room",
+    },
+    {
+      item: "NAVBAR.ADD_RECORD.SUBMENU.DEVICE_SET",
+      route: "/update-records/set",
+    },
+  ];
+
   private names = [
     "dashboard",
     "displayRecords",

@@ -139,12 +139,21 @@
   }
 }
 
-.delete-button {
+.save-button,
+.cancel-button {
   z-index: 2;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 100px);
   margin-top: 7px;
+}
+
+.cancel-button {
+  margin-left: -70px;
+}
+
+.save-button {
+  margin-left: 70px;
 }
 
 .invalid {

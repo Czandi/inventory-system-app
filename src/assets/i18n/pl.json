@@ -58,12 +58,21 @@
         "ROOM": "Pomieszczenia"
       },
       "UPDATE": "Aktualizuj",
-      "SAVE": "Zapisz"
+      "SAVE": "Zapisz",
+      "CANCEL": "Anuluj"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",
       "ADD": "Dodaj",
       "NEW_RECORDS": "Nowe rekordy"
+    },
+    "UPDATE_RECORDS": {
+      "TITLE": "Aktualizuj rekordy",
+      "ROOM_TEXT": "Wybierz pomieszczenie, do którego przenosisz urządzenia",
+      "SET_TEXT": "Wybierz zestaw, do którego chcesz przypisać urządzenia",
+      "ROOM_SCAN_DEVICES": "Skanuj przenoszone urządzenia",
+      "SET_SCAN_DEVICES": "Skanuj urządzenia",
+      "SCANNED_DEVICES": "Zeskanowane urządzenia"
     }
   },
   "TABLE_HEADERS": {
