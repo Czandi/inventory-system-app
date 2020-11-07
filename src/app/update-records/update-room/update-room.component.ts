@@ -37,7 +37,7 @@ export class UpdateRoomComponent implements OnInit, OnDestroy {
     this.roomServiceSub = this.roomService.getAllRooms().subscribe((data) => {
       for (let room of data) {
         this.roomNames.push(room.name);
-        this.roomIds[(room, name)] = room.id;
+        this.roomIds[(room.id, name)] = room.id;
       }
     });
   }

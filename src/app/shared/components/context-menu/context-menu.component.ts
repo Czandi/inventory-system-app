@@ -32,7 +32,7 @@ export class ContextMenuComponent implements OnInit {
       if (event instanceof ContextMenu) {
         var contextMenu = this.hostElement.nativeElement;
         this.renderer.setStyle(contextMenu, "top", event.mouseY - 30 + "px");
-        this.renderer.setStyle(contextMenu, "left", event.mouseX - 120 + "px");
+        this.renderer.setStyle(contextMenu, "left", event.mouseX - 320 + "px");
         this.renderer.setStyle(contextMenu, "display", "block");
         this.contextMenuOptions = event.options;
         this.recordId = event.recordId;

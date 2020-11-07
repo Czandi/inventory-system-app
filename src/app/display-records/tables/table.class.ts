@@ -23,6 +23,7 @@ export class Table implements OnDestroy {
   protected routeSub: Subscription;
   protected initialized = false;
   protected alertSub;
+  protected contextMenuOpen = false;
 
   constructor(
     protected subjectService: SubjectService,
@@ -68,6 +69,15 @@ export class Table implements OnDestroy {
       }
     });
 
+    this.contextMenuSub = this.subjectService.contextMenuEmitter.subscribe(
+      (data) => {
+        if (data === "closed") {
+          this.clickedElement.classList.remove("active");
+          this.contextMenuOpen = false;
+        }
+      }
+    );
+
     this.createAlertClosingListener();
 
     this.getAutoCompleteData();
@@ -78,9 +88,14 @@ export class Table implements OnDestroy {
   ngOnDestroy(): void {
     this.apiSub.unsubscribe();
     this.alertSub.unsubscribe();
+    this.contextMenuSub.unsubscribe();
   }
 
   onRightClick(event, id: number) {
+    if (this.contextMenuOpen === true) {
+      this.clickedElement.classList.remove("active");
+      this.contextMenuOpen = false;
+    }
     this.contextMenuData.mouseX = event.pageX;
     this.contextMenuData.mouseY = event.pageY;
     this.contextMenuData.options = this.contextMenuOptions;
@@ -88,16 +103,8 @@ export class Table implements OnDestroy {
     this.subjectService.contextMenuEmitter.next(this.contextMenuData);
 
     this.clickedElement = document.getElementById("device" + id);
-    this.clickedElement.classList.toggle("active");
-
-    this.contextMenuSub = this.subjectService.contextMenuEmitter.subscribe(
-      (data) => {
-        if (data === "closed") {
-          this.clickedElement.classList.toggle("active");
-          this.contextMenuSub.unsubscribe();
-        }
-      }
-    );
+    this.clickedElement.classList.add("active");
+    this.contextMenuOpen = true;
   }
 
   setSortValue(id: string) {

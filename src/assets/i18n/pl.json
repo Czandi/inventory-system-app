@@ -15,8 +15,8 @@
     "UPDATE_RECORDS": {
       "TITLE": "Aktualizuj rekordy",
       "SUBMENU": {
-        "ROOMS": "Pomieszczenia",
-        "SETS": "Zestawy"
+        "ROOM": "Pomieszczenie",
+        "SET": "Zestaw"
       }
     },
     "IMPORT_EXPORT": {

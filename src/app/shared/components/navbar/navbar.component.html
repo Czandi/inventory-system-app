@@ -1,4 +1,112 @@
 <div class="container">
+  <div class="navbar-header"><b>INV System</b></div>
+
+  <div class="navbar">
+    <div class="element">
+      <div class="element-header">
+        <p routerLink="/dashboard" routerLinkActive="active">
+          {{ "NAVBAR.DASHBOARD" | translate }}
+        </p>
+      </div>
+    </div>
+
+    <div class="element active" #displayRecords>
+      <div (click)="toggleSubmenu(displayRecords)" class="element-header">
+        <p>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</p>
+        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
+      </div>
+      <div class="submenu">
+        <p>
+          <span
+            routerLink="/display-records/device-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICES" | translate }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/model-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.MODELS" | translate }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/device-set-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{
+              "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_SETS" | translate
+            }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/device-type-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{
+              "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_TYPES" | translate
+            }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/owner-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.OWNERS" | translate }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/room-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.ROOMS" | translate }}</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <div class="element" #updateRecords>
+      <div (click)="toggleSubmenu(updateRecords)" class="element-header">
+        <p>{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</p>
+        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
+      </div>
+      <div class="submenu">
+        <p>
+          <span routerLink="/update-records/room" routerLinkActive="active">{{
+            "NAVBAR.UPDATE_RECORDS.SUBMENU.ROOM" | translate
+          }}</span>
+        </p>
+        <p>
+          <span routerLink="/update-records/set" routerLinkActive="active">{{
+            "NAVBAR.UPDATE_RECORDS.SUBMENU.SET" | translate
+          }}</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="element">
+      <div class="element-header">
+        <p routerLink="/add-record" routerLinkActive="active">
+          {{ "NAVBAR.ADD_RECORD.TITLE" | translate }}
+        </p>
+      </div>
+    </div>
+
+    <div class="element">
+      <div class="element-header">
+        <p>{{ "NAVBAR.OPERATION_HISTORY" | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
   <div class="item dashboard active" #dashboard>
     <div
       class="clickable"
@@ -79,4 +187,4 @@
     <img src="../../assets/icons/wave.svg" />
   </div>
   <div class="background"></div>
-</div>
+</div> -->
