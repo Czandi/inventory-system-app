@@ -43,8 +43,8 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
     private deviceTypeService: DeviceTypeService
   ) {
     super(subjectService, activatedRoute, router, "name", "asc", [
-      { name: "EDIT", route: router.url + "/edit" },
-      { name: "DELETE", route: router.url + "/delete" },
+      { name: "EDIT", action: "edit" },
+      { name: "DELETE", action: "delete" },
     ]);
     this.gdv = new GlobalDataValidator();
   }

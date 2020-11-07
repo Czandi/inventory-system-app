@@ -17,9 +17,11 @@ import { ContextMenu } from "../../models/context-menu.model";
 export class ContextMenuComponent implements OnInit {
   @ViewChild("contextMenu") contextMenu: ElementRef;
 
-  public contextMenuOptions;
-  public recordId;
+  public options;
+
+  private recordId;
   private open = false;
+  private contextMenuOptions;
 
   constructor(
     private subjectService: SubjectService,
@@ -36,11 +38,45 @@ export class ContextMenuComponent implements OnInit {
         this.renderer.setStyle(contextMenu, "display", "block");
         this.contextMenuOptions = event.options;
         this.recordId = event.recordId;
+        this.setOptions();
         setTimeout(() => {
           this.open = true;
         }, 50);
       }
     });
+  }
+
+  setOptions() {
+    this.options = [];
+    for (let option of this.contextMenuOptions) {
+      let action = option.action;
+      let name = option.name;
+      this.options.push({ name: name, param: this.getQueryParam(action) });
+    }
+
+    console.log(this.options);
+  }
+
+  getQueryParam(action) {
+    let param;
+
+    switch (action) {
+      case "edit":
+        param = { edit: this.recordId };
+        break;
+
+      case "delete":
+        param = { delete: this.recordId };
+        break;
+
+      case "addBarcode":
+        param = { addBarcode: this.recordId };
+        break;
+      default:
+        param = {};
+    }
+
+    return param;
   }
 
   @HostListener("document:click", ["$event"])

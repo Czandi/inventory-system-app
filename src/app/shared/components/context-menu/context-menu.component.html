@@ -1,9 +1,9 @@
 <div class="context-menu" #contextMenu>
   <ul>
     <li
-      *ngFor="let option of contextMenuOptions"
+      *ngFor="let option of options"
       [routerLink]="[]"
-      [queryParams]="{ edit: recordId }"
+      [queryParams]="option.param"
       queryParamsHandling="merge"
     >
       {{ "CONTEXT_MENU." + option.name | translate }}

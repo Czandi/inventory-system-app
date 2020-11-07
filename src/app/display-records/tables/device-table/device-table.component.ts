@@ -43,8 +43,12 @@ export class DeviceTableComponent extends Table implements OnInit {
     private deviceSetService: DeviceSetService
   ) {
     super(subjectService, activatedRoute, router, "serialNumber", "asc", [
-      { name: "EDIT", route: router.url + "/edit" },
-      { name: "DELETE", route: router.url + "/delete" },
+      {
+        name: "ADD_BARCODE_FOR_PRINT",
+        action: "addBarcode",
+      },
+      { name: "EDIT", action: "edit" },
+      { name: "DELETE", action: "delete" },
     ]);
     this.deviceDataValidator = new DeviceDataValidator();
   }

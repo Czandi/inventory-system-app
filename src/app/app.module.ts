@@ -24,6 +24,7 @@ import { MenubarComponent } from "./shared/components/menubar/menubar.component"
 import { SubjectService } from "./core/services/subject.service";
 import { ConfigService } from "./core/services/config.service";
 import { DeviceService } from "./core/services/device.service";
+import { PrintBarcodesComponent } from './print-barcodes/print-barcodes.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -35,6 +36,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     SubnavbarComponent,
     MenubarComponent,
+    PrintBarcodesComponent,
   ],
   imports: [
     BrowserModule,

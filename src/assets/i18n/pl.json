@@ -113,6 +113,7 @@
   },
   "CONTEXT_MENU": {
     "EDIT": "Edytuj",
-    "DELETE": "Usuń"
+    "DELETE": "Usuń",
+    "ADD_BARCODE_FOR_PRINT": "Dodaj kod do druku"
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 import { SubjectService } from "../core/services/subject.service";
 
 @Component({
@@ -11,6 +12,7 @@ import { SubjectService } from "../core/services/subject.service";
 export class DisplayRecordsComponent implements OnInit {
   @ViewChild("searchBar") searchBar: ElementRef;
   @ViewChild("device") deviceTableButton: ElementRef;
+  @ViewChild("addBarcode") addBarcode;
 
   public records = [];
   public totalPages: number;
@@ -22,6 +24,7 @@ export class DisplayRecordsComponent implements OnInit {
 
   private search = "";
   private searchTimeout;
+  private routeSub: Subscription;
 
   constructor(
     private subjectService: SubjectService,
@@ -34,19 +37,26 @@ export class DisplayRecordsComponent implements OnInit {
       this.totalPages = totalPages;
     }).unsubscribe;
 
-    this.activatedRoute.queryParams.subscribe((params) => {
-      if (params["edit"] !== undefined) {
-        this.blured = true;
-      } else {
-        this.blured = false;
-      }
-    });
-
     // if (DisplayRecordsComponent.lastRoute) {
     //   this.currentRoute = DisplayRecordsComponent.lastRoute;
     // } else {
     //   this.currentRoute = "/device-table";
     // }
+  }
+
+  ngAfterViewInit() {
+    this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
+      if (params["edit"] !== undefined) {
+        console.log("Edit param exists");
+        this.blured = true;
+      } else {
+        this.blured = false;
+      }
+
+      if (params["addBarcode"] !== undefined) {
+        this.addBarcode.addBarcode();
+      }
+    });
   }
 
   ngAfterViewChecked() {
@@ -58,6 +68,10 @@ export class DisplayRecordsComponent implements OnInit {
     // } else {
     //   this.activeTableButton = this.deviceTableButton.nativeElement;
     // }
+  }
+
+  ngOnDestroy() {
+    console.log("test");
   }
 
   onTyping() {

@@ -29,8 +29,8 @@ export class RoomTableComponent extends Table implements OnInit {
     private roomService: RoomService
   ) {
     super(subjectService, activatedRoute, router, "name", "asc", [
-      { name: "EDIT", route: router.url + "/edit" },
-      { name: "DELETE", route: router.url + "/delete" },
+      { name: "EDIT", action: "edit" },
+      { name: "DELETE", action: "delete" },
     ]);
 
     this.gdv = new GlobalDataValidator();
