@@ -16,6 +16,7 @@ import { DashboardModule } from "./dashboard/dashboard.module";
 import { DisplayRecordsModule } from "./display-records/display-records.module";
 import { AddRecordModule } from "./add-record/add-record.module";
 import { UpdateRecordsModule } from "./update-records/update-records.module";
+import { PrintBarcodesModule } from "./print-barcodes/print-barcodes.module";
 
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./shared/components/navbar/navbar.component";
@@ -24,7 +25,6 @@ import { MenubarComponent } from "./shared/components/menubar/menubar.component"
 import { SubjectService } from "./core/services/subject.service";
 import { ConfigService } from "./core/services/config.service";
 import { DeviceService } from "./core/services/device.service";
-import { PrintBarcodesComponent } from './print-barcodes/print-barcodes.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -36,7 +36,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     SubnavbarComponent,
     MenubarComponent,
-    PrintBarcodesComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DisplayRecordsModule,
     AppRoutingModule,
     AddRecordModule,
+    PrintBarcodesModule,
     UpdateRecordsModule,
     TranslateModule.forRoot({
       loader: {

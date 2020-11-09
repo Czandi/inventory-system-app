@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { Observable } from "rxjs";
 import { DeviceSet } from "../../shared/models/deviceSet.model";
-import { Device } from "app/shared/models/device.model";
 
 @Injectable({
   providedIn: "root",

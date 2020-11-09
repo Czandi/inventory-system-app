@@ -33,7 +33,8 @@
         "DEVICE": "Urządzenie",
         "DEVICE_SET": "Zestaw"
       }
-    }
+    },
+    "PRINT_BARCODES": "Drukuj kody kreskowe"
   },
   "PAGES": {
     "DISPLAY_RECORDS": {
@@ -73,6 +74,9 @@
       "ROOM_SCAN_DEVICES": "Skanuj przenoszone urządzenia",
       "SET_SCAN_DEVICES": "Skanuj urządzenia",
       "SCANNED_DEVICES": "Zeskanowane urządzenia"
+    },
+    "PRINT_BARCODES": {
+      "TITLE": "Drukuj kody kreskowe"
     }
   },
   "TABLE_HEADERS": {

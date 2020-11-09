@@ -9,8 +9,12 @@ import { PrintableBarcodes } from "../../shared/printableBarcodes";
   styleUrls: ["./add-barcode-alert.component.scss"],
 })
 export class AddBarcodeAlertComponent implements OnInit {
+  public successful = false;
+
   private deviceId;
   private barcode;
+
+  private closeCurrentAlert;
 
   constructor(
     private host: ElementRef,
@@ -27,8 +31,11 @@ export class AddBarcodeAlertComponent implements OnInit {
     });
   }
 
-  openAlert() {
+  triggerAlert() {
     this.host.nativeElement.classList.add("active");
+    this.closeCurrentAlert = setTimeout(() => {
+      this.closeAlert();
+    }, 1500);
   }
 
   closeAlert() {
@@ -42,9 +49,15 @@ export class AddBarcodeAlertComponent implements OnInit {
   addBarcode() {
     this.deviceService.getSingleDevice(this.deviceId).subscribe((device) => {
       this.barcode = device["barCode"];
-      PrintableBarcodes.addBarcode(this.barcode);
+      let model = device["model"]["name"];
+      let serialNumber = device["serialNumber"];
+      this.successful = PrintableBarcodes.addBarcode(
+        this.barcode,
+        serialNumber,
+        model
+      );
+      clearTimeout(this.closeCurrentAlert);
+      this.triggerAlert();
     });
-
-    this.openAlert();
   }
 }

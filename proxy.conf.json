@@ -1,0 +1,6 @@
+{
+  "/api/*": {
+    "target": "http://barcodes4.me",
+    "secure": false
+  }
+}

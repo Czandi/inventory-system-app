@@ -1,11 +1,13 @@
 export class ConfigService {
-  private apiUrl = "http://localhost:4201";
-  private _deviceUrl = this.apiUrl + "/devices";
-  private _modelUrl = this.apiUrl + "/models";
-  private _deviceSetUrl = this.apiUrl + "/device-sets";
-  private _deviceTypeUrl = this.apiUrl + "/device-types";
-  private _ownerUrl = this.apiUrl + "/owners";
-  private _roomUrl = this.apiUrl + "/rooms";
+  private serverApiUrl = "http://localhost:4201";
+  private _deviceUrl = this.serverApiUrl + "/devices";
+  private _modelUrl = this.serverApiUrl + "/models";
+  private _deviceSetUrl = this.serverApiUrl + "/device-sets";
+  private _deviceTypeUrl = this.serverApiUrl + "/device-types";
+  private _ownerUrl = this.serverApiUrl + "/owners";
+  private _roomUrl = this.serverApiUrl + "/rooms";
+
+  private _barcodeGeneratorUrl = "http://barcodes4.me/barcode/c128b";
 
   private PAGE_SIZE = 10;
 
@@ -57,5 +59,9 @@ export class ConfigService {
 
   get search(): string {
     return this._search;
+  }
+
+  get barcodeGeneratorUrl(): string {
+    return this._barcodeGeneratorUrl;
   }
 }

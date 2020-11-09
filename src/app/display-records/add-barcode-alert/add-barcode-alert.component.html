@@ -1,12 +1,10 @@
-<div class="alert">
-  <div class="box">
+<div class="box">
+  <ng-container *ngIf="successful">
     <h3>Operacja powiodła się</h3>
     <p>Kod kreskowy został dodany poprawnie</p>
-    <app-button
-      (click)="closeAlert()"
-      class="button"
-      type="primary"
-      text="Ok"
-    ></app-button>
-  </div>
+  </ng-container>
+  <ng-container *ngIf="!successful">
+    <h3>Operacja nie powiodła się</h3>
+    <p>Kod kreskowy jest już dodany</p>
+  </ng-container>
 </div>
