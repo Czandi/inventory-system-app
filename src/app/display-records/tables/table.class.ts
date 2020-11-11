@@ -138,6 +138,7 @@ export class Table implements OnDestroy {
   }
 
   navigateAfterUpdateRecord() {
+    this.getAutoCompleteData();
     this.getRecords();
     this.router.navigate([], {
       queryParams: { edit: null },

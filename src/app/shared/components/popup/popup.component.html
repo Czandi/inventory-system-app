@@ -1,0 +1,10 @@
+<div class="box">
+  <ng-container *ngIf="success">
+    <h3>{{ "PAGES.PRINT_BARCODES.SUCCESS" | translate }}</h3>
+    <p>{{ successText }}</p>
+  </ng-container>
+  <ng-container *ngIf="!success">
+    <h3>{{ "PAGES.PRINT_BARCODES.FAILURE" | translate }}</h3>
+    <p>{{ failureText }}</p>
+  </ng-container>
+</div>

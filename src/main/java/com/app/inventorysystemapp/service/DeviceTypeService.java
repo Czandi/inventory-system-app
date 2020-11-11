@@ -16,9 +16,11 @@ import java.util.List;
 public class DeviceTypeService {
 
   private final DeviceTypeRepository deviceTypeRepository;
+  private final HistoryService historyService;
 
-  public DeviceTypeService(DeviceTypeRepository deviceTypeRepository) {
+  public DeviceTypeService(DeviceTypeRepository deviceTypeRepository, HistoryService historyService) {
     this.deviceTypeRepository = deviceTypeRepository;
+    this.historyService = historyService;
   }
 
   public Page<IDeviceType> getDeviceTypes(int page,
@@ -85,6 +87,11 @@ public class DeviceTypeService {
 
   public ResponseEntity<DeviceType> updateDeviceType(long id, String name) {
     DeviceType deviceType = deviceTypeRepository.findById(id).orElseThrow();
+
+    if(!deviceType.getName().equals(name)){
+      historyService.insertHistory("type", deviceType.getId(), "name", deviceType.getName(), name);
+    }
+
     deviceType.setName(name);
 
     final DeviceType updatedDeviceType = deviceTypeRepository.save(deviceType);

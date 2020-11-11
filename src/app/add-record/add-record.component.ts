@@ -74,12 +74,12 @@ export class AddRecordComponent implements OnInit, OnDestroy {
   createAlertClosingListener() {
     this.alertSub = this.subjectService.reloadAddRecordPageData.subscribe(
       (newRecords) => {
-        this.getAutocompleteData();
         if (newRecords.indexOf("deviceModel") != -1) {
           setTimeout(() => {
             this.insertDeviceType();
           }, 500);
         }
+        this.getAutocompleteData();
       }
     );
   }
@@ -111,13 +111,15 @@ export class AddRecordComponent implements OnInit, OnDestroy {
   }
 
   addDevice() {
-    let newRoomName = this.deviceForm.get("deviceRoom").value;
-    let newOwnerName = this.deviceForm.get("deviceOwner").value;
-    let newSetName = this.deviceForm.get("deviceSet").value;
-    let newModelName = this.deviceForm.get("deviceModel").value;
-    let newTypeName = this.deviceForm.get("deviceType").value;
-    let newSerialNumber = this.deviceForm.get("serialNumber").value;
-    let newComment = this.deviceForm.get("deviceComment").value;
+    let newRoomName = this.deviceForm.get("deviceRoom").value.toLowerCase();
+    let newOwnerName = this.deviceForm.get("deviceOwner").value.toLowerCase();
+    let newSetName = this.deviceForm.get("deviceSet").value.toLowerCase();
+    let newModelName = this.deviceForm.get("deviceModel").value.toLowerCase();
+    let newTypeName = this.deviceForm.get("deviceType").value.toLowerCase();
+    let newSerialNumber = this.deviceForm
+      .get("serialNumber")
+      .value.toLowerCase();
+    let newComment = this.deviceForm.get("deviceComment").value.toLowerCase();
 
     let device = this.deviceDataValidator.createNewDevice(
       newSerialNumber,
@@ -146,7 +148,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
   }
 
   insertDeviceType() {
-    let modelValue = this.deviceForm.get("deviceModel").value;
+    let modelValue = this.deviceForm.get("deviceModel").value.toLowerCase();
     if (this.deviceDataValidator.names["deviceModel"].includes(modelValue)) {
       let type = this.deviceDataValidator.modelsWithTypes[modelValue];
       this.typeInputElement.classList.add("inactive");

@@ -1,0 +1,88 @@
+@import "../shared/variables.scss";
+
+canvas {
+  z-index: -1;
+}
+
+.barcodes-container {
+  width: 750px;
+  min-height: 668px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  color: white;
+  padding-bottom: 50px;
+
+  .barcode {
+    display: inline-block;
+    width: 150px;
+    height: 167px;
+    position: relative;
+    text-align: center;
+
+    p {
+      margin-top: 0;
+      letter-spacing: 2px;
+    }
+
+    h3 {
+      min-height: 46px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+
+      .x {
+        display: block;
+      }
+    }
+
+    .x {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      display: none;
+
+      .line {
+        width: 12px;
+        height: 2px;
+        background-color: white;
+        position: absolute;
+        border-radius: 5px;
+
+        &:first-child {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          transform: rotate(-45deg);
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.noBarcodesInfo {
+  color: white;
+
+  p {
+    width: 600px;
+  }
+}
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  .button {
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}

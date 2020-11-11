@@ -76,7 +76,9 @@
       "SCANNED_DEVICES": "Zeskanowane urządzenia"
     },
     "PRINT_BARCODES": {
-      "TITLE": "Drukuj kody kreskowe"
+      "TITLE": "Drukuj kody kreskowe",
+      "SUCCESS": "Operacja powiodła się",
+      "FAILURE": "Operacja nie powiodła się"
     }
   },
   "TABLE_HEADERS": {

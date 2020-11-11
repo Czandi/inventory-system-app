@@ -1,4 +1,50 @@
+<canvas class="center" id="canvas"></canvas>
+
 <div class="content-container">
   <h1 class="header">{{ "PAGES.PRINT_BARCODES.TITLE" | translate }}</h1>
-  <canvas class="center" id="canvas"></canvas>
+
+  <ng-container *ngIf="barcodes.length !== 0">
+    <div class="barcodes-container center">
+      <div class="barcode" *ngFor="let barcode of barcodes">
+        <div (click)="removeBarcode(barcode)" class="x">
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <h3>{{ barcode["model"] }}</h3>
+        <img [src]="barcodesSrc[barcode['barcode']]" alt="" />
+        <p>{{ barcode["barcode"] }}</p>
+      </div>
+      <div class="buttons">
+        <app-button
+          (click)="clearBarcodesList()"
+          class="button"
+          type="primary"
+          text="Wyczyść"
+        ></app-button>
+        <app-button
+          (click)="saveBarcodesImgs()"
+          class="button"
+          type="primary"
+          text="Pobierz"
+        ></app-button>
+      </div>
+    </div>
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+    ></app-pagination>
+  </ng-container>
+
+  <ng-container *ngIf="barcodes.length === 0">
+    <div class="noBarcodesInfo center">
+      <h3>Żaden kod kreskowy nie został dodany do druku</h3>
+      <p>
+        Możesz to zrobić w zakładce <i>wyświetl rekordy</i>, poprzez kliknięcie
+        prawym przyciskiem myszy na dany rekord, a następnie wybranie opcji
+        <i>dodaj kod do druku</i>
+      </p>
+    </div>
+  </ng-container>
+
+  <app-context-menu></app-context-menu>
 </div>

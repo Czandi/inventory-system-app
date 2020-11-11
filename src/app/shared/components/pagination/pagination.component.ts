@@ -14,7 +14,13 @@ export class PaginationComponent implements OnInit {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { page: this.currentPage },
+      queryParamsHandling: "merge",
+    });
+  }
 
   prevPage() {
     if (this.currentPage > 1) {

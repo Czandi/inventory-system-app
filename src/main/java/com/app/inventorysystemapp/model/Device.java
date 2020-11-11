@@ -1,6 +1,5 @@
 package com.app.inventorysystemapp.model;
 
-import com.app.inventorysystemapp.service.DeviceIdGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 public class Device {
-  @Id
+  @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
   private long id;
   @JoinColumn(name = "serial_number")
   private String serialNumber;
@@ -49,12 +48,10 @@ public class Device {
     this.owner = owner;
     this.deviceSet = deviceSet;
     this.comments = comments;
-    this.id = DeviceIdGenerator.getNextId();
-    this.barCode = generateBarCode();
   }
 
-  public long generateBarCode(){
-    return Long.parseLong(420 + String.valueOf(this.model.getType().getId()) + String.valueOf(this.model.getId()) + String.valueOf(this.id));
+  public void generateBarCode(){
+    this.barCode = Long.parseLong(420 + String.valueOf(this.model.getType().getId()) + this.model.getId() + this.id);
   }
 
 

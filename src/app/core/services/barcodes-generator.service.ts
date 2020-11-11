@@ -15,7 +15,7 @@ export class BarcodesGeneratorService {
       this.config.barcodeGeneratorUrl +
       "/" +
       barcode +
-      ".png?margin=0?height=100"
+      ".png?margin=0&height=50"
     );
   }
 }

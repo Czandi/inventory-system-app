@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DeviceService } from "app/core/services/device.service";
+import { Subscription } from "rxjs";
 import { PrintableBarcodes } from "../../shared/printableBarcodes";
 
 @Component({
@@ -15,6 +16,7 @@ export class AddBarcodeAlertComponent implements OnInit {
   private barcode;
 
   private closeCurrentAlert;
+  private routeSub: Subscription;
 
   constructor(
     private host: ElementRef,
@@ -24,18 +26,22 @@ export class AddBarcodeAlertComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (params["addBarcode"] !== undefined) {
         this.deviceId = params["addBarcode"];
       }
     });
   }
 
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
+  }
+
   triggerAlert() {
     this.host.nativeElement.classList.add("active");
     this.closeCurrentAlert = setTimeout(() => {
       this.closeAlert();
-    }, 1500);
+    }, 2000);
   }
 
   closeAlert() {

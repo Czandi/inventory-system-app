@@ -7,6 +7,7 @@ import { DashboardRoutingModule } from "./dashboard/dashboard-routing.module";
 import { AddRecordRoutingModule } from "./add-record/add-record-routing.module";
 import { UpdateRecordsRoutingModule } from "./update-records/update-records-routing.module";
 import { PrintBarcodesRoutingModule } from "./print-barcodes/print-barcodes-routing.module";
+import { HistoryRoutingModule } from "./history/history-routing.module";
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     AddRecordRoutingModule,
     UpdateRecordsRoutingModule,
     PrintBarcodesRoutingModule,
+    HistoryRoutingModule,
   ],
   exports: [RouterModule],
 })

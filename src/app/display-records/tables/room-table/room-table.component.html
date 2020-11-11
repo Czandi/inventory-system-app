@@ -1,5 +1,5 @@
 <div class="table-container">
-  <form [formGroup]="roomForm" (ngSubmit)="validateData()" id="room-form">
+  <form [formGroup]="roomForm" id="room-form">
     <table class="records">
       <tr [ngClass]="blured === true ? 'blur' : ''">
         <th *ngFor="let item of tableData">

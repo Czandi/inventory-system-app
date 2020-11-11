@@ -19,10 +19,12 @@ public class ModelService {
 
   private final ModelRepository modelRepository;
   private final DeviceTypeService deviceTypeService;
+  private final HistoryService historyService;
 
-  public ModelService(ModelRepository modelRepository, DeviceTypeService deviceTypeService) {
+  public ModelService(ModelRepository modelRepository, DeviceTypeService deviceTypeService, HistoryService historyService) {
     this.modelRepository = modelRepository;
     this.deviceTypeService = deviceTypeService;
+    this.historyService = historyService;
   }
 
   public Page<IModel> getModels(int page, int pageSize, String orderBy, String sortType, String search){
@@ -96,6 +98,15 @@ public class ModelService {
     DeviceType deviceType = deviceTypeService.findTypeById(details.getIdType());
 
     Model model = modelRepository.findById(id).orElseThrow();
+
+    if(model.getName().toLowerCase() != details.getName().toLowerCase()){
+      historyService.insertHistory("model", model.getId(), "name", model.getName(), details.getName());
+    }
+
+    if(!model.getType().equals(deviceType)){
+      historyService.insertHistory("model", model.getId(), "type", model.getType().getName(), deviceType.getName());
+    }
+
     model.setName(details.getName());
     model.setType(deviceType);
 

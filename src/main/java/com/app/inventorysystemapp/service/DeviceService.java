@@ -23,6 +23,7 @@ public class DeviceService {
   private final ModelService modelService;
   private final OwnerService ownerService;
   private final RoomService roomService;
+  private final HistoryService historyService;
 
   private final String MARK = "US";
 
@@ -31,16 +32,21 @@ public class DeviceService {
                        DeviceTypeService deviceTypeService,
                        ModelService modelService,
                        OwnerService ownerService,
-                       RoomService roomService) {
+                       RoomService roomService, HistoryService historyService) {
     this.deviceRepository = deviceRepository;
     this.deviceSetService = deviceSetService;
     this.deviceTypeService = deviceTypeService;
     this.modelService = modelService;
     this.ownerService = ownerService;
     this.roomService = roomService;
+    this.historyService = historyService;
   }
 
-  public Page<Device> getDevices(int page, int pageSize, String orderBy, String sortType, String search) {
+  public Page<Device> getDevices(int page,
+                                 int pageSize,
+                                 String orderBy,
+                                 String sortType,
+                                 String search) {
     Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
@@ -100,9 +106,15 @@ public class DeviceService {
     }
 
     Device newDevice = new Device(serialNumber, room, model, owner, deviceSet, comment);
+
+    System.out.println("Id before: " + newDevice.getId());
+
+    newDevice = deviceRepository.save(newDevice);
+
+    System.out.println("Id after: " + newDevice.getId());
+
     newDevice.generateBarCode();
 
-    deviceRepository.save(newDevice);
     return newDevice;
   }
 
@@ -113,8 +125,31 @@ public class DeviceService {
     DeviceSet deviceSet = deviceSetService.findDeviceSetById(details.getIdDeviceSet());
     String serialNumber = details.getSerialNumber();
     String comment = details.getComment();
-
     Device device = this.getSingleDevice(id);
+
+    System.out.println("Old serialnumber: " + device.getSerialNumber());
+    System.out.println("New serialnumber: " + serialNumber);
+
+    if(device.getRoom() != room){
+      historyService.insertHistory("device", device.getId(), "room", device.getRoom().getName(), room.getName());
+    }
+
+    if(device.getModel() != model){
+      historyService.insertHistory("device", device.getId(), "model", device.getModel().getName(), model.getName());
+    }
+
+    if(device.getOwner() != owner){
+      historyService.insertHistory("device", device.getId(), "owner", device.getOwner().getName(), owner.getName());
+    }
+
+    if(device.getDeviceSet() != deviceSet){
+      historyService.insertHistory("device", device.getId(), "device_set", device.getDeviceSet().getName(), deviceSet.getName());
+    }
+
+    if(!device.getSerialNumber().equals(serialNumber)){
+      historyService.insertHistory("device", device.getId(), "serial_number", device.getSerialNumber(), serialNumber);
+    }
+
     device.setSerialNumber(serialNumber);
     device.setRoom(room);
     device.setDeviceSet(deviceSet);

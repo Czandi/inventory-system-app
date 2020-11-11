@@ -53,8 +53,6 @@ export class ContextMenuComponent implements OnInit {
       let name = option.name;
       this.options.push({ name: name, param: this.getQueryParam(action) });
     }
-
-    console.log(this.options);
   }
 
   getQueryParam(action) {

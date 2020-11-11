@@ -98,8 +98,8 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   }
 
   validateData() {
-    let newModelName = this.modelForm.get("modelName").value;
-    let newModelType = this.modelForm.get("modelType").value;
+    let newModelName = this.modelForm.get("modelName").value.toLowerCase();
+    let newModelType = this.modelForm.get("modelType").value.toLowerCase();
 
     if (this.modelForm.valid) {
       if (
@@ -162,7 +162,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   }
 
   checkIfNameExists() {
-    let modelName = this.modelForm.get("modelName").value;
+    let modelName = this.modelForm.get("modelName").value.toLowerCase();
     if (
       this.gdv.names["modelName"].includes(modelName.toLowerCase()) &&
       modelName !== this.currentName

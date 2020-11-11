@@ -77,7 +77,7 @@ export class DeviceSetTableComponent extends Table implements OnInit {
   }
 
   validateData() {
-    let newSetName = this.setForm.get("setName").value;
+    let newSetName = this.setForm.get("setName").value.toLowerCase();
 
     if (this.setForm.valid) {
       if (!this.setExists(newSetName)) {
@@ -123,9 +123,9 @@ export class DeviceSetTableComponent extends Table implements OnInit {
   }
 
   checkIfNameExists() {
-    let setName = this.setForm.get("setName").value;
+    let setName = this.setForm.get("setName").value.toLowerCase();
     if (
-      this.gdv.names["setName"].includes(setName.toLowerCase()) &&
+      this.gdv.names["setName"].includes(setName) &&
       setName !== this.currentName
     ) {
       this.setForm.controls["setName"].setErrors({ incorrect: true });

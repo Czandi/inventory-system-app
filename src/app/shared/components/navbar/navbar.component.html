@@ -100,7 +100,13 @@
 
     <div class="element">
       <div class="element-header">
-        <p>{{ "NAVBAR.OPERATION_HISTORY" | translate }}</p>
+        <p
+          routerLink="/history"
+          routerLinkActive="active"
+          [queryParams]="{ page: '1' }"
+        >
+          {{ "NAVBAR.OPERATION_HISTORY" | translate }}
+        </p>
       </div>
     </div>
 

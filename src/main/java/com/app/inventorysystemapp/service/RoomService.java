@@ -16,9 +16,11 @@ import java.util.List;
 public class RoomService {
 
   private final RoomRepository roomRepository;
+  private final HistoryService historyService;
 
-  public RoomService(RoomRepository roomRepository) {
+  public RoomService(RoomRepository roomRepository, HistoryService historyService) {
     this.roomRepository = roomRepository;
+    this.historyService = historyService;
   }
 
   public Page<IRoom> getRooms(int page,
@@ -85,6 +87,11 @@ public class RoomService {
 
   public ResponseEntity<Room> updateRoom(long id, String name) {
     Room room = roomRepository.findById(id).orElseThrow();
+
+    if(!room.getName().equals(name)){
+      historyService.insertHistory("room", room.getId(), "name", room.getName(), name);
+    }
+
     room.setName(name);
 
     final Room updatedRoom = roomRepository.save(room);

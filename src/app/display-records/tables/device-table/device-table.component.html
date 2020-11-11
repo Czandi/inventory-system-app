@@ -1,6 +1,6 @@
 <app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
 <div class="table-container">
-  <form [formGroup]="deviceForm" (ngSubmit)="validateData()" id="device-form">
+  <form [formGroup]="deviceForm" id="device-form">
     <table class="records full-view" (keydown.enter)="$event.preventDefault()">
       <tr [ngClass]="blured === true ? 'blur' : ''">
         <th *ngFor="let item of tableData">

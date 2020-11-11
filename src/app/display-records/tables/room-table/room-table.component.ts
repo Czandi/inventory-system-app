@@ -76,7 +76,7 @@ export class RoomTableComponent extends Table implements OnInit {
   }
 
   validateData() {
-    let newRoomName = this.roomForm.get("roomName").value;
+    let newRoomName = this.roomForm.get("roomName").value.toLowerCase();
 
     if (this.roomForm.valid) {
       if (!this.roomExists(newRoomName)) {
@@ -116,7 +116,7 @@ export class RoomTableComponent extends Table implements OnInit {
   }
 
   checkIfNameExists() {
-    let roomName = this.roomForm.get("roomName").value;
+    let roomName = this.roomForm.get("roomName").value.toLowerCase();
     if (
       this.gdv.names["roomName"].includes(roomName.toLowerCase()) &&
       roomName !== this.currentName

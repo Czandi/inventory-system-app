@@ -16,9 +16,11 @@ import java.util.List;
 public class OwnerService {
 
   private final OwnerRepository ownerRepository;
+  private final HistoryService historyService;
 
-  public OwnerService(OwnerRepository ownerRepository) {
+  public OwnerService(OwnerRepository ownerRepository, HistoryService historyService) {
     this.ownerRepository = ownerRepository;
+    this.historyService = historyService;
   }
 
   public Page<IOwner> getOwners(int page,
@@ -87,6 +89,11 @@ public class OwnerService {
 
   public ResponseEntity<Owner> updateOwner(long id, String name) {
     Owner owner = ownerRepository.findById(id).orElseThrow();
+
+    if(!owner.getName().equals(name)){
+      historyService.insertHistory("owner", owner.getId(), "name", owner.getName(), name);
+    }
+
     owner.setName(name);
 
     final Owner updatedOwner = ownerRepository.save(owner);

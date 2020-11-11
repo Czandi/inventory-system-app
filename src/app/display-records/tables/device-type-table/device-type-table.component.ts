@@ -76,7 +76,7 @@ export class DeviceTypeTableComponent extends Table implements OnInit {
   }
 
   validateData() {
-    let newTypeName = this.typeForm.get("typeName").value;
+    let newTypeName = this.typeForm.get("typeName").value.toLowerCase();
 
     if (this.typeForm.valid) {
       if (!this.typeExists(newTypeName)) {
@@ -121,7 +121,7 @@ export class DeviceTypeTableComponent extends Table implements OnInit {
   }
 
   checkIfNameExists() {
-    let typeName = this.typeForm.get("typeName").value;
+    let typeName = this.typeForm.get("typeName").value.toLowerCase();
     if (
       this.gdv.names["typeName"].includes(typeName.toLowerCase()) &&
       typeName.toLowerCase() !== this.currentName.toLowerCase()

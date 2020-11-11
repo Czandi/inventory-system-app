@@ -1,6 +1,6 @@
 <app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
 <div class="table-container">
-  <form [formGroup]="modelForm" (ngSubmit)="validateData()" id="model-form">
+  <form [formGroup]="modelForm" id="model-form">
     <table class="records">
       <tr [ngClass]="blured === true ? 'blur' : ''">
         <th *ngFor="let item of tableData">

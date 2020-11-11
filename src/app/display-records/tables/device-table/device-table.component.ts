@@ -90,6 +90,10 @@ export class DeviceTableComponent extends Table implements OnInit {
       });
   }
 
+  testAsd() {
+    console.log("test");
+  }
+
   getAutoCompleteData() {
     this.deviceSetService.getAllDeviceSets().subscribe((data) => {
       this.deviceDataValidator.insertNames(data, "deviceSet");
@@ -135,12 +139,14 @@ export class DeviceTableComponent extends Table implements OnInit {
   }
 
   validateData() {
-    let newRoomName = this.deviceForm.get("deviceRoom").value;
-    let newOwnerName = this.deviceForm.get("deviceOwner").value;
-    let newSetName = this.deviceForm.get("deviceSet").value;
-    let newModelName = this.deviceForm.get("deviceModel").value;
-    let newTypeName = this.deviceForm.get("deviceType").value;
-    let newSerialNumber = this.deviceForm.get("serialNumber").value;
+    let newRoomName = this.deviceForm.get("deviceRoom").value.toLowerCase();
+    let newOwnerName = this.deviceForm.get("deviceOwner").value.toLowerCase();
+    let newSetName = this.deviceForm.get("deviceSet").value.toLowerCase();
+    let newModelName = this.deviceForm.get("deviceModel").value.toLowerCase();
+    let newTypeName = this.deviceForm.get("deviceType").value.toLowerCase();
+    let newSerialNumber = this.deviceForm
+      .get("serialNumber")
+      .value.toLowerCase();
     let newComment = "";
 
     let device = this.deviceDataValidator.createNewDevice(

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DeviceService } from "app/core/services/device.service";
+import { PrintableBarcodes } from "../shared/printableBarcodes";
 import { Subscription } from "rxjs";
 import { SubjectService } from "../core/services/subject.service";
 
@@ -12,7 +13,7 @@ import { SubjectService } from "../core/services/subject.service";
 export class DisplayRecordsComponent implements OnInit {
   @ViewChild("searchBar") searchBar: ElementRef;
   @ViewChild("device") deviceTableButton: ElementRef;
-  @ViewChild("addBarcode") addBarcode;
+  @ViewChild("popup") popup;
 
   public records = [];
   public totalPages: number;
@@ -22,6 +23,7 @@ export class DisplayRecordsComponent implements OnInit {
   public blured = false;
   public deviceForm;
 
+  private deviceId;
   private search = "";
   private searchTimeout;
   private routeSub: Subscription;
@@ -29,7 +31,8 @@ export class DisplayRecordsComponent implements OnInit {
   constructor(
     private subjectService: SubjectService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private deviceService: DeviceService
   ) {}
 
   ngOnInit(): void {
@@ -47,14 +50,14 @@ export class DisplayRecordsComponent implements OnInit {
   ngAfterViewInit() {
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (params["edit"] !== undefined) {
-        console.log("Edit param exists");
         this.blured = true;
       } else {
         this.blured = false;
       }
 
       if (params["addBarcode"] !== undefined) {
-        this.addBarcode.addBarcode();
+        this.deviceId = params["addBarcode"];
+        this.addBarcode();
       }
     });
   }
@@ -70,9 +73,22 @@ export class DisplayRecordsComponent implements OnInit {
     // }
   }
 
-  ngOnDestroy() {
-    console.log("test");
+  addBarcode() {
+    this.deviceService.getSingleDevice(this.deviceId).subscribe((device) => {
+      let barcode = device["barCode"];
+      let model = device["model"]["name"];
+      let serialNumber = device["serialNumber"];
+      let success = PrintableBarcodes.addBarcode(barcode, serialNumber, model);
+
+      if (success) {
+        this.popup.triggerSuccess();
+      } else {
+        this.popup.triggerFailure();
+      }
+    });
   }
+
+  ngOnDestroy() {}
 
   onTyping() {
     this.search = this.searchBar.nativeElement.value;

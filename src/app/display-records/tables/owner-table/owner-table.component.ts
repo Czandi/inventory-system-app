@@ -88,7 +88,7 @@ export class OwnerTableComponent extends Table implements OnInit {
   }
 
   validateData() {
-    let newOwnerName = this.ownerForm.get("ownerName").value;
+    let newOwnerName = this.ownerForm.get("ownerName").value.toLowerCase();
 
     if (this.ownerForm.valid) {
       if (!this.ownerExists(newOwnerName)) {
@@ -116,7 +116,7 @@ export class OwnerTableComponent extends Table implements OnInit {
   }
 
   checkIfNameExists() {
-    let ownerName = this.ownerForm.get("ownerName").value;
+    let ownerName = this.ownerForm.get("ownerName").value.toLowerCase();
     if (
       this.gdv.names["ownerName"].includes(ownerName.toLowerCase()) &&
       ownerName.toLowerCase() !== this.currentName.toLowerCase()

@@ -16,9 +16,11 @@ import java.util.List;
 public class DeviceSetService {
 
   private final DeviceSetRepository deviceSetRepository;
+  private final HistoryService historyService;
 
-  public DeviceSetService(DeviceSetRepository deviceSetRepository) {
+  public DeviceSetService(DeviceSetRepository deviceSetRepository, HistoryService historyService) {
     this.deviceSetRepository = deviceSetRepository;
+    this.historyService = historyService;
   }
 
   public Page<IDeviceSet> getDeviceSets(int page,
@@ -86,6 +88,11 @@ public class DeviceSetService {
 
   public ResponseEntity<DeviceSet> updateDeviceSet(long id, String name) {
     DeviceSet deviceSet = deviceSetRepository.findById(id).orElseThrow();
+
+    if(!deviceSet.getName().equals(name)){
+      historyService.insertHistory("device_set", deviceSet.getId(), "name", deviceSet.getName(), name);
+    }
+
     deviceSet.setName(name);
 
     final DeviceSet updatedDeviceSet = deviceSetRepository.save(deviceSet);

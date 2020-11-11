@@ -17,6 +17,7 @@ import { DisplayRecordsModule } from "./display-records/display-records.module";
 import { AddRecordModule } from "./add-record/add-record.module";
 import { UpdateRecordsModule } from "./update-records/update-records.module";
 import { PrintBarcodesModule } from "./print-barcodes/print-barcodes.module";
+import { HistoryModule } from "./history/history.module";
 
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./shared/components/navbar/navbar.component";
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AddRecordModule,
     PrintBarcodesModule,
     UpdateRecordsModule,
+    HistoryModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
