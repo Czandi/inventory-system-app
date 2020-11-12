@@ -3,10 +3,7 @@ package com.app.inventorysystemapp.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,10 +12,15 @@ import java.time.LocalDateTime;
 public class History {
   @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
   private long id;
-  private String table_name;
-  private long id_record;
-  private String changed_attribute;
-  private String old_value;
-  private String new_value;
+  @JoinColumn(name = "table_name")
+  private String tableName;
+  @JoinColumn(name = "id_record")
+  private long idRecord;
+  @JoinColumn(name = "changed_attribute")
+  private String changedAttribute;
+  @JoinColumn(name = "old_value")
+  private String oldValue;
+  @JoinColumn(name = "new_value")
+  private String newValue;
   private LocalDateTime date;
 }

@@ -1,5 +1,7 @@
 package com.app.inventorysystemapp.controller;
 
+import com.app.inventorysystemapp.controller.dto.HistoryDeviceDto;
+import com.app.inventorysystemapp.controller.mapper.HistoryMapper;
 import com.app.inventorysystemapp.model.History;
 import com.app.inventorysystemapp.service.HistoryService;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,15 @@ public class HistoryController {
                                   @RequestParam(required = false) String sortType,
                                   @RequestParam(required = false) String search) {
     return historyService.getHistory(page, pageSize, orderBy, sortType, search);
+  }
+
+  @GetMapping("/history/devices")
+  public Page<HistoryDeviceDto> getDevicesHistory(int page,
+                                                  int pageSize,
+                                                  @RequestParam(required = false) String orderBy,
+                                                  @RequestParam(required = false) String sortType,
+                                                  @RequestParam(required = false) String search) {
+    return HistoryMapper.mapToHistoryDeviceDtos(historyService.getDevicesHistory(page, pageSize, orderBy, sortType, search));
   }
 
   @PostMapping("/history")

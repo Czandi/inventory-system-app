@@ -1,0 +1,64 @@
+.table-container {
+  min-height: 543px;
+
+  table {
+    color: white;
+    border-collapse: collapse;
+
+    .line {
+      td {
+        padding-top: 15px;
+        padding-bottom: 15px;
+
+        div {
+          background-color: white;
+          padding: 0;
+          height: 1.5px;
+          width: 100%;
+          border-radius: 50px;
+        }
+      }
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    tr {
+      td {
+        padding: 15px 0;
+        width: 200px;
+
+        &.arrow {
+          width: 50px;
+        }
+
+        &.date,
+        &.time {
+          width: 100px;
+          padding-right: 50px;
+        }
+
+        &:first-of-type {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+
+        &:last-of-type {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &:first-of-type {
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}

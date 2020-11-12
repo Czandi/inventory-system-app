@@ -1,6 +1,7 @@
 package com.app.inventorysystemapp.service;
 
 import com.app.inventorysystemapp.model.History;
+import com.app.inventorysystemapp.model.interfaces.IHistoryDevice;
 import com.app.inventorysystemapp.repository.HistoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,14 +66,59 @@ public class HistoryService {
 
     History history = new History();
 
-    history.setTable_name(tableName);
-    history.setId_record(idRecord);
-    history.setChanged_attribute(changedAttribute);
-    history.setOld_value(oldValue);
-    history.setNew_value(newValue);
+    history.setTableName(tableName);
+    history.setIdRecord(idRecord);
+    history.setChangedAttribute(changedAttribute);
+    history.setOldValue(oldValue);
+    history.setNewValue(newValue);
 
     return historyRepository.save(history);
   }
 
 
+  public Page<IHistoryDevice> getDevicesHistory(int page, int pageSize, String orderBy, String sortType, String search) {
+    Pageable paging;
+    int pageNumber = page > 0 ? page : 1;
+
+    if(orderBy != null){
+
+      String order = orderBy;
+
+      switch(orderBy){
+        case "name":
+          order = "modelName";
+          break;
+        case "type":
+          order = "typeName";
+          break;
+        case "count":
+          order = "modelCount";
+          break;
+      }
+
+      String type = "";
+
+      if(sortType == null){
+        type = "desc";
+      }else{
+        type = sortType;
+      }
+
+      if(type.equals("desc")){
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
+      }else{
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
+      }
+
+    }else{
+      paging = PageRequest.of(pageNumber-1, pageSize);
+    }
+
+    if(search == null) {
+      return historyRepository.findDevicesHistory(paging);
+    }else{
+      return historyRepository.findDevicesHistoryByContaining(search, paging);
+    }
+
+  }
 }

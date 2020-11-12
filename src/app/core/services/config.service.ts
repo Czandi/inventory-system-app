@@ -6,6 +6,9 @@ export class ConfigService {
   private _deviceTypeUrl = this.serverApiUrl + "/device-types";
   private _ownerUrl = this.serverApiUrl + "/owners";
   private _roomUrl = this.serverApiUrl + "/rooms";
+  private _historyUrl = this.serverApiUrl + "/history";
+
+  private _deviceHistoryUrl = this._historyUrl + "/devices";
 
   private _barcodeGeneratorUrl = "http://barcodes4.me/barcode/c128b";
 
@@ -39,6 +42,14 @@ export class ConfigService {
 
   get roomUrl(): string {
     return this._roomUrl;
+  }
+
+  get historyUrl(): string {
+    return this._historyUrl;
+  }
+
+  get deviceHistoryUrl(): string {
+    return this._deviceHistoryUrl;
   }
 
   get page(): string {

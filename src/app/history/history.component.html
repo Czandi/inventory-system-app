@@ -1,1 +1,59 @@
-<p>history works!</p>
+<div class="content-container">
+  <h1 class="header">{{ "PAGES.HISTORY.TITLE" | translate }}</h1>
+  <div class="center">
+    <div class="table-container">
+      <table>
+        <tr>
+          <th>
+            <span>{{ "PAGES.HISTORY.COLUMNS.BAR_CODE" | translate }}</span>
+            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+          </th>
+          <th>
+            <span>{{
+              "PAGES.HISTORY.COLUMNS.CHANGED_ATTRIBUTE" | translate
+            }}</span>
+            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+          </th>
+          <th>
+            <span>{{ "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate }}</span>
+            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+          </th>
+          <th></th>
+          <th>
+            <span>{{ "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate }}</span>
+            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+          </th>
+          <th>
+            <span>{{ "PAGES.HISTORY.COLUMNS.DATE" | translate }}</span>
+            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+          </th>
+          <!-- <th>
+            <span>{{ "PAGES.HISTORY.COLUMNS.TIME" | translate }}</span>
+          </th> -->
+        </tr>
+
+        <tr class="line">
+          <td colspan="7">
+            <div></div>
+          </td>
+        </tr>
+
+        <tr *ngFor="let record of history">
+          <td>{{ record.barCode }}</td>
+          <td>{{ mapAttributeNames(record.changedAttribute) | translate }}</td>
+          <td>{{ record.oldValue }}</td>
+          <td class="arrow">
+            <img src="../../assets/icons/history_arrow.svg" />
+          </td>
+          <td>{{ record.newValue }}</td>
+          <td class="date">{{ getDate(record.createdDate) }}</td>
+          <!-- <td class="time">{{ getTime(record.createdDate) }}</td> -->
+        </tr>
+      </table>
+    </div>
+  </div>
+  <app-pagination
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+  ></app-pagination>
+</div>

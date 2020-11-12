@@ -79,6 +79,23 @@
       "TITLE": "Drukuj kody kreskowe",
       "SUCCESS": "Operacja powiodła się",
       "FAILURE": "Operacja nie powiodła się"
+    },
+    "HISTORY": {
+      "TITLE": "Historia operacji",
+      "COLUMNS": {
+        "BAR_CODE": "Kod kreskowy",
+        "SERIAL_NUMBER": "Numer seryjny",
+        "CHANGED_ATTRIBUTE": "Zmieniony atrybut",
+        "OLD_VALUE": "Stara wartość",
+        "NEW_VALUE": "Nowa wartość",
+        "DATE": "Data",
+        "TIME": "Godzina"
+      },
+      "ATTRIBUTES": {
+        "NAME": "Nazwa",
+        "SERIAL_NUMBER": "Numer seryjny",
+        "MODEL": "Model"
+      }
     }
   },
   "TABLE_HEADERS": {
