@@ -115,6 +115,8 @@ public class DeviceService {
 
     newDevice.generateBarCode();
 
+    newDevice = deviceRepository.save(newDevice);
+
     return newDevice;
   }
 

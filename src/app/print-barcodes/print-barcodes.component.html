@@ -1,33 +1,43 @@
-<canvas class="center" id="canvas"></canvas>
-
+<div class="canvas">
+  <canvas class="center" id="canvas"></canvas>
+  <img src="" alt="" id="mirror" #mirror />
+</div>
 <div class="content-container">
   <h1 class="header">{{ "PAGES.PRINT_BARCODES.TITLE" | translate }}</h1>
 
   <ng-container *ngIf="barcodes.length !== 0">
-    <div class="barcodes-container center">
-      <div class="barcode" *ngFor="let barcode of barcodes">
-        <div (click)="removeBarcode(barcode)" class="x">
-          <div class="line"></div>
-          <div class="line"></div>
+    <div class="center">
+      <div class="barcodes-container">
+        <div class="barcode" *ngFor="let barcode of barcodes">
+          <div (click)="removeBarcode(barcode)" class="x">
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+          <div class="content">
+            <div class="model">
+              <h3>{{ barcode["model"] }}</h3>
+            </div>
+            <img [src]="barcodesSrc[barcode['barcode']]" alt="" />
+            <p>{{ barcode["barcode"] }}</p>
+          </div>
         </div>
-        <h3>{{ barcode["model"] }}</h3>
-        <img [src]="barcodesSrc[barcode['barcode']]" alt="" />
-        <p>{{ barcode["barcode"] }}</p>
       </div>
-      <div class="buttons">
-        <app-button
-          (click)="clearBarcodesList()"
-          class="button"
-          type="primary"
-          text="Wyczyść"
-        ></app-button>
-        <app-button
-          (click)="saveBarcodesImgs()"
-          class="button"
-          type="primary"
-          text="Pobierz"
-        ></app-button>
-      </div>
+    </div>
+    <div class="buttons">
+      <app-button
+        (click)="clearBarcodesList()"
+        class="button"
+        type="primary"
+        text="Wyczyść"
+      ></app-button>
+      <app-button
+        (click)="saveBarcodesImgs()"
+        class="button"
+        type="primary"
+        text="Pobierz"
+        id="downloader"
+        download="image.png"
+      ></app-button>
     </div>
     <app-pagination
       [currentPage]="currentPage"

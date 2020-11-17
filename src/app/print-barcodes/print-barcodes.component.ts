@@ -1,3 +1,4 @@
+import { Subscription } from "rxjs";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PrintableBarcodes } from "app/shared/printableBarcodes";
@@ -19,6 +20,7 @@ export class PrintBarcodesComponent implements OnInit {
 
   private canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
+  private mirror;
 
   private PAGE_SIZE = 20;
   private ROW_SIZE = 5;
@@ -33,7 +35,7 @@ export class PrintBarcodesComponent implements OnInit {
   private allBarcodes;
   private barcode;
 
-  private routeSub;
+  private routeSub: Subscription;
 
   constructor(
     private barcodeGeneratorService: BarcodesGeneratorService,
@@ -43,10 +45,128 @@ export class PrintBarcodesComponent implements OnInit {
   ngOnInit(): void {
     this.allBarcodes = PrintableBarcodes.barcodes;
 
+    this.allBarcodes = [
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Spc Gear gk 550 ",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Spc Gear gk 550 Xiaomi",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+      {
+        barcode: "4201120",
+        serialNumber: "fgl134a",
+        model: "Xiaomi mi9",
+      },
+    ];
+
     this.totalPages = Math.ceil(this.allBarcodes.length / this.PAGE_SIZE);
     this.currentPage = 1;
 
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (params["page"] !== undefined && params["page"] !== this.currentPage) {
         this.currentPage = +params["page"];
         this.updatePage();
@@ -54,6 +174,10 @@ export class PrintBarcodesComponent implements OnInit {
     });
 
     this.updatePage();
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 
   updatePage() {
@@ -101,8 +225,6 @@ export class PrintBarcodesComponent implements OnInit {
     barcodeImg.src = this.barcodesSrc[barcode["barcode"]];
 
     barcodeImg.onload = () => {
-      console.log("On load");
-
       let barcodeImageX = x + this.ELEMENT_WIDTH / 2 - barcodeImg.width / 2;
       let barcodeImageY = y + this.ELEMENT_HEIGHT / 2 - barcodeImg.height / 2;
       let modelY = y + (this.ELEMENT_HEIGHT - barcodeImg.height) / 2 - 5.5;
@@ -115,6 +237,7 @@ export class PrintBarcodesComponent implements OnInit {
       let barcodeX = x + this.ELEMENT_WIDTH / 2;
       this.drawText(barcode["barcode"], barcodeX, barcodeY);
       this.drawText(barcode["model"], modelX, modelY);
+      barcodeImg.crossOrigin = "Anonymous";
       this.context.drawImage(barcodeImg, barcodeImageX, barcodeImageY);
     };
   }
@@ -136,6 +259,12 @@ export class PrintBarcodesComponent implements OnInit {
     // console.log("Element height: " + this.ELEMENT_HEIGHT);
   }
 
+  ngAfterViewInit() {
+    this.mirror = document.getElementById("mirror");
+    this.mirror.style.height = this.CANVAS_HEIGHT + "px";
+    this.mirror.style.width = this.CANVAS_WIDTH + "px";
+  }
+
   clearBarcodesList() {
     this.barcodes = [];
     PrintableBarcodes.clearBarcodes();
@@ -148,9 +277,14 @@ export class PrintBarcodesComponent implements OnInit {
     this.updatePage();
   }
 
-  saveBarcodesImgs() {}
+  saveBarcodesImgs() {
+    var image = this.canvas.toDataURL("image/png");
+    this.mirror.src = image;
+    // console.log(image);
+    // window.location.href = image;
+  }
 
   drawText(text, x, y) {
-    this.context.fillText(text, x, y);
+    this.context.fillText(text, x, y, 110);
   }
 }
