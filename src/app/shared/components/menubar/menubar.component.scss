@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   width: 100vw;
   height: 30px;
@@ -39,9 +41,9 @@
 }
 
 .background {
-  width: 120px;
+  width: 320px;
   position: absolute;
   left: 0;
   height: 30px;
-  background-color: #18181b;
+  background-color: $primary-light;
 }

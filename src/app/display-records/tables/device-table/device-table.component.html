@@ -3,7 +3,7 @@
   <form [formGroup]="deviceForm" id="device-form">
     <table class="records full-view" (keydown.enter)="$event.preventDefault()">
       <tr [ngClass]="blured === true ? 'blur' : ''">
-        <th *ngFor="let item of tableData">
+        <th *ngFor="let item of tableData" [class]="item.id">
           <span (click)="setSortValue(item.id)"
             >{{ item.header | translate }}
           </span>
@@ -31,13 +31,13 @@
         "
       >
         <ng-container *ngIf="editedRecord != device.id">
-          <td>{{ device.serialNumber }}</td>
-          <td>{{ device.model }}</td>
-          <td>{{ device.type }}</td>
-          <td>{{ device.room }}</td>
-          <td>{{ device.owner }}</td>
-          <td>{{ device.barCode }}</td>
-          <td>{{ device.deviceSet }}</td>
+          <td class="serialNumber">{{ device.serialNumber }}</td>
+          <td class="model">{{ device.model }}</td>
+          <td class="type">{{ device.type }}</td>
+          <td class="room">{{ device.room }}</td>
+          <td class="owner">{{ device.owner }}</td>
+          <td class="barCode">{{ device.barCode }}</td>
+          <td class="setNumber">{{ device.deviceSet }}</td>
         </ng-container>
 
         <ng-container *ngIf="editedRecord === device.id">

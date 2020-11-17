@@ -78,10 +78,14 @@
     "PRINT_BARCODES": {
       "TITLE": "Drukuj kody kreskowe",
       "SUCCESS": "Operacja powiodła się",
-      "FAILURE": "Operacja nie powiodła się"
+      "FAILURE": "Operacja nie powiodła się",
+      "FIRST_TEXT": "Żaden kod kreskowy nie został dodany do druku",
+      "SECOND_TEXT": "Możesz to zrobić w zakładce wyświetl rekordy, poprzez kliknięcie prawym przyciskiem myszy na dany rekord, a następnie wybranie opcji dodaj kod do druku"
     },
     "HISTORY": {
       "TITLE": "Historia operacji",
+      "FIRST_TEXT": "Historia jest pusta",
+      "SECOND_TEXT": "Zapisywane tutaj będą wszystkie zmiany rekordów",
       "COLUMNS": {
         "BAR_CODE": "Kod kreskowy",
         "SERIAL_NUMBER": "Numer seryjny",

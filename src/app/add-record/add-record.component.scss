@@ -4,20 +4,31 @@ form {
   width: 709px;
 }
 
+.records {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment {
+  width: 100%;
+}
+
 .item {
   color: white;
   display: inline-block;
   text-align: left;
-  margin-left: 80px;
+  // margin-left: 80px;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 50px;
 
   &:last-of-type {
     margin-bottom: 0;
   }
 
-  &:nth-of-type(3n + 1) {
-    margin-left: 0;
-  }
+  // &:nth-of-type(3n + 1) {
+  //   margin-left: 0;
+  // }
 
   input,
   textarea {
@@ -36,9 +47,8 @@ form {
   }
 
   &.text-area {
-    width: 100%;
     textarea {
-      width: 100%;
+      width: 200px;
       height: 50px;
     }
   }

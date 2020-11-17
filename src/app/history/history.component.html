@@ -1,6 +1,6 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.HISTORY.TITLE" | translate }}</h1>
-  <div class="center">
+  <div class="center" *ngIf="history.length !== 0">
     <div class="table-container">
       <table>
         <tr>
@@ -56,4 +56,9 @@
     [totalPages]="totalPages"
     [currentPage]="currentPage"
   ></app-pagination>
+
+  <div class="center" *ngIf="history.length === 0">
+    <h3>{{ "PAGES.HISTORY.FIRST_TEXT" | translate }}</h3>
+    <p>{{ "PAGES.HISTORY.SECOND_TEXT" | translate }}</p>
+  </div>
 </div>

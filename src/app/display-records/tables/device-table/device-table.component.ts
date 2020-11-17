@@ -15,7 +15,7 @@ import { DeviceDataValidator } from "../../../shared/deviceDataValidator";
 @Component({
   selector: "app-device-table",
   templateUrl: "./device-table.component.html",
-  styleUrls: ["../table.scss"],
+  styleUrls: ["../table.scss", "device-table.component.style.scss"],
 })
 export class DeviceTableComponent extends Table implements OnInit {
   @ViewChild("serialNumber") serialNumberArrow: ElementRef;
@@ -47,7 +47,7 @@ export class DeviceTableComponent extends Table implements OnInit {
         name: "ADD_BARCODE_FOR_PRINT",
         action: "addBarcode",
       },
-      { name: "EDIT", action: "edit" },
+      // { name: "EDIT", action: "edit" },
       { name: "DELETE", action: "delete" },
     ]);
     this.deviceDataValidator = new DeviceDataValidator();

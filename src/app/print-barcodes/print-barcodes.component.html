@@ -37,11 +37,9 @@
 
   <ng-container *ngIf="barcodes.length === 0">
     <div class="noBarcodesInfo center">
-      <h3>Żaden kod kreskowy nie został dodany do druku</h3>
+      <h3>{{ "PAGES.PRINT_BARCODES.FIRST_TEXT" | translate }}</h3>
       <p>
-        Możesz to zrobić w zakładce <i>wyświetl rekordy</i>, poprzez kliknięcie
-        prawym przyciskiem myszy na dany rekord, a następnie wybranie opcji
-        <i>dodaj kod do druku</i>
+        {{ "PAGES.PRINT_BARCODES.SECOND_TEXT" | translate }}
       </p>
     </div>
   </ng-container>
