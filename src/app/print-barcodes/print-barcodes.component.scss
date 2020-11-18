@@ -1,6 +1,6 @@
 @import "../shared/variables.scss";
 
-.canvas {
+.download-barcodes {
   position: absolute;
   z-index: -1;
 }
@@ -75,6 +75,12 @@
         cursor: pointer;
       }
     }
+  }
+
+  &.download {
+    color: black;
+    position: absolute;
+    top: 0;
   }
 }
 

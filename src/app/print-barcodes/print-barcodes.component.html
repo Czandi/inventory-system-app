@@ -1,6 +1,35 @@
-<div class="canvas">
-  <canvas class="center" id="canvas"></canvas>
-  <img src="" alt="" id="mirror" #mirror />
+<div class="download-barcodes">
+  <!-- <canvas class="center" id="canvas"></canvas>
+  <img src="" alt="" id="mirror" #mirror /> -->
+  <img id="canvas" #canvas />
+  <a id="download-link" #donwloadLink></a>
+  <div
+    class="barcodes-container download"
+    id="barcodes-container"
+    #barcodesContainer
+  >
+    <div class="barcode" *ngFor="let barcode of downloadingBarcodes">
+      <div (click)="removeBarcode(barcode)" class="x">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <div class="content">
+        <div class="model">
+          <h3>{{ barcode["model"] }}</h3>
+        </div>
+        <ngx-barcode
+          [bc-value]="barcode['barcode']"
+          [bc-display-value]="false"
+          bc-background="transparent"
+          bc-line-color="black"
+          bc-height="50"
+          [bc-width]="'1.5'"
+        ></ngx-barcode>
+
+        <p>{{ barcode["barcode"] }}</p>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="content-container">
   <h1 class="header">{{ "PAGES.PRINT_BARCODES.TITLE" | translate }}</h1>

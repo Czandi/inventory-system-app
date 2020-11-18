@@ -99,6 +99,7 @@
   },
   "dependencies": {
     "@angular/animations": "10.1.5",
+    "html2canvas": "1.0.0-rc.7",
     "ngx-barcode": "0.3.0",
     "tslint": "6.1.3"
   }
