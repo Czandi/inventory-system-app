@@ -143,7 +143,9 @@ export class AddRecordComponent implements OnInit, OnDestroy {
 
   insertDeviceAndRedirect(newDevice) {
     this.deviceService.insertDevice(newDevice).subscribe((device: any) => {
-      this.router.navigate(["/record/" + device.id]);
+      this.router.navigate(["/device"], {
+        queryParams: { id: device.id },
+      });
     });
   }
 

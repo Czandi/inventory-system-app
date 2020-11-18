@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PrintableBarcodes } from "app/shared/printableBarcodes";
 import { BarcodesGeneratorService } from "../core/services/barcodes-generator.service";
-import * as html2canvas from "html2canvas";
+import html2canvas from "html2canvas";
 
 @Component({
   selector: "app-print-barcodes",
@@ -323,9 +323,9 @@ export class PrintBarcodesComponent implements OnInit {
     this.downloadLink = document.getElementById("download-link");
 
     html2canvas(this.barcodesContainer).then((canvas) => {
-      this.canvas.src = canvas.toDataURL("image/png");
-      this.downloadLink.href = canvas.toDataURL("image/png");
-      this.downloadLink.download = "barcodes-" + page + ".png";
+      this.canvas.src = canvas.toDataURL("image/jpeg", 1.0);
+      this.downloadLink.href = canvas.toDataURL("image/jpeg", 1.0);
+      this.downloadLink.download = "barcodes-" + page + ".jpeg";
 
       if (page > 0) {
         this.downloadLink.click();

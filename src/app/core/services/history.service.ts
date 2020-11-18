@@ -32,7 +32,7 @@ export class HistoryService {
     return this.http.get(url);
   }
 
-  getDeviceHistory(
+  getDevicesHistory(
     page: number,
     orderBy: string,
     sortType: string,
@@ -51,6 +51,18 @@ export class HistoryService {
     if (searchValue !== "" && searchValue !== undefined) {
       url += this.config.search + searchValue;
     }
+
+    return this.http.get(url);
+  }
+
+  getSingleDeviceHistory(page: number, id: number): Observable<any> {
+    var url =
+      this.config.deviceHistoryUrl +
+      "/" +
+      id +
+      this.config.page +
+      page +
+      this.config.pageSize;
 
     return this.http.get(url);
   }

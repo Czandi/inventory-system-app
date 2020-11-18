@@ -1,3 +1,4 @@
+import { DateService } from "./../core/services/date.service";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
@@ -40,13 +41,12 @@ export class HistoryComponent implements OnInit {
 
   getRecords() {
     this.historyService
-      .getDeviceHistory(
+      .getDevicesHistory(
         this.currentPage,
         this.currentSortValue,
         this.currentSortType
       )
       .subscribe((history) => {
-        console.log("test");
         this.history = history.content;
         this.totalPages = history.totalPages;
       });
@@ -69,16 +69,10 @@ export class HistoryComponent implements OnInit {
   }
 
   getDate(fullDate) {
-    let indexOfT = fullDate.indexOf("T");
-    let date = fullDate.slice(0, indexOfT);
-
-    return date;
+    return DateService.getDate(fullDate);
   }
 
   getTime(fullDate) {
-    let indexOfT = fullDate.indexOf("T");
-
-    let time = fullDate.slice(indexOfT + 1);
-    return time;
+    return DateService.getTime(fullDate);
   }
 }

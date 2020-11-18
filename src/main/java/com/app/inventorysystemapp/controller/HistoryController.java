@@ -35,6 +35,13 @@ public class HistoryController {
     return HistoryMapper.mapToHistoryDeviceDtos(historyService.getDevicesHistory(page, pageSize, orderBy, sortType, search));
   }
 
+  @GetMapping("/history/devices/{id}")
+  public Page<HistoryDeviceDto> getDeviceHistory(@PathVariable(value = "id") Long id,
+                                                 int page,
+                                                 int pageSize){
+    return HistoryMapper.mapToHistoryDeviceDtos(historyService.getDeviceHistory(id, page, pageSize));
+  }
+
   @PostMapping("/history")
   public History insertHistory(String tableName, long idRecord, String changedAttribute, String oldValue, String newValue) {
     return historyService.insertHistory(tableName, idRecord, changedAttribute, oldValue, newValue);

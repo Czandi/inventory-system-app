@@ -100,6 +100,10 @@
         "SERIAL_NUMBER": "Numer seryjny",
         "MODEL": "Model"
       }
+    },
+    "RECORD_PAGE": {
+      "UPDATE": "Aktualizuj",
+      "HISTORY": "Historia"
     }
   },
   "TABLE_HEADERS": {
@@ -110,7 +114,8 @@
       "ROOM": "Pomieszczenie",
       "OWNER": "Właściciel",
       "BAR_CODE": "Kod kreskowy",
-      "SET_NUMBER": "Numer zestawu"
+      "SET_NUMBER": "Numer zestawu",
+      "COMMENT": "Komentarz"
     },
     "MODEL": {
       "MODEL_NAME": "Nazwa modelu",
@@ -141,6 +146,7 @@
   "CONTEXT_MENU": {
     "EDIT": "Edytuj",
     "DELETE": "Usuń",
+    "DISPLAY": "Wyświetl",
     "ADD_BARCODE_FOR_PRINT": "Dodaj kod do druku"
   }
 }

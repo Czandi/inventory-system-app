@@ -67,6 +67,10 @@ export class Table implements OnDestroy {
         this.blured = false;
         this.editedRecord = 0;
       }
+
+      if (params["display"] !== undefined) {
+        this.displayRecord(params["display"], params["table"]);
+      }
     });
 
     this.contextMenuSub = this.subjectService.contextMenuEmitter.subscribe(
@@ -105,6 +109,12 @@ export class Table implements OnDestroy {
     this.clickedElement = document.getElementById("device" + id);
     this.clickedElement.classList.add("active");
     this.contextMenuOpen = true;
+  }
+
+  displayRecord(idRecord, tableName) {
+    this.router.navigate(["/" + tableName], {
+      queryParams: { id: idRecord },
+    });
   }
 
   setSortValue(id: string) {

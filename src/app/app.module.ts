@@ -1,3 +1,4 @@
+import { RecordPageModule } from "./record-page/record-page.module";
 import "reflect-metadata";
 import "../polyfills";
 
@@ -52,6 +53,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     PrintBarcodesModule,
     UpdateRecordsModule,
     HistoryModule,
+    RecordPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

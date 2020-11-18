@@ -49,22 +49,25 @@ export class ContextMenuComponent implements OnInit {
   setOptions() {
     this.options = [];
     for (let option of this.contextMenuOptions) {
-      let action = option.action;
       let name = option.name;
-      this.options.push({ name: name, param: this.getQueryParam(action) });
+      this.options.push({ name: name, param: this.getQueryParam(option) });
     }
   }
 
-  getQueryParam(action) {
+  getQueryParam(option) {
     let param;
 
-    switch (action) {
+    switch (option.action) {
       case "edit":
         param = { edit: this.recordId };
         break;
 
       case "delete":
         param = { delete: this.recordId };
+        break;
+
+      case "display":
+        param = { table: option.table, display: this.recordId };
         break;
 
       case "addBarcode":

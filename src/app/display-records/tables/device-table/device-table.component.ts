@@ -49,6 +49,7 @@ export class DeviceTableComponent extends Table implements OnInit {
       },
       // { name: "EDIT", action: "edit" },
       { name: "DELETE", action: "delete" },
+      { name: "DISPLAY", action: "display", table: "device" },
     ]);
     this.deviceDataValidator = new DeviceDataValidator();
   }

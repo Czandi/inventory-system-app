@@ -121,4 +121,11 @@ public class HistoryService {
     }
 
   }
+
+  public Page<IHistoryDevice> getDeviceHistory(long id, int page, int pageSize) {
+    Pageable paging;
+    int pageNumber = page > 0 ? page : 1;
+    paging = PageRequest.of(pageNumber-1, pageSize);
+    return historyRepository.findDeviceHistory(paging, id);
+  }
 }

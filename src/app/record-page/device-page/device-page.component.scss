@@ -1,0 +1,112 @@
+input,
+textarea {
+  margin: 0 auto;
+  text-align: center;
+  background-color: transparent;
+  color: white;
+  border-width: 0 0 2px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.5);
+  width: 200px;
+  margin-bottom: 20px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.input {
+  text-align: left;
+}
+
+input {
+  border-radius: 0;
+}
+
+p {
+  display: none;
+  text-align: left;
+  color: white;
+  width: 150px;
+}
+
+textarea {
+  display: block;
+  width: 200px;
+  border-width: 2px 2px 2px 2px;
+  height: 100px;
+  margin: 20px auto;
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.center {
+  width: 100%;
+}
+
+.form-container,
+.history {
+  //   width: calc(50% - 3vw);
+  display: inline-block;
+  color: white;
+  text-align: center;
+  vertical-align: top;
+}
+
+.history {
+  width: calc(60% - 3vw);
+  margin-right: 3vw;
+  table {
+    margin: 0 auto;
+
+    tr {
+      th {
+        width: 150px;
+
+        &.arrow {
+          width: auto;
+        }
+      }
+
+      &.head {
+        height: 60px;
+      }
+
+      td {
+        height: 25px;
+
+        &.date {
+          width: 200px;
+        }
+      }
+    }
+  }
+}
+
+.form-container {
+  width: calc(40% - 3vw);
+  margin-left: 3vw;
+}
+
+.form {
+  text-align: center;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+@media (min-width: 1400px) {
+  .form-container,
+  .history {
+    width: calc(50% - 3vw);
+  }
+
+  p {
+    display: inline-block;
+  }
+
+  textarea {
+    width: 300px;
+  }
+}

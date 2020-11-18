@@ -32,4 +32,19 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
   @Query("Select h from History h")
   Page<IHistoryDevice> findDevicesHistoryByContaining(String search, Pageable paging);
 
+  @Query("Select " +
+    "d.barCode as barCode, " +
+    "d.serialNumber as serialNumber, " +
+    "h.changedAttribute as changedAttribute, " +
+    "h.oldValue as oldValue, " +
+    "h.newValue as newValue, " +
+    "h.date as date, " +
+    "h.tableName," +
+    "h.idRecord " +
+    "from History h " +
+    "inner join Device d on h.idRecord=d.id " +
+    "group by h.id " +
+    "having h.tableName like 'device' " +
+    "and h.idRecord like ?1")
+  Page<IHistoryDevice> findDeviceHistory(Pageable paging, long id);
 }

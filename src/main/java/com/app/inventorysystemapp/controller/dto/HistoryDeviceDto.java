@@ -19,5 +19,5 @@ public class HistoryDeviceDto {
 
   private String newValue;
 
-  private LocalDateTime createdDate;
+  private LocalDateTime date;
 }

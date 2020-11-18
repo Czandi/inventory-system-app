@@ -14,7 +14,7 @@ public class HistoryMapper {
     return HistoryDeviceDto.builder()
       .barCode(deviceHistory.getBarCode())
       .changedAttribute(deviceHistory.getChangedAttribute())
-      .createdDate(deviceHistory.getDate())
+      .date(deviceHistory.getDate())
       .newValue(deviceHistory.getNewValue())
       .oldValue(deviceHistory.getOldValue())
       .serialNumber(deviceHistory.getSerialNumber())

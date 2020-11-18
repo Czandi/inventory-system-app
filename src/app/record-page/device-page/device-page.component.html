@@ -1,0 +1,121 @@
+<div class="content-container">
+  <h1 *ngIf="device !== undefined" class="header">
+    {{ device.model.name }}
+  </h1>
+  <div class="center">
+    <div class="form-container">
+      <form class="form" [formGroup]="deviceForm">
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.SERIAL_NUMBER" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
+            formControlName="serialNumber"
+            id="serialNumber"
+          />
+        </div>
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.DEVICE_MODEL" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
+            formControlName="deviceModel"
+            id="deviceModel"
+          />
+        </div>
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.DEVICE_TYPE" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
+            formControlName="deviceType"
+            id="deviceType"
+          />
+        </div>
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.ROOM" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
+            formControlName="deviceRoom"
+            id="deviceRoom"
+          />
+        </div>
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.OWNER" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
+            formControlName="deviceOwner"
+            id="deviceOwner"
+          />
+        </div>
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.BAR_CODE" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.BAR_CODE' | translate"
+            formControlName="deviceBarCode"
+            id="deviceBarCode"
+          />
+        </div>
+        <div class="input">
+          <p>{{ "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate }}</p>
+          <input
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
+            formControlName="deviceSet"
+            id="deviceSet"
+          />
+        </div>
+        <textarea
+          [placeholder]="'TABLE_HEADERS.DEVICE.COMMENT' | translate"
+          formControlName="deviceComment"
+          id="deviceComment"
+        ></textarea>
+        <app-button
+          class="button"
+          type="secondary"
+          [text]="'PAGES.RECORD_PAGE.UPDATE' | translate"
+        ></app-button>
+      </form>
+    </div>
+    <div class="history">
+      <h2>{{ "PAGES.RECORD_PAGE.HISTORY" | translate }}</h2>
+      <table>
+        <tr class="head">
+          <th>
+            {{ "PAGES.HISTORY.COLUMNS.CHANGED_ATTRIBUTE" | translate }}
+          </th>
+          <th>
+            {{ "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate }}
+          </th>
+          <th class="arrow"></th>
+          <th>
+            {{ "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate }}
+          </th>
+          <th>
+            {{ "PAGES.HISTORY.COLUMNS.DATE" | translate }}
+          </th>
+        </tr>
+        <tr *ngFor="let history of deviceHistory">
+          <td>
+            {{ history.changedAttribute }}
+          </td>
+          <td>
+            {{ history.oldValue }}
+          </td>
+          <td>
+            <img src="../../assets/icons/history_arrow.svg" />
+          </td>
+          <td>
+            {{ history.newValue }}
+          </td>
+          <td class="date">
+            {{ getDate(history.date) }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

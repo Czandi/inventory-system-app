@@ -1,3 +1,4 @@
+import { RecordPageRoutingModule } from "./record-page/record-page-routing.module";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { PageNotFoundComponent } from "./shared/components";
@@ -30,6 +31,7 @@ const routes: Routes = [
     UpdateRecordsRoutingModule,
     PrintBarcodesRoutingModule,
     HistoryRoutingModule,
+    RecordPageRoutingModule,
   ],
   exports: [RouterModule],
 })
