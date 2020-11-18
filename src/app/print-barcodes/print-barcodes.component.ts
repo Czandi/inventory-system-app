@@ -237,7 +237,7 @@ export class PrintBarcodesComponent implements OnInit {
       let barcodeX = x + this.ELEMENT_WIDTH / 2;
       this.drawText(barcode["barcode"], barcodeX, barcodeY);
       this.drawText(barcode["model"], modelX, modelY);
-      barcodeImg.crossOrigin = "Anonymous";
+      // barcodeImg.crossOrigin = "Anonymous";
       this.context.drawImage(barcodeImg, barcodeImageX, barcodeImageY);
     };
   }

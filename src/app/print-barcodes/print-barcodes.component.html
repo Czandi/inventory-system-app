@@ -17,7 +17,15 @@
             <div class="model">
               <h3>{{ barcode["model"] }}</h3>
             </div>
-            <img [src]="barcodesSrc[barcode['barcode']]" alt="" />
+            <ngx-barcode
+              [bc-value]="barcode['barcode']"
+              [bc-display-value]="false"
+              bc-background="transparent"
+              bc-line-color="white"
+              bc-height="50"
+              [bc-width]="'1.5'"
+            ></ngx-barcode>
+            <!-- <img [src]="barcodesSrc[barcode['barcode']]" alt="" /> -->
             <p>{{ barcode["barcode"] }}</p>
           </div>
         </div>
