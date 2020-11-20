@@ -6,76 +6,125 @@
     <div class="form-container">
       <form class="form" [formGroup]="deviceForm">
         <div class="input">
-          <p>{{ "TABLE_HEADERS.DEVICE.SERIAL_NUMBER" | translate }}</p>
+          <p>
+            {{ "TABLE_HEADERS.DEVICE.SERIAL_NUMBER" | translate }}
+          </p>
           <input
+            class="left-offset"
             type="text"
             [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
             formControlName="serialNumber"
             id="serialNumber"
+            (change)="checkChange()"
           />
         </div>
         <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.DEVICE_MODEL" | translate }}</p>
           <input
             type="text"
+            list="models"
             [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
             formControlName="deviceModel"
             id="deviceModel"
+            (change)="checkChange()"
           />
+          <datalist id="models">
+            <option
+              *ngFor="let item of autocompleteRecords['deviceModel']"
+              [value]="item"
+            ></option>
+          </datalist>
         </div>
         <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.DEVICE_TYPE" | translate }}</p>
           <input
             type="text"
+            list="types"
             [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
             formControlName="deviceType"
             id="deviceType"
+            (change)="checkChange()"
           />
+          <datalist id="types">
+            <option
+              *ngFor="let item of autocompleteRecords['deviceType']"
+              [value]="item"
+            ></option>
+          </datalist>
         </div>
         <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.ROOM" | translate }}</p>
           <input
             type="text"
+            list="rooms"
             [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
             formControlName="deviceRoom"
             id="deviceRoom"
+            (change)="checkChange()"
           />
+          <datalist id="rooms">
+            <option
+              *ngFor="let item of autocompleteRecords['deviceRoom']"
+              [value]="item"
+            ></option>
+          </datalist>
         </div>
         <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.OWNER" | translate }}</p>
           <input
             type="text"
+            list="owners"
             [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
             formControlName="deviceOwner"
             id="deviceOwner"
+            (change)="checkChange()"
           />
+          <datalist id="owners">
+            <option
+              *ngFor="let item of autocompleteRecords['deviceOwner']"
+              [value]="item"
+            ></option>
+          </datalist>
         </div>
         <div class="input">
-          <p>{{ "TABLE_HEADERS.DEVICE.BAR_CODE" | translate }}</p>
+          <p>
+            {{ "TABLE_HEADERS.DEVICE.BAR_CODE" | translate }}
+          </p>
           <input
+            class="left-offset"
             type="text"
             [placeholder]="'TABLE_HEADERS.DEVICE.BAR_CODE' | translate"
             formControlName="deviceBarCode"
             id="deviceBarCode"
+            (change)="checkChange()"
           />
         </div>
         <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate }}</p>
           <input
             type="text"
+            list="sets"
             [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
             formControlName="deviceSet"
             id="deviceSet"
+            (change)="checkChange()"
           />
+          <datalist id="sets">
+            <option
+              *ngFor="let item of autocompleteRecords['deviceSet']"
+              [value]="item"
+            ></option>
+          </datalist>
         </div>
         <textarea
           [placeholder]="'TABLE_HEADERS.DEVICE.COMMENT' | translate"
           formControlName="deviceComment"
           id="deviceComment"
+          (change)="checkChange()"
         ></textarea>
         <app-button
           class="button"
-          type="secondary"
+          [type]="buttonType"
           [text]="'PAGES.RECORD_PAGE.UPDATE' | translate"
         ></app-button>
       </form>

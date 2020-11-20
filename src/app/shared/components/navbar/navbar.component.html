@@ -90,6 +90,25 @@
       </div>
     </div>
 
+    <div class="element" #inventory>
+      <div (click)="toggleSubmenu(inventory)" class="element-header">
+        <p>{{ "NAVBAR.INVENTORY.TITLE" | translate }}</p>
+        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
+      </div>
+      <div class="submenu">
+        <p>
+          <span routerLink="/inventory" routerLinkActive="active">{{
+            "NAVBAR.INVENTORY.DO_INVENTORY" | translate
+          }}</span>
+        </p>
+        <p>
+          <span routerLink="/inventory/raports" routerLinkActive="active">{{
+            "NAVBAR.INVENTORY.RAPORTS" | translate
+          }}</span>
+        </p>
+      </div>
+    </div>
+
     <div class="element">
       <div class="element-header">
         <p routerLink="/add-record" routerLinkActive="active">

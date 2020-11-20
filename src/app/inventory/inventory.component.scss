@@ -1,0 +1,157 @@
+@import "../shared/variables.scss";
+
+$firstDotSize: 20px;
+$secondDotSize: 12.5px;
+$thirdDotSize: 5px;
+
+h2,
+span,
+p,
+label {
+  color: white;
+}
+
+.top-section {
+  margin-bottom: 100px;
+  padding-top: 13%;
+  height: 20vh;
+  position: relative;
+  width: 70vw;
+
+  h2 {
+    text-align: center;
+
+    &.inactive {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .room-select {
+    height: fit-content;
+    width: fit-content;
+    text-align: left;
+    margin: 2% auto;
+
+    label {
+      &.inactive {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    select {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 150px;
+
+      &.inactive {
+        background-color: transparent;
+        border: 2px solid rgba(0, 0, 0, 0.3);
+        padding: 7px;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.5);
+
+        &:hover {
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  .accept-button {
+    margin: 0 auto;
+  }
+}
+
+.center {
+  min-height: 720px;
+}
+
+.bottom-section {
+  height: 45vh;
+  position: relative;
+  width: 70vw;
+
+  .info {
+    .dots {
+      margin: 35px 0;
+
+      .dot {
+        display: inline-block;
+        background-color: white;
+        border-radius: 50%;
+        width: $firstDotSize;
+        height: $firstDotSize;
+        margin-right: 50px;
+
+        &:nth-of-type(2) {
+          width: $secondDotSize;
+          height: $secondDotSize;
+          margin-bottom: ($firstDotSize - $secondDotSize) / 2;
+        }
+
+        &:nth-of-type(3) {
+          width: $thirdDotSize;
+          height: $thirdDotSize;
+          margin-bottom: ($firstDotSize - $thirdDotSize) / 2;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .scanned-devices {
+    text-align: left;
+    width: 70vw;
+    margin-top: 20px;
+
+    .device-container {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 0 50px;
+      margin-top: -20px;
+
+      .device {
+        background-color: rgba(0, 0, 0, 0.3);
+        width: fit-content;
+        position: relative;
+        padding: 7px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 30px;
+        text-align: center;
+
+        span {
+          line-height: 20px;
+        }
+
+        .x {
+          display: inline-block;
+          width: 8.5px;
+          height: 8.5px;
+          margin-bottom: 3px;
+          margin-left: 15px;
+
+          .line {
+            width: 2px;
+            height: 10px;
+            background-color: white;
+            position: absolute;
+
+            &:nth-of-type(1) {
+              transform: rotate(45deg);
+            }
+
+            &:nth-of-type(2) {
+              transform: rotate(-45deg);
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

@@ -26,6 +26,15 @@
     background-color: transparent;
   }
 
+  &.disable {
+    background-color: transparent;
+    border: solid 2px rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+    &:hover {
+      cursor: default;
+    }
+  }
+
   &:focus {
     outline: none;
   }

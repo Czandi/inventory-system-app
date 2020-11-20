@@ -1,0 +1,68 @@
+<div class="content-container">
+  <h1 class="header">{{ "PAGES.INVENTORY.DO_INVENTORY" | translate }}</h1>
+
+  <div class="center">
+    <div class="top-section">
+      <h2 [ngClass]="roomAccepted ? 'inactive' : ''">
+        {{ "PAGES.INVENTORY.FIRST_TEXT" | translate }}
+      </h2>
+      <div class="room-select">
+        <label [ngClass]="roomAccepted ? 'inactive' : ''" for="room-input">{{
+          "TABLE_HEADERS.DEVICE.ROOM" | translate
+        }}</label>
+        <select name="room-input" [disabled]="roomAccepted" #roomInput>
+          <option *ngFor="let room of roomNames" [value]="room">
+            {{ room }}
+          </option>
+        </select>
+      </div>
+
+      <app-button
+        class="accept-button"
+        [type]="roomAccepted ? 'secondary' : 'primary'"
+        [text]="roomAccepted ? 'Anuluj' : 'Zatwierdź'"
+        (click)="roomSelectSwitcher()"
+      ></app-button>
+    </div>
+    <div class="bottom-section">
+      <ng-container *ngIf="roomAccepted">
+        <div class="info">
+          <h2>{{ "PAGES.UPDATE_RECORDS.ROOM_SCAN_DEVICES" | translate }}</h2>
+
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+
+        <div class="scanned-devices">
+          <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
+          <div class="device-container">
+            <div class="device">
+              <span>23461653</span>
+              <div class="x">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+            <div class="device">
+              <span>23461653</span>
+              <div class="x">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <app-button
+          class="accept-button"
+          type="primary"
+          text="Zatwierdź"
+          (click)="update()"
+        ></app-button>
+      </ng-container>
+    </div>
+  </div>
+</div>

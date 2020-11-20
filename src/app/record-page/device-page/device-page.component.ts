@@ -1,3 +1,4 @@
+import { DeviceDataValidator } from "./../../shared/deviceDataValidator";
 import { DateService } from "./../../core/services/date.service";
 import { HistoryService } from "./../../core/services/history.service";
 import { FormControl, Validators } from "@angular/forms";
@@ -5,6 +6,12 @@ import { FormGroup } from "@angular/forms";
 import { DeviceService } from "./../../core/services/device.service";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
+import { DeviceSetService } from "app/core/services/device-set.service";
+import { DeviceTypeService } from "app/core/services/device-type.service";
+import { ModelService } from "app/core/services/model.service";
+import { OwnerService } from "app/core/services/owner.service";
+import { RoomService } from "app/core/services/room.service";
+import { createThis } from "typescript";
 
 @Component({
   selector: "app-device-page",
@@ -15,11 +22,21 @@ export class DevicePageComponent implements OnInit {
   public device;
   public deviceForm;
   public deviceHistory;
+  public buttonType = "disable";
+  public autocompleteRecords;
+
+  private deviceArray = [];
+  private deviceDataValidator;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private deviceService: DeviceService,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private modelService: ModelService,
+    private deviceTypeService: DeviceTypeService,
+    private roomService: RoomService,
+    private ownerService: OwnerService,
+    private deviceSetService: DeviceSetService
   ) {}
 
   ngOnInit(): void {
@@ -34,10 +51,13 @@ export class DevicePageComponent implements OnInit {
               console.log(this.device);
               this.getDeviceHistory();
               this.insertInputValue(device);
+              this.mapDeviceToArray();
             });
         }
       })
       .unsubscribe();
+    this.deviceDataValidator = new DeviceDataValidator();
+    this.getAutoCompleteData();
   }
 
   getDeviceHistory() {
@@ -82,7 +102,70 @@ export class DevicePageComponent implements OnInit {
     this.deviceForm.controls["deviceComment"].setValue(comment);
   }
 
+  mapDeviceToArray() {
+    this.deviceArray["serialNumber"] = this.device.serialNumber;
+    this.deviceArray["deviceModel"] = this.device.model.name;
+    this.deviceArray["deviceType"] = this.device.model.type.name;
+    this.deviceArray["deviceRoom"] = this.device.room.name;
+    this.deviceArray["deviceOwner"] = this.device.owner.name;
+    this.deviceArray["deviceBarCode"] = this.device.barCode;
+    this.deviceArray["deviceSet"] = this.device.deviceSet.name;
+    this.deviceArray["deviceComment"] = this.device.comments;
+  }
+
   getDate(fullDate) {
     return DateService.getDate(fullDate);
+  }
+
+  getAutoCompleteData() {
+    this.deviceSetService.getAllDeviceSets().subscribe((data) => {
+      this.deviceDataValidator.insertNames(data, "deviceSet");
+      this.deviceDataValidator.insertIds(data, "deviceSet");
+    }).unsubscribe;
+    this.deviceTypeService.getAllDeviceTypes().subscribe((data) => {
+      this.deviceDataValidator.insertNames(data, "deviceType");
+      this.deviceDataValidator.insertIds(data, "deviceType");
+    }).unsubscribe;
+    this.ownerService.getAllOwners().subscribe((data) => {
+      this.deviceDataValidator.insertNames(data, "deviceOwner");
+      this.deviceDataValidator.insertIds(data, "deviceOwner");
+    }).unsubscribe;
+    this.roomService.getAllRooms().subscribe((data) => {
+      this.deviceDataValidator.insertNames(data, "deviceRoom");
+      this.deviceDataValidator.insertIds(data, "deviceRoom");
+    }).unsubscribe;
+    this.modelService.getAllModels().subscribe((data) => {
+      this.deviceDataValidator.insertNames(data, "deviceModel");
+      this.deviceDataValidator.insertIds(data, "deviceModel");
+      this.deviceDataValidator.insertModelsWithTypes(data);
+    }).unsubscribe;
+
+    this.autocompleteRecords = this.deviceDataValidator.names;
+  }
+
+  checkChange() {
+    if (
+      (this.deviceForm.controls["deviceSet"].value !==
+        this.deviceArray["deviceSet"] ||
+        this.deviceForm.controls["serialNumber"].value !==
+          this.deviceArray["serialNumber"] ||
+        this.deviceForm.controls["deviceModel"].value !==
+          this.deviceArray["deviceModel"] ||
+        this.deviceForm.controls["deviceType"].value !==
+          this.deviceArray["deviceType"] ||
+        this.deviceForm.controls["deviceRoom"].value !==
+          this.deviceArray["deviceRoom"] ||
+        this.deviceForm.controls["deviceOwner"].value !==
+          this.deviceArray["deviceOwner"] ||
+        this.deviceForm.controls["deviceBarCode"].value !==
+          this.deviceArray["deviceBarCode"] ||
+        this.deviceForm.controls["deviceComment"].value !==
+          this.deviceArray["deviceComment"]) &&
+      this.buttonType !== "secondary"
+    ) {
+      this.buttonType = "secondary";
+    } else if (this.buttonType === "secondary") {
+      this.buttonType = "disable";
+    }
   }
 }

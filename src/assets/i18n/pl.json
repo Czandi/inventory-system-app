@@ -34,7 +34,12 @@
         "DEVICE_SET": "Zestaw"
       }
     },
-    "PRINT_BARCODES": "Drukuj kody kreskowe"
+    "PRINT_BARCODES": "Drukuj kody kreskowe",
+    "INVENTORY": {
+      "TITLE": "Inventaryzacja",
+      "DO_INVENTORY": "Inwentaryzuj",
+      "RAPORTS": "Raporty"
+    }
   },
   "PAGES": {
     "DISPLAY_RECORDS": {
@@ -104,6 +109,11 @@
     "RECORD_PAGE": {
       "UPDATE": "Aktualizuj",
       "HISTORY": "Historia"
+    },
+    "INVENTORY": {
+      "DO_INVENTORY": "Inwenatryzuj",
+      "RAPORTS": "Raporty",
+      "FIRST_TEXT": "Wybierz pomieszczenie, w którym będziesz przeprowadzał inwentaryzację"
     }
   },
   "TABLE_HEADERS": {

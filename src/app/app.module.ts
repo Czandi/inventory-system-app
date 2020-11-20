@@ -1,4 +1,3 @@
-import { RecordPageModule } from "./record-page/record-page.module";
 import "reflect-metadata";
 import "../polyfills";
 
@@ -14,6 +13,8 @@ import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { DashboardModule } from "./dashboard/dashboard.module";
+import { InventoryModule } from "./inventory/iventory.module";
+import { RecordPageModule } from "./record-page/record-page.module";
 import { DisplayRecordsModule } from "./display-records/display-records.module";
 import { AddRecordModule } from "./add-record/add-record.module";
 import { UpdateRecordsModule } from "./update-records/update-records.module";
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UpdateRecordsModule,
     HistoryModule,
     RecordPageModule,
+    InventoryModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
