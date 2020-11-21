@@ -38,6 +38,10 @@ export class DeviceService {
     return this.http.get(this.config.deviceUrl + "/" + id);
   }
 
+  getAllBarcodes() {
+    return this.http.get(this.config.allBarcodesUrl);
+  }
+
   insertDevice(device: Device): Observable<Device> {
     return this.http.post<Device>(this.config.deviceUrl, device);
   }

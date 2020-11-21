@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -168,5 +169,13 @@ public class DeviceService {
     Map<String, Boolean> response = new HashMap<>();
     response.put("deleted", Boolean.TRUE);
     return response;
+  }
+
+  public List<Long> getAllBarcodes() {
+    return deviceRepository.getAllBarcodes();
+  }
+
+  public Device findByBarcode(Long barcode) {
+    return deviceRepository.findByBarCode(barcode);
   }
 }

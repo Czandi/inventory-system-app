@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,6 +35,11 @@ public class DeviceController {
   @GetMapping("/devices/{id}")
   public Device getSingleDevice(@PathVariable long id) throws ResourceNotFoundException {
     return deviceService.getSingleDevice(id);
+  }
+
+  @GetMapping("/devices/all/barcodes")
+  public List<Long> getAllBarcodes(){
+    return deviceService.getAllBarcodes();
   }
 
   @GetMapping("/devices/count/models")

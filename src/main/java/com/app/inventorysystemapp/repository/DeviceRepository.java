@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, Long> {
@@ -28,4 +30,9 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
   @Query("Select distinct d.model from Device d " +
     "where d.model.name like '%xiaomi%'")
   Page<Device> getCountedModels(Pageable page);
+
+  @Query("Select d.barCode from Device d")
+  List<Long> getAllBarcodes();
+
+  Device findByBarCode(Long barcode);
 }

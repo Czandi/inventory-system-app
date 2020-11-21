@@ -39,16 +39,9 @@
         <div class="scanned-devices">
           <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
           <div class="device-container">
-            <div class="device">
-              <span>23461653</span>
-              <div class="x">
-                <div class="line"></div>
-                <div class="line"></div>
-              </div>
-            </div>
-            <div class="device">
-              <span>23461653</span>
-              <div class="x">
+            <div class="device" *ngFor="let barcode of barcodes">
+              <span>{{ barcode }}</span>
+              <div (click)="removeBarcode(barcode)" class="x">
                 <div class="line"></div>
                 <div class="line"></div>
               </div>
@@ -59,7 +52,7 @@
         <app-button
           class="accept-button"
           type="primary"
-          text="Zatwierdź"
+          text="Zakończ"
           (click)="update()"
         ></app-button>
       </ng-container>
