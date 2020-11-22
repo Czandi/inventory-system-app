@@ -102,9 +102,12 @@
           }}</span>
         </p>
         <p>
-          <span routerLink="/inventory/raports" routerLinkActive="active">{{
-            "NAVBAR.INVENTORY.RAPORTS" | translate
-          }}</span>
+          <span
+            routerLink="/inventory/raports"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.INVENTORY.RAPORTS" | translate }}</span
+          >
         </p>
       </div>
     </div>

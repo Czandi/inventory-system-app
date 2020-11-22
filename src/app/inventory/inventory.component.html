@@ -11,8 +11,8 @@
           "TABLE_HEADERS.DEVICE.ROOM" | translate
         }}</label>
         <select name="room-input" [disabled]="roomAccepted" #roomInput>
-          <option *ngFor="let room of roomNames" [value]="room">
-            {{ room }}
+          <option *ngFor="let room of rooms" [value]="room.id">
+            {{ room.name }}
           </option>
         </select>
       </div>
@@ -53,7 +53,7 @@
           class="accept-button"
           type="primary"
           text="Zakończ"
-          (click)="update()"
+          (click)="finish()"
         ></app-button>
       </ng-container>
     </div>

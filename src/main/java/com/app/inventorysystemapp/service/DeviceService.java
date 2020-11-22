@@ -178,4 +178,12 @@ public class DeviceService {
   public Device findByBarcode(Long barcode) {
     return deviceRepository.findByBarCode(barcode);
   }
+
+  public List<Device> getDevicesFromRoom(Room room) {
+    return deviceRepository.findDeviceByRoom(room);
+  }
+
+  public Device findById(Long id){
+    return deviceRepository.findById(id).orElseThrow();
+  }
 }

@@ -1,13 +1,15 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.model.Device;
-import com.app.inventorysystemapp.model.Inventory;
-import com.app.inventorysystemapp.model.InventoryItem;
-import com.app.inventorysystemapp.model.Room;
+import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.InventoryItemRepository;
 import com.app.inventorysystemapp.repository.InventoryRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,12 +28,16 @@ public class InventoryService {
   }
 
 
-  public Inventory insertInventory(Long idRoom, Long[] barcodes) {
+  public Inventory insertInventory(Long idRoom, List<Long> barcodes) {
     Inventory inventory = insertNewInventory(idRoom);
 
-    for(Long barcode: barcodes){
-      Device device = deviceService.findByBarcode(barcode);
-      insertInventoryItem(inventory, device);
+    System.out.println(barcodes);
+
+    for(int i = 0; i < barcodes.size(); i++){
+      Device device = deviceService.findByBarcode(barcodes.get(i));
+      if(device != null){
+        insertInventoryItem(inventory, device);
+      }
     }
 
     return inventory;
@@ -50,5 +56,88 @@ public class InventoryService {
     inventoryItem.setDevice(record);
     inventoryItem.setInventory(inventory);
     return inventoryItemRepository.save(inventoryItem);
+  }
+
+  public Page<Inventory> getInventories(int page, int pageSize, String orderBy, String sortType, String search) {
+    Pageable paging;
+    int pageNumber = page > 0 ? page : 1;
+
+    if(orderBy != null){
+
+      String orderValue = orderBy;
+
+      switch(orderBy){
+        case "room":
+          orderValue = "room.name";
+          break;
+      }
+
+      String type = "";
+
+      if(sortType == null){
+        type = "desc";
+      }else{
+        type = sortType;
+      }
+
+      if(type.equals("desc")){
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue).descending());
+      }else{
+        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue));
+      }
+
+    }else{
+      paging = PageRequest.of(pageNumber-1, pageSize);
+    }
+
+    if(search == null){
+      return inventoryRepository.findAll(paging);
+    }else{
+      return inventoryRepository.findByContaining(search, paging);
+    }
+  }
+
+  public Report getReport(long id) {
+    Report report = new Report();
+    Inventory inventory = inventoryRepository.findById(id).orElseThrow();
+
+    List<Device> previousStock = deviceService.getDevicesFromRoom(inventory.getRoom());
+    List<InventoryItem> inventoryItems = inventoryItemRepository.findByInventory(inventory);
+    List<Device> actualStock = new ArrayList<>();
+
+    for(int i = 0; i < inventoryItems.size(); i++){
+      actualStock.add(inventoryItems.get(i).getDevice());
+    }
+
+    List<Device> missingRecords = new ArrayList<>();
+
+    for(int i = 0; i < previousStock.size(); i++){
+      Boolean missing = true;
+
+      for(int j = 0; j < actualStock.size(); j++){
+
+        if(previousStock.get(i) == actualStock.get(j)){
+          System.out.println(i);
+          System.out.println("Prev Id: " + previousStock.get(i).getId());
+          System.out.println("Actual Id: " + actualStock.get(j).getId());
+
+          missing = false;
+          break;
+        }
+      }
+
+      if(missing){
+
+        missingRecords.add(previousStock.get(i));
+      }
+    }
+
+    report.setActualStock(actualStock);
+    report.setPreviousStock(previousStock);
+    report.setMissingRecords(missingRecords);
+    report.setDate(inventory.getDate());
+    report.setRoom(inventory.getRoom().getName());
+
+    return report;
   }
 }

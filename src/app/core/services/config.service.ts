@@ -9,10 +9,13 @@ export class ConfigService {
   private _roomUrl = this.serverApiUrl + "/rooms";
   private _historyUrl = this.serverApiUrl + "/history";
   private _deviceHistoryUrl = this._historyUrl + "/devices";
+  private _inventoryUrl = this.serverApiUrl + "/inventory";
+
   private _barcodeGeneratorUrl = "http://barcodes4.me/barcode/c128b";
 
   private PAGE_SIZE = 10;
 
+  private _inventoryRoom = "?idRoom=";
   private _page = "?page=";
   private _page_size = "&pageSize=" + this.PAGE_SIZE;
   private _sortType = "&sortType=";
@@ -53,6 +56,14 @@ export class ConfigService {
 
   get deviceHistoryUrl(): string {
     return this._deviceHistoryUrl;
+  }
+
+  get inventoryUrl(): string {
+    return this._inventoryUrl;
+  }
+
+  get inventoryRoom(): string {
+    return this._inventoryRoom;
   }
 
   get page(): string {

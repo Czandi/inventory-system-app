@@ -1,3 +1,5 @@
+import { Router } from "@angular/router";
+import { InventoryService } from "./../core/services/inventory.service";
 import { DeviceService } from "./../core/services/device.service";
 import { SubjectService } from "app/core/services/subject.service";
 import { Subscription } from "rxjs";
@@ -15,18 +17,20 @@ export class InventoryComponent implements OnInit {
 
   public newRecord = [];
   public roomAccepted = false;
-  public roomNames = [];
+  public rooms = [];
   public barcodes = [];
 
   private currentBarcode = "";
   private allBarcodes;
-  private roomIds = [];
+  private inventoryId;
   private roomServiceSub: Subscription;
   private deviceServiceSub: any;
 
   constructor(
     private roomService: RoomService,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private inventoryService: InventoryService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +40,7 @@ export class InventoryComponent implements OnInit {
   getAutoCompleteData() {
     this.roomServiceSub = this.roomService.getAllRooms().subscribe((data) => {
       for (let room of data) {
-        this.roomNames.push(room.name);
-        this.roomIds[(room.id, name)] = room.id;
+        this.rooms.push(room);
       }
     });
 
@@ -102,5 +105,19 @@ export class InventoryComponent implements OnInit {
     console.log(index);
     this.barcodes.splice(index, 1);
     console.log(this.barcodes);
+  }
+
+  finish() {
+    let room = this.roomInput.nativeElement.value;
+    this.inventoryService
+      .insertInventoryItem(room, this.barcodes)
+      .subscribe((data) => {
+        this.inventoryId = data.id;
+        console.log(this.inventoryId);
+      });
+
+    this.router.navigate(["/inventory/raports"], {
+      queryParams: { id: this.inventoryId },
+    });
   }
 }

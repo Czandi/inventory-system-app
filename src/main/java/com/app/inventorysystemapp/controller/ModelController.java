@@ -2,7 +2,6 @@ package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.ModelDto;
 import com.app.inventorysystemapp.controller.mapper.ModelMapper;
-import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.controller.requestModels.ModelRequest;
 import com.app.inventorysystemapp.service.ModelService;

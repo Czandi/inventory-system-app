@@ -1,3 +1,4 @@
+import { RaportPageComponent } from "./raports/raport-page/raport-page.component";
 import { InventoryComponent } from "./inventory.component";
 import { RaportsComponent } from "./raports/raports.component";
 import { NgModule } from "@angular/core";
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: "inventory/raports",
     component: RaportsComponent,
+  },
+  {
+    path: "inventory/raports/:id",
+    component: RaportPageComponent,
   },
 ];
 
