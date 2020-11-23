@@ -10,6 +10,7 @@ public class Report {
   private LocalDate date;
   private String room;
   private List<Device> missingRecords;
+  private List<Device> additionalRecords;
   private List<Device> actualStock;
   private List<Device> previousStock;
 }

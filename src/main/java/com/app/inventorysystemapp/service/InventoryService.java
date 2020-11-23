@@ -117,24 +117,39 @@ public class InventoryService {
       for(int j = 0; j < actualStock.size(); j++){
 
         if(previousStock.get(i) == actualStock.get(j)){
-          System.out.println(i);
-          System.out.println("Prev Id: " + previousStock.get(i).getId());
-          System.out.println("Actual Id: " + actualStock.get(j).getId());
-
           missing = false;
           break;
         }
       }
 
       if(missing){
-
         missingRecords.add(previousStock.get(i));
+      }
+    }
+
+    List<Device> additionalRecords = new ArrayList<>();
+
+
+    for(int i = 0; i < actualStock.size(); i++){
+      Boolean additional = true;
+
+      for(int j = 0; j < previousStock.size(); j++){
+
+        if(actualStock.get(i) == previousStock.get(j)){
+          additional = false;
+          break;
+        }
+      }
+
+      if(additional){
+        additionalRecords.add(actualStock.get(i));
       }
     }
 
     report.setActualStock(actualStock);
     report.setPreviousStock(previousStock);
     report.setMissingRecords(missingRecords);
+    report.setAdditionalRecords(additionalRecords);
     report.setDate(inventory.getDate());
     report.setRoom(inventory.getRoom().getName());
 

@@ -10,6 +10,7 @@ export class ConfigService {
   private _historyUrl = this.serverApiUrl + "/history";
   private _deviceHistoryUrl = this._historyUrl + "/devices";
   private _inventoryUrl = this.serverApiUrl + "/inventory";
+  private _reportUrl = this._inventoryUrl + "/report";
 
   private _barcodeGeneratorUrl = "http://barcodes4.me/barcode/c128b";
 
@@ -60,6 +61,10 @@ export class ConfigService {
 
   get inventoryUrl(): string {
     return this._inventoryUrl;
+  }
+
+  get reportUrl(): string {
+    return this._reportUrl;
   }
 
   get inventoryRoom(): string {

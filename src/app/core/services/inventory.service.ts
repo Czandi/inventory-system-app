@@ -40,4 +40,8 @@ export class InventoryService {
       barcodes
     );
   }
+
+  getReport(id: number) {
+    return this.http.get(this.config.reportUrl + "/" + id);
+  }
 }

@@ -27,7 +27,7 @@
         <tr
           *ngFor="let inventory of inventories"
           class="hoverable"
-          [routerLink]="['/inventory/raports/', inventory.id]"
+          (click)="download(inventory.id)"
         >
           <td>{{ inventory.room }}</td>
           <td>{{ inventory.date }}</td>

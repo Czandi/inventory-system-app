@@ -1,7 +1,10 @@
+import { ReportCreator } from "./report-generator";
 import { ActivatedRoute } from "@angular/router";
 import { InventoryService } from "./../../core/services/inventory.service";
 import { Subscription } from "rxjs";
 import { Component, OnInit } from "@angular/core";
+import { Packer } from "docx";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: "app-raports",
@@ -79,5 +82,25 @@ export class RaportsComponent implements OnInit {
     } else if (this.sortType === "desc") {
       this.sortType = "asc";
     }
+  }
+
+  download(id): void {
+    this.inventoryService.getReport(id).subscribe((report) => {
+      const documentCreator = new ReportCreator();
+      const doc = documentCreator.create([
+        report["date"],
+        report["room"],
+        report["missingRecords"],
+        report["additionalRecords"],
+        report["actualStock"],
+        report["previousStock"],
+      ]);
+
+      Packer.toBlob(doc).then((blob) => {
+        console.log(blob);
+        saveAs(blob, "example.docx");
+        console.log("Document created successfully");
+      });
+    });
   }
 }
