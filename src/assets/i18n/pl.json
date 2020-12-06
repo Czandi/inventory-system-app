@@ -4,10 +4,10 @@
     "DISPLAY_RECORDS": {
       "TITLE": "Wyświetl rekordy",
       "SUBMENU": {
-        "DEVICES": "Urządzenia",
+        "DEVICES": "Produkty",
         "MODELS": "Modele",
         "DEVICE_SETS": "Zestawy",
-        "DEVICE_TYPES": "Typy urządzeń",
+        "DEVICE_TYPES": "Typy produktów",
         "OWNERS": "Właściciele",
         "ROOMS": "Pomieszczenia"
       }
@@ -30,11 +30,11 @@
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",
       "SUBMENU": {
-        "DEVICE": "Urządzenie",
+        "DEVICE": "Produkty",
         "DEVICE_SET": "Zestaw"
       }
     },
-    "PRINT_BARCODES": "Drukuj kody kreskowe",
+    "PRINT_BARCODES": "Kody kreskowe",
     "INVENTORY": {
       "TITLE": "Inventaryzacja",
       "DO_INVENTORY": "Inwentaryzuj",
@@ -47,8 +47,8 @@
       "SEARCH": "Szukaj",
       "COLUMNS": {
         "SERIAL_NUMBER": "Numer seryjny",
-        "DEVICE_MODEL": "Model urządzenia",
-        "DEVICE_TYPE": "Typ urządzenia",
+        "DEVICE_MODEL": "Model produktu",
+        "DEVICE_TYPE": "Typ produktu",
         "ROOM": "Pomieszczenie",
         "OWNER": "Właściciel",
         "BAR_CODE": "Kod kreskowy",
@@ -56,10 +56,10 @@
       },
       "DISPLAY": {
         "DISPLAY": "Wyświetl",
-        "DEVICE": "Urządzenia",
+        "DEVICE": "Produkty",
         "MODEL": "Modele",
         "DEVICE_SET": "Zestawy",
-        "DEVICE_TYPE": "Typy urządzeń",
+        "DEVICE_TYPE": "Typy produktów",
         "OWNER": "Właściciele",
         "ROOM": "Pomieszczenia"
       },
@@ -74,14 +74,14 @@
     },
     "UPDATE_RECORDS": {
       "TITLE": "Aktualizuj rekordy",
-      "ROOM_TEXT": "Wybierz pomieszczenie, do którego przenosisz urządzenia",
-      "SET_TEXT": "Wybierz zestaw, do którego chcesz przypisać urządzenia",
-      "ROOM_SCAN_DEVICES": "Skanuj przenoszone urządzenia",
-      "SET_SCAN_DEVICES": "Skanuj urządzenia",
-      "SCANNED_DEVICES": "Zeskanowane urządzenia"
+      "ROOM_TEXT": "Wybierz pomieszczenie, do którego przenosisz produkty",
+      "SET_TEXT": "Wybierz zestaw, do którego chcesz przypisać produkty",
+      "ROOM_SCAN_DEVICES": "Skanuj przenoszone produkty",
+      "SET_SCAN_DEVICES": "Skanuj produkty",
+      "SCANNED_DEVICES": "Zeskanowane produkty"
     },
     "PRINT_BARCODES": {
-      "TITLE": "Drukuj kody kreskowe",
+      "TITLE": "Kody kreskowe",
       "SUCCESS": "Operacja powiodła się",
       "FAILURE": "Operacja nie powiodła się",
       "FIRST_TEXT": "Żaden kod kreskowy nie został dodany do druku",
@@ -119,8 +119,8 @@
   "TABLE_HEADERS": {
     "DEVICE": {
       "SERIAL_NUMBER": "Numer seryjny",
-      "DEVICE_MODEL": "Model urządzenia",
-      "DEVICE_TYPE": "Typ urządzenia",
+      "DEVICE_MODEL": "Model produktu",
+      "DEVICE_TYPE": "Typ produktu",
       "ROOM": "Pomieszczenie",
       "OWNER": "Właściciel",
       "BAR_CODE": "Kod kreskowy",
@@ -129,24 +129,24 @@
     },
     "MODEL": {
       "MODEL_NAME": "Nazwa modelu",
-      "DEVICE_TYPE": "Typ urządzenia",
+      "DEVICE_TYPE": "Typ produktu",
       "AMOUNT": "Ilość"
     },
     "DEVICE_SET": {
       "DEVICE_SET_NAME": "Nazwa zestawu",
-      "DEVICES_AMOUNT": "Liczba urządzeń"
+      "DEVICES_AMOUNT": "Liczba produtków"
     },
     "DEVICE_TYPE": {
-      "DEVICE_TYPE_NAME": "Typ urządzenia",
-      "DEVICE_AMOUNT": "Liczba urządzeń"
+      "DEVICE_TYPE_NAME": "Typ produktu",
+      "DEVICE_AMOUNT": "Liczba produktów"
     },
     "OWNER": {
       "OWNER_NAME": "Imię",
       "OWNER_SURNAME": "Nazwisko",
-      "ITEMS_COUNT": "Ilość urządzeń"
+      "ITEMS_COUNT": "Ilość produktów"
     },
     "ROOM": {
-      "ROOM_NAME": "Pokój",
+      "ROOM_NAME": "Pomieszczenie",
       "ITEMS_IN_ROOM": "Liczba przedmiotów"
     },
     "ADDITIONALS": {

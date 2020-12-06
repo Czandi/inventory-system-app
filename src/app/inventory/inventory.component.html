@@ -27,7 +27,7 @@
     <div class="bottom-section">
       <ng-container *ngIf="roomAccepted">
         <div class="info">
-          <h2>{{ "PAGES.UPDATE_RECORDS.ROOM_SCAN_DEVICES" | translate }}</h2>
+          <h2>{{ "PAGES.UPDATE_RECORDS.SET_SCAN_DEVICES" | translate }}</h2>
 
           <div class="dots">
             <div class="dot"></div>
@@ -50,7 +50,7 @@
         </div>
 
         <app-button
-          class="accept-button"
+          class="finish-button"
           type="primary"
           text="Zakończ"
           (click)="finish()"

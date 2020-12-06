@@ -66,6 +66,7 @@ export class InventoryComponent implements OnInit {
 
   @HostListener("document:keyup", ["$event"])
   clickout(event) {
+    console.log(event);
     if (this.roomAccepted && this.allBarcodes !== undefined) {
       if (event.key === "Enter") {
         if (this.checkBarcode(this.currentBarcode)) {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoomService {
+public class RoomService implements com.app.inventorysystemapp.service.Service {
 
   private final RoomRepository roomRepository;
   private final HistoryService historyService;
@@ -28,39 +28,9 @@ public class RoomService {
                               String orderBy,
                               String sortType,
                               String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
-
-      String order = orderBy;
-
-      switch(orderBy){
-        case "name":
-          order = "roomName";
-          break;
-        case "count":
-          order = "itemsInRoomCount";
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
     if(search == null) {
       return roomRepository.findAllRoomsWithItemsCount(paging);
@@ -96,5 +66,17 @@ public class RoomService {
 
     final Room updatedRoom = roomRepository.save(room);
     return ResponseEntity.ok(updatedRoom);
+  }
+
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch(orderBy){
+      case "name":
+        return "roomName";
+      case "count":
+        return "itemsInRoomCount";
+      default:
+        return orderBy;
+    }
   }
 }

@@ -7,7 +7,6 @@ import com.app.inventorysystemapp.repository.DeviceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DeviceService {
+public class DeviceService implements com.app.inventorysystemapp.service.Service {
 
   private final DeviceRepository deviceRepository;
   private final DeviceSetService deviceSetService;
@@ -48,41 +47,34 @@ public class DeviceService {
                                  String orderBy,
                                  String sortType,
                                  String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
-      String orderValue = orderBy;
-
-      switch(orderBy){
-        case "type":
-          orderValue = "model." + orderBy;
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-       if(type.equals("desc")){
-         paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue).descending());
-       }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue));
-       }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
-
-    if(search == null){
+    if (search == null) {
       return deviceRepository.findAll(paging);
-    }else{
+    } else {
       return deviceRepository.findByContaining(search, paging);
+    }
+  }
+
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch (orderBy) {
+      case "type":
+        return "model." + orderBy;
+      case "setNumber":
+        return "deviceSet";
+      default:
+        return orderBy;
+    }
+  }
+
+  public String generateSortValue(String sortType) {
+    if (sortType == null) {
+      return "desc";
+    } else {
+      return sortType;
     }
   }
 
@@ -96,26 +88,21 @@ public class DeviceService {
   }
 
   public Device insertDevice(DeviceRequest device) {
+
     Room room = roomService.findRoomById(device.getIdRoom());
     Model model = modelService.findModelById(device.getIdModel());
     Owner owner = ownerService.findOwnerById(device.getIdOwner());
     DeviceSet deviceSet = deviceSetService.findDeviceSetById(device.getIdDeviceSet());
     String serialNumber = device.getSerialNumber();
     String comment = "";
-    if(device.getComment() != null){
+
+    if (device.getComment() != null) {
       comment = device.getComment();
     }
 
     Device newDevice = new Device(serialNumber, room, model, owner, deviceSet, comment);
-
-    System.out.println("Id before: " + newDevice.getId());
-
     newDevice = deviceRepository.save(newDevice);
-
-    System.out.println("Id after: " + newDevice.getId());
-
     newDevice.generateBarCode();
-
     newDevice = deviceRepository.save(newDevice);
 
     return newDevice;
@@ -130,26 +117,23 @@ public class DeviceService {
     String comment = details.getComment();
     Device device = this.getSingleDevice(id);
 
-    System.out.println("Old serialnumber: " + device.getSerialNumber());
-    System.out.println("New serialnumber: " + serialNumber);
-
-    if(device.getRoom() != room){
+    if (device.getRoom() != room) {
       historyService.insertHistory("device", device.getId(), "room", device.getRoom().getName(), room.getName());
     }
 
-    if(device.getModel() != model){
+    if (device.getModel() != model) {
       historyService.insertHistory("device", device.getId(), "model", device.getModel().getName(), model.getName());
     }
 
-    if(device.getOwner() != owner){
+    if (device.getOwner() != owner) {
       historyService.insertHistory("device", device.getId(), "owner", device.getOwner().getName(), owner.getName());
     }
 
-    if(device.getDeviceSet() != deviceSet){
+    if (device.getDeviceSet() != deviceSet) {
       historyService.insertHistory("device", device.getId(), "device_set", device.getDeviceSet().getName(), deviceSet.getName());
     }
 
-    if(!device.getSerialNumber().equals(serialNumber)){
+    if (!device.getSerialNumber().equals(serialNumber)) {
       historyService.insertHistory("device", device.getId(), "serial_number", device.getSerialNumber(), serialNumber);
     }
 
@@ -183,7 +167,7 @@ public class DeviceService {
     return deviceRepository.findDeviceByRoom(room);
   }
 
-  public Device findById(Long id){
+  public Device findById(Long id) {
     return deviceRepository.findById(id).orElseThrow();
   }
 }

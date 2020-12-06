@@ -51,7 +51,7 @@ public class Device {
   }
 
   public void generateBarCode(){
-    this.barCode = Long.parseLong(420 + String.valueOf(this.model.getType().getId()) + this.model.getId() + this.id);
+    this.barCode = Long.parseLong(121 + String.valueOf(this.model.getType().getId()) + this.model.getId() + this.id);
   }
 
 

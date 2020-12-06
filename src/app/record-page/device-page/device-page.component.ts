@@ -168,4 +168,27 @@ export class DevicePageComponent implements OnInit {
       this.buttonType = "disable";
     }
   }
+
+  getAttributeName(name) {
+    let attribute = "TABLE_HEADERS.DEVICE.";
+
+    switch (name) {
+      case "room":
+        attribute += "ROOM";
+        break;
+
+      case "device_set":
+        attribute += "SET_NUMBER";
+        break;
+
+      case "owner":
+        attribute += "OWNER";
+        break;
+
+      default:
+        attribute = name;
+    }
+
+    return attribute;
+  }
 }

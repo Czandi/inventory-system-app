@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HistoryService {
+public class HistoryService implements com.app.inventorysystemapp.service.Service {
 
   private final HistoryRepository historyRepository;
 
@@ -23,40 +23,13 @@ public class HistoryService {
                                   String orderBy,
                                   String sortType,
                                   String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
-      String orderValue = orderBy;
-
-      switch(orderBy){
-        case "type":
-          orderValue = "model." + orderBy;
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
-
-    if(search == null) {
+    if (search == null) {
       return historyRepository.findAll(paging);
-    }else{
+    } else {
       //TODO
       return historyRepository.findByContaining(search, paging);
     }
@@ -77,46 +50,13 @@ public class HistoryService {
 
 
   public Page<IHistoryDevice> getDevicesHistory(int page, int pageSize, String orderBy, String sortType, String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
-      String order = orderBy;
-
-      switch(orderBy){
-        case "name":
-          order = "modelName";
-          break;
-        case "type":
-          order = "typeName";
-          break;
-        case "count":
-          order = "modelCount";
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
-
-    if(search == null) {
+    if (search == null) {
       return historyRepository.findDevicesHistory(paging);
-    }else{
+    } else {
       return historyRepository.findDevicesHistoryByContaining(search, paging);
     }
 
@@ -125,7 +65,21 @@ public class HistoryService {
   public Page<IHistoryDevice> getDeviceHistory(long id, int page, int pageSize) {
     Pageable paging;
     int pageNumber = page > 0 ? page : 1;
-    paging = PageRequest.of(pageNumber-1, pageSize);
+    paging = PageRequest.of(pageNumber - 1, pageSize);
     return historyRepository.findDeviceHistory(paging, id);
+  }
+
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch (orderBy) {
+      case "name":
+        return "modelName";
+      case "type":
+        return "typeName";
+      case "count":
+        return "modelCount";
+      default:
+        return orderBy;
+    }
   }
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OwnerService {
+public class OwnerService implements com.app.inventorysystemapp.service.Service {
 
   private final OwnerRepository ownerRepository;
   private final HistoryService historyService;
@@ -28,41 +28,9 @@ public class OwnerService {
                                 String orderBy,
                                 String sortType,
                                 String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
-
-      String order = orderBy;
-
-      switch(orderBy){
-        case "name":
-          order = "ownerName";
-          break;
-        case "surname":
-          order = "ownerSurname";
-        case "count":
-          order = "ownerItemsCount";
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
     if(search == null) {
       return ownerRepository.findAllOwnersWithItemsCount(paging);
@@ -98,5 +66,19 @@ public class OwnerService {
 
     final Owner updatedOwner = ownerRepository.save(owner);
     return ResponseEntity.ok(updatedOwner);
+  }
+
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch(orderBy){
+      case "name":
+        return "ownerName";
+      case "surname":
+        return "ownerSurname";
+      case "count":
+        return "ownerItemsCount";
+      default:
+        return orderBy;
+    }
   }
 }

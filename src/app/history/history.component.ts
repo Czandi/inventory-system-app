@@ -52,27 +52,38 @@ export class HistoryComponent implements OnInit {
       });
   }
 
-  mapAttributeNames(attribute) {
-    switch (attribute) {
-      case "name":
-        return "PAGES.HISTORY.ATTRIBUTES.NAME";
-        break;
-      case "serial_number":
-        return "PAGES.HISTORY.ATTRIBUTES.SERIAL_NUMBER";
-        break;
-      case "model":
-        return "PAGES.HISTORY.ATTRIBUTES.MODEL";
-        break;
-      default:
-        return attribute;
-    }
-  }
-
   getDate(fullDate) {
     return DateService.getDate(fullDate);
   }
 
   getTime(fullDate) {
     return DateService.getTime(fullDate);
+  }
+
+  getAttributeName(name) {
+    let attribute = "TABLE_HEADERS.DEVICE.";
+
+    switch (name) {
+      case "room":
+        attribute += "ROOM";
+        break;
+
+      case "device_set":
+        attribute += "SET_NUMBER";
+        break;
+
+      case "owner":
+        attribute += "OWNER";
+        break;
+
+      case "serial_number":
+        attribute += "SERIAL_NUMBER";
+        break;
+
+      default:
+        attribute = name;
+    }
+
+    return attribute;
   }
 }

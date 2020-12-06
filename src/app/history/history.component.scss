@@ -4,6 +4,7 @@
   table {
     color: white;
     border-collapse: collapse;
+    text-transform: capitalize;
 
     .line {
       td {
@@ -24,6 +25,16 @@
       }
     }
 
+    th {
+      img {
+        opacity: 0;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+
     tr {
       td {
         padding: 15px 0;
@@ -36,7 +47,7 @@
         &.date,
         &.time {
           width: 100px;
-          padding-right: 50px;
+          padding-right: 35px;
         }
 
         &:first-of-type {

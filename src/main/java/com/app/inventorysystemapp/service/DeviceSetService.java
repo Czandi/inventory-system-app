@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DeviceSetService {
+public class DeviceSetService implements com.app.inventorysystemapp.service.Service {
 
   private final DeviceSetRepository deviceSetRepository;
   private final HistoryService historyService;
@@ -28,46 +28,27 @@ public class DeviceSetService {
                                         String orderBy,
                                         String sortType,
                                         String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
-      String order = orderBy;
-
-      switch(orderBy){
-        case "name":
-          order = "deviceSetName";
-          break;
-        case "count":
-          order = "itemsCount";
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
-
-    if(search == null) {
+    if (search == null) {
       return deviceSetRepository.findAllDevicesSetWithCount(paging);
-    }else{
+    } else {
       return deviceSetRepository.findAllDevicesSetWithCountByContaining(search, paging);
     }
+  }
 
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch (orderBy) {
+      case "name":
+        return "deviceSetName";
+      case "count":
+        return "itemsCount";
+      default:
+        return orderBy;
+    }
   }
 
   public List<DeviceSet> getAllDeviceSets() {
@@ -78,7 +59,7 @@ public class DeviceSetService {
     return deviceSetRepository.save(deviceSet);
   }
 
-  public DeviceSet findDeviceSetById(long id){
+  public DeviceSet findDeviceSetById(long id) {
     return deviceSetRepository.findById(id).orElseThrow();
   }
 
@@ -89,7 +70,7 @@ public class DeviceSetService {
   public ResponseEntity<DeviceSet> updateDeviceSet(long id, String name) {
     DeviceSet deviceSet = deviceSetRepository.findById(id).orElseThrow();
 
-    if(!deviceSet.getName().equals(name)){
+    if (!deviceSet.getName().equals(name)) {
       historyService.insertHistory("device_set", deviceSet.getId(), "name", deviceSet.getName(), name);
     }
 

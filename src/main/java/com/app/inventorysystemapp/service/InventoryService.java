@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class InventoryService {
+public class InventoryService implements com.app.inventorysystemapp.service.Service {
 
   private final InventoryRepository inventoryRepository;
   private final InventoryItemRepository inventoryItemRepository;
@@ -30,8 +30,6 @@ public class InventoryService {
 
   public Inventory insertInventory(Long idRoom, List<Long> barcodes) {
     Inventory inventory = insertNewInventory(idRoom);
-
-    System.out.println(barcodes);
 
     for(int i = 0; i < barcodes.size(); i++){
       Device device = deviceService.findByBarcode(barcodes.get(i));
@@ -59,36 +57,9 @@ public class InventoryService {
   }
 
   public Page<Inventory> getInventories(int page, int pageSize, String orderBy, String sortType, String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
-
-      String orderValue = orderBy;
-
-      switch(orderBy){
-        case "room":
-          orderValue = "room.name";
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(orderValue));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
     if(search == null){
       return inventoryRepository.findAll(paging);
@@ -109,42 +80,8 @@ public class InventoryService {
       actualStock.add(inventoryItems.get(i).getDevice());
     }
 
-    List<Device> missingRecords = new ArrayList<>();
-
-    for(int i = 0; i < previousStock.size(); i++){
-      Boolean missing = true;
-
-      for(int j = 0; j < actualStock.size(); j++){
-
-        if(previousStock.get(i) == actualStock.get(j)){
-          missing = false;
-          break;
-        }
-      }
-
-      if(missing){
-        missingRecords.add(previousStock.get(i));
-      }
-    }
-
-    List<Device> additionalRecords = new ArrayList<>();
-
-
-    for(int i = 0; i < actualStock.size(); i++){
-      Boolean additional = true;
-
-      for(int j = 0; j < previousStock.size(); j++){
-
-        if(actualStock.get(i) == previousStock.get(j)){
-          additional = false;
-          break;
-        }
-      }
-
-      if(additional){
-        additionalRecords.add(actualStock.get(i));
-      }
-    }
+    List<Device> missingRecords = getDifferentDevices(previousStock, actualStock);
+    List<Device> additionalRecords = getDifferentDevices(actualStock, previousStock);
 
     report.setActualStock(actualStock);
     report.setPreviousStock(previousStock);
@@ -154,5 +91,15 @@ public class InventoryService {
     report.setRoom(inventory.getRoom().getName());
 
     return report;
+  }
+
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch(orderBy){
+      case "room":
+        return "room.name";
+      default:
+        return orderBy;
+    }
   }
 }

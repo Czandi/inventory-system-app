@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DeviceTypeService {
+public class DeviceTypeService implements com.app.inventorysystemapp.service.Service {
 
   private final DeviceTypeRepository deviceTypeRepository;
   private final HistoryService historyService;
@@ -28,44 +28,26 @@ public class DeviceTypeService {
                                           String orderBy,
                                           String sortType,
                                           String search) {
-    Pageable paging;
     int pageNumber = page > 0 ? page : 1;
 
-    if(orderBy != null){
-
-      String order = orderBy;
-
-      switch(orderBy){
-        case "name":
-          order = "deviceTypeName";
-          break;
-        case "count":
-          order = "deviceTypeCount";
-          break;
-      }
-
-      String type = "";
-
-      if(sortType == null){
-        type = "desc";
-      }else{
-        type = sortType;
-      }
-
-      if(type.equals("desc")){
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order).descending());
-      }else{
-        paging = PageRequest.of(pageNumber-1, pageSize, Sort.by(order));
-      }
-
-    }else{
-      paging = PageRequest.of(pageNumber-1, pageSize);
-    }
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
     if(search == null) {
       return deviceTypeRepository.findAllDeviceTypesWithCount(paging);
     }else{
       return deviceTypeRepository.findAllDeviceTypesWithCountByContaining(search, paging);
+    }
+  }
+
+  @Override
+  public String generateOrderValue(String orderBy) {
+    switch(orderBy){
+      case "name":
+        return "deviceTypeName";
+      case "count":
+        return "deviceTypeCount";
+      default:
+        return orderBy;
     }
   }
 

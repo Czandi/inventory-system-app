@@ -72,6 +72,13 @@ label {
   position: relative;
   width: 70vw;
 
+  .finish-button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .info {
     .dots {
       margin: 35px 0;

@@ -71,25 +71,6 @@
       </div>
     </div>
 
-    <div class="element" #updateRecords>
-      <div (click)="toggleSubmenu(updateRecords)" class="element-header">
-        <p>{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</p>
-        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
-      </div>
-      <div class="submenu">
-        <p>
-          <span routerLink="/update-records/room" routerLinkActive="active">{{
-            "NAVBAR.UPDATE_RECORDS.SUBMENU.ROOM" | translate
-          }}</span>
-        </p>
-        <p>
-          <span routerLink="/update-records/set" routerLinkActive="active">{{
-            "NAVBAR.UPDATE_RECORDS.SUBMENU.SET" | translate
-          }}</span>
-        </p>
-      </div>
-    </div>
-
     <div class="element" #inventory>
       <div (click)="toggleSubmenu(inventory)" class="element-header">
         <p>{{ "NAVBAR.INVENTORY.TITLE" | translate }}</p>
@@ -108,6 +89,24 @@
             [queryParams]="{ page: '1' }"
             >{{ "NAVBAR.INVENTORY.RAPORTS" | translate }}</span
           >
+        </p>
+      </div>
+    </div>
+
+    <div class="element" #updateRecords>
+      <div class="element-header">
+        <p>{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</p>
+      </div>
+      <div class="submenu">
+        <p>
+          <span routerLink="/update-records/room" routerLinkActive="active">{{
+            "NAVBAR.UPDATE_RECORDS.SUBMENU.ROOM" | translate
+          }}</span>
+        </p>
+        <p>
+          <span routerLink="/update-records/set" routerLinkActive="active">{{
+            "NAVBAR.UPDATE_RECORDS.SUBMENU.SET" | translate
+          }}</span>
         </p>
       </div>
     </div>

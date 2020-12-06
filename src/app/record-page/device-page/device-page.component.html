@@ -149,7 +149,7 @@
         </tr>
         <tr *ngFor="let history of deviceHistory">
           <td>
-            {{ history.changedAttribute }}
+            {{ getAttributeName(history.changedAttribute) | translate }}
           </td>
           <td>
             {{ history.oldValue }}
