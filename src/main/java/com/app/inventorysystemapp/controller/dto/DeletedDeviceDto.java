@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeviceDto {
+public class DeletedDeviceDto{
   private long id;
 
   private String serialNumber;
@@ -28,4 +29,6 @@ public class DeviceDto {
   private long barCode;
 
   private String comments;
+
+  private LocalDateTime deletedDate;
 }

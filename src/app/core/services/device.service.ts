@@ -34,6 +34,30 @@ export class DeviceService {
     return this.http.get(url);
   }
 
+  getDeletedDevice(
+    page: number,
+    orderBy: string,
+    sortType: string,
+    searchValue?: string
+  ): Observable<any> {
+    var url =
+      this.config.deviceUrl +
+      "/deleted" +
+      this.config.page +
+      page +
+      this.config.pageSize +
+      this.config.sortType +
+      sortType +
+      this.config.orderBy +
+      orderBy;
+
+    if (searchValue !== "") {
+      url += this.config.search + searchValue;
+    }
+
+    return this.http.get(url);
+  }
+
   getSingleDevice(id: number) {
     return this.http.get(this.config.deviceUrl + "/" + id);
   }
@@ -48,5 +72,9 @@ export class DeviceService {
 
   updateDevice(id: number, device: Device): Observable<Device> {
     return this.http.put<Device>(this.config.deviceUrl + "/" + id, device);
+  }
+
+  deleteDevice(id: number): Observable<any> {
+    return this.http.delete(this.config.deviceUrl + "/" + id);
   }
 }

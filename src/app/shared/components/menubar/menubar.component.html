@@ -3,13 +3,13 @@
   <div class="background"></div>
   <div class="buttons">
     <div class="windows-button">
-      <div class="icon minimize">
+      <div (click)="minimize()" class="icon minimize">
         <img src="../../assets/icons/minimize.svg" />
       </div>
-      <div class="icon maximize">
+      <div (click)="maximize()" class="icon maximize">
         <img src="../../assets/icons/maximize.svg" />
       </div>
-      <div class="icon close">
+      <div (click)="close()" class="icon close">
         <img src="../../assets/icons/close.svg" />
       </div>
     </div>

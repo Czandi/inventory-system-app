@@ -3,21 +3,23 @@ package com.app.inventorysystemapp.service;
 import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
+import com.app.inventorysystemapp.repository.DeletedDeviceRepository;
 import com.app.inventorysystemapp.repository.DeviceRepository;
+import org.hibernate.sql.Delete;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class DeviceService implements com.app.inventorysystemapp.service.Service {
 
   private final DeviceRepository deviceRepository;
+  private final DeletedDeviceRepository deletedDeviceRepository;
+
   private final DeviceSetService deviceSetService;
   private final DeviceTypeService deviceTypeService;
   private final ModelService modelService;
@@ -28,12 +30,13 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
   private final String MARK = "US";
 
   public DeviceService(DeviceRepository deviceRepository,
-                       DeviceSetService deviceSetService,
+                       DeletedDeviceRepository deletedDeviceRepository, DeviceSetService deviceSetService,
                        DeviceTypeService deviceTypeService,
                        ModelService modelService,
                        OwnerService ownerService,
                        RoomService roomService, HistoryService historyService) {
     this.deviceRepository = deviceRepository;
+    this.deletedDeviceRepository = deletedDeviceRepository;
     this.deviceSetService = deviceSetService;
     this.deviceTypeService = deviceTypeService;
     this.modelService = modelService;
@@ -55,6 +58,18 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
       return deviceRepository.findAll(paging);
     } else {
       return deviceRepository.findByContaining(search, paging);
+    }
+  }
+
+  public Page<DeletedDevice> getDeletedDevices(int page, int pageSize, String orderBy, String sortType, String search) {
+    int pageNumber = page > 0 ? page : 1;
+
+    Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
+
+    if (search == null) {
+      return deletedDeviceRepository.findAll(paging);
+    } else {
+      return deletedDeviceRepository.findByContaining(search, paging);
     }
   }
 
@@ -147,12 +162,21 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
     return ResponseEntity.ok(updatedDevice);
   }
 
-  public Map<String, Boolean> deleteDevice(long id) throws ResourceNotFoundException {
-    Device device = this.getSingleDevice(id);
+  public DeletedDevice deleteDevice(long id) {
+    Device device = deviceRepository.findById(id).orElseThrow();
+    DeletedDevice deletedDevice = DeletedDevice.builder()
+      .deviceSet(device.getDeviceSet())
+      .barCode(device.getBarCode())
+      .comments(device.getComments())
+      .createdDate(device.getCreatedDate())
+      .model(device.getModel())
+      .owner(device.getOwner())
+      .room(device.getRoom())
+      .serialNumber(device.getSerialNumber())
+      .build();
     deviceRepository.delete(device);
-    Map<String, Boolean> response = new HashMap<>();
-    response.put("deleted", Boolean.TRUE);
-    return response;
+    return deletedDeviceRepository.save(deletedDevice);
+
   }
 
   public List<Long> getAllBarcodes() {

@@ -1,9 +1,11 @@
 package com.app.inventorysystemapp.controller;
 
+import com.app.inventorysystemapp.controller.dto.DeletedDeviceDto;
 import com.app.inventorysystemapp.controller.dto.DeviceDto;
 import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
 import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
+import com.app.inventorysystemapp.model.DeletedDevice;
 import com.app.inventorysystemapp.model.Device;
 import com.app.inventorysystemapp.service.DeviceService;
 import org.springframework.data.domain.Page;
@@ -32,20 +34,29 @@ public class DeviceController {
     return DeviceMapper.mapToDeviceDtos(deviceService.getDevices(page, pageSize, orderBy, sortType, search));
   }
 
+  @GetMapping("/devices/deleted")
+  public Page<DeletedDeviceDto> getDeletedDevices(int page,
+                                                  int pageSize,
+                                                  @RequestParam(required = false) String orderBy,
+                                                  @RequestParam(required = false) String sortType,
+                                                  @RequestParam(required = false) String search) {
+    return DeviceMapper.mapToDeletedDeviceDtos(deviceService.getDeletedDevices(page, pageSize, orderBy, sortType, search));
+  }
+
   @GetMapping("/devices/{id}")
   public Device getSingleDevice(@PathVariable long id) throws ResourceNotFoundException {
     return deviceService.getSingleDevice(id);
   }
 
   @GetMapping("/devices/all/barcodes")
-  public List<Long> getAllBarcodes(){
+  public List<Long> getAllBarcodes() {
     return deviceService.getAllBarcodes();
   }
 
   @GetMapping("/devices/count/models")
   public Page<Device> countModels(@RequestParam(required = false) int page) {
     int pageNumber = page > 0 ? page : 1;
-    return deviceService.getCountedModels(pageNumber-1);
+    return deviceService.getCountedModels(pageNumber - 1);
   }
 
   @PostMapping("/devices")
@@ -59,7 +70,8 @@ public class DeviceController {
   }
 
   @DeleteMapping("/devices/{id}")
-  public Map<String, Boolean> deleteDevice(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-    return deviceService.deleteDevice(id);
+  public DeletedDeviceDto deleteDevice(@PathVariable(value = "id") Long id) {
+    return DeviceMapper.mapToDeletedDeviceDto(deviceService.deleteDevice(id));
   }
+
 }

@@ -1,6 +1,36 @@
 <div class="content-container">
   <h1 class="header">Aktualizuj rekordy</h1>
   <div class="center">
-    <router-outlet></router-outlet>
+    <div>
+      <div class="info">
+        <h2>{{ "PAGES.UPDATE_RECORDS.SET_SCAN_DEVICES" | translate }}</h2>
+
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="scanned-devices">
+        <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
+        <div class="device-container">
+          <div class="device" *ngFor="let barcode of barcodes">
+            <span>{{ barcode }}</span>
+            <div (click)="removeBarcode(barcode)" class="x">
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-button
+        class="finish-button"
+        type="primary"
+        text="Zakończ"
+        (click)="finish()"
+      ></app-button>
+    </div>
   </div>
 </div>
