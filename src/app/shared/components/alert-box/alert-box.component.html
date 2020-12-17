@@ -1,0 +1,20 @@
+<div class="alert" #alert>
+  <div class="box">
+    <h3>{{ "PAGES.DISPLAY_RECORDS.DELETE_RECORD" | translate }}</h3>
+    <p>{{ "PAGES.DISPLAY_RECORDS.DELETE_MESSAGE" | translate }}</p>
+    <div class="button-container">
+      <app-button
+        class="accept"
+        type="primary"
+        [text]="'PAGES.DISPLAY_RECORDS.DELETE' | translate"
+        (click)="accept()"
+      ></app-button>
+      <app-button
+        class="cancel"
+        type="primary"
+        [text]="'PAGES.DISPLAY_RECORDS.CANCEL' | translate"
+        (click)="closeAlert()"
+      ></app-button>
+    </div>
+  </div>
+</div>

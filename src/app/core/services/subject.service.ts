@@ -8,4 +8,5 @@ export class SubjectService {
   totalPageNumber = new Subject<any>();
   reloadAddRecordPageData = new Subject<any>();
   blur = new Subject<any>();
+  alert = new Subject<any>();
 }

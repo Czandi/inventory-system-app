@@ -1,3 +1,4 @@
+import { TrashRoutingModule } from "./trash/trash-routing.module";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { PageNotFoundComponent } from "./shared/components";
@@ -34,6 +35,7 @@ const routes: Routes = [
     HistoryRoutingModule,
     RecordPageRoutingModule,
     InventoryRoutingModule,
+    TrashRoutingModule,
   ],
   exports: [RouterModule],
 })

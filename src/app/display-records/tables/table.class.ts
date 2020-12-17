@@ -43,6 +43,19 @@ export class Table implements OnDestroy {
   }
 
   initialize() {
+    this.alertSub = this.subjectService.alert.subscribe((accept) => {
+      if (accept) {
+        this.router.navigate([], {
+          queryParams: { delete: null },
+          queryParamsHandling: "merge",
+        });
+
+        setTimeout(() => {
+          this.getRecords();
+        }, 300);
+      }
+    });
+
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (
         params["search"] !== undefined &&

@@ -128,88 +128,13 @@
         </p>
       </div>
     </div>
+
+    <div class="element">
+      <div class="element-header">
+        <p routerLink="/trash" routerLinkActive="active">
+          {{ "NAVBAR.TRASH" | translate }}
+        </p>
+      </div>
+    </div>
   </div>
 </div>
-
-<!-- <div class="container">
-  <div class="item dashboard active" #dashboard>
-    <div
-      class="clickable"
-      (mouseover)="mouseEnter(1)"
-      (mouseleave)="mouseLeave(1)"
-      (click)="onClick(1)"
-      routerLink="/dashboard"
-    >
-      <img src="../../assets/icons/dashboard_icon.svg" />
-      <a>{{ "NAVBAR.DASHBOARD" | translate }}</a>
-    </div>
-  </div>
-  <div class="item display-records" #displayRecords>
-    <div
-      class="clickable"
-      (mouseover)="mouseEnter(2)"
-      (mouseleave)="mouseLeave(2)"
-      (click)="onClick(2)"
-      routerLink="/display-records/device-table"
-      [queryParams]="{ page: '1' }"
-    >
-      <img src="../../assets/icons/show_record_icon.svg" />
-      <a>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</a>
-    </div>
-  </div>
-  <div class="item update-records" #updateRecords>
-    <div
-      class="clickable"
-      (mouseover)="mouseEnter(3)"
-      (mouseleave)="mouseLeave(3)"
-      (click)="onClick(3)"
-      routerLink="/update-records/update-room"
-    >
-      <img src="../../assets/icons/update_record_icon.svg" />
-      <a>{{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}</a>
-    </div>
-    <app-subnavbar
-      elementId="updateRecords"
-      [items]="updateRecordsSubnavbarItems"
-    ></app-subnavbar>
-  </div>
-  <div class="item import-export" #importExport>
-    <div
-      class="clickable"
-      (mouseover)="mouseEnter(4)"
-      (mouseleave)="mouseLeave(4)"
-      (click)="onClick(4)"
-    >
-      <img src="../../assets/icons/export_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.IMPORT_EXPORT.TITLE" | translate }}</a>
-    </div>
-    <div class="submenu"></div>
-  </div>
-  <div class="item history" #history>
-    <div
-      class="clickable"
-      (mouseover)="mouseEnter(5)"
-      (mouseleave)="mouseLeave(5)"
-      (click)="onClick(5)"
-    >
-      <img src="../../assets/icons/history_icon.svg" />
-      <a routerLink="#">{{ "NAVBAR.OPERATION_HISTORY" | translate }}</a>
-    </div>
-  </div>
-  <div class="item add-record" #addRecord>
-    <div
-      class="clickable"
-      (mouseover)="mouseEnter(6)"
-      (mouseleave)="mouseLeave(6)"
-      (click)="onClick(6)"
-      routerLink="/add-record"
-    >
-      <img src="../../assets/icons/add_record_icon.svg" />
-      <a>{{ "NAVBAR.ADD_RECORD.TITLE" | translate }}</a>
-    </div>
-  </div>
-  <div class="wave" #wave>
-    <img src="../../assets/icons/wave.svg" />
-  </div>
-  <div class="background"></div>
-</div> -->

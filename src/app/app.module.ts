@@ -20,6 +20,7 @@ import { AddRecordModule } from "./add-record/add-record.module";
 import { UpdateRecordsModule } from "./update-records/update-records.module";
 import { PrintBarcodesModule } from "./print-barcodes/print-barcodes.module";
 import { HistoryModule } from "./history/history.module";
+import { TrashModule } from "./trash/trash.module";
 
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./shared/components/navbar/navbar.component";
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HistoryModule,
     RecordPageModule,
     InventoryModule,
+    TrashModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

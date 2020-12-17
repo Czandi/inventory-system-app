@@ -15,6 +15,7 @@ import { ButtonComponent } from "./components/button/button.component";
 import { BtnMinDirective } from "./directives/btn-min.directive";
 import { BtnFullDirective } from "./directives/btn-full.directive";
 import { PopupComponent } from "./components/popup/popup.component";
+import { AlertBoxComponent } from "./components/alert-box/alert-box.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PopupComponent } from "./components/popup/popup.component";
     BtnFullDirective,
     NewRecordsAlertBoxComponent,
     PopupComponent,
+    AlertBoxComponent,
   ],
   imports: [CommonModule, TranslateModule, FormsModule, RouterModule],
   exports: [
@@ -40,6 +42,7 @@ import { PopupComponent } from "./components/popup/popup.component";
     BtnFullDirective,
     NewRecordsAlertBoxComponent,
     PopupComponent,
+    AlertBoxComponent,
   ],
 })
 export class SharedModule {}

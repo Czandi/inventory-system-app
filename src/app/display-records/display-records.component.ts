@@ -14,6 +14,7 @@ export class DisplayRecordsComponent implements OnInit {
   @ViewChild("searchBar") searchBar: ElementRef;
   @ViewChild("device") deviceTableButton: ElementRef;
   @ViewChild("popup") popup;
+  @ViewChild("alert") alert;
 
   public records = [];
   public totalPages: number;
@@ -27,6 +28,8 @@ export class DisplayRecordsComponent implements OnInit {
   private search = "";
   private searchTimeout;
   private routeSub: Subscription;
+  private accept;
+  private alertSub: Subscription;
 
   constructor(
     private subjectService: SubjectService,
@@ -59,6 +62,28 @@ export class DisplayRecordsComponent implements OnInit {
         this.deviceId = params["addBarcode"];
         this.addBarcode();
       }
+
+      if (params["delete"] !== undefined) {
+        this.deviceId = params["delete"];
+        this.alert.trigger();
+      }
+    });
+
+    this.alertSub = this.subjectService.alert.subscribe((accept) => {
+      if (accept) {
+        this.deleteRecord(this.deviceId);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
+    this.alertSub.unsubscribe();
+  }
+
+  deleteRecord(id: number) {
+    this.deviceService.deleteDevice(id).subscribe((device) => {
+      console.log(device);
     });
   }
 
@@ -87,8 +112,6 @@ export class DisplayRecordsComponent implements OnInit {
       }
     });
   }
-
-  ngOnDestroy() {}
 
   onTyping() {
     this.search = this.searchBar.nativeElement.value;

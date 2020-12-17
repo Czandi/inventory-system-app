@@ -39,7 +39,8 @@
       "TITLE": "Inventaryzacja",
       "DO_INVENTORY": "Inwentaryzuj",
       "RAPORTS": "Raporty"
-    }
+    },
+    "TRASH": "Kosz"
   },
   "PAGES": {
     "DISPLAY_RECORDS": {
@@ -65,7 +66,10 @@
       },
       "UPDATE": "Aktualizuj",
       "SAVE": "Zapisz",
-      "CANCEL": "Anuluj"
+      "CANCEL": "Anuluj",
+      "DELETE": "Usuń",
+      "DELETE_RECORD": "Usuń rekord",
+      "DELETE_MESSAGE": "Jesteś pewny, że chcesz usunąc produkt?"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",
@@ -114,6 +118,9 @@
       "DO_INVENTORY": "Inwenatryzuj",
       "RAPORTS": "Raporty",
       "FIRST_TEXT": "Wybierz pomieszczenie, w którym będziesz przeprowadzał inwentaryzację"
+    },
+    "TRASH": {
+      "TITLE": "Kosz"
     }
   },
   "TABLE_HEADERS": {
