@@ -1,3 +1,93 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.TRASH.TITLE" | translate }}</h1>
+  <div class="center">
+    <div class="search-bar">
+      <input
+        type="text"
+        [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
+        value=""
+        #searchBar
+        (keyup)="onTyping()"
+      />
+    </div>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th class="serial-number">
+            <span (click)="setSortValue('serialNumber')">{{
+              "PAGES.TRASH.COLUMNS.SERIAL_NUMBER" | translate
+            }}</span>
+            <img
+              id="serialNumber"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
+          </th>
+          <th class="model">
+            <span (click)="setSortValue('model')">{{
+              "PAGES.TRASH.COLUMNS.DEVICE_MODEL" | translate
+            }}</span>
+            <img
+              id="model"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
+          </th>
+          <th class="type">
+            <span (click)="setSortValue('type')">{{
+              "PAGES.TRASH.COLUMNS.DEVICE_TYPE" | translate
+            }}</span>
+            <img
+              id="type"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
+          </th>
+          <th class="room">
+            <span (click)="setSortValue('room')">{{
+              "PAGES.TRASH.COLUMNS.ROOM" | translate
+            }}</span>
+            <img
+              id="room"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
+          </th>
+          <th class="owner">
+            <span (click)="setSortValue('owner')">{{
+              "PAGES.TRASH.COLUMNS.OWNER" | translate
+            }}</span>
+            <img
+              id="owner"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
+          </th>
+          <th class="date">
+            <span (click)="setSortValue('date')">{{
+              "PAGES.TRASH.COLUMNS.DATE" | translate
+            }}</span>
+            <img
+              id="date"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
+          </th>
+        </tr>
+
+        <tr class="line">
+          <td colspan="7">
+            <div></div>
+          </td>
+        </tr>
+
+        <tr *ngFor="let record of deletedRecords">
+          <td class="serial-number">{{ record.serialNumber }}</td>
+          <td class="model">{{ record.model }}</td>
+          <td class="type">{{ record.type }}</td>
+          <td class="room">{{ record.room }}</td>
+          <td class="owner">{{ record.owner }}</td>
+          <td class="date">{{ getDate(record.deletedDate) }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <app-pagination
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+  ></app-pagination>
 </div>

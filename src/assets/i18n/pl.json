@@ -120,7 +120,15 @@
       "FIRST_TEXT": "Wybierz pomieszczenie, w którym będziesz przeprowadzał inwentaryzację"
     },
     "TRASH": {
-      "TITLE": "Kosz"
+      "TITLE": "Kosz",
+      "COLUMNS": {
+        "SERIAL_NUMBER": "Numer seryjny",
+        "DEVICE_MODEL": "Model produktu",
+        "DEVICE_TYPE": "Typ produktu",
+        "ROOM": "Pomieszczenie",
+        "OWNER": "Właściciel",
+        "DATE": "Data"
+      }
     }
   },
   "TABLE_HEADERS": {

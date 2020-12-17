@@ -34,7 +34,7 @@ export class DeviceService {
     return this.http.get(url);
   }
 
-  getDeletedDevice(
+  getDeletedDevices(
     page: number,
     orderBy: string,
     sortType: string,
@@ -54,6 +54,8 @@ export class DeviceService {
     if (searchValue !== "") {
       url += this.config.search + searchValue;
     }
+
+    console.log(url);
 
     return this.http.get(url);
   }

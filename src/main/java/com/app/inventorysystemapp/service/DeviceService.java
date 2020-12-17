@@ -80,6 +80,8 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
         return "model." + orderBy;
       case "setNumber":
         return "deviceSet";
+      case "date":
+        return "deletedDate";
       default:
         return orderBy;
     }

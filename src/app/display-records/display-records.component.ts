@@ -28,7 +28,6 @@ export class DisplayRecordsComponent implements OnInit {
   private search = "";
   private searchTimeout;
   private routeSub: Subscription;
-  private accept;
   private alertSub: Subscription;
 
   constructor(
