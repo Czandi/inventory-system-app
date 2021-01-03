@@ -6,6 +6,9 @@ import com.app.inventorysystemapp.model.DeletedDevice;
 import com.app.inventorysystemapp.model.Device;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class DeviceMapper {
 
   private DeviceMapper(){
@@ -13,6 +16,10 @@ public class DeviceMapper {
 
   public static Page<DeviceDto> mapToDeviceDtos(Page<Device> devices) {
     return devices.map(device -> mapToDeviceDto(device));
+  }
+
+  public static List<DeviceDto> mapToDeviceDtos(List<Device> devices) {
+    return devices.stream().map(device -> mapToDeviceDto(device)).collect(Collectors.toList());
   }
 
   public static DeviceDto mapToDeviceDto(Device device) {

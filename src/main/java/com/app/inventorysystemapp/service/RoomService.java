@@ -4,9 +4,7 @@ import com.app.inventorysystemapp.model.Room;
 import com.app.inventorysystemapp.model.interfaces.IRoom;
 import com.app.inventorysystemapp.repository.RoomRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +45,7 @@ public class RoomService implements com.app.inventorysystemapp.service.Service {
     return roomRepository.save(room);
   }
 
-  public Room findRoomById(long id){
+  public Room findById(long id){
     return roomRepository.findById(id).orElseThrow();
   }
 

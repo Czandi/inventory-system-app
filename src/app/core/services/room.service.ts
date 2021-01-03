@@ -42,6 +42,10 @@ export class RoomService {
     return this.http.get(this.config.roomUrl + "/" + id);
   }
 
+  getDevicesFromRoom(id: number) {
+    return this.http.get(this.config.roomUrl + "/" + id + "/devices");
+  }
+
   insertRoom(room: Room): Observable<Room> {
     return this.http.post<Room>(this.config.roomUrl, room);
   }

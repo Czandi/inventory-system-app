@@ -11,108 +11,108 @@ label {
   color: white;
 }
 
-.top-section {
-  margin-bottom: 100px;
-  height: 190px;
-  position: relative;
+.content {
+  height: 70vh;
   width: 70vw;
+  position: relative;
 
-  h2 {
+  .left-section {
+    width: 35%;
+    margin-right: 5%;
+    height: 100%;
     position: absolute;
+    left: 0;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content;
-    height: fit-content;
-  }
 
-  .room-select {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: fit-content;
-    width: fit-content;
-    text-align: left;
+    h2 {
+      text-align: center;
 
-    label {
       &.inactive {
         color: rgba(255, 255, 255, 0.5);
       }
     }
 
-    input {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 250px;
+    .attribute {
+      height: fit-content;
+      width: fit-content;
+      text-align: left;
+      margin: 20px auto 0 auto;
 
-      &.invalid {
-        border: 2px solid $error;
-        padding: 5px 5px;
+      label {
+        &.inactive {
+          color: rgba(255, 255, 255, 0.5);
+        }
       }
 
-      &.inactive {
-        background-color: transparent;
-        border: 2px solid rgba(0, 0, 0, 0.3);
-        padding: 7px;
-        font-weight: bold;
-        color: rgba(255, 255, 255, 0.5);
+      input {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
 
-        &:hover {
-          cursor: default;
+        &.inactive {
+          background-color: rgba(255, 255, 255, 0.8);
+          padding: 7px;
+
+          &:hover {
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    .accept-button {
+      margin: 20px auto 0 auto;
+    }
+
+    .info {
+      .dots {
+        margin: 35px 0;
+
+        .dot {
+          display: inline-block;
+          background-color: white;
+          border-radius: 50%;
+          width: $firstDotSize;
+          height: $firstDotSize;
+          margin-right: 50px;
+
+          &:nth-of-type(2) {
+            width: $secondDotSize;
+            height: $secondDotSize;
+            margin-bottom: ($firstDotSize - $secondDotSize) / 2;
+          }
+
+          &:nth-of-type(3) {
+            width: $thirdDotSize;
+            height: $thirdDotSize;
+            margin-bottom: ($firstDotSize - $thirdDotSize) / 2;
+            margin-right: 0;
+          }
         }
       }
     }
   }
-}
 
-.bottom-section {
-  min-height: 400px;
-  position: relative;
-  width: 70vw;
-
-  .info {
+  .right-section {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 0;
+    width: 55%;
+    margin-left: 5%;
+    height: 100%;
 
-    .dots {
-      margin: 35px 0;
-
-      .dot {
-        display: inline-block;
-        background-color: white;
-        border-radius: 50%;
-        width: $firstDotSize;
-        height: $firstDotSize;
-        margin-right: 50px;
-
-        &:nth-of-type(2) {
-          width: $secondDotSize;
-          height: $secondDotSize;
-          margin-bottom: ($firstDotSize - $secondDotSize) / 2;
-        }
-
-        &:nth-of-type(3) {
-          width: $thirdDotSize;
-          height: $thirdDotSize;
-          margin-bottom: ($firstDotSize - $thirdDotSize) / 2;
-          margin-right: 0;
-        }
-      }
+    .finish-button {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
-  }
 
-  .scanned-devices {
-    text-align: left;
-    width: 70vw;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 20px;
+    .scanned-devices {
+      height: 90%;
+      overflow: auto;
+    }
 
     .device-container {
       display: flex;
@@ -121,14 +121,25 @@ label {
       margin-top: -20px;
 
       .device {
-        background-color: rgba(0, 0, 0, 0.3);
-        width: fit-content;
+        background-color: rgb(0, 0, 0, 0.3);
+        border: 2px solid rgb(160, 27, 27);
+        width: 120px;
         position: relative;
         padding: 7px 10px;
         border-radius: 5px;
         display: inline-block;
         margin-top: 30px;
         text-align: center;
+        height: 100%;
+        overflow: auto;
+
+        &.scanned {
+          border: 2px solid $primary-dark;
+        }
+
+        &.additional {
+          border: 2px solid rgb(170, 189, 5);
+        }
 
         span {
           line-height: 20px;
@@ -163,11 +174,4 @@ label {
       }
     }
   }
-}
-
-.accept-button {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
 }

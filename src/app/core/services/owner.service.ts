@@ -33,7 +33,7 @@ export class OwnerService {
     return this.http.get(url);
   }
 
-  getAllOwners() {
+  getAllOwners(): Observable<any> {
     var url = this.config.ownerUrl + "/all";
     return this.http.get(url);
   }

@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class ButtonComponent implements OnInit {
   @Input() text: string;
-  @Input() type: string;
+  @Input() type: string; //Primary \ Secondary \ Disable
   @Input() btnMin: boolean = false;
 
   constructor() {}

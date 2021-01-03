@@ -33,7 +33,7 @@ export class ModelService {
     return this.http.get(url);
   }
 
-  getAllModels() {
+  getAllModels(): Observable<any> {
     var url = this.config.modelUrl + "/all";
     return this.http.get(url);
   }

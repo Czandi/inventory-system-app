@@ -1,8 +1,11 @@
 package com.app.inventorysystemapp.controller;
 
+import com.app.inventorysystemapp.controller.dto.DeviceDto;
 import com.app.inventorysystemapp.controller.dto.RoomDto;
+import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
 import com.app.inventorysystemapp.controller.mapper.RoomMapper;
 import com.app.inventorysystemapp.model.Room;
+import com.app.inventorysystemapp.service.DeviceService;
 import com.app.inventorysystemapp.service.RoomService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +18,11 @@ import java.util.List;
 public class RoomController {
 
   private final RoomService roomService;
+  private final DeviceService deviceService;
 
-  public RoomController(RoomService roomService) {
+  public RoomController(RoomService roomService, DeviceService deviceService) {
     this.roomService = roomService;
+    this.deviceService = deviceService;
   }
 
   @GetMapping("/rooms")
@@ -32,6 +37,11 @@ public class RoomController {
   @GetMapping("/rooms/{id}")
   public RoomDto getSingleRoom(@PathVariable long id){
     return RoomMapper.mapToRoomDto(roomService.getSingleRoom(id));
+  }
+
+  @GetMapping("/rooms/{id}/devices")
+  public List<DeviceDto> getDevicesFromRoom(@PathVariable long id){
+    return DeviceMapper.mapToDeviceDtos(deviceService.getDevicesFromRoom(id));
   }
 
   @GetMapping("/rooms/all")

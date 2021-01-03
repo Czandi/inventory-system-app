@@ -4,9 +4,7 @@ import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.InventoryItemRepository;
 import com.app.inventorysystemapp.repository.InventoryRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,7 +42,7 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
   public Inventory insertNewInventory(Long idRoom){
     Inventory inventory = new Inventory();
 
-    Room room = roomService.findRoomById(idRoom);
+    Room room = roomService.findById(idRoom);
     inventory.setRoom(room);
     return inventoryRepository.save(inventory);
   }

@@ -1,7 +1,6 @@
 import { Router } from "@angular/router";
 import { InventoryService } from "./../core/services/inventory.service";
 import { DeviceService } from "./../core/services/device.service";
-import { SubjectService } from "app/core/services/subject.service";
 import { Subscription } from "rxjs";
 import { RoomService } from "app/core/services/room.service";
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
@@ -14,14 +13,17 @@ import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 export class InventoryComponent implements OnInit {
   @ViewChild("roomInput") roomInput;
   @ViewChild("alertBox") alertBox;
+  @ViewChild("popup") popup;
 
   public newRecord = [];
   public roomAccepted = false;
   public rooms = [];
   public barcodes = [];
+  public roomDevices = [];
 
   private currentBarcode = "";
   private allBarcodes;
+  private roomBarcodes = [];
   private inventoryId;
   private roomServiceSub: Subscription;
   private deviceServiceSub: any;
@@ -48,7 +50,7 @@ export class InventoryComponent implements OnInit {
       .getAllBarcodes()
       .subscribe((barcodes) => {
         this.allBarcodes = barcodes;
-        console.log(this.allBarcodes);
+        console.log(barcodes);
       });
   }
 
@@ -56,6 +58,19 @@ export class InventoryComponent implements OnInit {
     let value = this.roomInput.nativeElement.value;
     if (value !== null && value !== "") {
       this.roomAccepted = !this.roomAccepted;
+      this.roomDevices = [];
+      this.roomService
+        .getDevicesFromRoom(value)
+        .subscribe((devices: Array<any>) => {
+          devices.map((device) => {
+            this.roomBarcodes.push(device.barCode);
+            this.roomDevices.push({
+              model: device.model,
+              type: device.type,
+              barcode: device.barCode,
+            });
+          });
+        });
     }
   }
 
@@ -66,17 +81,17 @@ export class InventoryComponent implements OnInit {
 
   @HostListener("document:keyup", ["$event"])
   clickout(event) {
-    console.log(event);
     if (this.roomAccepted && this.allBarcodes !== undefined) {
       if (event.key === "Enter") {
-        if (this.checkBarcode(this.currentBarcode)) {
-          this.addBarcode(this.currentBarcode);
+        if (this.checkIfBarcodeExists(this.currentBarcode)) {
+          if (!this.checkIfBarcodeIsAlreadyScanned(this.currentBarcode)) {
+            this.addBarcode(this.currentBarcode);
+          } else {
+            this.popup.triggerSuccess();
+          }
+        } else {
+          this.popup.triggerFailure();
         }
-        // console.log(this.allBarcodes[19]);
-        // console.log(+this.currentBarcode);
-        // if (this.allBarcodes.indexOf(+this.currentBarcode !== -1)) {
-        //   console.log("Git");
-        // }
         this.currentBarcode = "";
       } else {
         this.currentBarcode += "" + event.key;
@@ -84,11 +99,16 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  checkBarcode(barcode) {
-    if (
-      this.allBarcodes.indexOf(+barcode) !== -1 &&
-      this.barcodes.indexOf(+barcode) === -1
-    ) {
+  checkIfBarcodeExists(barcode) {
+    if (this.allBarcodes.indexOf(+barcode) !== -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkIfBarcodeIsAlreadyScanned(barcode) {
+    if (this.barcodes.indexOf(+barcode) !== -1) {
       return true;
     } else {
       return false;
@@ -96,7 +116,34 @@ export class InventoryComponent implements OnInit {
   }
 
   addBarcode(barcode) {
-    this.barcodes.push(+barcode);
+    if (this.checkIfBarcodeBelongsToRoom(barcode)) {
+      const tile = document.getElementById(barcode);
+      console.log(tile);
+      tile.classList.add("scanned");
+      this.barcodes.push(+barcode);
+    } else {
+      this.deviceService.getDeviceByBarcode(barcode).subscribe((device) => {
+        this.roomDevices.push({
+          model: device.model,
+          type: device.type,
+          barcode: device.barCode,
+        });
+        setTimeout(() => {
+          const tile = document.getElementById(barcode);
+          console.log(tile);
+          tile.classList.add("additional");
+          this.barcodes.push(+barcode);
+        }, 200);
+      });
+    }
+  }
+
+  checkIfBarcodeBelongsToRoom(barcode) {
+    if (this.roomBarcodes.indexOf(+barcode) !== -1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   removeBarcode(barcode) {

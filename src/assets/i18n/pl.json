@@ -78,6 +78,7 @@
     },
     "UPDATE_RECORDS": {
       "TITLE": "Aktualizuj rekordy",
+      "FIRST_TEXT": "Wprowadź nowe wartości aktualizowanych atrybutów",
       "ROOM_TEXT": "Wybierz pomieszczenie, do którego przenosisz produkty",
       "SET_TEXT": "Wybierz zestaw, do którego chcesz przypisać produkty",
       "ROOM_SCAN_DEVICES": "Skanuj przenoszone produkty",

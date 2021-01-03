@@ -12,26 +12,30 @@ export class DeviceService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
   getAllDevices(
-    page: number,
-    orderBy: string,
-    sortType: string,
+    page?: number,
+    orderBy?: string,
+    sortType?: string,
     searchValue?: string
   ): Observable<any> {
-    var url =
-      this.config.deviceUrl +
-      this.config.page +
-      page +
-      this.config.pageSize +
-      this.config.sortType +
-      sortType +
-      this.config.orderBy +
-      orderBy;
+    if (page && orderBy && sortType) {
+      var url =
+        this.config.deviceUrl +
+        this.config.page +
+        page +
+        this.config.pageSize +
+        this.config.sortType +
+        sortType +
+        this.config.orderBy +
+        orderBy;
 
-    if (searchValue !== "") {
-      url += this.config.search + searchValue;
+      if (searchValue !== "") {
+        url += this.config.search + searchValue;
+      }
+
+      return this.http.get(url);
+    } else {
+      return this.http.get(this.config.deviceUrl + "/all");
     }
-
-    return this.http.get(url);
   }
 
   getDeletedDevices(
@@ -55,13 +59,15 @@ export class DeviceService {
       url += this.config.search + searchValue;
     }
 
-    console.log(url);
-
     return this.http.get(url);
   }
 
   getSingleDevice(id: number) {
     return this.http.get(this.config.deviceUrl + "/" + id);
+  }
+
+  getDeviceByBarcode(barcode: number): Observable<any> {
+    return this.http.get(this.config.deviceUrl + "/barcode/" + barcode);
   }
 
   getAllBarcodes() {

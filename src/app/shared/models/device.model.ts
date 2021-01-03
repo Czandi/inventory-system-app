@@ -1,13 +1,14 @@
 export class Device {
-  serialNumber: number;
+  serialNumber: string;
   idRoom: number;
   idModel: number;
   idOwner: number;
   idDeviceSet: number;
   comment: string;
+  id: number;
 
   public Device(
-    serialNumber: number,
+    serialNumber: string,
     idRoom: number,
     idModel: number,
     idOwner: number,
@@ -20,5 +21,6 @@ export class Device {
     this.idOwner = idOwner;
     this.idDeviceSet = idDeviceSet;
     this.comment = comment;
+    this.id = 0;
   }
 }

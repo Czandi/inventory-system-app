@@ -1,11 +1,12 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.controller.dto.DeviceDto;
+import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
 import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeletedDeviceRepository;
 import com.app.inventorysystemapp.repository.DeviceRepository;
-import org.hibernate.sql.Delete;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DeviceService implements com.app.inventorysystemapp.service.Service {
@@ -106,7 +108,7 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
 
   public Device insertDevice(DeviceRequest device) {
 
-    Room room = roomService.findRoomById(device.getIdRoom());
+    Room room = roomService.findById(device.getIdRoom());
     Model model = modelService.findModelById(device.getIdModel());
     Owner owner = ownerService.findOwnerById(device.getIdOwner());
     DeviceSet deviceSet = deviceSetService.findDeviceSetById(device.getIdDeviceSet());
@@ -126,7 +128,7 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
   }
 
   public ResponseEntity<Device> updateDevice(long id, DeviceRequest details) throws ResourceNotFoundException {
-    Room room = roomService.findRoomById(details.getIdRoom());
+    Room room = roomService.findById(details.getIdRoom());
     Model model = modelService.findModelById(details.getIdModel());
     Owner owner = ownerService.findOwnerById(details.getIdOwner());
     DeviceSet deviceSet = deviceSetService.findDeviceSetById(details.getIdDeviceSet());
@@ -193,7 +195,16 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
     return deviceRepository.findDeviceByRoom(room);
   }
 
+  public List<Device> getDevicesFromRoom(long id) {
+    Room room = roomService.findById(id);
+    return getDevicesFromRoom(room);
+  }
+
   public Device findById(Long id) {
     return deviceRepository.findById(id).orElseThrow();
+  }
+
+  public List<DeviceDto> getAllDevices() {
+    return deviceRepository.findAll().stream().map(device -> DeviceMapper.mapToDeviceDto(device)).collect(Collectors.toList());
   }
 }

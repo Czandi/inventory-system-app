@@ -26,12 +26,17 @@ public class DeviceController {
   }
 
   @GetMapping("/devices")
-  public Page<DeviceDto> getDevices(int page,
-                                    int pageSize,
+  public Page<DeviceDto> getDevices(@RequestParam(required = false) int page,
+                                    @RequestParam(required = false) int pageSize,
                                     @RequestParam(required = false) String orderBy,
                                     @RequestParam(required = false) String sortType,
                                     @RequestParam(required = false) String search) {
     return DeviceMapper.mapToDeviceDtos(deviceService.getDevices(page, pageSize, orderBy, sortType, search));
+  }
+
+  @GetMapping("/devices/all")
+  public List<DeviceDto> getAllDevices() {
+    return deviceService.getAllDevices();
   }
 
   @GetMapping("/devices/deleted")
@@ -46,6 +51,11 @@ public class DeviceController {
   @GetMapping("/devices/{id}")
   public Device getSingleDevice(@PathVariable long id) throws ResourceNotFoundException {
     return deviceService.getSingleDevice(id);
+  }
+
+  @GetMapping("/devices/barcode/{barcode}")
+  public DeviceDto getDeviceByBarcode(@PathVariable long barcode) {
+    return DeviceMapper.mapToDeviceDto(deviceService.findByBarcode(barcode));
   }
 
   @GetMapping("/devices/all/barcodes")
