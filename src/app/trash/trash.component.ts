@@ -28,7 +28,6 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
   private search = "";
   private searchTimeout;
   private currentSortValue: string;
-  private currentSortType: string;
   private routeSub: Subscription;
   private currentArrow;
   private sort: SortInfo;

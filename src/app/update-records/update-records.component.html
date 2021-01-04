@@ -37,10 +37,7 @@
               list="owners"
             />
             <datalist id="owners">
-              <option
-                *ngFor="let owner of owners"
-                [value]="owner"
-              ></option>
+              <option *ngFor="let owner of owners" [value]="owner"></option>
             </datalist>
           </div>
 
@@ -65,7 +62,7 @@
           class="accept-button"
           [type]="buttonType"
           [text]="accepted ? 'Anuluj' : 'Zatwierdź'"
-          (click)="accept()"
+          (mousedown)="accept()"
         ></app-button>
 
         <div class="info" *ngIf="accepted">

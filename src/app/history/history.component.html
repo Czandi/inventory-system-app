@@ -5,27 +5,50 @@
       <table>
         <tr>
           <th>
-            <span>{{ "PAGES.HISTORY.COLUMNS.BAR_CODE" | translate }}</span>
-            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+            <span (click)="setSortValue('barCode')">{{
+              "PAGES.HISTORY.COLUMNS.BAR_CODE" | translate
+            }}</span>
+            <img
+              id="barCode"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
           </th>
           <th>
-            <span>{{
+            <span (click)="setSortValue('changedAttribute')">{{
               "PAGES.HISTORY.COLUMNS.CHANGED_ATTRIBUTE" | translate
             }}</span>
-            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+            <img
+              id="changedAttribute"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
           </th>
           <th>
-            <span>{{ "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate }}</span>
-            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+            <span (click)="setSortValue('oldValue')">{{
+              "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate
+            }}</span>
+            <img
+              id="oldValue"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
           </th>
           <th></th>
           <th>
-            <span>{{ "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate }}</span>
-            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+            <span (click)="setSortValue('newValue')">{{
+              "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate
+            }}</span>
+            <img
+              id="newValue"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
           </th>
           <th style="padding-right: 50px">
-            <span>{{ "PAGES.HISTORY.COLUMNS.DATE" | translate }}</span>
-            <img src="../../../../../assets/icons/sort_arrow_up.svg" />
+            <span (click)="setSortValue('date')">{{
+              "PAGES.HISTORY.COLUMNS.DATE" | translate
+            }}</span>
+            <img
+              id="date"
+              src="../../../../../assets/icons/sort_arrow_up.svg"
+            />
           </th>
         </tr>
 

@@ -22,7 +22,7 @@
           class="accept-button"
           [type]="roomAccepted ? 'secondary' : 'primary'"
           [text]="roomAccepted ? 'Anuluj' : 'Zatwierdź'"
-          (click)="roomSelectSwitcher()"
+          (mousedown)="roomSelectSwitcher()"
         ></app-button>
 
         <div class="info" *ngIf="roomAccepted">

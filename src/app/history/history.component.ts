@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { HistoryService } from "../core/services/history.service";
+import { SortInfo } from "app/shared/models/sortInfo.model";
 
 @Component({
   selector: "app-history",
@@ -15,17 +16,20 @@ export class HistoryComponent implements OnInit {
   public history;
 
   private currentSortValue: string;
-  private currentSortType: string;
   private routeSub: Subscription;
+  private sort;
+  private currentArrow;
 
   constructor(
     private historyService: HistoryService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.sort = new SortInfo();
+  }
 
   ngOnInit(): void {
     this.currentSortValue = "date";
-    this.currentSortType = "asc";
+    this.sort.type = "asc";
 
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (params["page"] !== undefined && params["page"] !== this.currentPage) {
@@ -39,12 +43,17 @@ export class HistoryComponent implements OnInit {
     this.routeSub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    this.currentArrow = document.getElementById("date");
+    this.currentArrow.classList.add("active");
+  }
+
   getRecords() {
     this.historyService
       .getDevicesHistory(
         this.currentPage,
         this.currentSortValue,
-        this.currentSortType
+        this.sort.type
       )
       .subscribe((history) => {
         this.history = history.content;
@@ -85,5 +94,37 @@ export class HistoryComponent implements OnInit {
     }
 
     return attribute;
+  }
+
+  setSortValue(id: string) {
+    this.sort.value = id;
+
+    var element = document.getElementById(id);
+
+    if (this.currentSortValue !== id) {
+      this.currentArrow.classList.toggle("active");
+      this.currentArrow.classList.remove("rotate");
+
+      this.currentArrow = element;
+      this.currentArrow.classList.toggle("active");
+
+      this.currentSortValue = id;
+
+      this.sort.type = "asc";
+    } else {
+      this.currentArrow.classList.toggle("rotate");
+      this.switchSortType();
+    }
+    console.log(this.sort.type);
+
+    this.getRecords();
+  }
+
+  switchSortType() {
+    if (this.sort.type === "asc") {
+      this.sort.type = "desc";
+    } else if (this.sort.type === "desc") {
+      this.sort.type = "asc";
+    }
   }
 }

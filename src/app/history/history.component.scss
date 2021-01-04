@@ -26,6 +26,9 @@
     }
 
     th {
+      span:hover {
+        cursor: pointer;
+      }
       img {
         opacity: 0;
 
