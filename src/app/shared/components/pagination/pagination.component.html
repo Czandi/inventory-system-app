@@ -6,6 +6,7 @@
   <p
     *ngFor="let item of [].constructor(totalPages); let i = index"
     (click)="loadPage(i + 1)"
+    [id]="i + 1"
   >
     {{ i + 1 }}
   </p>

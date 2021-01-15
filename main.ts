@@ -18,7 +18,7 @@ function createWindow(): BrowserWindow {
     height: 750,
     minWidth: 1200,
     minHeight: 800,
-    frame: false,
+    // frame: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: serve ? true : false,

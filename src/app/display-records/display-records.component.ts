@@ -15,6 +15,7 @@ export class DisplayRecordsComponent implements OnInit {
   @ViewChild("device") deviceTableButton: ElementRef;
   @ViewChild("popup") popup;
   @ViewChild("alert") alert;
+  @ViewChild("device") deviceElement;
 
   public records = [];
   public totalPages: number;
@@ -29,6 +30,7 @@ export class DisplayRecordsComponent implements OnInit {
   private searchTimeout;
   private routeSub: Subscription;
   private alertSub: Subscription;
+  private activeItem = null;
 
   constructor(
     private subjectService: SubjectService,
@@ -41,12 +43,6 @@ export class DisplayRecordsComponent implements OnInit {
     this.subjectService.totalPageNumber.subscribe((totalPages) => {
       this.totalPages = totalPages;
     }).unsubscribe;
-
-    // if (DisplayRecordsComponent.lastRoute) {
-    //   this.currentRoute = DisplayRecordsComponent.lastRoute;
-    // } else {
-    //   this.currentRoute = "/device-table";
-    // }
   }
 
   ngAfterViewInit() {
@@ -73,6 +69,9 @@ export class DisplayRecordsComponent implements OnInit {
         this.deleteRecord(this.deviceId);
       }
     });
+
+    this.activeItem = this.deviceElement.nativeElement;
+    this.activeItem.classList.add("active");
   }
 
   ngOnDestroy() {
@@ -84,17 +83,6 @@ export class DisplayRecordsComponent implements OnInit {
     this.deviceService.deleteDevice(id).subscribe((device) => {
       console.log(device);
     });
-  }
-
-  ngAfterViewChecked() {
-    // if (DisplayRecordsComponent.lastTableButtonId) {
-    //   this.activeTableButton = document.getElementById(
-    //     DisplayRecordsComponent.lastTableButtonId
-    //   );
-    //   console.log(this.activeTableButton);
-    // } else {
-    //   this.activeTableButton = this.deviceTableButton.nativeElement;
-    // }
   }
 
   addBarcode() {
@@ -134,5 +122,21 @@ export class DisplayRecordsComponent implements OnInit {
         queryParams: { page: this.currentPage, search: this.searchValue },
       });
     }
+  }
+
+  setLink(link, element) {
+    this.setActiveItem(element);
+
+    this.router.navigate(["/display-records/" + link], {
+      queryParams: { page: 1 },
+    });
+  }
+
+  setActiveItem(element) {
+    if (this.activeItem !== null) {
+      this.activeItem.classList.remove("active");
+    }
+    this.activeItem = element;
+    this.activeItem.classList.add("active");
   }
 }

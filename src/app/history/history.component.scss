@@ -27,13 +27,20 @@
 
     th {
       span:hover {
-        cursor: pointer;
+        &.clickable {
+          cursor: pointer;
+        }
       }
       img {
         opacity: 0;
+        margin-left: 10px;
 
         &.active {
           opacity: 1;
+
+          &.rotate {
+            transform: rotate(180deg);
+          }
         }
       }
     }

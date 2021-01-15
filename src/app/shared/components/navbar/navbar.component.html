@@ -4,69 +4,12 @@
   <div class="navbar">
     <div class="element">
       <div class="element-header">
-        <p routerLink="/dashboard" routerLinkActive="active">
-          {{ "NAVBAR.DASHBOARD" | translate }}
-        </p>
-      </div>
-    </div>
-
-    <div class="element active" #displayRecords>
-      <div (click)="toggleSubmenu(displayRecords)" class="element-header">
-        <p>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</p>
-        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
-      </div>
-      <div class="submenu">
-        <p>
-          <span
-            routerLink="/display-records/device-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICES" | translate }}</span
-          >
-        </p>
-        <p>
-          <span
-            routerLink="/display-records/model-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.MODELS" | translate }}</span
-          >
-        </p>
-        <p>
-          <span
-            routerLink="/display-records/device-set-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{
-              "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_SETS" | translate
-            }}</span
-          >
-        </p>
-        <p>
-          <span
-            routerLink="/display-records/device-type-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{
-              "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_TYPES" | translate
-            }}</span
-          >
-        </p>
-        <p>
-          <span
-            routerLink="/display-records/owner-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.OWNERS" | translate }}</span
-          >
-        </p>
-        <p>
-          <span
-            routerLink="/display-records/room-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.ROOMS" | translate }}</span
-          >
+        <p
+          (click)="setLink('/display-records/device-table', displayRecords)"
+          class="active"
+          #displayRecords
+        >
+          {{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}
         </p>
       </div>
     </div>
@@ -78,24 +21,21 @@
       </div>
       <div class="submenu">
         <p>
-          <span routerLink="/inventory" routerLinkActive="active">{{
+          <span (click)="setLink('/inventory', subInventory)" #subInventory>{{
             "NAVBAR.INVENTORY.DO_INVENTORY" | translate
           }}</span>
         </p>
         <p>
-          <span
-            routerLink="/inventory/raports"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
-            >{{ "NAVBAR.INVENTORY.RAPORTS" | translate }}</span
-          >
+          <span (click)="setLink('/inventory/raports', raports, 1)" #raports>{{
+            "NAVBAR.INVENTORY.RAPORTS" | translate
+          }}</span>
         </p>
       </div>
     </div>
 
-    <div class="element" #updateRecords>
+    <div class="element">
       <div class="element-header">
-        <p routerLink="/update-records" routerLinkActive="active">
+        <p (click)="setLink('/update-records', updateRecords)" #updateRecords>
           {{ "NAVBAR.UPDATE_RECORDS.TITLE" | translate }}
         </p>
       </div>
@@ -103,7 +43,7 @@
 
     <div class="element">
       <div class="element-header">
-        <p routerLink="/add-record" routerLinkActive="active">
+        <p (click)="setLink('/add-record', addRecord)" #addRecord>
           {{ "NAVBAR.ADD_RECORD.TITLE" | translate }}
         </p>
       </div>
@@ -111,11 +51,7 @@
 
     <div class="element">
       <div class="element-header">
-        <p
-          routerLink="/history"
-          routerLinkActive="active"
-          [queryParams]="{ page: '1' }"
-        >
+        <p (click)="setLink('/history', history, 1)" #history>
           {{ "NAVBAR.OPERATION_HISTORY" | translate }}
         </p>
       </div>
@@ -123,7 +59,7 @@
 
     <div class="element">
       <div class="element-header">
-        <p routerLink="/print-barcodes" routerLinkActive="active">
+        <p (click)="setLink('/print-barcodes', printBarcodes)" #printBarcodes>
           {{ "NAVBAR.PRINT_BARCODES" | translate }}
         </p>
       </div>
@@ -131,11 +67,7 @@
 
     <div class="element">
       <div class="element-header">
-        <p
-          routerLink="/trash"
-          routerLinkActive="active"
-          [queryParams]="{ page: '1' }"
-        >
+        <p (click)="setLink('/trash', trash, 1)" #trash>
           {{ "NAVBAR.TRASH" | translate }}
         </p>
       </div>

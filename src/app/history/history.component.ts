@@ -1,5 +1,5 @@
 import { DateService } from "./../core/services/date.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { HistoryService } from "../core/services/history.service";
@@ -11,9 +11,11 @@ import { SortInfo } from "app/shared/models/sortInfo.model";
   styleUrls: ["./history.component.scss"],
 })
 export class HistoryComponent implements OnInit {
+  @ViewChild("date") dateArrow;
+
   public totalPages;
   public currentPage;
-  public history;
+  public history = [];
 
   private currentSortValue: string;
   private routeSub: Subscription;
@@ -44,8 +46,10 @@ export class HistoryComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.currentArrow = document.getElementById("date");
-    this.currentArrow.classList.add("active");
+    setTimeout(() => {
+      this.currentArrow = this.dateArrow.nativeElement;
+      this.currentArrow.classList.add("active");
+    }, 200);
   }
 
   getRecords() {

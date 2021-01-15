@@ -2,29 +2,15 @@
   <h1 class="header">{{ "PAGES.DISPLAY_RECORDS.TITLE" | translate }}</h1>
   <div class="center">
     <div [ngClass]="blured ? 'blur' : ''" class="tables">
-      <p
-        id="deviceSelect"
-        routerLink="/display-records/device-table"
-        routerLinkActive="active"
-        [queryParams]="{ page: '1' }"
-        #device
-      >
+      <p id="deviceSelect" (click)="setLink('device-table', device)" #device>
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}</span>
       </p>
-      <p
-        id="modelSelect"
-        routerLink="/display-records/model-table"
-        routerLinkActive="active"
-        [queryParams]="{ page: '1' }"
-        #model
-      >
+      <p id="modelSelect" (click)="setLink('model-table', model)" #model>
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}</span>
       </p>
       <p
         id="deviceSetSelect"
-        routerLink="/display-records/device-set-table"
-        routerLinkActive="active"
-        [queryParams]="{ page: '1' }"
+        (click)="setLink('device-set-table', deviceSet)"
         #deviceSet
       >
         <span>{{
@@ -33,31 +19,17 @@
       </p>
       <p
         id="deviceTypeSelect"
-        routerLink="/display-records/device-type-table"
-        routerLinkActive="active"
-        [queryParams]="{ page: '1' }"
+        (click)="setLink('device-type-table', deviceType)"
         #deviceType
       >
         <span>{{
           "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_TYPE" | translate
         }}</span>
       </p>
-      <p
-        id="ownerSelect"
-        routerLink="/display-records/owner-table"
-        routerLinkActive="active"
-        [queryParams]="{ page: '1' }"
-        #owner
-      >
+      <p id="ownerSelect" (click)="setLink('owner-table', owner)" #owner>
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}</span>
       </p>
-      <p
-        id="roomSelect"
-        routerLink="/display-records/room-table"
-        routerLinkActive="active"
-        [queryParams]="{ page: '1' }"
-        #room
-      >
+      <p id="roomSelect" (click)="setLink('room-table', room)" #room>
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}</span>
       </p>
     </div>
