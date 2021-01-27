@@ -1,37 +1,11 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { SubjectService } from "../../../core/services/subject.service";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from "@angular/animations";
 import { Router } from "@angular/router";
 
 @Component({
   selector: "app-subnavbar",
   templateUrl: "./subnavbar.component.html",
   styleUrls: ["./subnavbar.component.scss"],
-  animations: [
-    trigger("openClose", [
-      // ...
-      state(
-        "closed",
-        style({
-          marginLeft: "-200px",
-        })
-      ),
-      state(
-        "open",
-        style({
-          marginLeft: "0",
-        })
-      ),
-      transition("open => closed", [animate("0.4s ease")]),
-      transition("closed => open", [animate("0.4s 200ms ease")]),
-    ]),
-  ],
 })
 export class SubnavbarComponent implements OnInit {
   @Input() items;

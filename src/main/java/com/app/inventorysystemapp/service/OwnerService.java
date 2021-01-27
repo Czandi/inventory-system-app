@@ -81,4 +81,9 @@ public class OwnerService implements com.app.inventorysystemapp.service.Service 
         return orderBy;
     }
   }
+
+  public void deleteOwner(Long id) {
+    Owner owner = ownerRepository.findById(id).orElseThrow();
+    ownerRepository.delete(owner);
+  }
 }

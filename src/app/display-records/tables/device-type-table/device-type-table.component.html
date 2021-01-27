@@ -30,7 +30,7 @@
           "
         >
           <ng-container *ngIf="editedRecord != deviceType.id">
-            <td>{{ deviceType.name }}</td>
+            <td>{{ deviceType.name === "null" ? "-" : deviceType.name }}</td>
             <td>{{ deviceType.count }}</td>
           </ng-container>
 

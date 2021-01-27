@@ -7,7 +7,6 @@ const routes: Routes = [
   {
     path: "print-barcodes",
     component: PrintBarcodesComponent,
-    data: { animation: "PrintBarcodes" },
   },
 ];
 

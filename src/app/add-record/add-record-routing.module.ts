@@ -7,7 +7,6 @@ const routes: Routes = [
   {
     path: "add-record",
     component: AddRecordComponent,
-    data: { animation: "AddRecord" },
   },
 ];
 

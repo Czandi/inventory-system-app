@@ -30,7 +30,7 @@
         "
       >
         <ng-container *ngIf="editedRecord != owner.id">
-          <td>{{ owner.name }}</td>
+          <td>{{ owner.name === "null" ? "-" : owner.name }}</td>
           <td>{{ owner.itemsCount }}</td>
         </ng-container>
 
@@ -46,7 +46,7 @@
           >
             <input
               type="text"
-              [placeholder]="'TABLE_HEADERS.OWNER.ITEMS_COUNT' | translate"
+              [placeholder]="'TABLE_HEADERS.OWNER.OWNER_NAME' | translate"
               formControlName="ownerName"
               (change)="checkIfNameExists()"
               required
@@ -56,7 +56,7 @@
             <input
               type="text"
               readonly="true"
-              [placeholder]="'TABLE_HEADERS.OWNER.OWNER_NAME' | translate"
+              [placeholder]="'TABLE_HEADERS.OWNER.OWNER_COUNT' | translate"
               formControlName="ownerCount"
               class="inactive"
               required

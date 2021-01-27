@@ -2,7 +2,6 @@ import "reflect-metadata";
 import "../polyfills";
 
 import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
@@ -12,7 +11,6 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { DashboardModule } from "./dashboard/dashboard.module";
 import { InventoryModule } from "./inventory/inventory.module";
 import { RecordPageModule } from "./record-page/record-page.module";
 import { DisplayRecordsModule } from "./display-records/display-records.module";
@@ -43,12 +41,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
-    DashboardModule,
     DisplayRecordsModule,
     AppRoutingModule,
     AddRecordModule,

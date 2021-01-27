@@ -58,4 +58,9 @@ public class RoomController {
   public ResponseEntity<Room> updateRoom(@PathVariable long id, @RequestBody String name){
     return roomService.updateRoom(id, name);
   }
+
+  @DeleteMapping("/rooms/{id}")
+  public Boolean deleteRoom(@PathVariable long id) {
+    return deviceService.deleteRoom(id);
+  }
 }

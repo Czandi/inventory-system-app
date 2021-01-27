@@ -69,7 +69,8 @@
       "CANCEL": "Anuluj",
       "DELETE": "Usuń",
       "DELETE_RECORD": "Usuń rekord",
-      "DELETE_MESSAGE": "Jesteś pewny, że chcesz usunąc produkt?"
+      "DELETE_PRODUCT_MESSAGE": "Jesteś pewny, że chcesz usunąc produkt?",
+      "DELETE_OWNER_MESSAGE": "Jesteś pewny, że chcesz usunąć właściciela?"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",

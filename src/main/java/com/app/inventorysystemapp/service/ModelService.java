@@ -94,4 +94,13 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
         return orderBy;
     }
   }
+
+  public void deleteModel(Long id) {
+    Model model = findModelById(id);
+    modelRepository.delete(model);
+  }
+
+  public Model findModelByName(String name) {
+    return modelRepository.findByName(name);
+  }
 }

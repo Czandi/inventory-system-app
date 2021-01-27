@@ -31,8 +31,8 @@
         "
       >
         <ng-container *ngIf="editedRecord != model.id">
-          <td>{{ model.name }}</td>
-          <td>{{ model.type }}</td>
+          <td>{{ model.name === "null" ? "-" : model.name }}</td>
+          <td>{{ model.type === "null" ? "-" : model.type }}</td>
           <td>{{ model.count }}</td>
         </ng-container>
 

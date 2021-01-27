@@ -79,4 +79,13 @@ public class DeviceSetService implements com.app.inventorysystemapp.service.Serv
     final DeviceSet updatedDeviceSet = deviceSetRepository.save(deviceSet);
     return ResponseEntity.ok(updatedDeviceSet);
   }
+
+  public DeviceSet findById(long id) {
+    return deviceSetRepository.findById(id).orElseThrow();
+  }
+
+  public void deleteDeviceSet(Long id) {
+    DeviceSet deviceSet = findById(id);
+    deviceSetRepository.delete(deviceSet);
+  }
 }

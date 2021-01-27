@@ -3,6 +3,7 @@ package com.app.inventorysystemapp.controller;
 import com.app.inventorysystemapp.controller.dto.OwnerDto;
 import com.app.inventorysystemapp.controller.mapper.OwnerMapper;
 import com.app.inventorysystemapp.model.Owner;
+import com.app.inventorysystemapp.service.DeviceService;
 import com.app.inventorysystemapp.service.OwnerService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import java.util.List;
 public class OwnerController {
 
   private final OwnerService ownerService;
+  private final DeviceService deviceService;
 
-  public OwnerController(OwnerService ownerService) {
+  public OwnerController(OwnerService ownerService, DeviceService deviceService) {
     this.ownerService = ownerService;
+    this.deviceService = deviceService;
   }
 
   @GetMapping("/owners")
@@ -47,5 +50,10 @@ public class OwnerController {
   @PutMapping("/owners/{id}")
   public ResponseEntity<Owner> updateOwner(@PathVariable long id, @RequestBody String name){
     return ownerService.updateOwner(id, name);
+  }
+
+  @DeleteMapping("/owners/{id}")
+  public Boolean deleteOwner(@PathVariable(value = "id") Long id) {
+    return deviceService.deleteOwner(id);
   }
 }

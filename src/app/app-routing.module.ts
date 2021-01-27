@@ -6,7 +6,6 @@ import { PageNotFoundComponent } from "./shared/components";
 import { DisplayRecordsRoutingModule } from "./display-records/display-records-routing.module";
 import { InventoryRoutingModule } from "./inventory/inventory-routing.module";
 import { RecordPageRoutingModule } from "./record-page/record-page-routing.module";
-import { DashboardRoutingModule } from "./dashboard/dashboard-routing.module";
 import { AddRecordRoutingModule } from "./add-record/add-record-routing.module";
 import { UpdateRecordsRoutingModule } from "./update-records/update-records-routing.module";
 import { PrintBarcodesRoutingModule } from "./print-barcodes/print-barcodes-routing.module";
@@ -15,7 +14,7 @@ import { HistoryRoutingModule } from "./history/history-routing.module";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "dashboard",
+    redirectTo: "display-records/device-table?page=1",
     pathMatch: "full",
   },
   {
@@ -28,7 +27,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     DisplayRecordsRoutingModule,
-    DashboardRoutingModule,
     AddRecordRoutingModule,
     UpdateRecordsRoutingModule,
     PrintBarcodesRoutingModule,

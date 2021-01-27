@@ -45,4 +45,6 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "or count(d.model.name) = ?1" +
     "")
   Page<IModel> findAllModelsWithCountByContaining(String search, Pageable paging);
+
+    Model findByName(String name);
 }

@@ -49,4 +49,8 @@ export class OwnerService {
   updateOwner(id: number, name: String): Observable<Owner> {
     return this.http.put<Owner>(this.config.ownerUrl + "/" + id, name);
   }
+
+  deleteOwner(id: number): Observable<any> {
+    return this.http.delete(this.config.ownerUrl + "/" + id);
+  }
 }

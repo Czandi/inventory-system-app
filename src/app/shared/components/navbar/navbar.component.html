@@ -2,14 +2,63 @@
   <div class="navbar-header"><b>INV System</b></div>
 
   <div class="navbar">
-    <div class="element">
-      <div class="element-header">
-        <p
-          (click)="setLink('/display-records/device-table', displayRecords)"
-          class="active"
-          #displayRecords
-        >
-          {{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}
+    <div class="element active" #displayRecords>
+      <div (click)="toggleSubmenu(displayRecords)" class="element-header">
+        <p>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</p>
+        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
+      </div>
+      <div class="submenu">
+        <p>
+          <span
+            routerLink="/display-records/device-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICES" | translate }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/model-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.MODELS" | translate }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/device-set-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{
+              "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_SETS" | translate
+            }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/device-type-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{
+              "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_TYPES" | translate
+            }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/owner-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.OWNERS" | translate }}</span
+          >
+        </p>
+        <p>
+          <span
+            routerLink="/display-records/room-table"
+            routerLinkActive="active"
+            [queryParams]="{ page: '1' }"
+            >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.ROOMS" | translate }}</span
+          >
         </p>
       </div>
     </div>

@@ -30,7 +30,7 @@
         "
       >
         <ng-container *ngIf="editedRecord != room.id">
-          <td>{{ room.name }}</td>
+          <td>{{ room.name === "null" ? "-" : room.name }}</td>
           <td>{{ room.count }}</td>
         </ng-container>
 

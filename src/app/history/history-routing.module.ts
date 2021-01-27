@@ -7,7 +7,6 @@ const routes: Routes = [
   {
     path: "history",
     component: HistoryComponent,
-    data: { animation: "History" },
   },
 ];
 

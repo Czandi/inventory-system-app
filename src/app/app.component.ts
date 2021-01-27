@@ -2,13 +2,11 @@ import { Component } from "@angular/core";
 import { ElectronService } from "./core/services";
 import { TranslateService } from "@ngx-translate/core";
 import { AppConfig } from "../environments/environment";
-import { SlideInAnimation } from "./route-animation";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  animations: [SlideInAnimation],
 })
 export class AppComponent {
   constructor(

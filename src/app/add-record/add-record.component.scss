@@ -57,9 +57,15 @@ form {
 .invalid {
   label {
     color: $error;
+    &.serialNumber {
+      color: white;
+    }
   }
   input {
     border: 2px solid $error;
+    &.serialNumber {
+      border-color: white;
+    }
   }
 }
 

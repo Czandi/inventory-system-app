@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: "trash",
     component: TrashComponent,
-    data: { animation: "Trash" },
   },
 ];
 

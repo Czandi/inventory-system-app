@@ -25,7 +25,9 @@ export class DeviceDataValidator {
     this._names[id] = [];
     for (let name of data) {
       let itemId = name["name"];
-      this._names[id].push(itemId);
+      if (itemId !== "null") {
+        this._names[id].push(itemId);
+      }
     }
   }
 
@@ -92,10 +94,6 @@ export class DeviceDataValidator {
         name: this.newSetName,
         type: "deviceSet",
       });
-    }
-
-    if (device.serialNumber === null || device.serialNumber === "") {
-      return false;
     }
 
     if (this._newRecords.length != 0) {

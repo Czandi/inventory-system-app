@@ -1,7 +1,6 @@
 package com.app.inventorysystemapp.repository;
 
-import com.app.inventorysystemapp.model.Device;
-import com.app.inventorysystemapp.model.Room;
+import com.app.inventorysystemapp.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,4 +39,12 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
   Device findByBarCode(Long barCode);
 
   List<Device> findDeviceByRoom(Room room);
+
+  ArrayList<Device> findByModel(Model model);
+
+  List<Device> findByOwner(Owner owner);
+
+  List<Device> findByRoom(Room room);
+
+  List<Device> findByDeviceSet(DeviceSet deviceSet);
 }

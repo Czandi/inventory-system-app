@@ -109,19 +109,21 @@ export class Table implements OnDestroy {
   }
 
   onRightClick(event, id: number) {
-    if (this.contextMenuOpen === true) {
-      this.clickedElement.classList.remove("active");
-      this.contextMenuOpen = false;
-    }
-    this.contextMenuData.mouseX = event.pageX;
-    this.contextMenuData.mouseY = event.pageY;
-    this.contextMenuData.options = this.contextMenuOptions;
-    this.contextMenuData.recordId = id;
-    this.subjectService.contextMenuEmitter.next(this.contextMenuData);
+    if (id !== 1) {
+      if (this.contextMenuOpen === true) {
+        this.clickedElement.classList.remove("active");
+        this.contextMenuOpen = false;
+      }
+      this.contextMenuData.mouseX = event.pageX;
+      this.contextMenuData.mouseY = event.pageY;
+      this.contextMenuData.options = this.contextMenuOptions;
+      this.contextMenuData.recordId = id;
+      this.subjectService.contextMenuEmitter.next(this.contextMenuData);
 
-    this.clickedElement = document.getElementById("device" + id);
-    this.clickedElement.classList.add("active");
-    this.contextMenuOpen = true;
+      this.clickedElement = document.getElementById("device" + id);
+      this.clickedElement.classList.add("active");
+      this.contextMenuOpen = true;
+    }
   }
 
   displayRecord(idRecord, tableName) {

@@ -207,4 +207,93 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
   public List<DeviceDto> getAllDevices() {
     return deviceRepository.findAll().stream().map(device -> DeviceMapper.mapToDeviceDto(device)).collect(Collectors.toList());
   }
+
+  public Boolean deleteModel(Long id) {
+    if(id != 1) {
+      setModelToNull(id);
+      modelService.deleteModel(id);
+      return true;
+    }
+
+    return false;
+  }
+
+  private void setModelToNull(Long id) {
+    Model model = modelService.findModelById(id);
+    List<Device> devices = deviceRepository.findByModel(model);
+    Model nullModel = modelService.findModelById(1);
+
+    for(int i = 0; i < devices.size(); i++) {
+      Device device = devices.get(i);
+      device.setModel(nullModel);
+      deviceRepository.save(device);
+    }
+
+  }
+
+  public Boolean deleteOwner(Long id) {
+    if(id != 1) {
+      setOwnerToNull(id);
+      ownerService.deleteOwner(id);
+      return true;
+    }
+
+    return false;
+  }
+
+  private void setOwnerToNull(Long id) {
+    Owner owner = ownerService.findOwnerById(id);
+    List<Device> devices = deviceRepository.findByOwner(owner);
+    Owner nullOwner = ownerService.findOwnerById(1);
+
+    for(int i = 0; i < devices.size(); i++) {
+      Device device = devices.get(i);
+      device.setOwner(nullOwner);
+      deviceRepository.save(device);
+    }
+  }
+
+  public Boolean deleteRoom(long id) {
+    if(id != 1) {
+      setRoomToNull(id);
+      roomService.deleteRoom(id);
+      return true;
+    }
+
+    return false;
+  }
+
+  private void setRoomToNull(Long id) {
+    Room room = roomService.findById(id);
+    List<Device> devices = deviceRepository.findByRoom(room);
+    Room nullRoom = roomService.findById(1);
+
+    for(int i = 0; i < devices.size(); i++) {
+      Device device = devices.get(i);
+      device.setRoom(nullRoom);
+      deviceRepository.save(device);
+    }
+  }
+
+  public Boolean deleteDeviceSet(Long id) {
+    if(id != 1) {
+      setDeviceSetToNull(id);
+      deviceSetService.deleteDeviceSet(id);
+      return true;
+    }
+
+    return false;
+  }
+
+  private void setDeviceSetToNull(Long id) {
+    DeviceSet deviceSet = deviceSetService.findById(id);
+    List<Device> devices = deviceRepository.findByDeviceSet(deviceSet);
+    DeviceSet nullDeviceSet = deviceSetService.findById(1);
+
+    for(int i = 0; i < devices.size(); i++) {
+      Device device = devices.get(i);
+      device.setDeviceSet(nullDeviceSet);
+      deviceRepository.save(device);
+    }
+  }
 }

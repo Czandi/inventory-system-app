@@ -31,13 +31,23 @@
         "
       >
         <ng-container *ngIf="editedRecord != device.id">
-          <td class="serialNumber">{{ device.serialNumber }}</td>
-          <td class="model">{{ device.model }}</td>
-          <td class="type">{{ device.type }}</td>
-          <td class="room">{{ device.room }}</td>
-          <td class="owner">{{ device.owner }}</td>
-          <td class="barCode">{{ device.barCode }}</td>
-          <td class="setNumber">{{ device.deviceSet }}</td>
+          <td class="serialNumber">
+            {{ device.serialNumber === "" ? "-" : device.serialNumber }}
+          </td>
+          <td class="model">
+            {{ device.model === "null" ? "-" : device.model }}
+          </td>
+          <td class="type">{{ device.type === "null" ? "-" : device.type }}</td>
+          <td class="room">{{ device.room === "null" ? "-" : device.room }}</td>
+          <td class="owner">
+            {{ device.owner === "null" ? "-" : device.owner }}
+          </td>
+          <td class="barCode">
+            {{ device.barCode === "null" ? "-" : device.barCode }}
+          </td>
+          <td class="setNumber">
+            {{ device.deviceSet === "null" ? "-" : device.deviceSet }}
+          </td>
         </ng-container>
 
         <ng-container *ngIf="editedRecord === device.id">

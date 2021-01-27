@@ -1,3 +1,4 @@
+import { OwnerService } from "app/core/services/owner.service";
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DeviceService } from "app/core/services/device.service";
@@ -24,19 +25,23 @@ export class DisplayRecordsComponent implements OnInit {
   public currentRoute;
   public blured = false;
   public deviceForm;
+  public alertTitle: String = "PAGES.DISPLAY_RECORDS.DELETE_RECORD";
+  public alertText: String;
 
-  private deviceId;
+  private deleteId;
   private search = "";
   private searchTimeout;
   private routeSub: Subscription;
   private alertSub: Subscription;
   private activeItem = null;
+  private action = "";
 
   constructor(
     private subjectService: SubjectService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private ownerService: OwnerService
   ) {}
 
   ngOnInit(): void {
@@ -54,19 +59,55 @@ export class DisplayRecordsComponent implements OnInit {
       }
 
       if (params["addBarcode"] !== undefined) {
-        this.deviceId = params["addBarcode"];
+        this.deleteId = params["addBarcode"];
         this.addBarcode();
       }
 
-      if (params["delete"] !== undefined) {
-        this.deviceId = params["delete"];
+      if (params["deleteProduct"] !== undefined) {
+        this.deleteId = params["deleteProduct"];
+        this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_PRODUCT_MESSAGE";
+        this.action = "delete-product";
         this.alert.trigger();
+      }
+
+      if (params["deleteModel"] !== undefined) {
+        if (+params["deleteModel"] === 1) {
+          this.popup.triggerFailure();
+        } else {
+          this.deleteId = params["deleteModel"];
+          this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_MODEL_MESSAGE";
+          this.action = "delete-model";
+          this.alert.trigger();
+        }
+      }
+
+      if (params["deleteOwner"] !== undefined) {
+        if (+params["deleteOwner"] === 1) {
+          this.popup.triggerFailure();
+        } else {
+          this.deleteId = params["deleteOwner"];
+          this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_OWNER_MESSAGE";
+          this.action = "delete-owner";
+          this.alert.trigger();
+        }
       }
     });
 
     this.alertSub = this.subjectService.alert.subscribe((accept) => {
       if (accept) {
-        this.deleteRecord(this.deviceId);
+        switch (this.action) {
+          case "delete-product":
+            this.deleteRecord(this.deleteId);
+            break;
+
+          case "delete-model":
+            this.deleteModel(this.deleteId);
+            break;
+
+          case "delete-owner":
+            this.deleteOwner(this.deleteId);
+            break;
+        }
       }
     });
 
@@ -85,8 +126,16 @@ export class DisplayRecordsComponent implements OnInit {
     });
   }
 
+  deleteModel(id: number) {}
+
+  deleteOwner(id: number) {
+    this.ownerService.deleteOwner(id).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
   addBarcode() {
-    this.deviceService.getSingleDevice(this.deviceId).subscribe((device) => {
+    this.deviceService.getSingleDevice(this.deleteId).subscribe((device) => {
       let barcode = device["barCode"];
       let model = device["model"]["name"];
       let serialNumber = device["serialNumber"];
@@ -101,7 +150,10 @@ export class DisplayRecordsComponent implements OnInit {
   }
 
   onTyping() {
-    this.search = this.searchBar.nativeElement.value;
+    this.search =
+      this.searchBar.nativeElement.value === "-"
+        ? "null"
+        : this.searchBar.nativeElement.value;
     this.resetSearchTimeout();
   }
 

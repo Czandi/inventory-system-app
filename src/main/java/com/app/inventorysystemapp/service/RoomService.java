@@ -77,4 +77,13 @@ public class RoomService implements com.app.inventorysystemapp.service.Service {
         return orderBy;
     }
   }
+
+  public Room findRoomById(Long id) {
+    return roomRepository.findById(id).orElseThrow();
+  }
+
+  public void deleteRoom(long id) {
+    Room room = findById(id);
+    roomRepository.delete(room);
+  }
 }

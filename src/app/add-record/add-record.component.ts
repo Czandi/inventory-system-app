@@ -61,7 +61,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
 
   initFormGroup() {
     this.deviceForm = new FormGroup({
-      serialNumber: new FormControl("", Validators.required),
+      serialNumber: new FormControl(""),
       deviceModel: new FormControl("", Validators.required),
       deviceType: new FormControl("", Validators.required),
       deviceRoom: new FormControl("", Validators.required),
@@ -131,6 +131,8 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       newComment
     );
 
+    console.log(this.deviceForm);
+
     if (this.deviceForm.valid) {
       if (this.deviceDataValidator.validateDeviceData(device)) {
         this.insertDeviceAndRedirect(device);
@@ -138,6 +140,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
         this.newRecords = this.deviceDataValidator.newRecords;
         this.alertBox.openAlert();
       }
+    } else {
     }
   }
 
@@ -151,19 +154,21 @@ export class AddRecordComponent implements OnInit, OnDestroy {
 
   insertDeviceType() {
     let modelValue = this.deviceForm.get("deviceModel").value.toLowerCase();
-    if (this.deviceDataValidator.names["deviceModel"].includes(modelValue)) {
-      let type = this.deviceDataValidator.modelsWithTypes[modelValue];
-      this.typeInputElement.classList.add("inactive");
-      this.typeInputElement.value = type;
-      this.deviceTypeInactive = true;
-      this.deviceForm.get("deviceType").markAsDirty();
-      this.deviceForm.get("deviceType").markAsTouched();
-      this.deviceForm.get("deviceType").setValue(type);
-    } else {
-      this.typeInputElement.classList.remove("inactive");
-      this.typeInputElement.value = "";
-      this.deviceTypeInactive = false;
-      this.deviceForm.get("deviceType").setValue("");
+    if (this.deviceDataValidator.names["deviceModel"] !== undefined) {
+      if (this.deviceDataValidator.names["deviceModel"].includes(modelValue)) {
+        let type = this.deviceDataValidator.modelsWithTypes[modelValue];
+        this.typeInputElement.classList.add("inactive");
+        this.typeInputElement.value = type;
+        this.deviceTypeInactive = true;
+        this.deviceForm.get("deviceType").markAsDirty();
+        this.deviceForm.get("deviceType").markAsTouched();
+        this.deviceForm.get("deviceType").setValue(type);
+      } else {
+        this.typeInputElement.classList.remove("inactive");
+        this.typeInputElement.value = "";
+        this.deviceTypeInactive = false;
+        this.deviceForm.get("deviceType").setValue("");
+      }
     }
   }
 }
