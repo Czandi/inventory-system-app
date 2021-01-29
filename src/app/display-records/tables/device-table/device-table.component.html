@@ -20,7 +20,7 @@
       </tr>
       <tr
         *ngFor="let device of devices"
-        (contextmenu)="onRightClick($event, device.id)"
+        (contextmenu)="onRightClick($event, device.id, true)"
         [id]="'device' + device.id"
         [ngClass]="
           editedRecord === 0

@@ -1,3 +1,4 @@
+<app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
 <div class="content-container">
   <h1 *ngIf="device !== undefined" class="header">
     {{ device.model.name }}
@@ -15,6 +16,7 @@
             [placeholder]="'TABLE_HEADERS.DEVICE.SERIAL_NUMBER' | translate"
             formControlName="serialNumber"
             id="serialNumber"
+            autocomplete="off"
             (change)="checkChange()"
           />
         </div>
@@ -26,7 +28,8 @@
             [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_MODEL' | translate"
             formControlName="deviceModel"
             id="deviceModel"
-            (change)="checkChange()"
+            autocomplete="off"
+            (change)="checkChange(); insertDeviceType()"
           />
           <datalist id="models">
             <option
@@ -38,12 +41,15 @@
         <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.DEVICE_TYPE" | translate }}</p>
           <input
+            class="inactive"
             type="text"
             list="types"
             [placeholder]="'TABLE_HEADERS.DEVICE.DEVICE_TYPE' | translate"
             formControlName="deviceType"
             id="deviceType"
             (change)="checkChange()"
+            autocomplete="off"
+            #deviceType
           />
           <datalist id="types">
             <option
@@ -60,6 +66,7 @@
             [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
             formControlName="deviceRoom"
             id="deviceRoom"
+            autocomplete="off"
             (change)="checkChange()"
           />
           <datalist id="rooms">
@@ -77,6 +84,7 @@
             [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
             formControlName="deviceOwner"
             id="deviceOwner"
+            autocomplete="off"
             (change)="checkChange()"
           />
           <datalist id="owners">
@@ -94,9 +102,9 @@
             class="left-offset"
             type="text"
             [placeholder]="'TABLE_HEADERS.DEVICE.BAR_CODE' | translate"
+            autocomplete="off"
             formControlName="deviceBarCode"
             id="deviceBarCode"
-            (change)="checkChange()"
           />
         </div>
         <div class="input">
@@ -107,6 +115,7 @@
             [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
             formControlName="deviceSet"
             id="deviceSet"
+            autocomplete="off"
             (change)="checkChange()"
           />
           <datalist id="sets">
@@ -120,12 +129,14 @@
           [placeholder]="'TABLE_HEADERS.DEVICE.COMMENT' | translate"
           formControlName="deviceComment"
           id="deviceComment"
+          autocomplete="off"
           (change)="checkChange()"
         ></textarea>
         <app-button
           class="button"
           [type]="buttonType"
           [text]="'PAGES.RECORD_PAGE.UPDATE' | translate"
+          (click)="updateDevice()"
         ></app-button>
       </form>
     </div>
@@ -152,13 +163,13 @@
             {{ getAttributeName(history.changedAttribute) | translate }}
           </td>
           <td>
-            {{ history.oldValue }}
+            {{ history.oldValue === "" ? "-" : history.oldValue }}
           </td>
           <td>
             <img src="../../assets/icons/history_arrow.svg" />
           </td>
           <td>
-            {{ history.newValue }}
+            {{ history.newValue === "" ? "-" : history.newValue }}
           </td>
           <td class="date">
             {{ getDate(history.date) }}

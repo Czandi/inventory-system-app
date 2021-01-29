@@ -131,8 +131,6 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       newComment
     );
 
-    console.log(this.deviceForm);
-
     if (this.deviceForm.valid) {
       if (this.deviceDataValidator.validateDeviceData(device)) {
         this.insertDeviceAndRedirect(device);

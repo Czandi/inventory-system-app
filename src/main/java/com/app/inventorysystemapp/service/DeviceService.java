@@ -127,7 +127,7 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
     return newDevice;
   }
 
-  public ResponseEntity<Device> updateDevice(long id, DeviceRequest details) throws ResourceNotFoundException {
+  public Device updateDevice(long id, DeviceRequest details) throws ResourceNotFoundException {
     Room room = roomService.findById(details.getIdRoom());
     Model model = modelService.findModelById(details.getIdModel());
     Owner owner = ownerService.findOwnerById(details.getIdOwner());
@@ -163,7 +163,7 @@ public class DeviceService implements com.app.inventorysystemapp.service.Service
     device.setOwner(owner);
     device.setComments(comment);
     final Device updatedDevice = deviceRepository.save(device);
-    return ResponseEntity.ok(updatedDevice);
+    return updatedDevice;
   }
 
   public DeletedDevice deleteDevice(long id) {

@@ -108,8 +108,8 @@ export class Table implements OnDestroy {
     this.contextMenuSub.unsubscribe();
   }
 
-  onRightClick(event, id: number) {
-    if (id !== 1) {
+  onRightClick(event, id: number, device?) {
+    if (id !== 1 || device) {
       if (this.contextMenuOpen === true) {
         this.clickedElement.classList.remove("active");
         this.contextMenuOpen = false;

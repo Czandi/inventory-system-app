@@ -31,7 +31,7 @@ export class ContextMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.subjectService.contextMenuEmitter.subscribe((event) => {
-      if (event instanceof ContextMenu && +event.recordId !== 1) {
+      if (event instanceof ContextMenu) {
         var contextMenu = this.hostElement.nativeElement;
         this.renderer.setStyle(contextMenu, "top", event.mouseY - 30 + "px");
         this.renderer.setStyle(contextMenu, "left", event.mouseX - 320 + "px");
