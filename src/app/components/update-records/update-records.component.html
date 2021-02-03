@@ -1,0 +1,115 @@
+<div class="content-container">
+  <h1 class="header">{{ "PAGES.UPDATE_RECORDS.TITLE" | translate }}</h1>
+  <div class="center">
+    <div class="content">
+      <div class="top-section left-section">
+        <h2 [ngClass]="accepted ? 'inactive' : ''">
+          {{ "PAGES.UPDATE_RECORDS.FIRST_TEXT" | translate }}
+        </h2>
+        <form [formGroup]="form">
+          <div class="attribute room">
+            <label [ngClass]="accepted ? 'inactive' : ''" for="room-input">{{
+              "TABLE_HEADERS.DEVICE.ROOM" | translate
+            }}</label>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.ROOM' | translate"
+              [ngClass]="accepted ? 'inactive' : ''"
+              (change)="onChange()"
+              formControlName="room"
+              list="rooms"
+            />
+            <datalist id="rooms">
+              <option *ngFor="let room of rooms" [value]="room"></option>
+            </datalist>
+          </div>
+
+          <div class="attribute owner">
+            <label [ngClass]="accepted ? 'inactive' : ''" for="room-input">{{
+              "TABLE_HEADERS.DEVICE.OWNER" | translate
+            }}</label>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.OWNER' | translate"
+              [ngClass]="accepted ? 'inactive' : ''"
+              (change)="onChange()"
+              formControlName="owner"
+              list="owners"
+            />
+            <datalist id="owners">
+              <option *ngFor="let owner of owners" [value]="owner"></option>
+            </datalist>
+          </div>
+
+          <div class="attribute set">
+            <label [ngClass]="accepted ? 'inactive' : ''" for="room-input">{{
+              "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate
+            }}</label>
+            <input
+              type="text"
+              [placeholder]="'TABLE_HEADERS.DEVICE.SET_NUMBER' | translate"
+              [ngClass]="accepted ? 'inactive' : ''"
+              (change)="onChange()"
+              formControlName="set"
+              list="sets"
+            />
+            <datalist id="sets">
+              <option *ngFor="let set of sets" [value]="set"></option>
+            </datalist>
+          </div>
+        </form>
+        <app-button
+          class="accept-button"
+          [type]="buttonType"
+          [text]="accepted ? 'Anuluj' : 'Zatwierdź'"
+          (mousedown)="accept()"
+        ></app-button>
+
+        <div class="info" *ngIf="accepted">
+          <h2>{{ "PAGES.UPDATE_RECORDS.SET_SCAN_DEVICES" | translate }}</h2>
+
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-section right-section">
+        <ng-container *ngIf="accepted">
+          <div class="scanned-products">
+            <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
+            <div class="product-container">
+              <div
+                class="product"
+                *ngFor="let product of scannedDevices"
+                [id]="product.barcode"
+              >
+                <p>{{ product.model }}</p>
+                <p>{{ product.type }}</p>
+                <p>{{ product.barcode }}</p>
+                <!-- <div (click)="removeBarcode(product.barCode)" class="x">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+
+          <app-button
+            class="finish-button"
+            type="primary"
+            text="Zakończ"
+            (click)="finish()"
+          ></app-button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <app-popup
+    failureText="Kod kreskowy nie istnieje"
+    successText="Kod kreskowy został już zeskanowany"
+    #popup
+  ></app-popup>
+  <app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
+</div>

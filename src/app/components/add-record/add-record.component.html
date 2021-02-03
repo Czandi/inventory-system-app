@@ -1,0 +1,67 @@
+<div class="content-container">
+  <h1 class="header">{{ "PAGES.ADD_RECORD.TITLE" | translate }}</h1>
+  <div class="center">
+    <div class="form-container">
+      <form (ngSubmit)="addDevice()" [formGroup]="deviceForm" id="product-form">
+        <div class="records">
+          <div
+            *ngFor="let data of addDeviceData"
+            class="item"
+            [ngClass]="
+              this.deviceForm.get(data.id).invalid &&
+              (this.deviceForm.get(data.id).dirty ||
+                this.deviceForm.get(data.id).touched)
+                ? 'invalid'
+                : ''
+            "
+          >
+            <label [class]="data.id" [for]="data.id">{{
+              data.text | translate
+            }}</label>
+            <input
+              (change)="data.id === 'deviceModel' ? insertDeviceType() : ''"
+              [readOnly]="data.id === 'deviceType' && deviceTypeInactive"
+              [formControlName]="data.id"
+              type="text"
+              [class]="data.id"
+              [id]="data.id"
+              [attr.list]="data.id + 's'"
+              [placeholder]="data.text | translate"
+              autocomplete="off"
+            />
+            <datalist [id]="data.id + 's'">
+              <option
+                *ngFor="let item of records[data.id]"
+                [value]="item"
+              ></option>
+            </datalist>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="item text-area">
+            <label for="comment">{{
+              "TABLE_HEADERS.ADDITIONALS.COMMENT" | translate
+            }}</label>
+            <textarea
+              id="deviceComment"
+              formControlName="deviceComment"
+              [placeholder]="'TABLE_HEADERS.ADDITIONALS.COMMENT' | translate"
+              #comment
+            ></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- <button class="add-product-btn" form="product-form">
+    {{ "PAGES.ADD_RECORD.ADD" | translate }}
+  </button> -->
+  <app-button
+    type="primary"
+    class="add-product-btn"
+    [text]="'PAGES.ADD_RECORD.ADD' | translate"
+    (click)="addDevice()"
+  ></app-button>
+
+  <app-alert-box [newRecords]="newRecords" #alertBox></app-alert-box>
+</div>

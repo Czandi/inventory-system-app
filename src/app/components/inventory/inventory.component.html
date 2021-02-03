@@ -1,0 +1,74 @@
+<div class="content-container">
+  <h1 class="header">{{ "PAGES.INVENTORY.DO_INVENTORY" | translate }}</h1>
+
+  <div class="center">
+    <div class="content">
+      <div class="top-section left-section">
+        <h2 [ngClass]="roomAccepted ? 'inactive' : ''">
+          {{ "PAGES.INVENTORY.FIRST_TEXT" | translate }}
+        </h2>
+        <div class="room-select">
+          <label [ngClass]="roomAccepted ? 'inactive' : ''" for="room-input">{{
+            "TABLE_HEADERS.DEVICE.ROOM" | translate
+          }}</label>
+          <select name="room-input" [disabled]="roomAccepted" #roomInput>
+            <option *ngFor="let room of rooms" [value]="room.id">
+              {{ room.name }}
+            </option>
+          </select>
+        </div>
+
+        <app-button
+          class="accept-button"
+          [type]="roomAccepted ? 'secondary' : 'primary'"
+          [text]="roomAccepted ? 'Anuluj' : 'Zatwierdź'"
+          (mousedown)="roomSelectSwitcher()"
+        ></app-button>
+
+        <div class="info" *ngIf="roomAccepted">
+          <h2>{{ "PAGES.UPDATE_RECORDS.SET_SCAN_DEVICES" | translate }}</h2>
+
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-section right-section">
+        <ng-container *ngIf="roomAccepted">
+          <div class="scanned-products">
+            <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
+            <div class="product-container">
+              <div
+                class="product"
+                *ngFor="let product of roomDevices"
+                [id]="product.barcode"
+              >
+                <p>{{ product.model }}</p>
+                <p>{{ product.type }}</p>
+                <p>{{ product.barcode }}</p>
+                <!-- <div (click)="removeBarcode(product.barCode)" class="x">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+
+          <app-button
+            class="finish-button"
+            type="primary"
+            text="Zakończ"
+            (click)="finish()"
+          ></app-button>
+        </ng-container>
+      </div>
+    </div>
+    <app-popup
+      failureText="Kod kreskowy nie istnieje"
+      successText="Kod kreskowy został już zeskanowany"
+      #popup
+    ></app-popup>
+  </div>
+</div>

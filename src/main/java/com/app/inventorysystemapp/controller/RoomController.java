@@ -5,7 +5,7 @@ import com.app.inventorysystemapp.controller.dto.RoomDto;
 import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
 import com.app.inventorysystemapp.controller.mapper.RoomMapper;
 import com.app.inventorysystemapp.model.Room;
-import com.app.inventorysystemapp.service.DeviceService;
+import com.app.inventorysystemapp.service.ProductService;
 import com.app.inventorysystemapp.service.RoomService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +18,11 @@ import java.util.List;
 public class RoomController {
 
   private final RoomService roomService;
-  private final DeviceService deviceService;
+  private final ProductService productService;
 
-  public RoomController(RoomService roomService, DeviceService deviceService) {
+  public RoomController(RoomService roomService, ProductService productService) {
     this.roomService = roomService;
-    this.deviceService = deviceService;
+    this.productService = productService;
   }
 
   @GetMapping("/rooms")
@@ -39,9 +39,9 @@ public class RoomController {
     return RoomMapper.mapToRoomDto(roomService.getSingleRoom(id));
   }
 
-  @GetMapping("/rooms/{id}/devices")
+  @GetMapping("/rooms/{id}/products")
   public List<DeviceDto> getDevicesFromRoom(@PathVariable long id){
-    return DeviceMapper.mapToDeviceDtos(deviceService.getDevicesFromRoom(id));
+    return DeviceMapper.mapToDeviceDtos(productService.getDevicesFromRoom(id));
   }
 
   @GetMapping("/rooms/all")
@@ -61,6 +61,6 @@ public class RoomController {
 
   @DeleteMapping("/rooms/{id}")
   public Boolean deleteRoom(@PathVariable long id) {
-    return deviceService.deleteRoom(id);
+    return productService.deleteRoom(id);
   }
 }

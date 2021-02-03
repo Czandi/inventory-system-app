@@ -16,7 +16,7 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "m.id as modelId, " +
     "m.type.name as typeName, " +
     "count(m.name) as modelCount " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.model m " +
     "group by m.id")
   Page<IModel> findAllModelsWithCount(Pageable page);
@@ -26,7 +26,7 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "m.id as modelId, " +
     "m.type.name as typeName, " +
     "count(m.name) as modelCount " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.model m " +
     "group by m.id " +
     "having m.id like ?1")
@@ -37,7 +37,7 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "m.id as modelId, " +
     "m.type.name as typeName, " +
     "count(d.model.name) as modelCount " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.model m " +
     "group by m.id " +
     "having m.name like concat('%', ?1, '%') " +

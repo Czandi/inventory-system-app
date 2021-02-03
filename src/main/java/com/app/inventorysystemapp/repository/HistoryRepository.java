@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.repository;
 
 import com.app.inventorysystemapp.model.History;
-import com.app.inventorysystemapp.model.interfaces.IHistoryDevice;
+import com.app.inventorysystemapp.model.interfaces.IHistoryProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,13 +24,13 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     "h.newValue as newValue, " +
     "h.date as date " +
     "from History h " +
-    "inner join Device d on h.idRecord=d.id " +
+    "inner join Product d on h.idRecord=d.id " +
     "group by h.id")
-  Page<IHistoryDevice> findDevicesHistory(Pageable paging);
+  Page<IHistoryProduct> findDevicesHistory(Pageable paging);
 
   //TODO
   @Query("Select h from History h")
-  Page<IHistoryDevice> findDevicesHistoryByContaining(String search, Pageable paging);
+  Page<IHistoryProduct> findDevicesHistoryByContaining(String search, Pageable paging);
 
   @Query("Select " +
     "d.barCode as barCode, " +
@@ -42,9 +42,9 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     "h.tableName, " +
     "h.idRecord " +
     "from History h " +
-    "inner join Device d on h.idRecord=d.id " +
+    "inner join Product d on h.idRecord=d.id " +
     "group by h.id, h.tableName, h.idRecord " +
     "having h.tableName like 'device' " +
     "and h.idRecord like ?1")
-  Page<IHistoryDevice> findDeviceHistory(Pageable paging, long id);
+  Page<IHistoryProduct> findDeviceHistory(Pageable paging, long id);
 }

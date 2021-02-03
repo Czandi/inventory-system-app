@@ -1,14 +1,14 @@
 export class ConfigService {
   private serverApiUrl = "http://localhost:4201";
-  private _deviceUrl = this.serverApiUrl + "/devices";
+  private _deviceUrl = this.serverApiUrl + "/products";
   private _allBarcodesUrl = this.deviceUrl + "/all/barcodes";
   private _modelUrl = this.serverApiUrl + "/models";
-  private _deviceSetUrl = this.serverApiUrl + "/device-sets";
-  private _deviceTypeUrl = this.serverApiUrl + "/device-types";
+  private _deviceSetUrl = this.serverApiUrl + "/product-sets";
+  private _deviceTypeUrl = this.serverApiUrl + "/product-types";
   private _ownerUrl = this.serverApiUrl + "/owners";
   private _roomUrl = this.serverApiUrl + "/rooms";
   private _historyUrl = this.serverApiUrl + "/history";
-  private _deviceHistoryUrl = this._historyUrl + "/devices";
+  private _deviceHistoryUrl = this._historyUrl + "/products";
   private _inventoryUrl = this.serverApiUrl + "/inventory";
   private _reportUrl = this._inventoryUrl + "/report";
 

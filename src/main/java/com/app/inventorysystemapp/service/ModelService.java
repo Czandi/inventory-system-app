@@ -1,14 +1,12 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.model.DeviceType;
+import com.app.inventorysystemapp.model.ProductType;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.model.interfaces.IModel;
 import com.app.inventorysystemapp.controller.requestModels.ModelRequest;
 import com.app.inventorysystemapp.repository.ModelRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +16,12 @@ import java.util.List;
 public class ModelService implements com.app.inventorysystemapp.service.Service {
 
   private final ModelRepository modelRepository;
-  private final DeviceTypeService deviceTypeService;
+  private final ProductTypeService productTypeService;
   private final HistoryService historyService;
 
-  public ModelService(ModelRepository modelRepository, DeviceTypeService deviceTypeService, HistoryService historyService) {
+  public ModelService(ModelRepository modelRepository, ProductTypeService productTypeService, HistoryService historyService) {
     this.modelRepository = modelRepository;
-    this.deviceTypeService = deviceTypeService;
+    this.productTypeService = productTypeService;
     this.historyService = historyService;
   }
 
@@ -45,10 +43,10 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
 
   public Model insertModel(ModelRequest model) {
     System.out.println(model);
-    DeviceType deviceType = deviceTypeService.findTypeById(model.getIdType());
+    ProductType productType = productTypeService.findTypeById(model.getIdType());
     String name = model.getName();
 
-    Model newModel = new Model(name, deviceType);
+    Model newModel = new Model(name, productType);
     return modelRepository.save(newModel);
   }
 
@@ -62,7 +60,7 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
 
   public ResponseEntity<Model> updateModel(Long id, ModelRequest details) {
 
-    DeviceType deviceType = deviceTypeService.findTypeById(details.getIdType());
+    ProductType productType = productTypeService.findTypeById(details.getIdType());
 
     Model model = modelRepository.findById(id).orElseThrow();
 
@@ -70,12 +68,12 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
       historyService.insertHistory("model", model.getId(), "name", model.getName(), details.getName());
     }
 
-    if(!model.getType().equals(deviceType)){
-      historyService.insertHistory("model", model.getId(), "type", model.getType().getName(), deviceType.getName());
+    if(!model.getType().equals(productType)){
+      historyService.insertHistory("model", model.getId(), "type", model.getType().getName(), productType.getName());
     }
 
     model.setName(details.getName());
-    model.setType(deviceType);
+    model.setType(productType);
 
     final Model updatedModel = modelRepository.save(model);
     return ResponseEntity.ok(updatedModel);

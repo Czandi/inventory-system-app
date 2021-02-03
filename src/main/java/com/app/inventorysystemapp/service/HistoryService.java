@@ -1,12 +1,11 @@
 package com.app.inventorysystemapp.service;
 
 import com.app.inventorysystemapp.model.History;
-import com.app.inventorysystemapp.model.interfaces.IHistoryDevice;
+import com.app.inventorysystemapp.model.interfaces.IHistoryProduct;
 import com.app.inventorysystemapp.repository.HistoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -49,7 +48,7 @@ public class HistoryService implements com.app.inventorysystemapp.service.Servic
   }
 
 
-  public Page<IHistoryDevice> getDevicesHistory(int page, int pageSize, String orderBy, String sortType, String search) {
+  public Page<IHistoryProduct> getDevicesHistory(int page, int pageSize, String orderBy, String sortType, String search) {
     int pageNumber = page > 0 ? page : 1;
 
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
@@ -62,7 +61,7 @@ public class HistoryService implements com.app.inventorysystemapp.service.Servic
 
   }
 
-  public Page<IHistoryDevice> getDeviceHistory(long id, int page, int pageSize) {
+  public Page<IHistoryProduct> getDeviceHistory(long id, int page, int pageSize) {
     Pageable paging;
     int pageNumber = page > 0 ? page : 1;
     paging = PageRequest.of(pageNumber - 1, pageSize);

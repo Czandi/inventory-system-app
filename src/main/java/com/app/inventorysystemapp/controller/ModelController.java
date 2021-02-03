@@ -4,7 +4,7 @@ import com.app.inventorysystemapp.controller.dto.ModelDto;
 import com.app.inventorysystemapp.controller.mapper.ModelMapper;
 import com.app.inventorysystemapp.model.Model;
 import com.app.inventorysystemapp.controller.requestModels.ModelRequest;
-import com.app.inventorysystemapp.service.DeviceService;
+import com.app.inventorysystemapp.service.ProductService;
 import com.app.inventorysystemapp.service.ModelService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +18,11 @@ import java.util.List;
 public class ModelController {
 
   private final ModelService modelService;
-  private final DeviceService deviceService;
+  private final ProductService productService;
 
-  public ModelController(ModelService modelService, DeviceService deviceService) {
+  public ModelController(ModelService modelService, ProductService productService) {
     this.modelService = modelService;
-    this.deviceService = deviceService;
+    this.productService = productService;
   }
 
   @GetMapping("/models")
@@ -56,6 +56,6 @@ public class ModelController {
 
   @DeleteMapping("/models/{id}")
   public Boolean deleteModel(@PathVariable(value = "id") Long id) {
-    return deviceService.deleteModel(id);
+    return productService.deleteModel(id);
   }
 }

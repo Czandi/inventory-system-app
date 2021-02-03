@@ -1,6 +1,5 @@
 package com.app.inventorysystemapp.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +14,11 @@ public class Model {
   private String name;
   @ManyToOne
   @JoinColumn(name = "id_type")
-  private DeviceType type;
+  private ProductType type;
 
   public Model() {}
 
-  public Model(String name, DeviceType type){
+  public Model(String name, ProductType type){
     this.type = type;
     this.name = name;
   }

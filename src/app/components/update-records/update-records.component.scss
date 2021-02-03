@@ -1,0 +1,177 @@
+@import "../../shared/variables.scss";
+
+$firstDotSize: 20px;
+$secondDotSize: 12.5px;
+$thirdDotSize: 5px;
+
+h2,
+span,
+p,
+label {
+  color: white;
+}
+
+.content {
+  height: 70vh;
+  width: 70vw;
+  position: relative;
+
+  .left-section {
+    width: 35%;
+    margin-right: 5%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    h2 {
+      text-align: center;
+
+      &.inactive {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .attribute {
+      height: fit-content;
+      width: fit-content;
+      text-align: left;
+      margin: 20px auto 0 auto;
+
+      label {
+        &.inactive {
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      input {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
+
+        &.inactive {
+          background-color: rgba(255, 255, 255, 0.8);
+          padding: 7px;
+
+          &:hover {
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    .accept-button {
+      margin: 20px auto 0 auto;
+    }
+
+    .info {
+      .dots {
+        margin: 35px 0;
+
+        .dot {
+          display: inline-block;
+          background-color: white;
+          border-radius: 50%;
+          width: $firstDotSize;
+          height: $firstDotSize;
+          margin-right: 50px;
+
+          &:nth-of-type(2) {
+            width: $secondDotSize;
+            height: $secondDotSize;
+            margin-bottom: ($firstDotSize - $secondDotSize) / 2;
+          }
+
+          &:nth-of-type(3) {
+            width: $thirdDotSize;
+            height: $thirdDotSize;
+            margin-bottom: ($firstDotSize - $thirdDotSize) / 2;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .right-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    margin-left: 5%;
+    height: 100%;
+
+    .finish-button {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .scanned-devices {
+      height: 90%;
+      overflow: auto;
+    }
+
+    .device-container {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 0 50px;
+      margin-top: -20px;
+
+      .device {
+        background-color: rgb(0, 0, 0, 0.3);
+        border: 2px solid rgb(160, 27, 27);
+        width: 120px;
+        position: relative;
+        padding: 7px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 30px;
+        text-align: center;
+        height: 100%;
+        overflow: auto;
+
+        &.scanned {
+          border: 2px solid $primary-dark;
+        }
+
+        &.additional {
+          border: 2px solid rgb(170, 189, 5);
+        }
+
+        span {
+          line-height: 20px;
+        }
+
+        .x {
+          display: inline-block;
+          width: 8.5px;
+          height: 8.5px;
+          margin-bottom: 3px;
+          margin-left: 15px;
+
+          .line {
+            width: 2px;
+            height: 10px;
+            background-color: white;
+            position: absolute;
+
+            &:nth-of-type(1) {
+              transform: rotate(45deg);
+            }
+
+            &:nth-of-type(2) {
+              transform: rotate(-45deg);
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

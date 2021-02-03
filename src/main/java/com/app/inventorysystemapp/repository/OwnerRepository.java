@@ -15,7 +15,7 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     "o.id as ownerId, " +
     "o.name as ownerName, " +
     "count(o.id) as ownerItemsCount " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.owner o " +
     "group by o.id")
   Page<IOwner> findAllOwnersWithItemsCount(Pageable page);
@@ -24,7 +24,7 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     "o.id as ownerId, " +
     "o.name as ownerName, " +
     "count(o.id) as ownerItemsCount " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.owner o " +
     "group by o.id " +
     "having o.id like ?1 ")
@@ -34,7 +34,7 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     "o.id as ownerId, " +
     "o.name as ownerName, " +
     "count(o.id) as ownerItemsCount " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.owner o " +
     "group by o.id " +
     "having o.name like concat('%', ?1, '%') " +

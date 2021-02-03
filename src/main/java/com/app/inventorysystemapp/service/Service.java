@@ -1,6 +1,6 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.model.Device;
+import com.app.inventorysystemapp.model.Product;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -35,8 +35,8 @@ public interface Service {
     }
   }
 
-  default List<Device> getDifferentDevices(List<Device> array1, List<Device> array2) {
-    List<Device> devices = new ArrayList<>();
+  default List<Product> getDifferentDevices(List<Product> array1, List<Product> array2) {
+    List<Product> products = new ArrayList<>();
 
     for(int i = 0; i < array1.size(); i++){
       Boolean additional = true;
@@ -50,11 +50,11 @@ public interface Service {
       }
 
       if(additional){
-        devices.add(array1.get(i));
+        products.add(array1.get(i));
       }
     }
 
-    return devices;
+    return products;
   }
 
   String generateOrderValue(String orderBy);

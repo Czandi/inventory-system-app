@@ -21,5 +21,5 @@ public class InventoryItem {
   private Inventory inventory;
   @ManyToOne
   @JoinColumn(name = "id_record")
-  private Device device;
+  private Product product;
 }

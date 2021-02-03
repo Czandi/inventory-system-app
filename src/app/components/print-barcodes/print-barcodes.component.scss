@@ -1,0 +1,105 @@
+@import "../../shared/variables.scss";
+
+.download-barcodes {
+  position: absolute;
+  z-index: -1;
+}
+
+.barcodes-container {
+  width: 750px;
+  min-height: 590px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  color: white;
+
+  .barcode {
+    display: inline-block;
+    width: 150px;
+    height: 140px;
+    position: relative;
+    text-align: center;
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      p {
+        margin-top: 0;
+        letter-spacing: 2px;
+      }
+
+      .model {
+        h3 {
+          font-size: 11pt;
+          font-weight: 400;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+
+      .x {
+        display: block;
+      }
+    }
+
+    .x {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      display: none;
+      z-index: 100;
+
+      .line {
+        width: 12px;
+        height: 2px;
+        background-color: white;
+        position: absolute;
+        border-radius: 5px;
+
+        &:first-child {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          transform: rotate(-45deg);
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.download {
+    color: black;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.noBarcodesInfo {
+  color: white;
+
+  p {
+    width: 600px;
+  }
+}
+
+.buttons {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  .button {
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}

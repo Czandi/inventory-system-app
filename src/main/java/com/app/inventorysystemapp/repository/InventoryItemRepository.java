@@ -1,6 +1,5 @@
 package com.app.inventorysystemapp.repository;
 
-import com.app.inventorysystemapp.model.Device;
 import com.app.inventorysystemapp.model.Inventory;
 import com.app.inventorysystemapp.model.InventoryItem;
 import org.springframework.data.jpa.repository.JpaRepository;

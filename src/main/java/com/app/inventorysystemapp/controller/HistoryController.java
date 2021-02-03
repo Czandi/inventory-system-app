@@ -26,7 +26,7 @@ public class HistoryController {
     return historyService.getHistory(page, pageSize, orderBy, sortType, search);
   }
 
-  @GetMapping("/history/devices")
+  @GetMapping("/history/products")
   public Page<HistoryDeviceDto> getDevicesHistory(int page,
                                                   int pageSize,
                                                   @RequestParam(required = false) String orderBy,
@@ -35,7 +35,7 @@ public class HistoryController {
     return HistoryMapper.mapToHistoryDeviceDtos(historyService.getDevicesHistory(page, pageSize, orderBy, sortType, search));
   }
 
-  @GetMapping("/history/devices/{id}")
+  @GetMapping("/history/products/{id}")
   public Page<HistoryDeviceDto> getDeviceHistory(@PathVariable(value = "id") Long id,
                                                  int page,
                                                  int pageSize){

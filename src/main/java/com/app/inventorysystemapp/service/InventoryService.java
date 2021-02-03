@@ -16,13 +16,13 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
   private final InventoryRepository inventoryRepository;
   private final InventoryItemRepository inventoryItemRepository;
   private final RoomService roomService;
-  private final DeviceService deviceService;
+  private final ProductService productService;
 
-  public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, RoomService roomService, DeviceService deviceService) {
+  public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, RoomService roomService, ProductService productService) {
     this.inventoryRepository = inventoryRepository;
     this.inventoryItemRepository = inventoryItemRepository;
     this.roomService = roomService;
-    this.deviceService = deviceService;
+    this.productService = productService;
   }
 
 
@@ -30,9 +30,9 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     Inventory inventory = insertNewInventory(idRoom);
 
     for(int i = 0; i < barcodes.size(); i++){
-      Device device = deviceService.findByBarcode(barcodes.get(i));
-      if(device != null){
-        insertInventoryItem(inventory, device);
+      Product product = productService.findByBarcode(barcodes.get(i));
+      if(product != null){
+        insertInventoryItem(inventory, product);
       }
     }
 
@@ -47,9 +47,9 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     return inventoryRepository.save(inventory);
   }
 
-  public InventoryItem insertInventoryItem(Inventory inventory, Device record){
+  public InventoryItem insertInventoryItem(Inventory inventory, Product record){
     InventoryItem inventoryItem = new InventoryItem();
-    inventoryItem.setDevice(record);
+    inventoryItem.setProduct(record);
     inventoryItem.setInventory(inventory);
     return inventoryItemRepository.save(inventoryItem);
   }
@@ -70,16 +70,16 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     Report report = new Report();
     Inventory inventory = inventoryRepository.findById(id).orElseThrow();
 
-    List<Device> previousStock = deviceService.getDevicesFromRoom(inventory.getRoom());
+    List<Product> previousStock = productService.getDevicesFromRoom(inventory.getRoom());
     List<InventoryItem> inventoryItems = inventoryItemRepository.findByInventory(inventory);
-    List<Device> actualStock = new ArrayList<>();
+    List<Product> actualStock = new ArrayList<>();
 
     for(int i = 0; i < inventoryItems.size(); i++){
-      actualStock.add(inventoryItems.get(i).getDevice());
+      actualStock.add(inventoryItems.get(i).getProduct());
     }
 
-    List<Device> missingRecords = getDifferentDevices(previousStock, actualStock);
-    List<Device> additionalRecords = getDifferentDevices(actualStock, previousStock);
+    List<Product> missingRecords = getDifferentDevices(previousStock, actualStock);
+    List<Product> additionalRecords = getDifferentDevices(actualStock, previousStock);
 
     report.setActualStock(actualStock);
     report.setPreviousStock(previousStock);

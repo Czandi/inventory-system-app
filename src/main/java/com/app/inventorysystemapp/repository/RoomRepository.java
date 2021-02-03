@@ -15,7 +15,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     "r.id as roomId, " +
     "r.name as roomName, " +
     "count(r.id) as count " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.room r " +
     "group by r.id")
   Page<IRoom> findAllRoomsWithItemsCount(Pageable page);
@@ -24,7 +24,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     "r.id as roomId, " +
     "r.name as roomName, " +
     "count(r.id) as count " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.room r " +
     "group by r.id " +
     "having r.id like ?1")
@@ -34,7 +34,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     "r.id as roomId, " +
     "r.name as roomName, " +
     "count(r.id) as count " +
-    "from Device d " +
+    "from Product d " +
     "inner join d.room r " +
     "group by r.id " +
     "having r.name like concat('%', ?1, '%') " +

@@ -43,10 +43,10 @@ CREATE TABLE `deleted_device` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `device`
+-- Struktura tabeli dla tabeli `product`
 --
 
-CREATE TABLE `device` (
+CREATE TABLE `product` (
   `id` bigint(11) NOT NULL,
   `serial_number` text COLLATE utf8mb4_polish_ci NOT NULL,
   `id_room` int(11) DEFAULT NULL,
@@ -200,9 +200,9 @@ ALTER TABLE `deleted_device`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `device`
+-- Indeksy dla tabeli `product`
 --
-ALTER TABLE `device`
+ALTER TABLE `product`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -264,9 +264,9 @@ ALTER TABLE `deleted_device`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `device`
+-- AUTO_INCREMENT dla tabeli `product`
 --
-ALTER TABLE `device`
+ALTER TABLE `product`
   MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
 
 --
