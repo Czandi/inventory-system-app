@@ -39,11 +39,11 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     "h.oldValue as oldValue, " +
     "h.newValue as newValue, " +
     "h.date as date, " +
-    "h.tableName," +
+    "h.tableName, " +
     "h.idRecord " +
     "from History h " +
     "inner join Device d on h.idRecord=d.id " +
-    "group by h.id " +
+    "group by h.id, h.tableName, h.idRecord " +
     "having h.tableName like 'device' " +
     "and h.idRecord like ?1")
   Page<IHistoryDevice> findDeviceHistory(Pageable paging, long id);

@@ -47,5 +47,4 @@ public class HistoryController {
     return historyService.insertHistory(tableName, idRecord, changedAttribute, oldValue, newValue);
   }
 
-
 }

@@ -42,7 +42,9 @@ export class InventoryComponent implements OnInit {
   getAutoCompleteData() {
     this.roomServiceSub = this.roomService.getAllRooms().subscribe((data) => {
       for (let room of data) {
-        this.rooms.push(room);
+        if (room.name !== "null") {
+          this.rooms.push(room);
+        }
       }
     });
 

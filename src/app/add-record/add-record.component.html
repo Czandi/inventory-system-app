@@ -15,9 +15,9 @@
                 : ''
             "
           >
-            <label [class]="data.id" [for]="data.id"
-              >{{ data.text | translate }}*</label
-            >
+            <label [class]="data.id" [for]="data.id">{{
+              data.text | translate
+            }}</label>
             <input
               (change)="data.id === 'deviceModel' ? insertDeviceType() : ''"
               [readOnly]="data.id === 'deviceType' && deviceTypeInactive"

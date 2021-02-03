@@ -1,3 +1,0 @@
-Sortowanie po ilości przedmiotów
-Limit stron w paginacji
-Przyciski windowsa

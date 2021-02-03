@@ -141,41 +141,49 @@
       </form>
     </div>
     <div class="history">
-      <h2>{{ "PAGES.RECORD_PAGE.HISTORY" | translate }}</h2>
-      <table>
-        <tr class="head">
-          <th>
-            {{ "PAGES.HISTORY.COLUMNS.CHANGED_ATTRIBUTE" | translate }}
-          </th>
-          <th>
-            {{ "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate }}
-          </th>
-          <th class="arrow"></th>
-          <th>
-            {{ "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate }}
-          </th>
-          <th>
-            {{ "PAGES.HISTORY.COLUMNS.DATE" | translate }}
-          </th>
-        </tr>
-        <tr *ngFor="let history of deviceHistory">
-          <td>
-            {{ getAttributeName(history.changedAttribute) | translate }}
-          </td>
-          <td>
-            {{ history.oldValue === "" ? "-" : history.oldValue }}
-          </td>
-          <td>
-            <img src="../../assets/icons/history_arrow.svg" />
-          </td>
-          <td>
-            {{ history.newValue === "" ? "-" : history.newValue }}
-          </td>
-          <td class="date">
-            {{ getDate(history.date) }}
-          </td>
-        </tr>
-      </table>
+      <div class="history-container">
+        <h2>{{ "PAGES.RECORD_PAGE.HISTORY" | translate }}</h2>
+        <table>
+          <tr class="head">
+            <th>
+              {{ "PAGES.HISTORY.COLUMNS.CHANGED_ATTRIBUTE" | translate }}
+            </th>
+            <th>
+              {{ "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate }}
+            </th>
+            <th class="arrow"></th>
+            <th>
+              {{ "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate }}
+            </th>
+            <th>
+              {{ "PAGES.HISTORY.COLUMNS.DATE" | translate }}
+            </th>
+          </tr>
+          <tr *ngFor="let history of deviceHistory">
+            <td>
+              {{ getAttributeName(history.changedAttribute) | translate }}
+            </td>
+            <td>
+              {{ history.oldValue === "" ? "-" : history.oldValue }}
+            </td>
+            <td>
+              <img src="../../assets/icons/history_arrow.svg" />
+            </td>
+            <td>
+              {{ history.newValue === "" ? "-" : history.newValue }}
+            </td>
+            <td class="date">
+              {{ getDate(history.date) }}
+            </td>
+          </tr>
+        </table>
+        <div class="pagination">
+          <app-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+          ></app-pagination>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -30,11 +30,14 @@ export class DevicePageComponent implements OnInit {
   public buttonType = "disable";
   public autocompleteRecords;
   public deviceTypeInactive = true;
+  public currentPage = 1;
+  public totalPages = 2;
 
   private deviceArray = [];
   private deviceDataValidator;
   private editedRecord = null;
   private alertSub: Subscription;
+  private routeSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -51,7 +54,7 @@ export class DevicePageComponent implements OnInit {
   ngOnInit(): void {
     this.initFormGroup();
 
-    this.alertSub = this.alertSub = this.subjectService.reloadAddRecordPageData.subscribe(
+    this.alertSub = this.subjectService.reloadAddRecordPageData.subscribe(
       (newRecords) => {
         if (newRecords.indexOf("deviceModel") != -1) {
           setTimeout(() => {
@@ -77,8 +80,43 @@ export class DevicePageComponent implements OnInit {
         }
       })
       .unsubscribe();
+
+    this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
+      if (
+        params["page"] !== undefined &&
+        params["page"] !== this.currentPage &&
+        this.device !== undefined
+      ) {
+        this.currentPage = params["page"];
+        console.log("test");
+        this.getDeviceHistory();
+      }
+    });
+
     this.deviceDataValidator = new DeviceDataValidator();
     this.getAutoCompleteData();
+  }
+
+  ngAfterViewInit() {
+    // this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
+    //   console.log(params);
+    //   if (params["page"] !== undefined) {
+    //     console.log("test");
+    //     this.currentPage = params["page"];
+    //     this.getDeviceHistory();
+    //   }
+    // if (params["id"] !== undefined) {
+    //   this.editedRecord = params["id"];
+    //   this.deviceService
+    //     .getSingleDevice(+params["id"])
+    //     .subscribe((device) => {
+    //       this.device = device;
+    //       this.getDeviceHistory();
+    //       this.insertInputValue(device);
+    //       this.mapDeviceToArray();
+    //     });
+    // }
+    // });
   }
 
   ngOnDestroy() {
@@ -87,9 +125,11 @@ export class DevicePageComponent implements OnInit {
 
   getDeviceHistory() {
     this.historyService
-      .getSingleDeviceHistory(1, this.device.id)
+      .getSingleDeviceHistory(this.currentPage, this.device.id)
       .subscribe((history) => {
         this.deviceHistory = history.content;
+        this.totalPages = history.totalPages;
+        console.log(this.totalPages);
       });
   }
 
