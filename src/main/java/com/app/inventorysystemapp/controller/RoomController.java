@@ -1,8 +1,8 @@
 package com.app.inventorysystemapp.controller;
 
-import com.app.inventorysystemapp.controller.dto.DeviceDto;
+import com.app.inventorysystemapp.controller.dto.ProductDto;
 import com.app.inventorysystemapp.controller.dto.RoomDto;
-import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
+import com.app.inventorysystemapp.controller.mapper.ProductMapper;
 import com.app.inventorysystemapp.controller.mapper.RoomMapper;
 import com.app.inventorysystemapp.model.Room;
 import com.app.inventorysystemapp.service.ProductService;
@@ -40,8 +40,8 @@ public class RoomController {
   }
 
   @GetMapping("/rooms/{id}/products")
-  public List<DeviceDto> getDevicesFromRoom(@PathVariable long id){
-    return DeviceMapper.mapToDeviceDtos(productService.getDevicesFromRoom(id));
+  public List<ProductDto> getDevicesFromRoom(@PathVariable long id){
+    return ProductMapper.mapToProductDtos(productService.getDevicesFromRoom(id));
   }
 
   @GetMapping("/rooms/all")

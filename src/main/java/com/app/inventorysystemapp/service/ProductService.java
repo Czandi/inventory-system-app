@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.service;
 
-import com.app.inventorysystemapp.controller.dto.DeviceDto;
-import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
+import com.app.inventorysystemapp.controller.dto.ProductDto;
+import com.app.inventorysystemapp.controller.mapper.ProductMapper;
 import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
@@ -203,8 +203,8 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return productRepository.findById(id).orElseThrow();
   }
 
-  public List<DeviceDto> getAllDevices() {
-    return productRepository.findAll().stream().map(device -> DeviceMapper.mapToDeviceDto(device)).collect(Collectors.toList());
+  public List<ProductDto> getAllDevices() {
+    return productRepository.findAll().stream().map(device -> ProductMapper.mapToProductDto(device)).collect(Collectors.toList());
   }
 
   public Boolean deleteModel(Long id) {

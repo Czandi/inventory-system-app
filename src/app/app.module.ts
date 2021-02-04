@@ -21,7 +21,7 @@ import { HistoryModule } from "./components/history/history.module";
 import { TrashModule } from "./components/trash/trash.module";
 
 import { AppComponent } from "./app.component";
-import { NavbarComponent } from "./shared/components/navbar/navbar.component";
+import { NavbarComponent } from "./components/navbar/navbar.component";
 import { SubnavbarComponent } from "./shared/components/subnavbar/subnavbar.component";
 import { MenubarComponent } from "./shared/components/menubar/menubar.component";
 import { SubjectService } from "./core/services/subject.service";

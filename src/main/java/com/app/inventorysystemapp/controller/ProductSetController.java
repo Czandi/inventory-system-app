@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.controller;
 
-import com.app.inventorysystemapp.controller.dto.DeviceSetDto;
-import com.app.inventorysystemapp.controller.mapper.DeviceSetMapper;
+import com.app.inventorysystemapp.controller.dto.ProductSetDto;
+import com.app.inventorysystemapp.controller.mapper.ProductSetMapper;
 import com.app.inventorysystemapp.model.ProductSet;
 import com.app.inventorysystemapp.service.ProductService;
 import com.app.inventorysystemapp.service.ProductSetService;
@@ -24,17 +24,17 @@ public class ProductSetController {
   }
 
   @GetMapping("/product-sets")
-  public Page<DeviceSetDto> getProductSets(int page,
-                                           int pageSize,
-                                           @RequestParam(required = false) String orderBy,
-                                           @RequestParam(required = false) String sortType,
-                                           @RequestParam( required = false) String search) {
-    return DeviceSetMapper.mapToDeviceSetDtos(productSetService.getProductSets(page, pageSize, orderBy, sortType, search));
+  public Page<ProductSetDto> getProductSets(int page,
+                                            int pageSize,
+                                            @RequestParam(required = false) String orderBy,
+                                            @RequestParam(required = false) String sortType,
+                                            @RequestParam( required = false) String search) {
+    return ProductSetMapper.mapToProductSetDtos(productSetService.getProductSets(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/product-sets/{id}")
-  public DeviceSetDto getSingleProductSet(@PathVariable long id) {
-    return DeviceSetMapper.mapToDeviceSetDto(productSetService.getSingleDeviceSet(id));
+  public ProductSetDto getSingleProductSet(@PathVariable long id) {
+    return ProductSetMapper.mapToProductSetDto(productSetService.getSingleDeviceSet(id));
   }
 
   @GetMapping("/product-sets/all")

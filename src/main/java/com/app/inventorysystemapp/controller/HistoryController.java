@@ -1,6 +1,6 @@
 package com.app.inventorysystemapp.controller;
 
-import com.app.inventorysystemapp.controller.dto.HistoryDeviceDto;
+import com.app.inventorysystemapp.controller.dto.HistoryProductDto;
 import com.app.inventorysystemapp.controller.mapper.HistoryMapper;
 import com.app.inventorysystemapp.model.History;
 import com.app.inventorysystemapp.service.HistoryService;
@@ -27,18 +27,18 @@ public class HistoryController {
   }
 
   @GetMapping("/history/products")
-  public Page<HistoryDeviceDto> getDevicesHistory(int page,
-                                                  int pageSize,
-                                                  @RequestParam(required = false) String orderBy,
-                                                  @RequestParam(required = false) String sortType,
-                                                  @RequestParam(required = false) String search) {
+  public Page<HistoryProductDto> getDevicesHistory(int page,
+                                                   int pageSize,
+                                                   @RequestParam(required = false) String orderBy,
+                                                   @RequestParam(required = false) String sortType,
+                                                   @RequestParam(required = false) String search) {
     return HistoryMapper.mapToHistoryDeviceDtos(historyService.getDevicesHistory(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/history/products/{id}")
-  public Page<HistoryDeviceDto> getDeviceHistory(@PathVariable(value = "id") Long id,
-                                                 int page,
-                                                 int pageSize){
+  public Page<HistoryProductDto> getDeviceHistory(@PathVariable(value = "id") Long id,
+                                                  int page,
+                                                  int pageSize){
     return HistoryMapper.mapToHistoryDeviceDtos(historyService.getDeviceHistory(id, page, pageSize));
   }
 

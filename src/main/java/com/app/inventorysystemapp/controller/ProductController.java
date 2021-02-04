@@ -1,8 +1,8 @@
 package com.app.inventorysystemapp.controller;
 
-import com.app.inventorysystemapp.controller.dto.DeletedDeviceDto;
-import com.app.inventorysystemapp.controller.dto.DeviceDto;
-import com.app.inventorysystemapp.controller.mapper.DeviceMapper;
+import com.app.inventorysystemapp.controller.dto.DeletedProductDto;
+import com.app.inventorysystemapp.controller.dto.ProductDto;
+import com.app.inventorysystemapp.controller.mapper.ProductMapper;
 import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.Product;
@@ -23,26 +23,26 @@ public class ProductController {
   }
 
   @GetMapping("/products")
-  public Page<DeviceDto> getDevices(@RequestParam(required = false) int page,
-                                    @RequestParam(required = false) int pageSize,
-                                    @RequestParam(required = false) String orderBy,
-                                    @RequestParam(required = false) String sortType,
-                                    @RequestParam(required = false) String search) {
-    return DeviceMapper.mapToDeviceDtos(productService.getDevices(page, pageSize, orderBy, sortType, search));
+  public Page<ProductDto> getDevices(@RequestParam(required = false) int page,
+                                     @RequestParam(required = false) int pageSize,
+                                     @RequestParam(required = false) String orderBy,
+                                     @RequestParam(required = false) String sortType,
+                                     @RequestParam(required = false) String search) {
+    return ProductMapper.mapToProductDtos(productService.getDevices(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/products/all")
-  public List<DeviceDto> getAllDevices() {
+  public List<ProductDto> getAllDevices() {
     return productService.getAllDevices();
   }
 
   @GetMapping("/products/deleted")
-  public Page<DeletedDeviceDto> getDeletedDevices(int page,
-                                                  int pageSize,
-                                                  @RequestParam(required = false) String orderBy,
-                                                  @RequestParam(required = false) String sortType,
-                                                  @RequestParam(required = false) String search) {
-    return DeviceMapper.mapToDeletedDeviceDtos(productService.getDeletedDevices(page, pageSize, orderBy, sortType, search));
+  public Page<DeletedProductDto> getDeletedDevices(int page,
+                                                   int pageSize,
+                                                   @RequestParam(required = false) String orderBy,
+                                                   @RequestParam(required = false) String sortType,
+                                                   @RequestParam(required = false) String search) {
+    return ProductMapper.mapToDeletedProductDtos(productService.getDeletedDevices(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/products/{id}")
@@ -51,8 +51,8 @@ public class ProductController {
   }
 
   @GetMapping("/products/barcode/{barcode}")
-  public DeviceDto getDeviceByBarcode(@PathVariable long barcode) {
-    return DeviceMapper.mapToDeviceDto(productService.findByBarcode(barcode));
+  public ProductDto getDeviceByBarcode(@PathVariable long barcode) {
+    return ProductMapper.mapToProductDto(productService.findByBarcode(barcode));
   }
 
   @GetMapping("/products/all/barcodes")
@@ -77,8 +77,8 @@ public class ProductController {
   }
 
   @DeleteMapping("/products/{id}")
-  public DeletedDeviceDto deleteDevice(@PathVariable(value = "id") Long id) {
-    return DeviceMapper.mapToDeletedDeviceDto(productService.deleteDevice(id));
+  public DeletedProductDto deleteDevice(@PathVariable(value = "id") Long id) {
+    return ProductMapper.mapToDeletedProductDto(productService.deleteDevice(id));
   }
 
 }

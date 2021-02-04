@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeviceDto {
+public class ProductDto {
   private long id;
 
   private String serialNumber;

@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.controller;
 
-import com.app.inventorysystemapp.controller.dto.DeviceTypeDto;
-import com.app.inventorysystemapp.controller.mapper.DeviceTypeMapper;
+import com.app.inventorysystemapp.controller.dto.ProductTypeDto;
+import com.app.inventorysystemapp.controller.mapper.ProductTypeMapper;
 import com.app.inventorysystemapp.model.ProductType;
 import com.app.inventorysystemapp.service.ProductTypeService;
 import org.springframework.data.domain.Page;
@@ -21,17 +21,17 @@ public class ProductTypeController {
   }
 
   @GetMapping("/product")
-  public Page<DeviceTypeDto> getDeviceTypes(int page,
-                                            int pageSize,
-                                            @RequestParam(required = false) String orderBy,
-                                            @RequestParam(required = false) String sortType,
-                                            @RequestParam( required = false) String search) {
-    return DeviceTypeMapper.mapToDeviceTypeDtos(productTypeService.getDeviceTypes(page, pageSize, orderBy, sortType, search));
+  public Page<ProductTypeDto> getDeviceTypes(int page,
+                                             int pageSize,
+                                             @RequestParam(required = false) String orderBy,
+                                             @RequestParam(required = false) String sortType,
+                                             @RequestParam( required = false) String search) {
+    return ProductTypeMapper.mapToProductTypeDtos(productTypeService.getDeviceTypes(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/product/{id}")
-  public DeviceTypeDto getSingleDeviceSet(@PathVariable long id) {
-    return DeviceTypeMapper.mapToDeviceTypeDto(productTypeService.getSingleDeviceType(id));
+  public ProductTypeDto getSingleDeviceSet(@PathVariable long id) {
+    return ProductTypeMapper.mapToProductTypeDto(productTypeService.getSingleDeviceType(id));
   }
 
   @GetMapping("/product/all")

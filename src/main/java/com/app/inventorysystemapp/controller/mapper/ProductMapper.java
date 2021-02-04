@@ -1,7 +1,7 @@
 package com.app.inventorysystemapp.controller.mapper;
 
-import com.app.inventorysystemapp.controller.dto.DeletedDeviceDto;
-import com.app.inventorysystemapp.controller.dto.DeviceDto;
+import com.app.inventorysystemapp.controller.dto.DeletedProductDto;
+import com.app.inventorysystemapp.controller.dto.ProductDto;
 import com.app.inventorysystemapp.model.DeletedProduct;
 import com.app.inventorysystemapp.model.Product;
 import org.springframework.data.domain.Page;
@@ -9,21 +9,21 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DeviceMapper {
+public class ProductMapper {
 
-  private DeviceMapper(){
+  private ProductMapper(){
   }
 
-  public static Page<DeviceDto> mapToDeviceDtos(Page<Product> devices) {
-    return devices.map(device -> mapToDeviceDto(device));
+  public static Page<ProductDto> mapToProductDtos(Page<Product> devices) {
+    return devices.map(device -> mapToProductDto(device));
   }
 
-  public static List<DeviceDto> mapToDeviceDtos(List<Product> products) {
-    return products.stream().map(device -> mapToDeviceDto(device)).collect(Collectors.toList());
+  public static List<ProductDto> mapToProductDtos(List<Product> products) {
+    return products.stream().map(device -> mapToProductDto(device)).collect(Collectors.toList());
   }
 
-  public static DeviceDto mapToDeviceDto(Product product) {
-    return DeviceDto.builder()
+  public static ProductDto mapToProductDto(Product product) {
+    return ProductDto.builder()
       .id(product.getId())
       .serialNumber(product.getSerialNumber())
       .room(product.getRoom().getName())
@@ -36,12 +36,12 @@ public class DeviceMapper {
       .build();
   }
 
-  public static Page<DeletedDeviceDto> mapToDeletedDeviceDtos(Page<DeletedProduct> devices){
-    return devices.map(device -> mapToDeletedDeviceDto(device));
+  public static Page<DeletedProductDto> mapToDeletedProductDtos(Page<DeletedProduct> devices){
+    return devices.map(device -> mapToDeletedProductDto(device));
   }
 
-  public static DeletedDeviceDto mapToDeletedDeviceDto(DeletedProduct device) {
-    return DeletedDeviceDto.builder()
+  public static DeletedProductDto mapToDeletedProductDto(DeletedProduct device) {
+    return DeletedProductDto.builder()
       .id(device.getId())
       .serialNumber(device.getSerialNumber())
       .room(device.getRoom().getName())

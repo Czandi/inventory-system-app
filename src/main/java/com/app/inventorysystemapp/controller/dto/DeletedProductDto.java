@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeletedDeviceDto{
+public class DeletedProductDto {
   private long id;
 
   private String serialNumber;

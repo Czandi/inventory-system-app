@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class HistoryDeviceDto {
+public class HistoryProductDto {
   private String serialNumber;
 
   private long barCode;

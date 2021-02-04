@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DeviceTypeDto {
+public class ProductTypeDto {
   Long id;
   String name;
   Integer count;

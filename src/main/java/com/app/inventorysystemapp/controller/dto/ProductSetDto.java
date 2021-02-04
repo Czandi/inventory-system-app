@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DeviceSetDto {
+public class ProductSetDto {
   private long id;
   private String name;
   private int count;
