@@ -11,7 +11,7 @@ body {
 
 * {
   font-family: "Montserrat", sans-serif;
-  -webkit-user-select: none;
+  // -webkit-user-select: none;
 }
 
 p,
@@ -33,7 +33,7 @@ a {
   left: 50%;
   transform: translateX(-50%);
   margin-top: 20px;
-  -webkit-user-select: none;
+  // -webkit-user-select: none;
 }
 
 .center {

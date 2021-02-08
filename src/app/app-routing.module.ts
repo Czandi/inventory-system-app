@@ -14,7 +14,7 @@ import { HistoryRoutingModule } from "./components/history/history-routing.modul
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "display-records/device-table?page=1",
+    redirectTo: "display-records/device-table",
     pathMatch: "full",
   },
   {

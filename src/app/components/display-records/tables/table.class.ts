@@ -70,6 +70,12 @@ export class Table implements OnDestroy {
       if (params["page"] !== undefined && params["page"] !== this.currentPage) {
         this.currentPage = params["page"];
         this.getRecords();
+      } else if (params["page"] === undefined) {
+        this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: { page: 1 },
+          queryParamsHandling: "merge",
+        });
       }
 
       if (params["edit"] !== undefined) {
