@@ -2,7 +2,7 @@ package com.app.inventorysystemapp.service;
 
 import com.app.inventorysystemapp.model.ProductType;
 import com.app.inventorysystemapp.model.interfaces.IProductType;
-import com.app.inventorysystemapp.repository.DeviceTypeRepository;
+import com.app.inventorysystemapp.repository.ProductTypeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import java.util.List;
 @Service
 public class ProductTypeService implements com.app.inventorysystemapp.service.Service {
 
-  private final DeviceTypeRepository deviceTypeRepository;
+  private final ProductTypeRepository productTypeRepository;
   private final HistoryService historyService;
 
-  public ProductTypeService(DeviceTypeRepository deviceTypeRepository, HistoryService historyService) {
-    this.deviceTypeRepository = deviceTypeRepository;
+  public ProductTypeService(ProductTypeRepository productTypeRepository, HistoryService historyService) {
+    this.productTypeRepository = productTypeRepository;
     this.historyService = historyService;
   }
 
@@ -31,9 +31,9 @@ public class ProductTypeService implements com.app.inventorysystemapp.service.Se
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
     if(search == null) {
-      return deviceTypeRepository.findAllDeviceTypesWithCount(paging);
+      return productTypeRepository.findAllDeviceTypesWithCount(paging);
     }else{
-      return deviceTypeRepository.findAllDeviceTypesWithCountByContaining(search, paging);
+      return productTypeRepository.findAllDeviceTypesWithCountByContaining(search, paging);
     }
   }
 
@@ -50,23 +50,23 @@ public class ProductTypeService implements com.app.inventorysystemapp.service.Se
   }
 
   public List<ProductType> getAllDeviceTypes() {
-    return deviceTypeRepository.findAll();
+    return productTypeRepository.findAll();
   }
 
   public ProductType findTypeById(Long id){
-    return deviceTypeRepository.findById(id).orElseThrow();
+    return productTypeRepository.findById(id).orElseThrow();
   }
 
   public ProductType insertDeviceType(ProductType productType) {
-    return deviceTypeRepository.save(productType);
+    return productTypeRepository.save(productType);
   }
 
   public IProductType getSingleDeviceType(long id) {
-    return deviceTypeRepository.findByIdWithCount(id);
+    return productTypeRepository.findByIdWithCount(id);
   }
 
   public ResponseEntity<ProductType> updateDeviceType(long id, String name) {
-    ProductType productType = deviceTypeRepository.findById(id).orElseThrow();
+    ProductType productType = productTypeRepository.findById(id).orElseThrow();
 
     if(!productType.getName().equals(name)){
       historyService.insertHistory("type", productType.getId(), "name", productType.getName(), name);
@@ -74,7 +74,7 @@ public class ProductTypeService implements com.app.inventorysystemapp.service.Se
 
     productType.setName(name);
 
-    final ProductType updatedProductType = deviceTypeRepository.save(productType);
+    final ProductType updatedProductType = productTypeRepository.save(productType);
     return ResponseEntity.ok(updatedProductType);
   }
 }

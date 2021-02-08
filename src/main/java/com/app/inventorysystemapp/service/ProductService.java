@@ -46,11 +46,11 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     this.historyService = historyService;
   }
 
-  public Page<Product> getDevices(int page,
-                                  int pageSize,
-                                  String orderBy,
-                                  String sortType,
-                                  String search) {
+  public Page<Product> getProducts(int page,
+                                   int pageSize,
+                                   String orderBy,
+                                   String sortType,
+                                   String search) {
     int pageNumber = page > 0 ? page : 1;
 
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
@@ -62,7 +62,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     }
   }
 
-  public Page<DeletedProduct> getDeletedDevices(int page, int pageSize, String orderBy, String sortType, String search) {
+  public Page<DeletedProduct> getDeletedProducts(int page, int pageSize, String orderBy, String sortType, String search) {
     int pageNumber = page > 0 ? page : 1;
 
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
@@ -96,7 +96,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     }
   }
 
-  public Product getSingleDevice(long id) throws ResourceNotFoundException {
+  public Product getSingleProduct(long id) throws ResourceNotFoundException {
     return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device not found for id: " + id));
   }
 
@@ -105,7 +105,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return productRepository.getCountedModels(paging);
   }
 
-  public Product insertDevice(DeviceRequest device) {
+  public Product insertProduct(DeviceRequest device) {
 
     Room room = roomService.findById(device.getIdRoom());
     Model model = modelService.findModelById(device.getIdModel());
@@ -126,14 +126,14 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return newProduct;
   }
 
-  public Product updateDevice(long id, DeviceRequest details) throws ResourceNotFoundException {
+  public Product updateProduct(long id, DeviceRequest details) throws ResourceNotFoundException {
     Room room = roomService.findById(details.getIdRoom());
     Model model = modelService.findModelById(details.getIdModel());
     Owner owner = ownerService.findOwnerById(details.getIdOwner());
     ProductSet productSet = productSetService.findDeviceSetById(details.getIdDeviceSet());
     String serialNumber = details.getSerialNumber();
     String comment = details.getComment();
-    Product product = this.getSingleDevice(id);
+    Product product = this.getSingleProduct(id);
 
     if (product.getRoom() != room) {
       historyService.insertHistory("device", product.getId(), "room", product.getRoom().getName(), room.getName());
@@ -203,7 +203,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return productRepository.findById(id).orElseThrow();
   }
 
-  public List<ProductDto> getAllDevices() {
+  public List<ProductDto> getAllProducts() {
     return productRepository.findAll().stream().map(device -> ProductMapper.mapToProductDto(device)).collect(Collectors.toList());
   }
 

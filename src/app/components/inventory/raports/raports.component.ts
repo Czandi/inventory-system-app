@@ -98,8 +98,10 @@ export class RaportsComponent implements OnInit {
 
       Packer.toBlob(doc).then((blob) => {
         console.log(blob);
-        saveAs(blob, "example.docx");
-        console.log("Document created successfully");
+        saveAs(
+          blob,
+          "report-" + report["date"] + "-" + report["room"] + ".docx"
+        );
       });
     });
   }

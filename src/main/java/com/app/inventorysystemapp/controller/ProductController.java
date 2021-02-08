@@ -23,35 +23,35 @@ public class ProductController {
   }
 
   @GetMapping("/products")
-  public Page<ProductDto> getDevices(@RequestParam(required = false) int page,
-                                     @RequestParam(required = false) int pageSize,
-                                     @RequestParam(required = false) String orderBy,
-                                     @RequestParam(required = false) String sortType,
-                                     @RequestParam(required = false) String search) {
-    return ProductMapper.mapToProductDtos(productService.getDevices(page, pageSize, orderBy, sortType, search));
+  public Page<ProductDto> getProducts(@RequestParam(required = false) int page,
+                                      @RequestParam(required = false) int pageSize,
+                                      @RequestParam(required = false) String orderBy,
+                                      @RequestParam(required = false) String sortType,
+                                      @RequestParam(required = false) String search) {
+    return ProductMapper.mapToProductDtos(productService.getProducts(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/products/all")
-  public List<ProductDto> getAllDevices() {
-    return productService.getAllDevices();
+  public List<ProductDto> getAllProducts() {
+    return productService.getAllProducts();
   }
 
   @GetMapping("/products/deleted")
-  public Page<DeletedProductDto> getDeletedDevices(int page,
-                                                   int pageSize,
-                                                   @RequestParam(required = false) String orderBy,
-                                                   @RequestParam(required = false) String sortType,
-                                                   @RequestParam(required = false) String search) {
-    return ProductMapper.mapToDeletedProductDtos(productService.getDeletedDevices(page, pageSize, orderBy, sortType, search));
+  public Page<DeletedProductDto> getDeletedProducts(int page,
+                                                    int pageSize,
+                                                    @RequestParam(required = false) String orderBy,
+                                                    @RequestParam(required = false) String sortType,
+                                                    @RequestParam(required = false) String search) {
+    return ProductMapper.mapToDeletedProductDtos(productService.getDeletedProducts(page, pageSize, orderBy, sortType, search));
   }
 
   @GetMapping("/products/{id}")
-  public Product getSingleDevice(@PathVariable long id) throws ResourceNotFoundException {
-    return productService.getSingleDevice(id);
+  public Product getSingleProduct(@PathVariable long id) throws ResourceNotFoundException {
+    return productService.getSingleProduct(id);
   }
 
   @GetMapping("/products/barcode/{barcode}")
-  public ProductDto getDeviceByBarcode(@PathVariable long barcode) {
+  public ProductDto getProductByBarcode(@PathVariable long barcode) {
     return ProductMapper.mapToProductDto(productService.findByBarcode(barcode));
   }
 
@@ -67,13 +67,13 @@ public class ProductController {
   }
 
   @PostMapping("/products")
-  public Product insertDevice(@RequestBody DeviceRequest device) {
-    return productService.insertDevice(device);
+  public Product insertProduct(@RequestBody DeviceRequest device) {
+    return productService.insertProduct(device);
   }
 
   @PutMapping("/products/{id}")
-  public Product updateDevice(@PathVariable(value = "id") Long id, @RequestBody DeviceRequest details) throws ResourceNotFoundException {
-    return productService.updateDevice(id, details);
+  public Product updateProduct(@PathVariable(value = "id") Long id, @RequestBody DeviceRequest details) throws ResourceNotFoundException {
+    return productService.updateProduct(id, details);
   }
 
   @DeleteMapping("/products/{id}")

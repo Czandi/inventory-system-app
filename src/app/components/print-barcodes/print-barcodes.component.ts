@@ -106,7 +106,7 @@ export class PrintBarcodesComponent implements OnInit {
         page * this.PAGE_SIZE,
         page * this.PAGE_SIZE + this.PAGE_SIZE
       );
-    } else {
+    } else if (page === this.totalPages - 1) {
       this.downloadingBarcodes = this.allBarcodes.slice(page * this.PAGE_SIZE);
     }
 
