@@ -7,10 +7,7 @@
           <span (click)="setSortValue(item.id)"
             >{{ item.header | translate }}
           </span>
-          <img
-            src="../../../../../assets/icons/sort_arrow_up.svg"
-            [id]="item.id"
-          />
+          <img src="assets/icons/sort_arrow_up.svg" [id]="item.id" />
         </th>
       </tr>
       <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
@@ -37,8 +34,12 @@
           <td class="model">
             {{ product.model === "null" ? "-" : product.model }}
           </td>
-          <td class="type">{{ product.type === "null" ? "-" : product.type }}</td>
-          <td class="room">{{ product.room === "null" ? "-" : product.room }}</td>
+          <td class="type">
+            {{ product.type === "null" ? "-" : product.type }}
+          </td>
+          <td class="room">
+            {{ product.room === "null" ? "-" : product.room }}
+          </td>
           <td class="owner">
             {{ product.owner === "null" ? "-" : product.owner }}
           </td>

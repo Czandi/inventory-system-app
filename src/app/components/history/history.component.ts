@@ -46,10 +46,12 @@ export class HistoryComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.currentArrow = this.dateArrow.nativeElement;
-      this.currentArrow.classList.add("active");
-    }, 200);
+    if (this.history.length !== 0) {
+      setTimeout(() => {
+        this.currentArrow = this.dateArrow.nativeElement;
+        this.currentArrow.classList.add("active");
+      }, 200);
+    }
   }
 
   getRecords() {

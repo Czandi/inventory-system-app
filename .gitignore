@@ -14,6 +14,11 @@ src/**/*.js
 # dependencies
 /node_modules
 
+#builds
+/inventory_app-win32-x64
+/release
+/dist
+
 # IDEs and editors
 /.idea
 .project

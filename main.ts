@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from "electron";
 import * as path from "path";
 import * as url from "url";
+import { ipcMain } from "electron";
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -25,26 +26,46 @@ function createWindow(): BrowserWindow {
       contextIsolation: false, // false if you want to run 2e2 test with Spectron
       enableRemoteModule: true, // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
     },
+    icon: "inv.ico",
   });
 
   win.setMenu(null);
 
-  if (serve) {
-    win.webContents.openDevTools();
+  win.webContents.openDevTools();
 
-    require("electron-reload")(__dirname, {
-      electron: require(`${__dirname}/node_modules/electron`),
-    });
-    win.loadURL("http://localhost:4200");
-  } else {
-    win.loadURL(
-      url.format({
-        pathname: path.join(__dirname, "dist/index.html"),
-        protocol: "file:",
-        slashes: true,
-      })
-    );
-  }
+  const url = new URL(`${__dirname}/dist/index.html`);
+  url.protocol = "file:";
+  win.loadURL(url.toString());
+
+  // if (serve) {
+  //   win.webContents.openDevTools();
+
+  //   require("electron-reload")(__dirname, {
+  //     electron: require(`${__dirname}/node_modules/electron`),
+  //   });
+  //   win.loadURL("http://localhost:4200");
+  // } else {
+  //   const url = new URL(`${__dirname}/dist/index.html`);
+  //   url.protocol = "file:";
+  //   win.loadURL(url.toString());
+  // }
+
+  // if (serve) {
+  //   win.webContents.openDevTools();
+
+  //   require("electron-reload")(__dirname, {
+  //     electron: require(`${__dirname}/node_modules/electron`),
+  //   });
+  //   win.loadURL("http://localhost:4200");
+  // } else {
+  //   win.loadURL(
+  //     url.format({
+  //       pathname: path.join(`file://${__dirname}/src/index.html`),
+  //       protocol: "file:",
+  //       slashes: true,
+  //     })
+  //   );
+  // }
 
   // Emitted when the window is closed.
   win.on("closed", () => {
@@ -62,8 +83,6 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
-  const log = require("electron-log");
-  log.info("test");
 
   app.on("ready", () => setTimeout(createWindow, 400));
 

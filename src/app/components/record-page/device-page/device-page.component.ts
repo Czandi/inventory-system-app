@@ -156,7 +156,7 @@ export class DevicePageComponent implements OnInit {
     let roomName = device.room.name;
     let ownerName = device.owner.name;
     let barCode = device.barCode;
-    let setName = device.deviceSet.name;
+    let setName = device.productSet.name;
     let comment = device.comments;
 
     this.deviceForm.controls["serialNumber"].setValue(serialNumber);
@@ -176,7 +176,7 @@ export class DevicePageComponent implements OnInit {
     this.deviceArray["deviceRoom"] = this.device.room.name;
     this.deviceArray["deviceOwner"] = this.device.owner.name;
     this.deviceArray["deviceBarCode"] = this.device.barCode;
-    this.deviceArray["deviceSet"] = this.device.deviceSet.name;
+    this.deviceArray["deviceSet"] = this.device.productSet.name;
     this.deviceArray["deviceComment"] = this.device.comments;
   }
 

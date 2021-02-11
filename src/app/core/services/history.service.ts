@@ -64,8 +64,6 @@ export class HistoryService {
       page +
       this.config.pageSize;
 
-    console.log(url);
-
     return this.http.get(url);
   }
 }

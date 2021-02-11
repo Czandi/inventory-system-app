@@ -1,25 +1,53 @@
+import { Subscription } from "rxjs";
+import { SubjectService } from "app/core/services/subject.service";
 import { Router } from "@angular/router";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
-export class NavbarComponent implements OnInit {
-  @ViewChild("displayRecords") displayRecordsElement;
+export class NavbarComponent implements OnInit, OnDestroy {
+  @ViewChild("productTable") productTable;
+  @ViewChild("modelTable") modelTable;
+  @ViewChild("productTypeTable") productTypeTable;
+  @ViewChild("productSetTable") productSetTable;
+  @ViewChild("ownerTable") ownerTable;
+  @ViewChild("roomTable") roomTable;
 
+  private tables: { [key: string]: number };
   private activeItem = null;
   private activeElement;
+  private subjectSub: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private subjectService: SubjectService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subjectSub = this.subjectService.activeTable.subscribe(
+      (activeTable) => {
+        this.setActiveItem(this.tables[activeTable]);
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subjectSub.unsubscribe();
+  }
 
   ngAfterViewInit() {
-    this.activeElement = this.displayRecordsElement.nativeElement;
-    this.activeItem = this.displayRecordsElement.nativeElement;
+    this.activeElement = this.productTable.nativeElement;
+    this.activeItem = this.productTable.nativeElement;
     this.activeItem.classList.add("active");
+
+    this.tables = {
+      productTable: this.productTable.nativeElement,
+      modelTable: this.modelTable.nativeElement,
+      productTypeTable: this.productTypeTable.nativeElement,
+      productSetTable: this.productSetTable.nativeElement,
+      ownerTable: this.ownerTable.nativeElement,
+      roomTable: this.roomTable.nativeElement,
+    };
   }
 
   toggleSubmenu(element) {
@@ -35,10 +63,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  setLink(link, element, page?: number) {
-    console.log(element);
-
-    this.setActiveItem(element);
+  setLink(link, element, page?: number, emitter?) {
+    if (emitter) {
+      this.subjectService.activeTable.next(emitter);
+    } else {
+      this.setActiveItem(element);
+    }
 
     if (page) {
       this.router.navigate([link], {

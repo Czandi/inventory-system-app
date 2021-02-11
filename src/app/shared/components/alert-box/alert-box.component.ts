@@ -7,8 +7,8 @@ import { Component, ElementRef, Input, OnInit } from "@angular/core";
   styleUrls: ["./alert-box.component.scss"],
 })
 export class AlertBoxComponent implements OnInit {
-  @Input() title: String;
-  @Input() text: String;
+  @Input() title;
+  @Input() text;
 
   constructor(
     private host: ElementRef,

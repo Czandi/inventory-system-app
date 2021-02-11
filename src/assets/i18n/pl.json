@@ -123,6 +123,7 @@
     },
     "TRASH": {
       "TITLE": "Kosz",
+      "EMPTY_TEXT": "Kosz jest pusty",
       "COLUMNS": {
         "SERIAL_NUMBER": "Numer seryjny",
         "DEVICE_MODEL": "Model produktu",

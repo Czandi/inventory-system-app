@@ -5,30 +5,48 @@
     <div class="element active" #displayRecords>
       <div (click)="toggleSubmenu(displayRecords)" class="element-header">
         <p>{{ "NAVBAR.DISPLAY_RECORDS.TITLE" | translate }}</p>
-        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
+        <img class="arrow" src="assets/icons/navbar-arrow.svg" />
       </div>
       <div class="submenu">
         <p>
           <span
-            routerLink="/display-records/product-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
+            (click)="
+              setLink(
+                '/display-records/product-table',
+                productTable,
+                1,
+                'productTable'
+              )
+            "
+            #productTable
             >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICES" | translate }}</span
           >
         </p>
         <p>
           <span
-            routerLink="/display-records/model-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
+            (click)="
+              setLink(
+                '/display-records/model-table',
+                modelTable,
+                1,
+                'modelTable'
+              )
+            "
+            #modelTable
             >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.MODELS" | translate }}</span
           >
         </p>
         <p>
           <span
-            routerLink="/display-records/product-set-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
+            (click)="
+              setLink(
+                '/display-records/product-set-table',
+                productSetTable,
+                1,
+                'productSetTable'
+              )
+            "
+            #productSetTable
             >{{
               "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_SETS" | translate
             }}</span
@@ -36,9 +54,15 @@
         </p>
         <p>
           <span
-            routerLink="/display-records/product-type-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
+            (click)="
+              setLink(
+                '/display-records/product-type-table',
+                productTypeTable,
+                1,
+                'productTypeTable'
+              )
+            "
+            #productTypeTable
             >{{
               "NAVBAR.DISPLAY_RECORDS.SUBMENU.DEVICE_TYPES" | translate
             }}</span
@@ -46,17 +70,24 @@
         </p>
         <p>
           <span
-            routerLink="/display-records/owner-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
+            (click)="
+              setLink(
+                '/display-records/owner-table',
+                ownerTable,
+                1,
+                'ownerTable'
+              )
+            "
+            #ownerTable
             >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.OWNERS" | translate }}</span
           >
         </p>
         <p>
           <span
-            routerLink="/display-records/room-table"
-            routerLinkActive="active"
-            [queryParams]="{ page: '1' }"
+            (click)="
+              setLink('/display-records/room-table', roomTable, 1, 'roomTable')
+            "
+            #roomTable
             >{{ "NAVBAR.DISPLAY_RECORDS.SUBMENU.ROOMS" | translate }}</span
           >
         </p>
@@ -66,7 +97,7 @@
     <div class="element" #inventory>
       <div (click)="toggleSubmenu(inventory)" class="element-header">
         <p>{{ "NAVBAR.INVENTORY.TITLE" | translate }}</p>
-        <img class="arrow" src="../../../../assets/icons/navbar-arrow.svg" />
+        <img class="arrow" src="assets/icons/navbar-arrow.svg" />
       </div>
       <div class="submenu">
         <p>

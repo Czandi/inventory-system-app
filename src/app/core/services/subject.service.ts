@@ -1,4 +1,4 @@
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 
 export class SubjectService {
   submenuEmitter = new Subject<any>();
@@ -9,4 +9,5 @@ export class SubjectService {
   reloadAddRecordPageData = new Subject<any>();
   blur = new Subject<any>();
   alert = new Subject<any>();
+  activeTable = new Subject<any>();
 }

@@ -5,6 +5,7 @@ import { DeviceService } from "app/core/services/device.service";
 import { PrintableBarcodes } from "../../shared/printableBarcodes";
 import { Subscription } from "rxjs";
 import { SubjectService } from "../../core/services/subject.service";
+import { ThrowStmt } from "@angular/compiler";
 
 @Component({
   selector: "app-display-records",
@@ -18,6 +19,13 @@ export class DisplayRecordsComponent implements OnInit {
   @ViewChild("alert") alert;
   @ViewChild("product") deviceElement;
 
+  @ViewChild("product") productTable;
+  @ViewChild("model") modelTable;
+  @ViewChild("productSet") productSetTable;
+  @ViewChild("productType") productTypeTable;
+  @ViewChild("owner") ownerTable;
+  @ViewChild("room") roomTable;
+
   public records = [];
   public totalPages: number;
   public currentPage = 1;
@@ -25,8 +33,8 @@ export class DisplayRecordsComponent implements OnInit {
   public currentRoute;
   public blured = false;
   public deviceForm;
-  public alertTitle: String = "PAGES.DISPLAY_RECORDS.DELETE_RECORD";
-  public alertText: String;
+  public alertTitle: string = "PAGES.DISPLAY_RECORDS.DELETE_RECORD";
+  public alertText: string;
 
   private deleteId;
   private search = "";
@@ -35,6 +43,8 @@ export class DisplayRecordsComponent implements OnInit {
   private alertSub: Subscription;
   private activeItem = null;
   private action = "";
+  private subjectSub: Subscription;
+  private tables;
 
   constructor(
     private subjectService: SubjectService,
@@ -48,9 +58,24 @@ export class DisplayRecordsComponent implements OnInit {
     this.subjectService.totalPageNumber.subscribe((totalPages) => {
       this.totalPages = totalPages;
     }).unsubscribe;
+
+    this.subjectSub = this.subjectService.activeTable.subscribe(
+      (activeTable) => {
+        this.setActiveItem(this.tables[activeTable]);
+      }
+    );
   }
 
   ngAfterViewInit() {
+    this.tables = {
+      productTable: this.productTable.nativeElement,
+      modelTable: this.modelTable.nativeElement,
+      productTypeTable: this.productTypeTable.nativeElement,
+      productSetTable: this.productSetTable.nativeElement,
+      ownerTable: this.ownerTable.nativeElement,
+      roomTable: this.roomTable.nativeElement,
+    };
+
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (params["edit"] !== undefined) {
         this.blured = true;
@@ -90,6 +115,14 @@ export class DisplayRecordsComponent implements OnInit {
           this.action = "delete-owner";
           this.alert.trigger();
         }
+      }
+
+      if (params["page"] === undefined) {
+        this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: { page: 1 },
+          queryParamsHandling: "merge",
+        });
       }
     });
 
@@ -176,9 +209,12 @@ export class DisplayRecordsComponent implements OnInit {
     }
   }
 
-  setLink(link, element) {
-    this.setActiveItem(element);
-
+  setLink(link, element, emitter?) {
+    if (emitter) {
+      this.subjectService.activeTable.next(emitter);
+    } else {
+      this.setActiveItem(element);
+    }
     this.router.navigate(["/display-records/" + link], {
       queryParams: { page: 1 },
     });

@@ -30,11 +30,14 @@ public class DeletedProduct {
   @JoinColumn(name = "id_owner")
   private Owner owner;
   @ManyToOne
-  @JoinColumn(name = "id_device_set", referencedColumnName = "id")
+  @JoinColumn(name = "id_product_set", referencedColumnName = "id")
   private ProductSet productSet;
+  @JoinColumn(name = "bar_code")
   private long barCode;
   private String comments;
+  @JoinColumn(name = "created_date")
   private LocalDateTime createdDate;
+  @JoinColumn(name = "deleted_date")
   @CreationTimestamp
   private LocalDateTime deletedDate;
 }

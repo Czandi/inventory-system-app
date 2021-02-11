@@ -6,44 +6,28 @@
         <tr>
           <th>
             <span>{{ "PAGES.HISTORY.COLUMNS.BAR_CODE" | translate }}</span>
-            <img
-              id="barCode"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="barCode" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th>
             <span>{{
               "PAGES.HISTORY.COLUMNS.CHANGED_ATTRIBUTE" | translate
             }}</span>
-            <img
-              id="changedAttribute"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="changedAttribute" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th>
             <span>{{ "PAGES.HISTORY.COLUMNS.OLD_VALUE" | translate }}</span>
-            <img
-              id="oldValue"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="oldValue" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th></th>
           <th>
             <span>{{ "PAGES.HISTORY.COLUMNS.NEW_VALUE" | translate }}</span>
-            <img
-              id="newValue"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="newValue" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th style="padding-right: 50px">
             <span class="clickable" (click)="setSortValue('date')">{{
               "PAGES.HISTORY.COLUMNS.DATE" | translate
             }}</span>
-            <img
-              id="date"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-              #date
-            />
+            <img id="date" src="assets/icons/sort_arrow_up.svg" #date />
           </th>
         </tr>
 
@@ -58,7 +42,7 @@
           <td>{{ getAttributeName(record.changedAttribute) | translate }}</td>
           <td>{{ record.oldValue }}</td>
           <td class="arrow">
-            <img src="../../assets/icons/history_arrow.svg" />
+            <img src="assets/icons/history_arrow.svg" />
           </td>
           <td>{{ record.newValue }}</td>
           <td class="date">{{ getDate(record.date) }}</td>

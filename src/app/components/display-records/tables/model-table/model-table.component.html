@@ -7,10 +7,7 @@
           <span (click)="setSortValue(item.id)"
             >{{ item.header | translate }}
           </span>
-          <img
-            src="../../../../../assets/icons/sort_arrow_up.svg"
-            [id]="item.id"
-          />
+          <img src="assets/icons/sort_arrow_up.svg" [id]="item.id" />
         </th>
       </tr>
       <tr [ngClass]="blured === true ? 'blur' : ''" class="line">

@@ -1,11 +1,10 @@
 {
-  "name": "angular-electron",
+  "name": "inventory-system",
   "version": "8.0.5",
-  "description": "Angular 10 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "description": "Inventory-system-app",
+  "homepage": "none",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Dominik Kasprzak"
   },
   "keywords": [
     "angular",
@@ -38,7 +37,9 @@
     "test:watch": "ng test",
     "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "10.0.1",
@@ -103,5 +104,17 @@
     "file-saver": "2.0.5",
     "html2canvas": "1.0.0-rc.7",
     "ngx-barcode": "0.3.0"
+  },
+  "build": {
+    "appId": "inventory.system",
+    "mac": {
+      "category": "inventory"
+    },
+    "win": {
+      "icon": "inv.ico"
+    },
+    "directories": {
+      "output": "release/"
+    }
   }
 }

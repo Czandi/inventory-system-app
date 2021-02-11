@@ -20,7 +20,7 @@ public class ProductTypeController {
     this.productTypeService = productTypeService;
   }
 
-  @GetMapping("/product")
+  @GetMapping("/product-types")
   public Page<ProductTypeDto> getDeviceTypes(int page,
                                              int pageSize,
                                              @RequestParam(required = false) String orderBy,
@@ -29,22 +29,22 @@ public class ProductTypeController {
     return ProductTypeMapper.mapToProductTypeDtos(productTypeService.getDeviceTypes(page, pageSize, orderBy, sortType, search));
   }
 
-  @GetMapping("/product/{id}")
+  @GetMapping("/product-types/{id}")
   public ProductTypeDto getSingleDeviceSet(@PathVariable long id) {
     return ProductTypeMapper.mapToProductTypeDto(productTypeService.getSingleDeviceType(id));
   }
 
-  @GetMapping("/product/all")
+  @GetMapping("/product-types/all")
   public List<ProductType> getAllDeviceTypes(){
     return productTypeService.getAllDeviceTypes();
   }
 
-  @PostMapping("/product")
+  @PostMapping("/product-types")
   public ProductType insertDeviceType(@RequestBody ProductType productType){
     return productTypeService.insertDeviceType(productType);
   }
 
-  @PutMapping("/product/{id}")
+  @PutMapping("/product-types/{id}")
   public ResponseEntity<ProductType> updateDeviceType(@PathVariable(value = "id") long id, @RequestBody String name){
     return productTypeService.updateDeviceType(id, name);
   }

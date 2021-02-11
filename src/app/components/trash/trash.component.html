@@ -1,6 +1,6 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.TRASH.TITLE" | translate }}</h1>
-  <div class="center">
+  <div class="center" *ngIf="deletedRecords.length !== 0">
     <div class="search-bar">
       <input
         type="text"
@@ -17,55 +17,37 @@
             <span (click)="setSortValue('serialNumber')">{{
               "PAGES.TRASH.COLUMNS.SERIAL_NUMBER" | translate
             }}</span>
-            <img
-              id="serialNumber"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="serialNumber" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th class="model">
             <span (click)="setSortValue('model')">{{
               "PAGES.TRASH.COLUMNS.DEVICE_MODEL" | translate
             }}</span>
-            <img
-              id="model"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="model" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th class="type">
             <span (click)="setSortValue('type')">{{
               "PAGES.TRASH.COLUMNS.DEVICE_TYPE" | translate
             }}</span>
-            <img
-              id="type"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="type" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th class="room">
             <span (click)="setSortValue('room')">{{
               "PAGES.TRASH.COLUMNS.ROOM" | translate
             }}</span>
-            <img
-              id="room"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="room" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th class="owner">
             <span (click)="setSortValue('owner')">{{
               "PAGES.TRASH.COLUMNS.OWNER" | translate
             }}</span>
-            <img
-              id="owner"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="owner" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th class="date">
             <span (click)="setSortValue('date')">{{
               "PAGES.TRASH.COLUMNS.DATE" | translate
             }}</span>
-            <img
-              id="date"
-              src="../../../../../assets/icons/sort_arrow_up.svg"
-            />
+            <img id="date" src="assets/icons/sort_arrow_up.svg" />
           </th>
         </tr>
 
@@ -86,6 +68,11 @@
       </table>
     </div>
   </div>
+
+  <div class="center" *ngIf="deletedRecords.length === 0">
+    <h3>{{ "PAGES.TRASH.EMPTY_TEXT" | translate }}</h3>
+  </div>
+
   <app-pagination
     [totalPages]="totalPages"
     [currentPage]="currentPage"

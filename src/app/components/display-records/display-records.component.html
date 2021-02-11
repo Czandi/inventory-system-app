@@ -2,15 +2,23 @@
   <h1 class="header">{{ "PAGES.DISPLAY_RECORDS.TITLE" | translate }}</h1>
   <div class="center">
     <div [ngClass]="blured ? 'blur' : ''" class="tables">
-      <p id="deviceSelect" (click)="setLink('product-table', product)" #product>
+      <p
+        id="deviceSelect"
+        (click)="setLink('product-table', product, 'productTable')"
+        #product
+      >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE" | translate }}</span>
       </p>
-      <p id="modelSelect" (click)="setLink('model-table', model)" #model>
+      <p
+        id="modelSelect"
+        (click)="setLink('model-table', model, 'modelTable')"
+        #model
+      >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.MODEL" | translate }}</span>
       </p>
       <p
         id="deviceSetSelect"
-        (click)="setLink('product-set-table', productSet)"
+        (click)="setLink('product-set-table', productSet, 'productSetTable')"
         #productSet
       >
         <span>{{
@@ -19,17 +27,25 @@
       </p>
       <p
         id="deviceTypeSelect"
-        (click)="setLink('product-type-table', productType)"
+        (click)="setLink('product-type-table', productType, 'productTypeTable')"
         #productType
       >
         <span>{{
           "PAGES.DISPLAY_RECORDS.DISPLAY.DEVICE_TYPE" | translate
         }}</span>
       </p>
-      <p id="ownerSelect" (click)="setLink('owner-table', owner)" #owner>
+      <p
+        id="ownerSelect"
+        (click)="setLink('owner-table', owner, 'ownerTable')"
+        #owner
+      >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.OWNER" | translate }}</span>
       </p>
-      <p id="roomSelect" (click)="setLink('room-table', room)" #room>
+      <p
+        id="roomSelect"
+        (click)="setLink('room-table', room, 'roomTable')"
+        #room
+      >
         <span>{{ "PAGES.DISPLAY_RECORDS.DISPLAY.ROOM" | translate }}</span>
       </p>
     </div>

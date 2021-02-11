@@ -22,7 +22,7 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public totalPages;
   public currentPage;
-  public deletedRecords;
+  public deletedRecords = [];
   public searchValue;
 
   private search = "";
@@ -41,7 +41,7 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.sort.value = "deletedDate";
+    this.sort.value = "date";
     this.sort.type = "asc";
     this.searchValue = "";
 
@@ -68,8 +68,12 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.currentArrow = document.getElementById("serialNumber");
-    this.currentArrow.classList.add("active");
+    if (this.deletedRecords.length !== 0) {
+      setTimeout(() => {
+        this.currentArrow = document.getElementById("serialNumber");
+        this.currentArrow.classList.add("active");
+      }, 200);
+    }
   }
 
   getRecords() {

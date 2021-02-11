@@ -10,11 +10,12 @@ import { AddRecordRoutingModule } from "./components/add-record/add-record-routi
 import { UpdateRecordsRoutingModule } from "./components/update-records/update-records-routing.module";
 import { PrintBarcodesRoutingModule } from "./components/print-barcodes/print-barcodes-routing.module";
 import { HistoryRoutingModule } from "./components/history/history-routing.module";
+import { DisplayRecordsModule } from "./components/display-records/display-records.module";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "display-records/device-table",
+    redirectTo: "display-records/product-table",
     pathMatch: "full",
   },
   {
