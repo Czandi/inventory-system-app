@@ -91,9 +91,7 @@ export class DeviceTableComponent extends Table implements OnInit {
       });
   }
 
-  testAsd() {
-    console.log("test");
-  }
+  testAsd() {}
 
   getAutoCompleteData() {
     this.deviceSetService.getAllDeviceSets().subscribe((data) => {

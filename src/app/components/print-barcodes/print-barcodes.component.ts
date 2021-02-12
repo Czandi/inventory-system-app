@@ -80,8 +80,6 @@ export class PrintBarcodesComponent implements OnInit {
         (this.currentPage - 1) * this.PAGE_SIZE
       );
     }
-
-    console.log(this.barcodes);
   }
 
   clearBarcodesList() {
@@ -90,9 +88,7 @@ export class PrintBarcodesComponent implements OnInit {
   }
 
   removeBarcode(barcode) {
-    console.log(PrintableBarcodes.barcodes);
     PrintableBarcodes.removeBarcode(barcode);
-    console.log(PrintableBarcodes.barcodes);
     this.updatePage();
   }
 

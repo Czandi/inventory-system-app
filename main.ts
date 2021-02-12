@@ -33,22 +33,22 @@ function createWindow(): BrowserWindow {
 
   win.webContents.openDevTools();
 
-  const url = new URL(`${__dirname}/dist/index.html`);
-  url.protocol = "file:";
-  win.loadURL(url.toString());
+  // const url = new URL(`${__dirname}/dist/index.html`);
+  // url.protocol = "file:";
+  // win.loadURL(url.toString());
 
-  // if (serve) {
-  //   win.webContents.openDevTools();
+  if (serve) {
+    win.webContents.openDevTools();
 
-  //   require("electron-reload")(__dirname, {
-  //     electron: require(`${__dirname}/node_modules/electron`),
-  //   });
-  //   win.loadURL("http://localhost:4200");
-  // } else {
-  //   const url = new URL(`${__dirname}/dist/index.html`);
-  //   url.protocol = "file:";
-  //   win.loadURL(url.toString());
-  // }
+    require("electron-reload")(__dirname, {
+      electron: require(`${__dirname}/node_modules/electron`),
+    });
+    win.loadURL("http://localhost:4200");
+  } else {
+    const url = new URL(`${__dirname}/dist/index.html`);
+    url.protocol = "file:";
+    win.loadURL(url.toString());
+  }
 
   // if (serve) {
   //   win.webContents.openDevTools();

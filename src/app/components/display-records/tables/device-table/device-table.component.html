@@ -18,7 +18,7 @@
       <tr
         *ngFor="let product of devices"
         (contextmenu)="onRightClick($event, product.id, true)"
-        [id]="'product' + product.id"
+        [id]="'device' + product.id"
         [ngClass]="
           editedRecord === 0
             ? ''

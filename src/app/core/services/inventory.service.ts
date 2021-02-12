@@ -29,7 +29,6 @@ export class InventoryService {
     if (searchValue !== "" && searchValue !== undefined) {
       url += this.config.search + searchValue;
     }
-    console.log(url);
 
     return this.http.get(url);
   }

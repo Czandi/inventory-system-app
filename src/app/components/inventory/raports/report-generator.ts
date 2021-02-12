@@ -198,8 +198,6 @@ export class ReportCreator {
   }
 
   public createTableRow(device): TableRow {
-    console.log(device);
-
     const tableRow = new TableRow({
       children: [
         new TableCell({

@@ -88,7 +88,6 @@ export class DevicePageComponent implements OnInit {
         this.device !== undefined
       ) {
         this.currentPage = params["page"];
-        console.log("test");
         this.getDeviceHistory();
       }
     });
@@ -129,7 +128,6 @@ export class DevicePageComponent implements OnInit {
       .subscribe((history) => {
         this.deviceHistory = history.content;
         this.totalPages = history.totalPages;
-        console.log(this.totalPages);
       });
   }
 
@@ -237,8 +235,6 @@ export class DevicePageComponent implements OnInit {
 
   insertDeviceType() {
     let modelValue = this.deviceForm.get("deviceModel").value;
-    console.log(this.deviceDataValidator.names["deviceModel"]);
-    console.log(modelValue);
     if (this.deviceDataValidator.names["deviceModel"].includes(modelValue)) {
       let type = this.deviceDataValidator.modelsWithTypes[modelValue];
       this.typeInputElement.nativeElement.classList.add("inactive");

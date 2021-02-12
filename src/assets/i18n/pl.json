@@ -119,7 +119,9 @@
     "INVENTORY": {
       "DO_INVENTORY": "Inwenatryzuj",
       "RAPORTS": "Raporty",
-      "FIRST_TEXT": "Wybierz pomieszczenie, w którym będziesz przeprowadzał inwentaryzację"
+      "FIRST_TEXT": "Wybierz pomieszczenie, w którym będziesz przeprowadzał inwentaryzację",
+      "NO_RAPORTS_FIRST_TEXT": "Żadna inwentaryzacja nie została jeszcze przeprowadzona",
+      "NO_RAPORTS_SECOND_TEXT": "Aby ją przeprowadzić, należy przejść do zakładki inwentaryzacja"
     },
     "TRASH": {
       "TITLE": "Kosz",

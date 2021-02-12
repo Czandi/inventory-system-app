@@ -52,7 +52,6 @@ export class InventoryComponent implements OnInit {
       .getAllBarcodes()
       .subscribe((barcodes) => {
         this.allBarcodes = barcodes;
-        console.log(barcodes);
       });
   }
 
@@ -120,7 +119,6 @@ export class InventoryComponent implements OnInit {
   addBarcode(barcode) {
     if (this.checkIfBarcodeBelongsToRoom(barcode)) {
       const tile = document.getElementById(barcode);
-      console.log(tile);
       tile.classList.add("scanned");
       this.barcodes.push(+barcode);
     } else {
@@ -132,7 +130,6 @@ export class InventoryComponent implements OnInit {
         });
         setTimeout(() => {
           const tile = document.getElementById(barcode);
-          console.log(tile);
           tile.classList.add("additional");
           this.barcodes.push(+barcode);
         }, 200);
@@ -149,12 +146,8 @@ export class InventoryComponent implements OnInit {
   }
 
   removeBarcode(barcode) {
-    console.log(barcode);
     let index = this.barcodes.indexOf(+barcode);
-    console.log(this.barcodes);
-    console.log(index);
     this.barcodes.splice(index, 1);
-    console.log(this.barcodes);
   }
 
   finish() {
@@ -163,7 +156,6 @@ export class InventoryComponent implements OnInit {
       .insertInventoryItem(room, this.barcodes)
       .subscribe((data) => {
         this.inventoryId = data.id;
-        console.log(this.inventoryId);
       });
 
     this.router.navigate(["/inventory/raports"], {

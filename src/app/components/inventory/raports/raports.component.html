@@ -1,6 +1,6 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.INVENTORY.RAPORTS" | translate }}</h1>
-  <div class="center">
+  <div class="center" *ngIf="inventories.length !== 0">
     <div class="table-container">
       <table class="records">
         <tr>
@@ -33,4 +33,8 @@
     [currentPage]="currentPage"
     [totalPages]="totalPages"
   ></app-pagination>
+  <div class="center" *ngIf="inventories.length === 0">
+    <h3>{{ "PAGES.INVENTORY.NO_RAPORTS_FIRST_TEXT" | translate }}</h3>
+    <p>{{ "PAGES.INVENTORY.NO_RAPORTS_SECOND_TEXT" | translate }}</p>
+  </div>
 </div>

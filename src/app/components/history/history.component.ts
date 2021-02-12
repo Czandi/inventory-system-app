@@ -121,8 +121,6 @@ export class HistoryComponent implements OnInit {
       this.currentArrow.classList.toggle("rotate");
       this.switchSortType();
     }
-    console.log(this.sort.type);
-
     this.getRecords();
   }
 

@@ -55,9 +55,6 @@ export class DeviceDataValidator {
   public validateDeviceData(device): boolean {
     this._newRecords = [];
 
-    console.log(this._ids);
-    console.log(this._names);
-
     if (!this.validateId(device.idRoom)) {
       this._newRecords.push({
         text: "TABLE_HEADERS.DEVICE.ROOM",

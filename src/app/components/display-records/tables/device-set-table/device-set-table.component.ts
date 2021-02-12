@@ -95,7 +95,6 @@ export class DeviceSetTableComponent extends Table implements OnInit {
     this.deviceSetService
       .updateDeviceSet(this.editedRecord, record)
       .subscribe((data) => {
-        console.log(data);
         this.navigateAfterUpdateRecord();
       });
   }

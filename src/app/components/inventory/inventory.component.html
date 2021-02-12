@@ -39,9 +39,9 @@
         <ng-container *ngIf="roomAccepted">
           <div class="scanned-products">
             <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
-            <div class="product-container">
+            <div class="device-container">
               <div
-                class="product"
+                class="device"
                 *ngFor="let product of roomDevices"
                 [id]="product.barcode"
               >

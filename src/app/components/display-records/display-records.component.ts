@@ -154,17 +154,13 @@ export class DisplayRecordsComponent implements OnInit {
   }
 
   deleteRecord(id: number) {
-    this.deviceService.deleteDevice(id).subscribe((device) => {
-      console.log(device);
-    });
+    this.deviceService.deleteDevice(id).subscribe((device) => {});
   }
 
   deleteModel(id: number) {}
 
   deleteOwner(id: number) {
-    this.ownerService.deleteOwner(id).subscribe((data) => {
-      console.log(data);
-    });
+    this.ownerService.deleteOwner(id).subscribe((data) => {});
   }
 
   addBarcode() {

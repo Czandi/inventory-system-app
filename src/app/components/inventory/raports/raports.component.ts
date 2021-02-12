@@ -12,9 +12,9 @@ import { saveAs } from "file-saver";
   styleUrls: ["./raports.component.scss"],
 })
 export class RaportsComponent implements OnInit {
-  public inventories;
+  public inventories = [];
   public totalPages;
-  public currentPage;
+  public currentPage = 1;
 
   private sortType = "asc";
   private orderBy = "date";
@@ -43,13 +43,14 @@ export class RaportsComponent implements OnInit {
       .subscribe((inventories) => {
         this.inventories = inventories.content;
         this.totalPages = inventories.totalPages;
-        console.log(inventories);
       });
   }
 
   ngAfterViewInit() {
-    this.currentArrow = document.getElementById("date");
-    this.currentArrow.classList.add("active");
+    if (this.inventories.length !== 0) {
+      this.currentArrow = document.getElementById("date");
+      this.currentArrow.classList.add("active");
+    }
   }
 
   ngOnDestroy() {
@@ -97,7 +98,6 @@ export class RaportsComponent implements OnInit {
       ]);
 
       Packer.toBlob(doc).then((blob) => {
-        console.log(blob);
         saveAs(
           blob,
           "report-" + report["date"] + "-" + report["room"] + ".docx"

@@ -70,6 +70,7 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
     this.deviceSetServiceSub.unsubscribe();
     this.deviceServiceSub.unsubscribe();
     this.modelServiceSub.unsubscribe();
+    this.alertSub.unsubscribe();
   }
 
   initFormGroup() {
@@ -124,7 +125,6 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
           this.sets.push(set.name);
           this.allIds["sets"][set.name] = set.id;
         }
-        console.log(this.allIds);
       });
 
     this.modelServiceSub = this.modelService
@@ -143,7 +143,6 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
           this.allBarcodes.push(device.barCode);
           this.allDevices[device.barCode] = device;
         }
-        console.log(this.allDevices);
       });
   }
 
@@ -253,7 +252,7 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
     }
 
     if (
-      this.owners.indexOf(inputValues.onwer) === -1 &&
+      this.owners.indexOf(inputValues.owner) === -1 &&
       inputValues.owner !== ""
     ) {
       this.newRecords.push({
@@ -273,11 +272,9 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
 
     if (this.newRecords.length > 0) {
       this.alertBox.openAlert();
-      console.log("return true");
       return true;
     }
 
-    console.log("return false");
     return false;
   }
 
@@ -343,9 +340,7 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
       const device = devices[i];
       const id = device.id;
 
-      this.deviceService.updateDevice(id, device).subscribe((data) => {
-        console.log(data);
-      });
+      this.deviceService.updateDevice(id, device).subscribe((data) => {});
     }
 
     setTimeout(() => {

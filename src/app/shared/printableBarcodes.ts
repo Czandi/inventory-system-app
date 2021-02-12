@@ -3,8 +3,6 @@ export class PrintableBarcodes {
   private static barcodesArray = [];
 
   public static addBarcode(barcode, serialNumber, model) {
-    console.log(this.barcodesArray.indexOf(barcode));
-
     let newBarcode = {
       barcode: barcode,
       serialNumber: serialNumber,

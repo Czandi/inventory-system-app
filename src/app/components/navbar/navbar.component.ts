@@ -9,6 +9,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  @ViewChild("displayRecords") displayRecords;
   @ViewChild("productTable") productTable;
   @ViewChild("modelTable") modelTable;
   @ViewChild("productTypeTable") productTypeTable;
@@ -36,7 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.activeElement = this.productTable.nativeElement;
+    this.activeElement = this.displayRecords.nativeElement;
     this.activeItem = this.productTable.nativeElement;
     this.activeItem.classList.add("active");
 
