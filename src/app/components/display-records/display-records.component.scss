@@ -37,7 +37,7 @@
 }
 
 .tables {
-  margin-bottom: 3vh;
+  margin-bottom: 0;
   width: 70vw;
   display: none;
   margin-left: auto;
@@ -81,11 +81,32 @@
 
 .search-bar {
   margin-bottom: 3vh;
+  height: 30px;
+  margin-top: 30px;
   transition: filter 0.2s ease-in-out, background-color 0.05s ease;
+  position: relative;
+
+  input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .save-button {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 @media (min-height: 900px) and (min-width: 1300px) {
   .tables {
     display: block;
+  }
+
+  .search-bar {
+    margin-top: 15px;
   }
 }

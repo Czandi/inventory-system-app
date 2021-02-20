@@ -19,7 +19,7 @@
           (contextmenu)="onRightClick($event, deviceType.id)"
           [id]="'device' + deviceType.id"
           [ngClass]="
-            editedRecord === 0
+            editedRecord === -1
               ? ''
               : editedRecord != deviceType.id
               ? 'blur'

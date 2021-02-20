@@ -1,23 +1,28 @@
-.type,
-.owner,
+.serialNumber,
 .setNumber {
   display: none;
 }
 
+td,
+th {
+  width: 160px !important;
+}
+
 @media (min-width: 1300px) {
-  .type {
+  .setNumber {
     display: table-cell;
   }
 }
 
-@media (min-width: 1500px) {
-  .owner {
+@media (min-width: 1450px) {
+  .serialNumber {
     display: table-cell;
   }
 }
 
 @media (min-width: 1650px) {
-  .setNumber {
-    display: table-cell;
+  td,
+  th {
+    width: 200px !important;
   }
 }

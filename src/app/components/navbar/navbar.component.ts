@@ -38,8 +38,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit() {
     this.activeElement = this.displayRecords.nativeElement;
-    this.activeItem = this.productTable.nativeElement;
-    this.activeItem.classList.add("active");
+    // this.activeItem = this.productTable.nativeElement;
+    // this.activeItem.classList.add("active");
 
     this.tables = {
       productTable: this.productTable.nativeElement,
@@ -65,18 +65,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   setLink(link, element, page?: number, emitter?) {
-    if (emitter) {
-      this.subjectService.activeTable.next(emitter);
-    } else {
-      this.setActiveItem(element);
-    }
-
     if (page) {
       this.router.navigate([link], {
         queryParams: { page: 1 },
       });
     } else {
       this.router.navigate([link], {});
+    }
+
+    if (emitter) {
+      setTimeout(() => {
+        this.subjectService.activeTable.next(emitter);
+      }, 50);
+    } else {
+      this.setActiveItem(element);
     }
   }
 

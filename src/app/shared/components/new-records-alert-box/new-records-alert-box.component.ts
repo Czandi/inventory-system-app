@@ -73,7 +73,7 @@ export class NewRecordsAlertBoxComponent implements OnInit {
   addModel(model) {
     let newModel = new Model();
     newModel.name = model.name.toLowerCase();
-    if (model.deviceTypeId === 0) {
+    if (model.deviceTypeId === -1) {
       let newDeviceType = new DeviceType();
       newDeviceType.name = model.deviceTypeName.toLowerCase();
       this.deviceTypeService

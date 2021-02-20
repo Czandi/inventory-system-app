@@ -44,7 +44,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   ) {
     super(subjectService, activatedRoute, router, "name", "asc", [
       { name: "EDIT", action: "edit" },
-      // { name: "DELETE", action: "delete-model" },
+      { name: "DELETE", action: "delete-model" },
     ]);
     this.gdv = new GlobalDataValidator();
   }

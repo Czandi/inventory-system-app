@@ -58,6 +58,13 @@
         #searchBar
         (keyup)="onTyping()"
       />
+      <app-button
+        *ngIf="activeTable === 'productTable'"
+        class="save-button"
+        [text]="'PAGES.DISPLAY_RECORDS.SAVE_RECORDS' | translate"
+        type="primary"
+        (click)="saveRecords()"
+      ></app-button>
     </div>
 
     <router-outlet></router-outlet>

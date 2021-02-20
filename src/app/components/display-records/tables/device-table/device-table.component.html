@@ -20,7 +20,7 @@
         (contextmenu)="onRightClick($event, product.id, true)"
         [id]="'device' + product.id"
         [ngClass]="
-          editedRecord === 0
+          editedRecord === -1
             ? ''
             : editedRecord != product.id
             ? 'blur'
@@ -47,7 +47,7 @@
             {{ product.barCode === "null" ? "-" : product.barCode }}
           </td>
           <td class="setNumber">
-            {{ product.productSet === "null" ? "-" : product.productSet }}
+            {{ product.deviceSet === "null" ? "-" : product.deviceSet }}
           </td>
         </ng-container>
 

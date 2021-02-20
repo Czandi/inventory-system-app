@@ -28,6 +28,20 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     "or p.serialNumber like %?1%")
   Page<Product> findByContaining(String contain, Pageable page);
 
+  @Query("Select p from Product p " +
+    "inner join p.owner ow " +
+    "inner join p.model md " +
+    "inner join p.room rm " +
+    "inner join p.productSet ps " +
+    "where ow.name like %?1% " +
+    "or md.name like %?1% " +
+    "or rm.name like %?1% " +
+    "or md.type.name like %?1% " +
+    "or ps.name like %?1% " +
+    "or p.barCode like %?1% " +
+    "or p.serialNumber like %?1%")
+  List<Product> findAllByContaining(String search);
+
   @Query("Select distinct d.model from Product d " +
     "where d.model.name like '%xiaomi%'")
   Page<Product> getCountedModels(Pageable page);
@@ -46,4 +60,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   List<Product> findByRoom(Room room);
 
   List<Product> findByProductSet(ProductSet productSet);
+
 }

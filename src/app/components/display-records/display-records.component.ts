@@ -1,3 +1,7 @@
+import { ModelService } from "app/core/services/model.service";
+import { DeviceSetService } from "./../../core/services/device-set.service";
+import { DeviceTypeService } from "./../../core/services/device-type.service";
+import { RoomService } from "app/core/services/room.service";
 import { OwnerService } from "app/core/services/owner.service";
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -35,6 +39,7 @@ export class DisplayRecordsComponent implements OnInit {
   public deviceForm;
   public alertTitle: string = "PAGES.DISPLAY_RECORDS.DELETE_RECORD";
   public alertText: string;
+  public activeTable;
 
   private deleteId;
   private search = "";
@@ -51,7 +56,11 @@ export class DisplayRecordsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private deviceService: DeviceService,
-    private ownerService: OwnerService
+    private ownerService: OwnerService,
+    private roomService: RoomService,
+    private deviceTypeService: DeviceTypeService,
+    private deviceSetService: DeviceSetService,
+    private modelService: ModelService
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +70,8 @@ export class DisplayRecordsComponent implements OnInit {
 
     this.subjectSub = this.subjectService.activeTable.subscribe(
       (activeTable) => {
+        console.log(activeTable);
+        this.activeTable = activeTable;
         this.setActiveItem(this.tables[activeTable]);
       }
     );
@@ -96,7 +107,7 @@ export class DisplayRecordsComponent implements OnInit {
       }
 
       if (params["deleteModel"] !== undefined) {
-        if (+params["deleteModel"] === 1) {
+        if (+params["deleteModel"] === 0) {
           this.popup.triggerFailure();
         } else {
           this.deleteId = params["deleteModel"];
@@ -107,12 +118,45 @@ export class DisplayRecordsComponent implements OnInit {
       }
 
       if (params["deleteOwner"] !== undefined) {
-        if (+params["deleteOwner"] === 1) {
+        if (+params["deleteOwner"] === 0) {
           this.popup.triggerFailure();
         } else {
           this.deleteId = params["deleteOwner"];
           this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_OWNER_MESSAGE";
           this.action = "delete-owner";
+          this.alert.trigger();
+        }
+      }
+
+      if (params["deleteRoom"] !== undefined) {
+        if (+params["deleteRoom"] === 0) {
+          this.popup.triggerFailure();
+        } else {
+          this.deleteId = params["deleteRoom"];
+          this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_ROOM_MESSAGE";
+          this.action = "delete-room";
+          this.alert.trigger();
+        }
+      }
+
+      if (params["deleteSet"] !== undefined) {
+        if (+params["deleteSet"] === 0) {
+          this.popup.triggerFailure();
+        } else {
+          this.deleteId = params["deleteSet"];
+          this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_SET_MESSAGE";
+          this.action = "delete-set";
+          this.alert.trigger();
+        }
+      }
+
+      if (params["deleteModel"] !== undefined) {
+        if (+params["deleteModel"] === 0) {
+          this.popup.triggerFailure();
+        } else {
+          this.deleteId = params["deleteModel"];
+          this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_MODEL_MESSAGE";
+          this.action = "delete-model";
           this.alert.trigger();
         }
       }
@@ -127,6 +171,7 @@ export class DisplayRecordsComponent implements OnInit {
     });
 
     this.alertSub = this.subjectService.alert.subscribe((accept) => {
+      console.log(accept);
       if (accept) {
         switch (this.action) {
           case "delete-product":
@@ -140,27 +185,63 @@ export class DisplayRecordsComponent implements OnInit {
           case "delete-owner":
             this.deleteOwner(this.deleteId);
             break;
+
+          case "delete-room":
+            this.deleteRoom(this.deleteId);
+            break;
+
+          case "delete-set":
+            this.deleteSet(this.deleteId);
+            break;
+
+          case "delete-model":
+            this.deleteModel(this.deleteId);
+            break;
         }
       }
-    });
 
-    this.activeItem = this.deviceElement.nativeElement;
-    this.activeItem.classList.add("active");
+      this.clearQueryParams();
+    });
   }
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.alertSub.unsubscribe();
+    this.subjectSub.unsubscribe();
   }
 
   deleteRecord(id: number) {
     this.deviceService.deleteDevice(id).subscribe((device) => {});
   }
 
-  deleteModel(id: number) {}
+  deleteModel(id: number) {
+    this.modelService.deleteModel(id).subscribe((data) => {});
+  }
 
   deleteOwner(id: number) {
     this.ownerService.deleteOwner(id).subscribe((data) => {});
+  }
+
+  deleteRoom(id: number) {
+    this.roomService.deleteRoom(id).subscribe((data) => {});
+  }
+
+  deleteSet(id: number) {
+    this.deviceSetService.deleteDeviceSet(id).subscribe((data) => {});
+  }
+
+  clearQueryParams() {
+    this.router.navigate([], {
+      queryParams: {
+        deleteProduct: null,
+        deleteModel: null,
+        deleteOwner: null,
+        deleteSet: null,
+        deleteRoom: null,
+        deleteType: null,
+      },
+      queryParamsHandling: "merge",
+    });
   }
 
   addBarcode() {
@@ -222,5 +303,14 @@ export class DisplayRecordsComponent implements OnInit {
     }
     this.activeItem = element;
     this.activeItem.classList.add("active");
+
+    console.log(this.activeItem);
+  }
+
+  saveRecords() {
+    this.router.navigate([], {
+      queryParams: { save: true },
+      queryParamsHandling: "merge",
+    });
   }
 }

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
@@ -40,4 +42,6 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     "having o.name like concat('%', ?1, '%') " +
     "or count(o.id) = ?1")
   Page<IOwner> findAllOwnersWithItemsCountByContaining(String search, Pageable page);
+
+
 }

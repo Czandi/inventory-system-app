@@ -134,12 +134,12 @@ export class DevicePageComponent implements OnInit {
   initFormGroup() {
     this.deviceForm = new FormGroup({
       serialNumber: new FormControl(""),
-      deviceModel: new FormControl("", Validators.required),
+      deviceModel: new FormControl(""),
       deviceBarCode: new FormControl("", Validators.required),
-      deviceType: new FormControl("", Validators.required),
-      deviceRoom: new FormControl("", Validators.required),
-      deviceOwner: new FormControl("", Validators.required),
-      deviceSet: new FormControl("", Validators.required),
+      deviceType: new FormControl(""),
+      deviceRoom: new FormControl(""),
+      deviceOwner: new FormControl(""),
+      deviceSet: new FormControl(""),
       deviceComment: new FormControl(""),
     });
 
@@ -148,14 +148,18 @@ export class DevicePageComponent implements OnInit {
   }
 
   insertInputValue(device) {
-    let serialNumber = device.serialNumber;
-    let modelName = device.model.name;
-    let typeName = device.model.type.name;
-    let roomName = device.room.name;
-    let ownerName = device.owner.name;
+    let serialNumber = device.serialNumber === "" ? "-" : device.serialNumber;
+    let modelName = device.model.name === "null" ? "-" : device.model.name;
+    let typeName =
+      device.model.type.name === "null" ? "-" : device.model.type.name;
+    let roomName = device.room.name === "null" ? "-" : device.room.name;
+    let ownerName = device.owner.name === "null" ? "-" : device.owner.name;
     let barCode = device.barCode;
-    let setName = device.productSet.name;
+    let setName =
+      device.productSet.name === "null" ? "-" : device.productSet.name;
     let comment = device.comments;
+
+    console.log(device);
 
     this.deviceForm.controls["serialNumber"].setValue(serialNumber);
     this.deviceForm.controls["deviceModel"].setValue(modelName);
@@ -184,6 +188,7 @@ export class DevicePageComponent implements OnInit {
 
   getAutoCompleteData() {
     this.deviceSetService.getAllDeviceSets().subscribe((data) => {
+      console.log(data);
       this.deviceDataValidator.insertNames(data, "deviceSet");
       this.deviceDataValidator.insertIds(data, "deviceSet");
     }).unsubscribe;
@@ -206,6 +211,7 @@ export class DevicePageComponent implements OnInit {
     }).unsubscribe;
 
     this.autocompleteRecords = this.deviceDataValidator.names;
+    console.log(this.autocompleteRecords);
   }
 
   checkChange() {
@@ -282,15 +288,33 @@ export class DevicePageComponent implements OnInit {
 
   updateDevice() {
     if (this.buttonType !== "disable") {
-      let newRoom = this.deviceForm.get("deviceRoom").value.toLowerCase();
-      let newModel = this.deviceForm.get("deviceModel").value.toLowerCase();
+      let newRoom =
+        this.deviceForm.get("deviceRoom").value.toLowerCase() === ""
+          ? "-"
+          : this.deviceForm.get("deviceRoom").value.toLowerCase();
+      let newModel =
+        this.deviceForm.get("deviceModel").value.toLowerCase() === ""
+          ? "-"
+          : this.deviceForm.get("deviceModel").value.toLowerCase();
       let newSerialNumber = this.deviceForm
         .get("serialNumber")
         .value.toLowerCase();
-      let newType = this.deviceForm.get("deviceType").value.toLowerCase();
-      let newOnwer = this.deviceForm.get("deviceOwner").value.toLowerCase();
-      let newSet = this.deviceForm.get("deviceSet").value.toLowerCase();
-      let newComment = this.deviceForm.get("deviceComment").value.toLowerCase();
+      let newType =
+        this.deviceForm.get("deviceType").value.toLowerCase() === ""
+          ? "-"
+          : this.deviceForm.get("deviceType").value.toLowerCase();
+      let newOnwer =
+        this.deviceForm.get("deviceOwner").value.toLowerCase() === ""
+          ? "-"
+          : this.deviceForm.get("deviceOwner").value.toLowerCase();
+      let newSet =
+        this.deviceForm.get("deviceSet").value === ""
+          ? "-"
+          : this.deviceForm.get("deviceSet").value;
+      let newComment =
+        this.deviceForm.get("deviceComment").value.toLowerCase() === ""
+          ? "-"
+          : this.deviceForm.get("deviceComment").value.toLowerCase();
 
       let device = this.deviceDataValidator.createNewDevice(
         newSerialNumber,
@@ -322,6 +346,7 @@ export class DevicePageComponent implements OnInit {
         this.buttonType = "disable";
         this.deviceForm.controls["deviceType"].disable();
         this.navigateAfterUpdateRecord();
+        this.insertInputValue(device);
       });
   }
 

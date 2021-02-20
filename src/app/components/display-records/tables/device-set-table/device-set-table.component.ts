@@ -31,7 +31,7 @@ export class DeviceSetTableComponent extends Table implements OnInit {
   ) {
     super(subjectService, activatedRoute, router, "name", "asc", [
       { name: "EDIT", action: "edit" },
-      // { name: "DELETE", action: "delete" },
+      { name: "DELETE", action: "delete-set" },
     ]);
 
     this.gdv = new GlobalDataValidator();

@@ -164,13 +164,21 @@
               {{ getAttributeName(history.changedAttribute) | translate }}
             </td>
             <td>
-              {{ history.oldValue === "" ? "-" : history.oldValue }}
+              {{
+                history.oldValue === "null" || history.oldValue === ""
+                  ? "-"
+                  : history.oldValue
+              }}
             </td>
             <td>
               <img src="assets/icons/history_arrow.svg" />
             </td>
             <td>
-              {{ history.newValue === "" ? "-" : history.newValue }}
+              {{
+                history.newValue === "null" || history.newValue === ""
+                  ? "-"
+                  : history.newValue
+              }}
             </td>
             <td class="date">
               {{ getDate(history.date) }}

@@ -40,7 +40,7 @@ public class OwnerService implements com.app.inventorysystemapp.service.Service 
   }
 
   public List<Owner> getAllOwners() {
-    return ownerRepository.findAll();
+      return ownerRepository.findAll();
   }
 
   public Owner insertOwner(Owner owner) {

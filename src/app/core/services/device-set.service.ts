@@ -49,4 +49,8 @@ export class DeviceSetService {
   updateDeviceSet(id: number, name: String): Observable<DeviceSet> {
     return this.http.put<DeviceSet>(this.config.deviceSetUrl + "/" + id, name);
   }
+
+  deleteDeviceSet(id: number): Observable<any> {
+    return this.http.delete(this.config.deviceSetUrl + "/" + id);
+  }
 }

@@ -52,7 +52,7 @@ public class ProductSetController {
     return productSetService.updateDeviceSet(id, name);
   }
 
-  @DeleteMapping("/device-sets/{id}")
+  @DeleteMapping("/product-sets/{id}")
   public Boolean deleteDeviceSet(@PathVariable(value = "id") Long id) {
     return productService.deleteDeviceSet(id);
   }

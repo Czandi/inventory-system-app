@@ -66,7 +66,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       deviceType: new FormControl("", Validators.required),
       deviceRoom: new FormControl("", Validators.required),
       deviceOwner: new FormControl("", Validators.required),
-      deviceSet: new FormControl("", Validators.required),
+      deviceSet: new FormControl(""),
       deviceComment: new FormControl(""),
     });
   }
@@ -88,6 +88,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
     this.deviceSetService.getAllDeviceSets().subscribe((data) => {
       this.deviceDataValidator.insertNames(data, "deviceSet");
       this.deviceDataValidator.insertIds(data, "deviceSet");
+      console.log(data);
     }).unsubscribe;
     this.deviceTypeService.getAllDeviceTypes().subscribe((data) => {
       this.deviceDataValidator.insertNames(data, "deviceType");
@@ -113,7 +114,10 @@ export class AddRecordComponent implements OnInit, OnDestroy {
   addDevice() {
     let newRoomName = this.deviceForm.get("deviceRoom").value.toLowerCase();
     let newOwnerName = this.deviceForm.get("deviceOwner").value.toLowerCase();
-    let newSetName = this.deviceForm.get("deviceSet").value.toLowerCase();
+    let newSetName =
+      this.deviceForm.get("deviceSet").value.toLowerCase() === ""
+        ? "-"
+        : this.deviceForm.get("deviceSet").value.toLowerCase();
     let newModelName = this.deviceForm.get("deviceModel").value.toLowerCase();
     let newTypeName = this.deviceForm.get("deviceType").value.toLowerCase();
     let newSerialNumber = this.deviceForm

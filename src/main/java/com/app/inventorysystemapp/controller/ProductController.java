@@ -32,8 +32,8 @@ public class ProductController {
   }
 
   @GetMapping("/products/all")
-  public List<ProductDto> getAllProducts() {
-    return productService.getAllProducts();
+  public List<ProductDto> getAllProducts(@RequestParam(required = false) String search) {
+    return productService.getAllProducts(search);
   }
 
   @GetMapping("/products/deleted")

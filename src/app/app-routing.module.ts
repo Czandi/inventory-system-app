@@ -13,11 +13,11 @@ import { HistoryRoutingModule } from "./components/history/history-routing.modul
 import { DisplayRecordsModule } from "./components/display-records/display-records.module";
 
 const routes: Routes = [
-  {
-    path: "",
-    redirectTo: "display-records/product-table",
-    pathMatch: "full",
-  },
+  // {
+  //   path: "",
+  //   redirectTo: "display-records/product-table",
+  //   pathMatch: "full",
+  // },
   {
     path: "**",
     component: PageNotFoundComponent,

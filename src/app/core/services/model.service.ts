@@ -43,10 +43,15 @@ export class ModelService {
   }
 
   insertModel(model: Model): Observable<Model> {
+    console.log(model);
     return this.http.post<Model>(this.config.modelUrl, model);
   }
 
   updateModel(id: number, model: Model): Observable<Model> {
     return this.http.put<Model>(this.config.modelUrl + "/" + id, model);
+  }
+
+  deleteModel(id: number): Observable<any> {
+    return this.http.delete(this.config.modelUrl + "/" + id);
   }
 }

@@ -33,7 +33,7 @@ export class ContextMenuComponent implements OnInit {
     this.subjectService.contextMenuEmitter.subscribe((event) => {
       if (event instanceof ContextMenu) {
         var contextMenu = this.hostElement.nativeElement;
-        this.renderer.setStyle(contextMenu, "top", event.mouseY - 30 + "px");
+        this.renderer.setStyle(contextMenu, "top", event.mouseY + "px");
         this.renderer.setStyle(contextMenu, "left", event.mouseX - 320 + "px");
         this.renderer.setStyle(contextMenu, "display", "block");
         this.contextMenuOptions = event.options;
@@ -72,6 +72,18 @@ export class ContextMenuComponent implements OnInit {
 
       case "delete-owner":
         param = { deleteOwner: this.recordId };
+        break;
+
+      case "delete-room":
+        param = { deleteRoom: this.recordId };
+        break;
+
+      case "delete-type":
+        param = { deleteType: this.recordId };
+        break;
+
+      case "delete-set":
+        param = { deleteSet: this.recordId };
         break;
 
       case "display":

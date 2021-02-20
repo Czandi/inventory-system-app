@@ -6,7 +6,7 @@ import { SortInfo } from "../../../shared/models/sortInfo.model";
 import { ActivatedRoute, Router } from "@angular/router";
 
 export class Table implements OnDestroy {
-  public editedRecord = 0;
+  public editedRecord = -1;
   public blured = false;
 
   protected contextMenuData = new ContextMenu();
@@ -17,13 +17,14 @@ export class Table implements OnDestroy {
   protected currentArrow;
   protected contextMenuOptions;
   protected currentPage;
-  protected searchValue;
+  protected searchValue = "";
   protected sort = new SortInfo();
   protected apiSub: Subscription;
   protected routeSub: Subscription;
   protected initialized = false;
   protected alertSub;
   protected contextMenuOpen = false;
+  protected maxPage;
 
   constructor(
     protected subjectService: SubjectService,
@@ -57,10 +58,7 @@ export class Table implements OnDestroy {
     });
 
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
-      if (
-        params["search"] !== undefined &&
-        params["search"] !== this.searchValue
-      ) {
+      if (params["search"] !== undefined) {
         this.searchValue = params["search"];
         this.getRecords();
       } else {
@@ -78,11 +76,15 @@ export class Table implements OnDestroy {
         this.blured = true;
       } else {
         this.blured = false;
-        this.editedRecord = 0;
+        this.editedRecord = -1;
       }
 
       if (params["display"] !== undefined) {
         this.displayRecord(params["display"], params["table"]);
+      }
+
+      if (params["save"] !== undefined) {
+        this.saveRecords();
       }
     });
 
@@ -109,7 +111,7 @@ export class Table implements OnDestroy {
   }
 
   onRightClick(event, id: number, device?) {
-    if (id !== 1 || device) {
+    if (id !== 0 || device) {
       if (this.contextMenuOpen === true) {
         this.clickedElement.classList.remove("active");
         this.contextMenuOpen = false;
@@ -201,4 +203,6 @@ export class Table implements OnDestroy {
   validateData() {}
 
   updateInputValue() {}
+
+  saveRecords() {}
 }

@@ -12,10 +12,10 @@ export class DeviceService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
   getAllDevices(
+    searchValue?: string,
     page?: number,
     orderBy?: string,
-    sortType?: string,
-    searchValue?: string
+    sortType?: string
   ): Observable<any> {
     if (page && orderBy && sortType) {
       var url =
@@ -32,9 +32,19 @@ export class DeviceService {
         url += this.config.search + searchValue;
       }
 
+      console.log(url);
+
       return this.http.get(url);
     } else {
-      return this.http.get(this.config.deviceUrl + "/all");
+      var url = this.config.deviceUrl + "/all";
+
+      if (searchValue !== "") {
+        url += "?search=" + searchValue;
+      }
+
+      console.log(url);
+
+      return this.http.get(url);
     }
   }
 

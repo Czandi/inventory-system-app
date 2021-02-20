@@ -55,10 +55,18 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
 
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
-    if (search == null) {
+    if (search == null || search == "") {
       return productRepository.findAll(paging);
     } else {
       return productRepository.findByContaining(search, paging);
+    }
+  }
+
+  public List<ProductDto> getAllProducts(String search) {
+    if(search == null) {
+      return productRepository.findAll().stream().map(product -> ProductMapper.mapToProductDto(product)).collect(Collectors.toList());
+    }else {
+      return productRepository.findAllByContaining(search).stream().map(product -> ProductMapper.mapToProductDto(product)).collect(Collectors.toList());
     }
   }
 
@@ -203,12 +211,8 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return productRepository.findById(id).orElseThrow();
   }
 
-  public List<ProductDto> getAllProducts() {
-    return productRepository.findAll().stream().map(device -> ProductMapper.mapToProductDto(device)).collect(Collectors.toList());
-  }
-
   public Boolean deleteModel(Long id) {
-    if(id != 1) {
+    if(id != 0) {
       setModelToNull(id);
       modelService.deleteModel(id);
       return true;
@@ -220,7 +224,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   private void setModelToNull(Long id) {
     Model model = modelService.findModelById(id);
     List<Product> products = productRepository.findByModel(model);
-    Model nullModel = modelService.findModelById(1);
+    Model nullModel = modelService.findModelById(0);
 
     for(int i = 0; i < products.size(); i++) {
       Product product = products.get(i);
@@ -231,7 +235,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   }
 
   public Boolean deleteOwner(Long id) {
-    if(id != 1) {
+    if(id != 0) {
       setOwnerToNull(id);
       ownerService.deleteOwner(id);
       return true;
@@ -243,7 +247,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   private void setOwnerToNull(Long id) {
     Owner owner = ownerService.findOwnerById(id);
     List<Product> products = productRepository.findByOwner(owner);
-    Owner nullOwner = ownerService.findOwnerById(1);
+    Owner nullOwner = ownerService.findOwnerById(0);
 
     for(int i = 0; i < products.size(); i++) {
       Product product = products.get(i);
@@ -253,7 +257,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   }
 
   public Boolean deleteRoom(long id) {
-    if(id != 1) {
+    if(id != 0) {
       setRoomToNull(id);
       roomService.deleteRoom(id);
       return true;
@@ -265,7 +269,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   private void setRoomToNull(Long id) {
     Room room = roomService.findById(id);
     List<Product> products = productRepository.findByRoom(room);
-    Room nullRoom = roomService.findById(1);
+    Room nullRoom = roomService.findById(0);
 
     for(int i = 0; i < products.size(); i++) {
       Product product = products.get(i);
@@ -275,7 +279,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   }
 
   public Boolean deleteDeviceSet(Long id) {
-    if(id != 1) {
+    if(id != 0) {
       setDeviceSetToNull(id);
       productSetService.deleteDeviceSet(id);
       return true;
@@ -287,7 +291,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   private void setDeviceSetToNull(Long id) {
     ProductSet productSet = productSetService.findById(id);
     List<Product> products = productRepository.findByProductSet(productSet);
-    ProductSet nullProductSet = productSetService.findById(1);
+    ProductSet nullProductSet = productSetService.findById(0);
 
     for(int i = 0; i < products.size(); i++) {
       Product product = products.get(i);

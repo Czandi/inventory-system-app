@@ -1,3 +1,4 @@
+import { CsvService } from "./../../../../core/services/csv.service";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DeviceService } from "../../../../core/services/device.service";
@@ -40,7 +41,8 @@ export class DeviceTableComponent extends Table implements OnInit {
     private deviceTypeService: DeviceTypeService,
     private roomService: RoomService,
     private ownerService: OwnerService,
-    private deviceSetService: DeviceSetService
+    private deviceSetService: DeviceSetService,
+    private csvService: CsvService
   ) {
     super(subjectService, activatedRoute, router, "serialNumber", "asc", [
       {
@@ -80,18 +82,17 @@ export class DeviceTableComponent extends Table implements OnInit {
   getRecords() {
     this.apiSub = this.deviceService
       .getAllDevices(
+        this.searchValue,
         +this.currentPage,
         this.sort.value,
-        this.sort.type,
-        this.searchValue
+        this.sort.type
       )
       .subscribe((data) => {
         this.devices = data.content;
-        this.subjectService.totalPageNumber.next(data.totalPages);
+        this.maxPage = data.totalPages;
+        this.subjectService.totalPageNumber.next(this.maxPage);
       });
   }
-
-  testAsd() {}
 
   getAutoCompleteData() {
     this.deviceSetService.getAllDeviceSets().subscribe((data) => {
@@ -168,13 +169,15 @@ export class DeviceTableComponent extends Table implements OnInit {
   }
 
   updateRecordAndRedirect(record) {
-    this.deviceService.updateDevice(this.editedRecord, record).subscribe(() => {
-      this.navigateAfterUpdateRecord();
-    });
+    this.apiSub = this.deviceService
+      .updateDevice(this.editedRecord, record)
+      .subscribe(() => {
+        this.navigateAfterUpdateRecord();
+      });
   }
 
   updateInputValue() {
-    this.deviceService
+    this.apiSub = this.deviceService
       .getSingleDevice(this.editedRecord)
       .subscribe((device) => {
         let serialNumber = device["serialNumber"];
@@ -194,4 +197,46 @@ export class DeviceTableComponent extends Table implements OnInit {
         this.deviceForm.controls["deviceSet"].setValue(setName);
       });
   }
+
+  saveRecords() {
+    console.log(this.searchValue);
+    this.apiSub = this.deviceService
+      .getAllDevices(this.searchValue)
+      .subscribe((data) => {
+        console.log(data);
+        this.csvService.exportToCsv("dane.csv", data, [
+          "Id",
+          "Numer Seryjny",
+          "Pomieszczenie",
+          "Model",
+          "Wlasciciel",
+          "Typ",
+          "Zestaw",
+          "Kod kreskowy",
+          "Komentarz",
+        ]);
+      });
+
+    this.router.navigate([], {
+      queryParams: { save: null },
+      queryParamsHandling: "merge",
+    });
+  }
+
+  // getDataToSave(pages) {
+  //   var records = [];
+  //   if (pages > 1) {
+  //     this.apiSub = this.deviceService
+  //       .getAllDevices(
+  //         this.searchValue,
+  //         +this.currentPage,
+  //         this.sort.value,
+  //         this.sort.type
+  //       )
+  //       .subscribe((data) => {
+  //         records += data.content;
+  //         pages;
+  //       });
+  //   }
+  // }
 }

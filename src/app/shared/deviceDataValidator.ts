@@ -15,7 +15,7 @@ export class DeviceDataValidator {
   public insertIds(data, id) {
     this._ids[id] = [];
     for (let item of data) {
-      let itemName = item["name"];
+      let itemName = item["name"] === "null" ? "-" : item["name"];
       let itemId = item["id"];
       this._ids[id][itemName] = itemId;
     }
@@ -23,11 +23,10 @@ export class DeviceDataValidator {
 
   public insertNames(data, id) {
     this._names[id] = [];
-    for (let name of data) {
-      let itemId = name["name"];
-      if (itemId !== "null") {
-        this._names[id].push(itemId);
-      }
+    for (let item of data) {
+      let itemName = item["name"] === "null" ? "-" : item["name"];
+
+      this._names[id].push(itemName);
     }
   }
 
@@ -41,7 +40,7 @@ export class DeviceDataValidator {
     if (this.checkIfNameExists(name, id)) {
       return this._ids[id][name];
     } else {
-      return 0;
+      return -1;
     }
   }
 
@@ -54,6 +53,8 @@ export class DeviceDataValidator {
 
   public validateDeviceData(device): boolean {
     this._newRecords = [];
+
+    console.log(device);
 
     if (!this.validateId(device.idRoom)) {
       this._newRecords.push({
@@ -101,8 +102,11 @@ export class DeviceDataValidator {
   }
 
   validateId(data): boolean {
-    if (data != null && data != "" && data != 0) return true;
-    return false;
+    if (data !== null && data !== "" && data !== -1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public createNewDevice(
@@ -120,12 +124,16 @@ export class DeviceDataValidator {
     this.newOwnerName = ownerName;
     this.newSetName = setName;
 
+    console.log(this.newSetName);
+
     let device = new Device();
     device.serialNumber = serialNumber.toLowerCase();
     device.idModel = this.getNameIdFromArray(modelName, "deviceModel");
     device.idRoom = this.getNameIdFromArray(roomName, "deviceRoom");
     device.idOwner = this.getNameIdFromArray(ownerName, "deviceOwner");
+
     device.idDeviceSet = this.getNameIdFromArray(setName, "deviceSet");
+
     device.comment = comment.toLowerCase();
 
     return device;

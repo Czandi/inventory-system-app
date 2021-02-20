@@ -46,6 +46,7 @@
     "DISPLAY_RECORDS": {
       "TITLE": "Rekordy",
       "SEARCH": "Szukaj",
+      "SAVE_RECORDS": "Zapisz dane",
       "COLUMNS": {
         "SERIAL_NUMBER": "Numer seryjny",
         "DEVICE_MODEL": "Model produktu",
@@ -70,7 +71,10 @@
       "DELETE": "Usuń",
       "DELETE_RECORD": "Usuń rekord",
       "DELETE_PRODUCT_MESSAGE": "Jesteś pewny, że chcesz usunąc produkt?",
-      "DELETE_OWNER_MESSAGE": "Jesteś pewny, że chcesz usunąć właściciela?"
+      "DELETE_OWNER_MESSAGE": "Jesteś pewny, że chcesz usunąć właściciela?",
+      "DELETE_ROOM_MESSAGE": "Jesteś pewny, że chcesz usunąć pomieszczenie?",
+      "DELETE_SET_MESSAGE": "Jesteś pewny, że chcesz usunąć zestaw?",
+      "DELETE_MODEL_MESSAGE": "Jesteś pewny, że chcesz usunąć model?"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",
@@ -154,20 +158,20 @@
     },
     "DEVICE_SET": {
       "DEVICE_SET_NAME": "Nazwa zestawu",
-      "DEVICES_AMOUNT": "Liczba produtków"
+      "DEVICES_AMOUNT": "Suma produktów"
     },
     "DEVICE_TYPE": {
       "DEVICE_TYPE_NAME": "Typ produktu",
-      "DEVICE_AMOUNT": "Liczba produktów"
+      "DEVICE_AMOUNT": "Suma produktów"
     },
     "OWNER": {
       "OWNER_NAME": "Imię",
       "OWNER_SURNAME": "Nazwisko",
-      "ITEMS_COUNT": "Ilość produktów"
+      "ITEMS_COUNT": "Suma produktów"
     },
     "ROOM": {
       "ROOM_NAME": "Pomieszczenie",
-      "ITEMS_IN_ROOM": "Liczba przedmiotów"
+      "ITEMS_IN_ROOM": "Suma produktów"
     },
     "ADDITIONALS": {
       "COMMENT": "Komentarz"

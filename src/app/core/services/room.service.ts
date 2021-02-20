@@ -53,4 +53,8 @@ export class RoomService {
   updateRoom(id: number, name: String): Observable<Room> {
     return this.http.put<Room>(this.config.roomUrl + "/" + id, name);
   }
+
+  deleteRoom(id: number): Observable<any> {
+    return this.http.delete(this.config.roomUrl + "/" + id);
+  }
 }
