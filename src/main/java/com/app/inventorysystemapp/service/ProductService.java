@@ -288,6 +288,27 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return false;
   }
 
+  public Boolean deleteProductType(long id) {
+    if(id != 0) {
+      setProductTypeToNull(id);
+      productTypeService.deleteProductType(id);
+      return true;
+    }
+    return false;
+  }
+
+  private void setProductTypeToNull(Long id) {
+    ProductType productType = productTypeService.findById(id);
+    List<Model> models = modelService.findByProductType(productType);
+    ProductType nullType = productTypeService.findById(0);
+
+    for(int i = 0; i < models.size(); i++){
+      Model model = models.get(i);
+      model.setType(nullType);
+      modelService.save(model);
+    }
+  }
+
   private void setDeviceSetToNull(Long id) {
     ProductSet productSet = productSetService.findById(id);
     List<Product> products = productRepository.findByProductSet(productSet);

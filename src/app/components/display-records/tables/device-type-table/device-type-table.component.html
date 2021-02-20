@@ -1,7 +1,7 @@
 <div class="table-container">
   <form [formGroup]="typeForm" id="type-form">
     <table class="records">
-      <tr [ngClass]="blured === true ? 'blure' : ''">
+      <tr [ngClass]="blured === true ? 'blur' : ''">
         <th *ngFor="let item of tableData">
           <span (click)="setSortValue(item.id)"
             >{{ item.header | translate }}
@@ -9,7 +9,7 @@
           <img src="assets/icons/sort_arrow_up.svg" [id]="item.id" />
         </th>
       </tr>
-      <tr [ngClass]="blured === true ? 'blure' : ''" class="line">
+      <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
         <td colspan="7">
           <div></div>
         </td>

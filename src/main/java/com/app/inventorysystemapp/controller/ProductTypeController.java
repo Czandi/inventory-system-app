@@ -3,6 +3,7 @@ package com.app.inventorysystemapp.controller;
 import com.app.inventorysystemapp.controller.dto.ProductTypeDto;
 import com.app.inventorysystemapp.controller.mapper.ProductTypeMapper;
 import com.app.inventorysystemapp.model.ProductType;
+import com.app.inventorysystemapp.service.ProductService;
 import com.app.inventorysystemapp.service.ProductTypeService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import java.util.List;
 public class ProductTypeController {
 
   private final ProductTypeService productTypeService;
+  private final ProductService productService;
 
-  public ProductTypeController(ProductTypeService productTypeService) {
+  public ProductTypeController(ProductTypeService productTypeService, ProductService productService) {
     this.productTypeService = productTypeService;
+    this.productService = productService;
   }
 
   @GetMapping("/product-types")
@@ -47,5 +50,10 @@ public class ProductTypeController {
   @PutMapping("/product-types/{id}")
   public ResponseEntity<ProductType> updateDeviceType(@PathVariable(value = "id") long id, @RequestBody String name){
     return productTypeService.updateDeviceType(id, name);
+  }
+
+  @DeleteMapping("/product-types/{id}")
+  public Boolean deleteRoom(@PathVariable long id) {
+    return productService.deleteProductType(id);
   }
 }

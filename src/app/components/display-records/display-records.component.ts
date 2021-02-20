@@ -44,12 +44,19 @@ export class DisplayRecordsComponent implements OnInit {
   private deleteId;
   private search = "";
   private searchTimeout;
-  private routeSub: Subscription;
-  private alertSub: Subscription;
   private activeItem = null;
   private action = "";
-  private subjectSub: Subscription;
   private tables;
+
+  private routeSub: Subscription;
+  private alertSub: Subscription;
+  private subjectSub: Subscription;
+  private typeServiceSub: Subscription;
+  private setServiceSub: Subscription;
+  private ownerServiceSub: Subscription;
+  private roomServiceSub: Subscription;
+  private deviceServiceSub: Subscription;
+  private modelServiceSub: Subscription;
 
   constructor(
     private subjectService: SubjectService,
@@ -161,6 +168,17 @@ export class DisplayRecordsComponent implements OnInit {
         }
       }
 
+      if (params["deleteType"] !== undefined) {
+        if (+params["deleteType"] === 0) {
+          this.popup.triggerFailure();
+        } else {
+          this.deleteId = params["deleteType"];
+          this.alertText = "PAGES.DISPLAY_RECORDS.DELETE_TYPE_MESSAGE";
+          this.action = "delete-type";
+          this.alert.trigger();
+        }
+      }
+
       if (params["page"] === undefined) {
         this.router.navigate([], {
           relativeTo: this.activatedRoute,
@@ -197,6 +215,10 @@ export class DisplayRecordsComponent implements OnInit {
           case "delete-model":
             this.deleteModel(this.deleteId);
             break;
+
+          case "delete-type":
+            this.deleteType(this.deleteId);
+            break;
         }
       }
 
@@ -208,26 +230,48 @@ export class DisplayRecordsComponent implements OnInit {
     this.routeSub.unsubscribe();
     this.alertSub.unsubscribe();
     this.subjectSub.unsubscribe();
+    this.deviceServiceSub.unsubscribe();
+    this.modelServiceSub.unsubscribe();
+    this.ownerServiceSub.unsubscribe();
+    this.roomServiceSub.unsubscribe();
+    this.setServiceSub.unsubscribe();
+    this.typeServiceSub.unsubscribe();
   }
 
   deleteRecord(id: number) {
-    this.deviceService.deleteDevice(id).subscribe((device) => {});
+    this.deviceServiceSub = this.deviceService
+      .deleteDevice(id)
+      .subscribe((device) => {});
   }
 
   deleteModel(id: number) {
-    this.modelService.deleteModel(id).subscribe((data) => {});
+    this.modelServiceSub = this.modelService
+      .deleteModel(id)
+      .subscribe((data) => {});
   }
 
   deleteOwner(id: number) {
-    this.ownerService.deleteOwner(id).subscribe((data) => {});
+    this.ownerServiceSub = this.ownerService
+      .deleteOwner(id)
+      .subscribe((data) => {});
   }
 
   deleteRoom(id: number) {
-    this.roomService.deleteRoom(id).subscribe((data) => {});
+    this.roomServiceSub = this.roomService
+      .deleteRoom(id)
+      .subscribe((data) => {});
   }
 
   deleteSet(id: number) {
-    this.deviceSetService.deleteDeviceSet(id).subscribe((data) => {});
+    this.setServiceSub = this.deviceSetService
+      .deleteDeviceSet(id)
+      .subscribe((data) => {});
+  }
+
+  deleteType(id: number) {
+    this.typeServiceSub = this.deviceTypeService
+      .deleteType(id)
+      .subscribe((data) => {});
   }
 
   clearQueryParams() {

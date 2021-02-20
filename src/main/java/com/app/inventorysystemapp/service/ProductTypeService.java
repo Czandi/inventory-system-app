@@ -53,7 +53,7 @@ public class ProductTypeService implements com.app.inventorysystemapp.service.Se
     return productTypeRepository.findAll();
   }
 
-  public ProductType findTypeById(Long id){
+  public ProductType findById(long id){
     return productTypeRepository.findById(id).orElseThrow();
   }
 
@@ -76,5 +76,10 @@ public class ProductTypeService implements com.app.inventorysystemapp.service.Se
 
     final ProductType updatedProductType = productTypeRepository.save(productType);
     return ResponseEntity.ok(updatedProductType);
+  }
+
+  public void deleteProductType(long id) {
+    ProductType productType = findById(id);
+    productTypeRepository.delete(productType);
   }
 }

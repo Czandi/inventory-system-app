@@ -74,7 +74,8 @@
       "DELETE_OWNER_MESSAGE": "Jesteś pewny, że chcesz usunąć właściciela?",
       "DELETE_ROOM_MESSAGE": "Jesteś pewny, że chcesz usunąć pomieszczenie?",
       "DELETE_SET_MESSAGE": "Jesteś pewny, że chcesz usunąć zestaw?",
-      "DELETE_MODEL_MESSAGE": "Jesteś pewny, że chcesz usunąć model?"
+      "DELETE_MODEL_MESSAGE": "Jesteś pewny, że chcesz usunąć model?",
+      "DELETE_TYPE_MESSAGE": "Jesteś pewny, że chcesz usunąć typ produktu?"
     },
     "ADD_RECORD": {
       "TITLE": "Dodaj rekord",

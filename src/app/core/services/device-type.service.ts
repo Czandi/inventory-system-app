@@ -52,4 +52,8 @@ export class DeviceTypeService {
       name
     );
   }
+
+  deleteType(id: number): Observable<any> {
+    return this.http.delete(this.config.deviceTypeUrl + "/" + id);
+  }
 }

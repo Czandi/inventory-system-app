@@ -71,6 +71,7 @@ export class RoomTableComponent extends Table implements OnInit {
       )
       .subscribe((data) => {
         this.rooms = data.content;
+        console.log(this.rooms);
         this.subjectService.totalPageNumber.next(data.totalPages);
       });
   }

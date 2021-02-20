@@ -43,7 +43,7 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
 
   public Model insertModel(ModelRequest model) {
     System.out.println(model);
-    ProductType productType = productTypeService.findTypeById(model.getIdType());
+    ProductType productType = productTypeService.findById(model.getIdType());
     String name = model.getName();
 
     Model newModel = new Model(name, productType);
@@ -60,7 +60,7 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
 
   public ResponseEntity<Model> updateModel(Long id, ModelRequest details) {
 
-    ProductType productType = productTypeService.findTypeById(details.getIdType());
+    ProductType productType = productTypeService.findById(details.getIdType());
 
     Model model = modelRepository.findById(id).orElseThrow();
 
@@ -100,5 +100,13 @@ public class ModelService implements com.app.inventorysystemapp.service.Service 
 
   public Model findModelByName(String name) {
     return modelRepository.findByName(name);
+  }
+
+  public List<Model> findByProductType(ProductType productType) {
+    return modelRepository.findByType(productType);
+  }
+
+  public void save(Model model) {
+    modelRepository.save(model);
   }
 }
