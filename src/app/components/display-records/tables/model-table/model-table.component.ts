@@ -29,9 +29,9 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   public models;
   public modelForm;
   public newRecords = [];
+  public names: any = {};
 
   private ids: any = {};
-  private names: any = {};
   private modelsWithTypes = [];
   private currentName;
   private currentType;

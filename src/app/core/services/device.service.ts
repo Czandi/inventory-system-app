@@ -28,7 +28,7 @@ export class DeviceService {
         this.config.orderBy +
         orderBy;
 
-      if (searchValue !== "") {
+      if (searchValue) {
         url += this.config.search + searchValue;
       }
 
@@ -38,7 +38,7 @@ export class DeviceService {
     } else {
       var url = this.config.deviceUrl + "/all";
 
-      if (searchValue !== "") {
+      if (searchValue) {
         url += "?search=" + searchValue;
       }
 

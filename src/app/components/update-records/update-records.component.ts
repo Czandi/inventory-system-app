@@ -102,8 +102,10 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
     this.roomServiceSub = this.roomService.getAllRooms().subscribe((data) => {
       this.allIds["rooms"] = {};
       for (let room of data) {
-        this.rooms.push(room.name);
-        this.allIds["rooms"][room.name] = room.id;
+        if (room.name !== "null") {
+          this.rooms.push(room.name);
+          this.allIds["rooms"][room.name] = room.id;
+        }
       }
     });
 
@@ -112,8 +114,10 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.allIds["owners"] = {};
         for (let owner of data) {
-          this.owners.push(owner.name);
-          this.allIds["owners"][owner.name] = owner.id;
+          if (owner.name !== "null") {
+            this.owners.push(owner.name);
+            this.allIds["owners"][owner.name] = owner.id;
+          }
         }
       });
 
@@ -122,8 +126,10 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.allIds["sets"] = {};
         for (let set of data) {
-          this.sets.push(set.name);
-          this.allIds["sets"][set.name] = set.id;
+          if (set.name !== "null") {
+            this.sets.push(set.name);
+            this.allIds["sets"][set.name] = set.id;
+          }
         }
       });
 
@@ -142,6 +148,7 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
         for (let device of devices) {
           this.allBarcodes.push(device.barCode);
           this.allDevices[device.barCode] = device;
+          console.log(this.allBarcodes);
         }
       });
   }
@@ -344,7 +351,7 @@ export class UpdateRecordsComponent implements OnInit, OnDestroy {
     }
 
     setTimeout(() => {
-      this.router.navigate(["/display-records/device-table"], {
+      this.router.navigate(["/display-records/product-table"], {
         queryParams: { page: 1 },
       });
     }, 500);

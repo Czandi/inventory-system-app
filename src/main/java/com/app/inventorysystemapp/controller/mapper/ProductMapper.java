@@ -36,22 +36,22 @@ public class ProductMapper {
       .build();
   }
 
-  public static Page<DeletedProductDto> mapToDeletedProductDtos(Page<DeletedProduct> devices){
-    return devices.map(device -> mapToDeletedProductDto(device));
-  }
-
-  public static DeletedProductDto mapToDeletedProductDto(DeletedProduct device) {
-    return DeletedProductDto.builder()
-      .id(device.getId())
-      .serialNumber(device.getSerialNumber())
-      .room(device.getRoom().getName())
-      .model(device.getModel().getName())
-      .owner(device.getOwner().getName())
-      .type(device.getModel().getType().getName())
-      .deviceSet(device.getProductSet().getName())
-      .barCode(device.getBarCode())
-      .comments(device.getComments())
-      .deletedDate(device.getDeletedDate())
-      .build();
-  }
+//  public static Page<DeletedProductDto> mapToDeletedProductDtos(Page<DeletedProduct> devices){
+//    return devices.map(device -> mapToDeletedProductDto(device));
+//  }
+//
+//  public static DeletedProductDto mapToDeletedProductDto(DeletedProduct device) {
+//    return DeletedProductDto.builder()
+//      .id(device.getId())
+//      .serialNumber(device.getSerialNumber())
+//      .room(device.getRoom().getName())
+//      .model(device.getModel().getName())
+//      .owner(device.getOwner().getName())
+//      .type(device.getModel().getType().getName())
+//      .deviceSet(device.getProductSet().getName())
+//      .barCode(device.getBarCode())
+//      .comments(device.getComments())
+//      .deletedDate(device.getDeletedDate())
+//      .build();
+//  }
 }

@@ -31,7 +31,7 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentSortValue = "date";
-    this.sort.type = "asc";
+    this.sort.type = "desc";
 
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {
       if (params["page"] !== undefined && params["page"] !== this.currentPage) {

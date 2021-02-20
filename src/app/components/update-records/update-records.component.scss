@@ -109,18 +109,18 @@ label {
       transform: translateX(-50%);
     }
 
-    .scanned-devices {
+    .scanned-products {
       height: 90%;
       overflow: auto;
     }
 
-    .device-container {
+    .products-container {
       display: flex;
       flex-flow: row wrap;
       gap: 0 50px;
       margin-top: -20px;
 
-      .device {
+      .product {
         background-color: rgb(0, 0, 0, 0.3);
         border: 2px solid rgb(160, 27, 27);
         width: 120px;

@@ -87,6 +87,7 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe((records) => {
         this.deletedRecords = records.content;
         this.totalPages = records.totalPages;
+        console.log(this.deletedRecords);
       });
   }
 

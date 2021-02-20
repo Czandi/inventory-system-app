@@ -40,11 +40,11 @@
         <tr *ngFor="let record of history">
           <td>{{ record.barCode }}</td>
           <td>{{ getAttributeName(record.changedAttribute) | translate }}</td>
-          <td>{{ record.oldValue }}</td>
+          <td>{{ record.oldValue === "null" ? "-" : record.oldValue }}</td>
           <td class="arrow">
             <img src="assets/icons/history_arrow.svg" />
           </td>
-          <td>{{ record.newValue }}</td>
+          <td>{{ record.newValue === "null" ? "-" : record.newValue }}</td>
           <td class="date">{{ getDate(record.date) }}</td>
         </tr>
       </table>

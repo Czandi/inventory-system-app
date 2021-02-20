@@ -8,6 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 public class HistoryService implements com.app.inventorysystemapp.service.Service {
 
@@ -43,6 +47,7 @@ public class HistoryService implements com.app.inventorysystemapp.service.Servic
     history.setChangedAttribute(changedAttribute);
     history.setOldValue(oldValue);
     history.setNewValue(newValue);
+    history.setDate(LocalDateTime.now());
 
     return historyRepository.save(history);
   }

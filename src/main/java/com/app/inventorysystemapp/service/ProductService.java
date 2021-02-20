@@ -75,11 +75,13 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
 
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
-    if (search == null) {
-      return deletedProductRepository.findAll(paging);
-    } else {
-      return deletedProductRepository.findByContaining(search, paging);
-    }
+    return deletedProductRepository.findAll(paging);
+
+//    if (search == null) {
+//      return deletedProductRepository.findAll(paging);
+//    } else {
+//      return deletedProductRepository.findByContaining(search, paging);
+//    }
   }
 
   @Override
@@ -176,13 +178,14 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
   public DeletedProduct deleteDevice(long id) {
     Product product = productRepository.findById(id).orElseThrow();
     DeletedProduct deletedProduct = DeletedProduct.builder()
-      .productSet(product.getProductSet())
+      .productSet(product.getProductSet().getName())
       .barCode(product.getBarCode())
       .comments(product.getComments())
       .createdDate(product.getCreatedDate())
-      .model(product.getModel())
-      .owner(product.getOwner())
-      .room(product.getRoom())
+      .model(product.getModel().getName())
+      .type(product.getModel().getType().getName())
+      .owner(product.getOwner().getName())
+      .room(product.getRoom().getName())
       .serialNumber(product.getSerialNumber())
       .build();
     productRepository.delete(product);

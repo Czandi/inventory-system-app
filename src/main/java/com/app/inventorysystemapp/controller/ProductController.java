@@ -5,6 +5,7 @@ import com.app.inventorysystemapp.controller.dto.ProductDto;
 import com.app.inventorysystemapp.controller.mapper.ProductMapper;
 import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
+import com.app.inventorysystemapp.model.DeletedProduct;
 import com.app.inventorysystemapp.model.Product;
 import com.app.inventorysystemapp.service.ProductService;
 import org.springframework.data.domain.Page;
@@ -37,12 +38,12 @@ public class ProductController {
   }
 
   @GetMapping("/products/deleted")
-  public Page<DeletedProductDto> getDeletedProducts(int page,
+  public Page<DeletedProduct> getDeletedProducts(int page,
                                                     int pageSize,
                                                     @RequestParam(required = false) String orderBy,
                                                     @RequestParam(required = false) String sortType,
                                                     @RequestParam(required = false) String search) {
-    return ProductMapper.mapToDeletedProductDtos(productService.getDeletedProducts(page, pageSize, orderBy, sortType, search));
+    return productService.getDeletedProducts(page, pageSize, orderBy, sortType, search);
   }
 
   @GetMapping("/products/{id}")
@@ -77,8 +78,8 @@ public class ProductController {
   }
 
   @DeleteMapping("/products/{id}")
-  public DeletedProductDto deleteDevice(@PathVariable(value = "id") Long id) {
-    return ProductMapper.mapToDeletedProductDto(productService.deleteDevice(id));
+  public DeletedProduct deleteDevice(@PathVariable(value = "id") Long id) {
+    return productService.deleteDevice(id);
   }
 
 }

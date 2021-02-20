@@ -20,18 +20,16 @@ public class DeletedProduct {
   private long id;
   @JoinColumn(name = "serial_number")
   private String serialNumber;
-  @ManyToOne
-  @JoinColumn(name = "id_room")
-  private Room room;
-  @ManyToOne
-  @JoinColumn(name = "id_model")
-  private Model model;
-  @ManyToOne
-  @JoinColumn(name = "id_owner")
-  private Owner owner;
-  @ManyToOne
-  @JoinColumn(name = "id_product_set", referencedColumnName = "id")
-  private ProductSet productSet;
+  @JoinColumn(name = "room")
+  private String room;
+  @JoinColumn(name = "model")
+  private String model;
+  @JoinColumn(name = "type")
+  private String type;
+  @JoinColumn(name = "owner")
+  private String owner;
+  @JoinColumn(name = "product_set", referencedColumnName = "id")
+  private String productSet;
   @JoinColumn(name = "bar_code")
   private long barCode;
   private String comments;
