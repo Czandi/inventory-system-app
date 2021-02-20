@@ -59,6 +59,10 @@ export class NewRecordsAlertBoxComponent implements OnInit {
       case "deviceSet":
         this.addDeviceSet(record);
         break;
+
+      case "deviceType":
+        this.addDeviceType(record);
+        break;
     }
   }
 
@@ -108,7 +112,13 @@ export class NewRecordsAlertBoxComponent implements OnInit {
     });
   }
 
-  addDeviceType(deviceType) {}
+  addDeviceType(deviceType) {
+    let newDeviceType = new DeviceType();
+    newDeviceType.name = deviceType.name.toLowerCase();
+    this.deviceTypeService.insertDeviceType(newDeviceType).subscribe(() => {
+      this.removeRecord(deviceType);
+    });
+  }
 
   removeRecord(record) {
     let index = this.newRecords.indexOf(record);

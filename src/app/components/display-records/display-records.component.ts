@@ -48,15 +48,15 @@ export class DisplayRecordsComponent implements OnInit {
   private action = "";
   private tables;
 
-  private routeSub: Subscription;
-  private alertSub: Subscription;
-  private subjectSub: Subscription;
-  private typeServiceSub: Subscription;
-  private setServiceSub: Subscription;
-  private ownerServiceSub: Subscription;
-  private roomServiceSub: Subscription;
-  private deviceServiceSub: Subscription;
-  private modelServiceSub: Subscription;
+  private routeSub: Subscription = null;
+  private alertSub: Subscription = null;
+  private subjectSub: Subscription = null;
+  private typeServiceSub: Subscription = null;
+  private setServiceSub: Subscription = null;
+  private ownerServiceSub: Subscription = null;
+  private roomServiceSub: Subscription = null;
+  private deviceServiceSub: Subscription = null;
+  private modelServiceSub: Subscription = null;
 
   constructor(
     private subjectService: SubjectService,
@@ -230,12 +230,24 @@ export class DisplayRecordsComponent implements OnInit {
     this.routeSub.unsubscribe();
     this.alertSub.unsubscribe();
     this.subjectSub.unsubscribe();
-    this.deviceServiceSub.unsubscribe();
-    this.modelServiceSub.unsubscribe();
-    this.ownerServiceSub.unsubscribe();
-    this.roomServiceSub.unsubscribe();
-    this.setServiceSub.unsubscribe();
-    this.typeServiceSub.unsubscribe();
+    if (this.deviceServiceSub !== null) {
+      this.deviceServiceSub.unsubscribe();
+    }
+    if (this.modelServiceSub !== null) {
+      this.modelServiceSub.unsubscribe();
+    }
+    if (this.ownerServiceSub !== null) {
+      this.ownerServiceSub.unsubscribe();
+    }
+    if (this.roomServiceSub !== null) {
+      this.roomServiceSub.unsubscribe();
+    }
+    if (this.setServiceSub !== null) {
+      this.setServiceSub.unsubscribe();
+    }
+    if (this.typeServiceSub !== null) {
+      this.typeServiceSub.unsubscribe();
+    }
   }
 
   deleteRecord(id: number) {

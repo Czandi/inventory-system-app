@@ -28,10 +28,11 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   public tableData = [];
   public models;
   public modelForm;
-  public names: any = {};
   public newRecords = [];
 
-  private gdv;
+  private ids: any = {};
+  private names: any = {};
+  private modelsWithTypes = [];
   private currentName;
   private currentType;
 
@@ -46,7 +47,6 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
       { name: "EDIT", action: "edit" },
       { name: "DELETE", action: "delete-model" },
     ]);
-    this.gdv = new GlobalDataValidator();
   }
 
   ngOnInit() {
@@ -63,24 +63,45 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   initFormGroup() {
     this.modelForm = new FormGroup({
       modelName: new FormControl("", Validators.required),
-      modelType: new FormControl("", Validators.required),
+      modelType: new FormControl(""),
       modelCount: new FormControl("", Validators.required),
     });
   }
 
   getAutoCompleteData() {
     this.modelService.getAllModels().subscribe((data) => {
-      this.gdv.insertNames(data, "modelName");
-      this.gdv.insertIds(data, "modelName");
-      this.gdv.insertModelsWithTypes(data);
+      this.insertNames(data, "modelName");
+      this.insertIds(data, "modelName");
+      this.insertModelsWithTypes(data);
     }).unsubscribe;
 
     this.deviceTypeService.getAllDeviceTypes().subscribe((data) => {
-      this.gdv.insertNames(data, "modelType");
-      this.gdv.insertIds(data, "modelType");
+      this.insertNames(data, "modelType");
+      this.insertIds(data, "modelType");
     }).unsubscribe;
+  }
 
-    this.names = this.gdv.names;
+  public insertNames(data, id) {
+    this.names[id] = [];
+    for (let name of data) {
+      let itemId = name["name"] === "null" ? "-" : name["name"];
+      this.names[id].push(itemId);
+    }
+  }
+
+  public insertIds(data, id) {
+    this.ids[id] = [];
+    for (let item of data) {
+      let itemName = item["name"];
+      let itemId = item["id"];
+      this.ids[id][itemName] = itemId;
+    }
+  }
+
+  public insertModelsWithTypes(data) {
+    for (let record of data) {
+      this.modelsWithTypes[record.name] = record.type.name;
+    }
   }
 
   getRecords() {
@@ -99,7 +120,12 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
 
   validateData() {
     let newModelName = this.modelForm.get("modelName").value.toLowerCase();
-    let newModelType = this.modelForm.get("modelType").value.toLowerCase();
+    let newModelType =
+      this.modelForm.get("modelType").value.toLowerCase() === "-"
+        ? "null"
+        : this.modelForm.get("modelType").value.toLowerCase();
+
+    console.log();
 
     if (this.modelForm.valid) {
       if (
@@ -108,7 +134,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
       ) {
         let model = new Model();
         model.name = newModelName;
-        model.idType = this.gdv.ids["modelType"][newModelType];
+        model.idType = this.ids["modelType"][newModelType];
         this.updateRecordAndRedirect(model);
       } else if (
         this.currentName === newModelName &&
@@ -116,14 +142,19 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
       ) {
         this.navigateAfterUpdateRecord();
       } else {
-        this.newRecords = this.gdv.newRecords;
+        this.newRecords.push({
+          text: "TABLE_HEADERS.DEVICE.DEVICE_TYPE",
+          name: newModelType,
+          type: "deviceType",
+        });
+        console.log(this.newRecords);
         this.alertBox.openAlert();
       }
     }
   }
 
   modelExists(modelName, modelType) {
-    if (this.gdv.modelsWithTypes[modelName] === modelType) {
+    if (this.modelsWithTypes[modelName] === modelType) {
       return true;
     } else {
       return false;
@@ -131,7 +162,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   }
 
   typeExists(modelType) {
-    if (this.gdv.names["modelType"].includes(modelType)) {
+    if (this.names["modelType"].includes(modelType)) {
       return true;
     } else {
       return false;
@@ -144,12 +175,10 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
     });
   }
 
-  updateRecord() {}
-
   updateInputValue() {
     this.modelService.getSingleModel(this.editedRecord).subscribe((model) => {
       let modelName = model["name"];
-      let modelType = model["type"];
+      let modelType = model["type"] === "null" ? "-" : model["type"];
       let modelCount = model["count"];
 
       this.currentName = modelName;
@@ -164,7 +193,7 @@ export class ModelTableComponent extends Table implements OnInit, OnDestroy {
   checkIfNameExists() {
     let modelName = this.modelForm.get("modelName").value.toLowerCase();
     if (
-      this.gdv.names["modelName"].includes(modelName.toLowerCase()) &&
+      this.names["modelName"].includes(modelName.toLowerCase()) &&
       modelName !== this.currentName
     ) {
       this.modelForm.controls["modelName"].setErrors({ incorrect: true });
