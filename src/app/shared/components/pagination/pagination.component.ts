@@ -27,12 +27,52 @@ export class PaginationComponent implements OnInit, AfterViewInit {
     });
   }
 
+  convertPages() {
+    let page: number = this.currentPage;
+    this.pages = [];
+
+    if (this.totalPages > 7) {
+      if (page >= 1 && page <= 4) {
+        for (let i = 1; i <= 5; i++) {
+          this.pages.push(i);
+        }
+        this.pages.push("...");
+        this.pages.push(this.totalPages);
+      } else if (page > 4 && page <= this.totalPages - 4) {
+        this.pages.push(1);
+        this.pages.push("...");
+        for (let i = 1; i > -2; i--) {
+          this.pages.push(page - i);
+        }
+        this.pages.push("...");
+        this.pages.push(this.totalPages);
+      } else {
+        this.pages.push(1);
+        this.pages.push("...");
+        for (let i = 4; i >= 0; i--) {
+          this.pages.push(this.totalPages - i);
+        }
+      }
+    } else {
+      for (let i = 1; i <= this.totalPages; i++) {
+        this.pages.push(i);
+      }
+    }
+  }
+
   ngAfterViewInit() {
     setTimeout(() => {
-      const activeElement = document.getElementById(this.currentPage);
-      if (activeElement !== null) {
-        activeElement.classList.add("active");
-      }
+      this.convertPages();
+
+      setTimeout(() => {
+        const activeElement = document.getElementById(
+          "page" + this.currentPage
+        );
+        console.log(activeElement);
+        if (activeElement !== null) {
+          activeElement.classList.add("active");
+        }
+      }, 100);
     }, 100);
   }
 
@@ -70,12 +110,13 @@ export class PaginationComponent implements OnInit, AfterViewInit {
   }
 
   setActive(active) {
-    const activeElement = document.getElementById(this.currentPage);
+    const activeElement = document.getElementById("page" + this.currentPage);
     activeElement.classList.remove("active");
 
-    const newElement = document.getElementById(active);
+    const newElement = document.getElementById("page" + active);
     newElement.classList.add("active");
 
     this.currentPage = active;
+    this.convertPages();
   }
 }

@@ -30,8 +30,9 @@ function createWindow(): BrowserWindow {
   });
 
   win.setMenu(null);
+  win.maximize();
 
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   // const url = new URL(`${__dirname}/dist/index.html`);
   // url.protocol = "file:";

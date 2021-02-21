@@ -1,11 +1,7 @@
 <div class="pagination" *ngIf="totalPages > 1">
   <img (click)="prevPage()" src="assets/icons/pagination_arrow_left.svg" />
-  <p
-    *ngFor="let item of [].constructor(totalPages); let i = index"
-    (click)="loadPage(i + 1)"
-    [id]="i + 1"
-  >
-    {{ i + 1 }}
+  <p *ngFor="let page of pages" (click)="loadPage(page)" [id]="'page' + page">
+    {{ page }}
   </p>
   <img (click)="nextPage()" src="assets/icons/pagination_arrow_right.svg" />
 </div>

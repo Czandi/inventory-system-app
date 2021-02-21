@@ -2,10 +2,12 @@
   <div class="box">
     <h3>{{ "PAGES.ADD_RECORD.NEW_RECORDS" | translate }}</h3>
     <div class="alert-item" *ngFor="let item of newRecords">
-      <p>
-        {{ item.text | translate }}:
-        <b>{{ item.name }}</b>
-      </p>
+      <div class="text">
+        <p>{{ item.text | translate }}:</p>
+        <p>
+          <b>{{ item.name }}</b>
+        </p>
+      </div>
       <app-button
         type="secondary"
         class="add-record-btn"

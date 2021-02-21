@@ -42,7 +42,7 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.sort.value = "date";
-    this.sort.type = "asc";
+    this.sort.type = "desc";
     this.searchValue = "";
 
     this.routeSub = this.activatedRoute.queryParams.subscribe((params) => {

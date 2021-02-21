@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="bottom-section right-section">
-        <ng-container *ngIf="roomAccepted">
+        <div class="scroll" *ngIf="roomAccepted">
           <div class="scanned-products">
             <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
             <div class="device-container">
@@ -55,14 +55,14 @@
               </div>
             </div>
           </div>
-
-          <app-button
-            class="finish-button"
-            type="primary"
-            text="Zakończ"
-            (click)="finish()"
-          ></app-button>
-        </ng-container>
+        </div>
+        <app-button
+          class="finish-button"
+          type="primary"
+          text="Zakończ"
+          (click)="finish()"
+          *ngIf="roomAccepted"
+        ></app-button>
       </div>
     </div>
     <app-popup

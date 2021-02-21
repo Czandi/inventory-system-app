@@ -104,71 +104,79 @@ label {
 
     .finish-button {
       position: absolute;
-      bottom: 0;
+      bottom: -50px;
       left: 50%;
       transform: translateX(-50%);
+      margin-top: 20px;
     }
 
-    .scanned-products {
-      height: 90%;
+    .scroll {
+      width: 100%;
+      height: 100%;
       overflow: auto;
-    }
 
-    .products-container {
-      display: flex;
-      flex-flow: row wrap;
-      gap: 0 50px;
-      margin-top: -20px;
-
-      .product {
-        background-color: rgb(0, 0, 0, 0.3);
-        border: 2px solid rgb(160, 27, 27);
-        width: 120px;
-        position: relative;
-        padding: 7px 10px;
-        border-radius: 5px;
-        display: inline-block;
-        margin-top: 30px;
-        text-align: center;
-        height: 100%;
+      .scanned-products {
+        height: 90%;
         overflow: auto;
+      }
 
-        &.scanned {
-          border: 2px solid $primary-dark;
-        }
+      .products-container {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0 50px;
+        margin-top: -20px;
+        justify-content: center;
 
-        &.additional {
-          border: 2px solid rgb(170, 189, 5);
-        }
-
-        span {
-          line-height: 20px;
-        }
-
-        .x {
+        .product {
+          background-color: rgb(0, 0, 0, 0.3);
+          border: 2px solid rgb(160, 27, 27);
+          width: 120px;
+          position: relative;
+          padding: 7px 10px;
+          border-radius: 5px;
           display: inline-block;
-          width: 8.5px;
-          height: 8.5px;
-          margin-bottom: 3px;
-          margin-left: 15px;
+          margin-top: 30px;
+          text-align: center;
+          height: 100%;
+          overflow: auto;
 
-          .line {
-            width: 2px;
-            height: 10px;
-            background-color: white;
-            position: absolute;
-
-            &:nth-of-type(1) {
-              transform: rotate(45deg);
-            }
-
-            &:nth-of-type(2) {
-              transform: rotate(-45deg);
-            }
+          &.scanned {
+            border: 2px solid $primary-dark;
           }
 
-          &:hover {
-            cursor: pointer;
+          &.additional {
+            border: 2px solid rgb(170, 189, 5);
+          }
+
+          span {
+            line-height: 20px;
+          }
+
+          .x {
+            display: inline-block;
+            width: 8.5px;
+            height: 8.5px;
+            margin-bottom: 3px;
+            margin-left: 15px;
+
+            .line {
+              width: 2px;
+              height: 10px;
+              background-color: white;
+              position: absolute;
+
+              &:nth-of-type(1) {
+                transform: rotate(45deg);
+              }
+
+              &:nth-of-type(2) {
+                transform: rotate(-45deg);
+              }
+            }
+
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
       }

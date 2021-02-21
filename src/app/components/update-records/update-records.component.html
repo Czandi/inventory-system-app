@@ -76,7 +76,7 @@
         </div>
       </div>
       <div class="bottom-section right-section">
-        <ng-container *ngIf="accepted">
+        <div class="scroll" *ngIf="accepted">
           <div class="scanned-products">
             <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
             <div class="products-container">
@@ -102,7 +102,7 @@
             text="Zakończ"
             (click)="finish()"
           ></app-button>
-        </ng-container>
+        </div>
       </div>
     </div>
   </div>

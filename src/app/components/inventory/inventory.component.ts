@@ -156,10 +156,9 @@ export class InventoryComponent implements OnInit {
       .insertInventoryItem(room, this.barcodes)
       .subscribe((data) => {
         this.inventoryId = data.id;
+        this.router.navigate(["/inventory/raports"], {
+          queryParams: { page: 1 },
+        });
       });
-
-    this.router.navigate(["/inventory/raports"], {
-      queryParams: { id: this.inventoryId },
-    });
   }
 }
