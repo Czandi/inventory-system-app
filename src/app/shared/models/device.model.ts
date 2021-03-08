@@ -4,6 +4,7 @@ export class Device {
   idModel: number;
   idOwner: number;
   idDeviceSet: number;
+  inventoryNumber: string;
   comment: string;
   id: number;
 
@@ -13,6 +14,7 @@ export class Device {
     idModel: number,
     idOwner: number,
     idDeviceSet: number,
+    inventoryNumber: string,
     comment: string
   ) {
     this.serialNumber = serialNumber;
@@ -20,6 +22,7 @@ export class Device {
     this.idRoom = idRoom;
     this.idOwner = idOwner;
     this.idDeviceSet = idDeviceSet;
+    this.inventoryNumber = inventoryNumber;
     this.comment = comment;
     this.id = 0;
   }

@@ -1,5 +1,5 @@
 export class ConfigService {
-  private serverApiUrl = "http://192.168.1.26:4201";
+  private serverApiUrl = "http://localhost:4201";
   private _deviceUrl = this.serverApiUrl + "/products";
   private _allBarcodesUrl = this.deviceUrl + "/all/barcodes";
   private _modelUrl = this.serverApiUrl + "/models";

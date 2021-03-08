@@ -2,7 +2,7 @@ package com.app.inventorysystemapp.service;
 
 import com.app.inventorysystemapp.controller.dto.ProductDto;
 import com.app.inventorysystemapp.controller.mapper.ProductMapper;
-import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
+import com.app.inventorysystemapp.controller.requestModels.ProductRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.DeletedProductRepository;
@@ -115,20 +115,21 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return productRepository.getCountedModels(paging);
   }
 
-  public Product insertProduct(DeviceRequest device) {
+  public Product insertProduct(ProductRequest device) {
 
     Room room = roomService.findById(device.getIdRoom());
     Model model = modelService.findModelById(device.getIdModel());
     Owner owner = ownerService.findOwnerById(device.getIdOwner());
     ProductSet productSet = productSetService.findDeviceSetById(device.getIdDeviceSet());
     String serialNumber = device.getSerialNumber();
+    String inventoryNumber = device.getInventoryNumber();
     String comment = "";
 
     if (device.getComment() != null) {
       comment = device.getComment();
     }
 
-    Product newProduct = new Product(serialNumber, room, model, owner, productSet, comment);
+    Product newProduct = new Product(serialNumber, room, model, owner, productSet, inventoryNumber, comment);
     newProduct = productRepository.save(newProduct);
     newProduct.generateBarCode();
     newProduct = productRepository.save(newProduct);
@@ -136,12 +137,13 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return newProduct;
   }
 
-  public Product updateProduct(long id, DeviceRequest details) throws ResourceNotFoundException {
+  public Product updateProduct(long id, ProductRequest details) throws ResourceNotFoundException {
     Room room = roomService.findById(details.getIdRoom());
     Model model = modelService.findModelById(details.getIdModel());
     Owner owner = ownerService.findOwnerById(details.getIdOwner());
     ProductSet productSet = productSetService.findDeviceSetById(details.getIdDeviceSet());
     String serialNumber = details.getSerialNumber();
+    String inventoryNumber = details.getInventoryNumber();
     String comment = details.getComment();
     Product product = this.getSingleProduct(id);
 
@@ -165,11 +167,16 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
       historyService.insertHistory("device", product.getId(), "serial_number", product.getSerialNumber(), serialNumber);
     }
 
+    if(!product.getInventoryNumber().equals(inventoryNumber)) {
+      historyService.insertHistory("device", product.getId(), "inventory_number", product.getInventoryNumber(), inventoryNumber);
+    }
+
     product.setSerialNumber(serialNumber);
     product.setRoom(room);
     product.setProductSet(productSet);
     product.setModel(model);
     product.setOwner(owner);
+    product.setInventoryNumber(inventoryNumber);
     product.setComments(comment);
     final Product updatedProduct = productRepository.save(product);
     return updatedProduct;

@@ -30,6 +30,8 @@ public class Product {
   @JoinColumn(name = "id_product_set", referencedColumnName = "id")
   private ProductSet productSet;
   private long barCode;
+  @JoinColumn(name = "inventory_number")
+  private String inventoryNumber;
   private String comments;
   @CreationTimestamp
   private LocalDateTime createdDate;
@@ -41,17 +43,19 @@ public class Product {
                  Model model,
                  Owner owner,
                  ProductSet productSet,
+                 String inventoryNumber,
                  String comments){
     this.serialNumber = serialNumber;
     this.room = room;
     this.model = model;
     this.owner = owner;
     this.productSet = productSet;
+    this.inventoryNumber = inventoryNumber;
     this.comments = comments;
   }
 
   public void generateBarCode(){
-    this.barCode = Long.parseLong(420 + String.valueOf(this.model.getType().getId()) + this.model.getId() + this.id); 
+    this.barCode = Long.parseLong(420 + String.valueOf(this.model.getType().getId()) + this.model.getId() + this.id);
   }
 
 

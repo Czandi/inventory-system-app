@@ -37,6 +37,20 @@
             </datalist>
           </div>
         </div>
+
+        <div class="item">
+          <label class="inventoryNumber" for="inventoryNumber">{{
+            "TABLE_HEADERS.DEVICE.INVENTORY_NUMBER" | translate
+          }}</label>
+          <input
+            formControlName="deviceInventoryNumber"
+            type="text"
+            class="inventoryNumber"
+            id="inventoryNumber"
+            [placeholder]="'TABLE_HEADERS.DEVICE.INVENTORY_NUMBER' | translate"
+            autocomplete="off"
+          />
+        </div>
         <div class="comment">
           <div class="item text-area">
             <label for="comment">{{

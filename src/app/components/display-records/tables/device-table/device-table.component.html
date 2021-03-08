@@ -11,7 +11,7 @@
         </th>
       </tr>
       <tr [ngClass]="blured === true ? 'blur' : ''" class="line">
-        <td colspan="7">
+        <td colspan="8">
           <div></div>
         </td>
       </tr>
@@ -45,6 +45,11 @@
           </td>
           <td class="barCode">
             {{ product.barCode === "null" ? "-" : product.barCode }}
+          </td>
+          <td class="inventoryNumber">
+            {{
+              product.inventoryNumber === "null" ? "-" : product.inventoryNumber
+            }}
           </td>
           <td class="setNumber">
             {{ product.deviceSet === "null" ? "-" : product.deviceSet }}

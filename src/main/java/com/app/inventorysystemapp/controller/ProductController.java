@@ -1,9 +1,8 @@
 package com.app.inventorysystemapp.controller;
 
-import com.app.inventorysystemapp.controller.dto.DeletedProductDto;
 import com.app.inventorysystemapp.controller.dto.ProductDto;
 import com.app.inventorysystemapp.controller.mapper.ProductMapper;
-import com.app.inventorysystemapp.controller.requestModels.DeviceRequest;
+import com.app.inventorysystemapp.controller.requestModels.ProductRequest;
 import com.app.inventorysystemapp.exception.ResourceNotFoundException;
 import com.app.inventorysystemapp.model.DeletedProduct;
 import com.app.inventorysystemapp.model.Product;
@@ -68,12 +67,12 @@ public class ProductController {
   }
 
   @PostMapping("/products")
-  public Product insertProduct(@RequestBody DeviceRequest device) {
+  public Product insertProduct(@RequestBody ProductRequest device) {
     return productService.insertProduct(device);
   }
 
   @PutMapping("/products/{id}")
-  public Product updateProduct(@PathVariable(value = "id") Long id, @RequestBody DeviceRequest details) throws ResourceNotFoundException {
+  public Product updateProduct(@PathVariable(value = "id") Long id, @RequestBody ProductRequest details) throws ResourceNotFoundException {
     return productService.updateProduct(id, details);
   }
 

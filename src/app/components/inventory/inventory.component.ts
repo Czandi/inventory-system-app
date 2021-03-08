@@ -59,7 +59,7 @@ export class InventoryComponent implements OnInit {
     let value = this.roomInput.nativeElement.value;
     if (value !== null && value !== "") {
       this.roomAccepted = !this.roomAccepted;
-      this.roomDevices = [];
+      // this.roomDevices = [];
       this.roomService
         .getDevicesFromRoom(value)
         .subscribe((devices: Array<any>) => {

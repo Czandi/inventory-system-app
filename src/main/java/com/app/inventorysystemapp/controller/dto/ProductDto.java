@@ -27,5 +27,7 @@ public class ProductDto {
 
   private long barCode;
 
+  private String inventoryNumber;
+
   private String comments;
 }

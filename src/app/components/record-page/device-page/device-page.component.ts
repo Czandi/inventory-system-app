@@ -140,6 +140,7 @@ export class DevicePageComponent implements OnInit {
       deviceRoom: new FormControl(""),
       deviceOwner: new FormControl(""),
       deviceSet: new FormControl(""),
+      deviceInventoryNumber: new FormControl(""),
       deviceComment: new FormControl(""),
     });
 
@@ -157,9 +158,8 @@ export class DevicePageComponent implements OnInit {
     let barCode = device.barCode;
     let setName =
       device.productSet.name === "null" ? "-" : device.productSet.name;
+    let inventoryNumber = device.inventoryNumber;
     let comment = device.comments;
-
-    console.log(device);
 
     this.deviceForm.controls["serialNumber"].setValue(serialNumber);
     this.deviceForm.controls["deviceModel"].setValue(modelName);
@@ -168,6 +168,7 @@ export class DevicePageComponent implements OnInit {
     this.deviceForm.controls["deviceOwner"].setValue(ownerName);
     this.deviceForm.controls["deviceBarCode"].setValue(barCode);
     this.deviceForm.controls["deviceSet"].setValue(setName);
+    this.deviceForm.controls["deviceInventoryNumber"].setValue(inventoryNumber);
     this.deviceForm.controls["deviceComment"].setValue(comment);
   }
 
@@ -179,6 +180,7 @@ export class DevicePageComponent implements OnInit {
     this.deviceArray["deviceOwner"] = this.device.owner.name;
     this.deviceArray["deviceBarCode"] = this.device.barCode;
     this.deviceArray["deviceSet"] = this.device.productSet.name;
+    this.deviceArray["deviceInventoryNumber"] = this.device.inventoryNumber;
     this.deviceArray["deviceComment"] = this.device.comments;
   }
 
@@ -230,6 +232,8 @@ export class DevicePageComponent implements OnInit {
         this.deviceArray["deviceOwner"] ||
       this.deviceForm.controls["deviceBarCode"].value !==
         this.deviceArray["deviceBarCode"] ||
+      this.deviceForm.controls["deviceInventoryNumber"].value !==
+        this.deviceArray["deviceInventoryNumber"] ||
       this.deviceForm.controls["deviceComment"].value !==
         this.deviceArray["deviceComment"]
     ) {
@@ -279,6 +283,10 @@ export class DevicePageComponent implements OnInit {
         attribute += "SERIAL_NUMBER";
         break;
 
+      case "inventory_number":
+        attribute += "INVENTORY_NUMBER_SHORT";
+        break;
+
       default:
         attribute = name;
     }
@@ -311,6 +319,10 @@ export class DevicePageComponent implements OnInit {
         this.deviceForm.get("deviceSet").value === ""
           ? "-"
           : this.deviceForm.get("deviceSet").value;
+      let newInventoryNumber =
+        this.deviceForm.get("deviceInventoryNumber").value === ""
+          ? "-"
+          : this.deviceForm.get("deviceInventoryNumber").value.toLowerCase();
       let newComment =
         this.deviceForm.get("deviceComment").value.toLowerCase() === ""
           ? "-"
@@ -323,6 +335,7 @@ export class DevicePageComponent implements OnInit {
         newRoom,
         newOnwer,
         newSet,
+        newInventoryNumber,
         newComment
       );
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Lut 2021, 17:56
+-- Czas generowania: 22 Lut 2021, 10:27
 -- Wersja serwera: 10.4.14-MariaDB
 -- Wersja PHP: 7.4.11
 
@@ -30,10 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `deleted_product` (
   `id` int(11) NOT NULL,
   `serial_number` text NOT NULL,
-  `id_room` int(11) NOT NULL,
-  `id_model` int(11) NOT NULL,
-  `id_owner` int(11) NOT NULL,
-  `id_product_set` int(11) NOT NULL,
+  `room` text NOT NULL,
+  `model` text NOT NULL,
+  `type` text NOT NULL,
+  `owner` text NOT NULL,
+  `product_set` text NOT NULL,
   `bar_code` int(11) NOT NULL,
   `comments` text NOT NULL,
   `created_date` datetime NOT NULL,
@@ -92,6 +93,13 @@ CREATE TABLE `model` (
   `id_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
+--
+-- Zrzut danych tabeli `model`
+--
+
+INSERT INTO `model` (`id`, `name`, `id_type`) VALUES
+(0, 'null', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -102,6 +110,13 @@ CREATE TABLE `owner` (
   `id` int(11) NOT NULL,
   `name` text COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `owner`
+--
+
+INSERT INTO `owner` (`id`, `name`) VALUES
+(0, 'null');
 
 -- --------------------------------------------------------
 
@@ -132,6 +147,13 @@ CREATE TABLE `product_set` (
   `name` text COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
+--
+-- Zrzut danych tabeli `product_set`
+--
+
+INSERT INTO `product_set` (`id`, `name`) VALUES
+(0, 'null');
+
 -- --------------------------------------------------------
 
 --
@@ -143,6 +165,13 @@ CREATE TABLE `room` (
   `name` text COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
+--
+-- Zrzut danych tabeli `room`
+--
+
+INSERT INTO `room` (`id`, `name`) VALUES
+(0, 'null');
+
 -- --------------------------------------------------------
 
 --
@@ -153,6 +182,13 @@ CREATE TABLE `type` (
   `id` int(11) NOT NULL,
   `name` text COLLATE utf8mb4_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `type`
+--
+
+INSERT INTO `type` (`id`, `name`) VALUES
+(0, 'null');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -250,13 +286,13 @@ ALTER TABLE `inventory_item`
 -- AUTO_INCREMENT dla tabeli `model`
 --
 ALTER TABLE `model`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `product`
@@ -268,19 +304,19 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT dla tabeli `product_set`
 --
 ALTER TABLE `product_set`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

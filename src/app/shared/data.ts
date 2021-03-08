@@ -7,6 +7,10 @@ export class Data {
       { header: "TABLE_HEADERS.DEVICE.ROOM", id: "room" },
       { header: "TABLE_HEADERS.DEVICE.OWNER", id: "owner" },
       { header: "TABLE_HEADERS.DEVICE.BAR_CODE", id: "barCode" },
+      {
+        header: "TABLE_HEADERS.DEVICE.INVENTORY_NUMBER_SHORT",
+        id: "inventoryNumber",
+      },
       { header: "TABLE_HEADERS.DEVICE.SET_NUMBER", id: "setNumber" },
     ];
   }

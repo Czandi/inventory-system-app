@@ -116,6 +116,7 @@ export class DeviceDataValidator {
     roomName,
     ownerName,
     setName,
+    inventoryNumber: string,
     comment
   ) {
     this.newModelName = modelName;
@@ -124,7 +125,7 @@ export class DeviceDataValidator {
     this.newOwnerName = ownerName;
     this.newSetName = setName;
 
-    console.log(this.newSetName);
+    console.log(inventoryNumber);
 
     let device = new Device();
     device.serialNumber = serialNumber.toLowerCase();
@@ -133,7 +134,7 @@ export class DeviceDataValidator {
     device.idOwner = this.getNameIdFromArray(ownerName, "deviceOwner");
 
     device.idDeviceSet = this.getNameIdFromArray(setName, "deviceSet");
-
+    device.inventoryNumber = inventoryNumber.toLowerCase();
     device.comment = comment.toLowerCase();
 
     return device;

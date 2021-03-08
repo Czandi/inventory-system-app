@@ -32,6 +32,7 @@ public class ProductMapper {
       .type(product.getModel().getType().getName())
       .deviceSet(product.getProductSet().getName())
       .barCode(product.getBarCode())
+      .inventoryNumber(product.getInventoryNumber())
       .comments(product.getComments())
       .build();
   }

@@ -108,6 +108,20 @@
           />
         </div>
         <div class="input">
+          <p>
+            {{ "TABLE_HEADERS.DEVICE.INVENTORY_NUMBER_SHORT" | translate }}
+          </p>
+          <input
+            class="left-offset"
+            type="text"
+            [placeholder]="'TABLE_HEADERS.DEVICE.INVENTORY_NUMBER' | translate"
+            autocomplete="off"
+            formControlName="deviceInventoryNumber"
+            id="deviceInventoryNumber"
+            (change)="checkChange()"
+          />
+        </div>
+        <div class="input">
           <p>{{ "TABLE_HEADERS.DEVICE.SET_NUMBER" | translate }}</p>
           <input
             type="text"

@@ -95,6 +95,10 @@ export class HistoryComponent implements OnInit {
         attribute += "SERIAL_NUMBER";
         break;
 
+      case "inventory_number":
+        attribute += "INVENTORY_NUMBER";
+        break;
+
       default:
         attribute = name;
     }

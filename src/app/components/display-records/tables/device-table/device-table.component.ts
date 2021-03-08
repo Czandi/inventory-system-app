@@ -213,6 +213,7 @@ export class DeviceTableComponent extends Table implements OnInit {
           "Typ",
           "Zestaw",
           "Kod kreskowy",
+          "Numer inwentarzowy",
           "Komentarz",
         ]);
       });

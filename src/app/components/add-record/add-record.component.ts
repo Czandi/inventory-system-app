@@ -67,6 +67,7 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       deviceRoom: new FormControl("", Validators.required),
       deviceOwner: new FormControl("", Validators.required),
       deviceSet: new FormControl(""),
+      deviceInventoryNumber: new FormControl(""),
       deviceComment: new FormControl(""),
     });
   }
@@ -123,6 +124,9 @@ export class AddRecordComponent implements OnInit, OnDestroy {
     let newSerialNumber = this.deviceForm
       .get("serialNumber")
       .value.toLowerCase();
+    let newInventoryNumber = this.deviceForm
+      .get("deviceInventoryNumber")
+      .value.toLowerCase();
     let newComment = this.deviceForm.get("deviceComment").value.toLowerCase();
 
     let device = this.deviceDataValidator.createNewDevice(
@@ -132,12 +136,14 @@ export class AddRecordComponent implements OnInit, OnDestroy {
       newRoomName,
       newOwnerName,
       newSetName,
+      newInventoryNumber,
       newComment
     );
 
     if (this.deviceForm.valid) {
       if (this.deviceDataValidator.validateDeviceData(device)) {
-        this.insertDeviceAndRedirect(device);
+        console.log(device);
+        // this.insertDeviceAndRedirect(device);
       } else {
         this.newRecords = this.deviceDataValidator.newRecords;
         this.alertBox.openAlert();

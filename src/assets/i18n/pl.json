@@ -89,7 +89,7 @@
       "SET_TEXT": "Wybierz zestaw, do którego chcesz przypisać produkty",
       "ROOM_SCAN_DEVICES": "Skanuj przenoszone produkty",
       "SET_SCAN_DEVICES": "Skanuj produkty",
-      "SCANNED_DEVICES": "Zeskanowane produkty"
+      "SCANNED_DEVICES": "Produkty"
     },
     "PRINT_BARCODES": {
       "TITLE": "Kody kreskowe",
@@ -149,6 +149,8 @@
       "ROOM": "Pomieszczenie",
       "OWNER": "Właściciel",
       "BAR_CODE": "Kod kreskowy",
+      "INVENTORY_NUMBER": "Numer inwentarzowy",
+      "INVENTORY_NUMBER_SHORT": "Numer inw.",
       "SET_NUMBER": "Numer zestawu",
       "COMMENT": "Komentarz"
     },
