@@ -13,11 +13,12 @@ public class HistoryMapper {
   private static HistoryProductDto mapToDeviceHistoryDto(IHistoryProduct deviceHistory) {
     return HistoryProductDto.builder()
       .barCode(deviceHistory.getBarCode())
+      .serialNumber(deviceHistory.getSerialNumber())
+      .inventoryNumber(deviceHistory.getInventoryNumber())
       .changedAttribute(deviceHistory.getChangedAttribute())
       .date(deviceHistory.getDate())
       .newValue(deviceHistory.getNewValue())
       .oldValue(deviceHistory.getOldValue())
-      .serialNumber(deviceHistory.getSerialNumber())
       .build();
   }
 

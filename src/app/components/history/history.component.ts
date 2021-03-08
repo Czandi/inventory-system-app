@@ -1,9 +1,10 @@
 import { DateService } from "./../../core/services/date.service";
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { HistoryService } from "../../core/services/history.service";
 import { SortInfo } from "app/shared/models/sortInfo.model";
+import { CsvService } from "app/core/services/csv.service";
 
 @Component({
   selector: "app-history",
@@ -12,19 +13,26 @@ import { SortInfo } from "app/shared/models/sortInfo.model";
 })
 export class HistoryComponent implements OnInit {
   @ViewChild("date") dateArrow;
+  @ViewChild("searchBar") searchBar: ElementRef;
 
   public totalPages;
   public currentPage;
   public history = [];
+  public searchValue = "";
 
   private currentSortValue: string;
   private routeSub: Subscription;
   private sort;
   private currentArrow;
+  private search = "";
+  private searchTimeout;
+  private apiSub: Subscription;
 
   constructor(
     private historyService: HistoryService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private csvService: CsvService
   ) {
     this.sort = new SortInfo();
   }
@@ -37,6 +45,13 @@ export class HistoryComponent implements OnInit {
       if (params["page"] !== undefined && params["page"] !== this.currentPage) {
         this.currentPage = params["page"];
         this.getRecords();
+      }
+
+      if (params["search"] !== undefined) {
+        this.searchValue = params["search"];
+        this.getRecords();
+      } else {
+        this.searchValue = "";
       }
     });
   }
@@ -55,11 +70,12 @@ export class HistoryComponent implements OnInit {
   }
 
   getRecords() {
-    this.historyService
+    this.apiSub = this.historyService
       .getDevicesHistory(
         this.currentPage,
         this.currentSortValue,
-        this.sort.type
+        this.sort.type,
+        this.searchValue
       )
       .subscribe((history) => {
         this.history = history.content;
@@ -134,5 +150,46 @@ export class HistoryComponent implements OnInit {
     } else if (this.sort.type === "desc") {
       this.sort.type = "asc";
     }
+  }
+
+  onTyping() {
+    this.search =
+      this.searchBar.nativeElement.value === "-"
+        ? "null"
+        : this.searchBar.nativeElement.value;
+    this.resetSearchTimeout();
+  }
+
+  resetSearchTimeout() {
+    window.clearTimeout(this.searchTimeout);
+    this.searchTimeout = window.setTimeout(() => {
+      this.searchValue = this.search;
+      this.router.navigate([], {
+        queryParams: { search: this.searchValue },
+        queryParamsHandling: "merge",
+      });
+    }, 500);
+  }
+
+  saveRecords() {
+    this.apiSub = this.historyService
+      .getDevicesHistory(
+        this.currentPage,
+        this.currentSortValue,
+        this.sort.type,
+        this.searchValue
+      )
+      .subscribe((history) => {
+        console.log(history.content);
+        this.csvService.exportToCsv("dane.csv", history.content, [
+          "Numer seryjny",
+          "Numer inwentarzowy",
+          "Kod kreskowy",
+          "Zmieniony atrybut",
+          "Stara wartosc",
+          "Nowa wartosc",
+          "Data",
+        ]);
+      });
   }
 }

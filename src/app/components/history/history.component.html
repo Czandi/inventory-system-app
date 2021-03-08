@@ -1,11 +1,33 @@
 <div class="content-container">
   <h1 class="header">{{ "PAGES.HISTORY.TITLE" | translate }}</h1>
   <div class="center" *ngIf="history.length !== 0">
+    <div [ngClass]="blured ? 'blur' : ''" class="search-bar">
+      <input
+        type="text"
+        [placeholder]="'PAGES.DISPLAY_RECORDS.SEARCH' | translate"
+        value=""
+        #searchBar
+        (keyup)="onTyping()"
+      />
+      <app-button
+        class="save-button"
+        [text]="'PAGES.DISPLAY_RECORDS.SAVE_RECORDS' | translate"
+        type="primary"
+        (click)="saveRecords()"
+      ></app-button>
+    </div>
+
     <div class="table-container">
       <table>
         <tr>
           <th>
             <span>{{ "PAGES.HISTORY.COLUMNS.BAR_CODE" | translate }}</span>
+            <img id="barCode" src="assets/icons/sort_arrow_up.svg" />
+          </th>
+          <th>
+            <span>{{
+              "PAGES.HISTORY.COLUMNS.INVENTORY_NUMBER" | translate
+            }}</span>
             <img id="barCode" src="assets/icons/sort_arrow_up.svg" />
           </th>
           <th>
@@ -39,6 +61,7 @@
 
         <tr *ngFor="let record of history">
           <td>{{ record.barCode }}</td>
+          <td>{{ record.inventoryNumber }}</td>
           <td>{{ getAttributeName(record.changedAttribute) | translate }}</td>
           <td>{{ record.oldValue === "null" ? "-" : record.oldValue }}</td>
           <td class="arrow">

@@ -10,14 +10,10 @@ import java.time.LocalDateTime;
 @Builder
 public class HistoryProductDto {
   private String serialNumber;
-
+  private String inventoryNumber;
   private long barCode;
-
   private String changedAttribute;
-
   private String oldValue;
-
   private String newValue;
-
   private LocalDateTime date;
 }

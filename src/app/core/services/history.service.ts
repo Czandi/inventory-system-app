@@ -29,6 +29,8 @@ export class HistoryService {
       url += this.config.search + searchValue;
     }
 
+    console.log(url);
+
     return this.http.get(url);
   }
 
