@@ -8,14 +8,14 @@ public class InventoryMapper {
 
   private InventoryMapper(){}
 
-  public static Page<InventoryDto> mapToInventoryDtos(Page<Inventory> inventories){
-    return inventories.map(inventory -> mapToInventoryDto(inventory));
-  }
+//  public static Page<InventoryDto> mapToInventoryDtos(Page<Inventory> inventories){
+//    return inventories.map(inventory -> mapToInventoryDto(inventory));
+//  }
 
-  private static InventoryDto mapToInventoryDto(Inventory inventory) {
+  public static InventoryDto mapToInventoryDto(Inventory inventory, String recordName) {
     return InventoryDto.builder()
       .id(inventory.getId())
-      .record(inventory.getIdRecord())
+      .recordName(recordName)
       .date(inventory.getDate())
       .build();
   }

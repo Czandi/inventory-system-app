@@ -132,6 +132,10 @@
       "NO_RAPORTS_FIRST_TEXT": "Żadna inwentaryzacja nie została jeszcze przeprowadzona",
       "NO_RAPORTS_SECOND_TEXT": "Aby ją przeprowadzić, należy przejść do zakładki inwentaryzacja"
     },
+    "REPORT": {
+      "INVENTORY_FOR": "Inwentaryzacja dla",
+      "DATE": "Data"
+    },
     "TRASH": {
       "TITLE": "Kosz",
       "EMPTY_TEXT": "Kosz jest pusty",

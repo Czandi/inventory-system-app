@@ -27,7 +27,7 @@ public class InventoryController {
                                            @RequestParam(required = false) String orderBy,
                                            @RequestParam(required = false) String sortType,
                                            @RequestParam(required = false) String search){
-    return InventoryMapper.mapToInventoryDtos(inventoryService.getInventories(page, pageSize, orderBy, sortType, search));
+    return inventoryService.getInventories(page, pageSize, orderBy, sortType, search);
   }
 
   @GetMapping("/inventory/report/{id}")

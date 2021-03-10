@@ -5,11 +5,15 @@
       <table class="records">
         <tr>
           <th>
-            <span (click)="setSortValue('room')">Pomieszczenie</span>
+            <span (click)="setSortValue('room')">{{
+              "PAGES.REPORT.INVENTORY_FOR" | translate
+            }}</span>
             <img src="assets/icons/sort_arrow_up.svg" id="room" />
           </th>
           <th>
-            <span (click)="setSortValue('date')">Data</span>
+            <span (click)="setSortValue('date')">{{
+              "PAGES.REPORT.DATE" | translate
+            }}</span>
             <img src="assets/icons/sort_arrow_up.svg" id="date" />
           </th>
         </tr>
@@ -23,7 +27,7 @@
           class="hoverable"
           (click)="download(inventory.id)"
         >
-          <td>{{ inventory.room }}</td>
+          <td>{{ inventory.recordName }}</td>
           <td>{{ inventory.date }}</td>
         </tr>
       </table>

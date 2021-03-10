@@ -1,5 +1,7 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.controller.dto.InventoryDto;
+import com.app.inventorysystemapp.controller.mapper.InventoryMapper;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.InventoryItemRepository;
 import com.app.inventorysystemapp.repository.InventoryRepository;
@@ -55,16 +57,29 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     return inventoryItemRepository.save(inventoryItem);
   }
 
-  public Page<Inventory> getInventories(int page, int pageSize, String orderBy, String sortType, String search) {
+  public Page<InventoryDto> getInventories(int page, int pageSize, String orderBy, String sortType, String search) {
     int pageNumber = page > 0 ? page : 1;
 
     Pageable paging = generatePageRequest(pageNumber, pageSize, orderBy, sortType);
 
+    Page<Inventory> inventories = null;
+
     if(search == null){
-      return inventoryRepository.findAll(paging);
+      inventories = inventoryRepository.findAll(paging);
     }else{
-      return inventoryRepository.findByContaining(search, paging);
+      inventories = inventoryRepository.findByContaining(search, paging);
     }
+
+    return inventories.map(inventory -> {
+      String recordName = "";
+      if(inventory.getRecordType().equals("room")){
+        recordName = roomService.findRoomById(inventory.getIdRecord()).getName();
+      }else if(inventory.getRecordType().equals("owner")){
+        recordName = ownerService.findOwnerById(inventory.getIdRecord()).getName();
+      }
+      return InventoryMapper.mapToInventoryDto(inventory, recordName);
+    });
+
   }
 
   public Report getReport(long id) {
