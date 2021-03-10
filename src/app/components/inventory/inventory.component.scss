@@ -32,7 +32,8 @@ label {
       }
     }
 
-    .room-select {
+    .value-select,
+    .attribute-select {
       height: fit-content;
       width: fit-content;
       text-align: left;
@@ -49,6 +50,7 @@ label {
         margin-left: auto;
         margin-right: auto;
         width: 150px;
+        text-transform: capitalize;
 
         &.inactive {
           background-color: transparent;

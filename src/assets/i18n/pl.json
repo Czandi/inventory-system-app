@@ -124,6 +124,9 @@
     },
     "INVENTORY": {
       "DO_INVENTORY": "Inwenatryzuj",
+      "ATTRIBUTE": "Atrybut",
+      "ROOM": "Pomieszczenie",
+      "OWNER": "Właściciel",
       "RAPORTS": "Raporty",
       "FIRST_TEXT": "Wybierz pomieszczenie, w którym będziesz przeprowadzał inwentaryzację",
       "NO_RAPORTS_FIRST_TEXT": "Żadna inwentaryzacja nie została jeszcze przeprowadzona",
@@ -134,6 +137,7 @@
       "EMPTY_TEXT": "Kosz jest pusty",
       "COLUMNS": {
         "SERIAL_NUMBER": "Numer seryjny",
+        "INVENTORY_NUMBER": "Numer inw.",
         "DEVICE_MODEL": "Model produktu",
         "DEVICE_TYPE": "Typ produktu",
         "ROOM": "Pomieszczenie",

@@ -33,9 +33,17 @@ export class InventoryService {
     return this.http.get(url);
   }
 
-  insertInventoryItem(idRoom: string, barcodes: number[]) {
+  insertInventoryItem(
+    idRecord: string,
+    recordType: string,
+    barcodes: number[]
+  ) {
     return this.http.post<Inventory>(
-      this.config.inventoryUrl + this.config.inventoryRoom + idRoom,
+      this.config.inventoryUrl +
+        this.config.inventoryRecordValue +
+        idRecord +
+        this.config.inventoryRecordType +
+        recordType,
       barcodes
     );
   }

@@ -212,9 +212,18 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     return productRepository.findDeviceByRoom(room);
   }
 
+  public List<Product> getDevicesFromOwner(Owner owner) {
+    return productRepository.findDeviceByOwner(owner);
+  }
+
   public List<Product> getDevicesFromRoom(long id) {
     Room room = roomService.findById(id);
     return getDevicesFromRoom(room);
+  }
+
+  public List<Product> getDevicesFromOwner(long id) {
+    Owner owner = ownerService.findOwnerById(id);
+    return getDevicesFromOwner(owner);
   }
 
   public Product findById(Long id) {

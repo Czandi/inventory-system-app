@@ -4,28 +4,58 @@
   <div class="center">
     <div class="content">
       <div class="top-section left-section">
-        <h2 [ngClass]="roomAccepted ? 'inactive' : ''">
+        <h2 [ngClass]="valueAccepted ? 'inactive' : ''">
           {{ "PAGES.INVENTORY.FIRST_TEXT" | translate }}
         </h2>
-        <div class="room-select">
-          <label [ngClass]="roomAccepted ? 'inactive' : ''" for="room-input">{{
-            "TABLE_HEADERS.DEVICE.ROOM" | translate
+        <div class="attribute-select">
+          <label [ngClass]="valueAccepted ? 'inactive' : ''" for="room-input">{{
+            "PAGES.INVENTORY.ATTRIBUTE" | translate
           }}</label>
-          <select name="room-input" [disabled]="roomAccepted" #roomInput>
+          <select
+            name="room-input"
+            (change)="changeAttribute()"
+            [disabled]="valueAccepted"
+            #attributeSelect
+          >
+            <option value="room">
+              {{ "PAGES.INVENTORY.ROOM" | translate }}
+            </option>
+            <option value="owner">
+              {{ "PAGES.INVENTORY.OWNER" | translate }}
+            </option>
+          </select>
+        </div>
+        <div class="value-select">
+          <select
+            *ngIf="selectedAttirbute === 'room'"
+            name="room-input"
+            [disabled]="valueAccepted"
+            #roomInput
+          >
             <option *ngFor="let room of rooms" [value]="room.id">
               {{ room.name }}
+            </option>
+          </select>
+          <select
+            *ngIf="selectedAttirbute === 'owner'"
+            name="owner-input"
+            [disabled]="valueAccepted"
+            #ownerInput
+          >
+            <option *ngFor="let owner of owners" [value]="owner.id">
+              {{ owner.name }}
             </option>
           </select>
         </div>
 
         <app-button
           class="accept-button"
-          [type]="roomAccepted ? 'secondary' : 'primary'"
-          [text]="roomAccepted ? 'Anuluj' : 'Zatwierdź'"
-          (mousedown)="roomSelectSwitcher()"
+          [type]="valueAccepted ? 'secondary' : 'primary'"
+          [text]="valueAccepted ? 'Anuluj' : 'Zatwierdź'"
+          (mousedown)="valueSelectAccept()"
         ></app-button>
 
-        <div class="info" *ngIf="roomAccepted">
+        <div class="info" *ngIf="valueAccepted">
           <h2>{{ "PAGES.UPDATE_RECORDS.SET_SCAN_DEVICES" | translate }}</h2>
 
           <div class="dots">
@@ -36,18 +66,24 @@
         </div>
       </div>
       <div class="bottom-section right-section">
-        <div class="scroll" *ngIf="roomAccepted">
+        <div class="scroll" *ngIf="valueAccepted">
           <div class="scanned-products">
             <p>{{ "PAGES.UPDATE_RECORDS.SCANNED_DEVICES" | translate }}</p>
             <div class="device-container">
               <div
                 class="device"
-                *ngFor="let product of roomDevices"
+                *ngFor="let product of devices"
                 [id]="product.barcode"
               >
-                <p>{{ product.model }}</p>
-                <p>{{ product.type }}</p>
-                <p>{{ product.barcode }}</p>
+                <p>{{ product.model === "" ? "-" : product.model }}</p>
+                <p>
+                  {{
+                    product.inventoryNumber === ""
+                      ? "-"
+                      : product.inventoryNumber
+                  }}
+                </p>
+                <p>{{ product.barcode === "" ? "-" : product.barcode }}</p>
                 <!-- <div (click)="removeBarcode(product.barCode)" class="x">
                 <div class="line"></div>
                 <div class="line"></div>
@@ -61,7 +97,7 @@
           type="primary"
           text="Zakończ"
           (click)="finish()"
-          *ngIf="roomAccepted"
+          *ngIf="valueAccepted"
         ></app-button>
       </div>
     </div>

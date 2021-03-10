@@ -19,9 +19,8 @@ public class Inventory {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  @ManyToOne
-  @JoinColumn(name="id_room")
-  private Room room;
+  private String recordType;
+  private long idRecord;
   @CreationTimestamp
   private LocalDate date;
 

@@ -16,18 +16,20 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
   private final InventoryRepository inventoryRepository;
   private final InventoryItemRepository inventoryItemRepository;
   private final RoomService roomService;
+  private final OwnerService ownerService;
   private final ProductService productService;
 
-  public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, RoomService roomService, ProductService productService) {
+  public InventoryService(InventoryRepository inventoryRepository, InventoryItemRepository inventoryItemRepository, RoomService roomService, OwnerService ownerService, ProductService productService) {
     this.inventoryRepository = inventoryRepository;
     this.inventoryItemRepository = inventoryItemRepository;
     this.roomService = roomService;
+    this.ownerService = ownerService;
     this.productService = productService;
   }
 
 
-  public Inventory insertInventory(Long idRoom, List<Long> barcodes) {
-    Inventory inventory = insertNewInventory(idRoom);
+  public Inventory insertInventory(Long idRecord, String recordType, List<Long> barcodes) {
+    Inventory inventory = insertNewInventory(idRecord, recordType);
 
     for(int i = 0; i < barcodes.size(); i++){
       Product product = productService.findByBarcode(barcodes.get(i));
@@ -39,11 +41,10 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     return inventory;
   }
 
-  public Inventory insertNewInventory(Long idRoom){
+  public Inventory insertNewInventory(Long idRecord, String recordType){
     Inventory inventory = new Inventory();
-
-    Room room = roomService.findById(idRoom);
-    inventory.setRoom(room);
+    inventory.setIdRecord(idRecord);
+    inventory.setRecordType(recordType);
     return inventoryRepository.save(inventory);
   }
 
@@ -69,8 +70,23 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
   public Report getReport(long id) {
     Report report = new Report();
     Inventory inventory = inventoryRepository.findById(id).orElseThrow();
+    List<Product> previousStock = null;
+    String recordName = "";
 
-    List<Product> previousStock = productService.getDevicesFromRoom(inventory.getRoom());
+    if(inventory.getRecordType().equals("room")) {
+      Room room = roomService.findRoomById(inventory.getIdRecord());
+      previousStock = productService.getDevicesFromRoom(room);
+      System.out.println(previousStock.get(0));
+      recordName = room.getName();
+    } else if (inventory.getRecordType().equals("owner")) {
+      Owner owner = ownerService.findOwnerById(inventory.getIdRecord());
+      previousStock = productService.getDevicesFromOwner(owner);
+      System.out.println(previousStock.get(0));
+
+      recordName = owner.getName();
+    }
+
+
     List<InventoryItem> inventoryItems = inventoryItemRepository.findByInventory(inventory);
     List<Product> actualStock = new ArrayList<>();
 
@@ -86,7 +102,7 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     report.setMissingRecords(missingRecords);
     report.setAdditionalRecords(additionalRecords);
     report.setDate(inventory.getDate());
-    report.setRoom(inventory.getRoom().getName());
+    report.setRecordName(recordName);
 
     return report;
   }

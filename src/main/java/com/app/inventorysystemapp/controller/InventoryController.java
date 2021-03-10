@@ -36,8 +36,7 @@ public class InventoryController {
   }
 
   @PostMapping("/inventory")
-  public Inventory insertInventory(Long idRoom, @RequestBody List<Long> barcodes){
-    System.out.println(barcodes);
-    return inventoryService.insertInventory(idRoom, barcodes);
+  public Inventory insertInventory(Long idRecord, String recordType, @RequestBody List<Long> barcodes){
+    return inventoryService.insertInventory(idRecord, recordType, barcodes);
   }
 }

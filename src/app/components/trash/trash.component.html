@@ -19,6 +19,12 @@
             }}</span>
             <img id="serialNumber" src="assets/icons/sort_arrow_up.svg" />
           </th>
+          <th class="inventory-number">
+            <span (click)="setSortValue('inventoryNumber')">{{
+              "PAGES.TRASH.COLUMNS.INVENTORY_NUMBER" | translate
+            }}</span>
+            <img id="serialNumber" src="assets/icons/sort_arrow_up.svg" />
+          </th>
           <th class="model">
             <span (click)="setSortValue('model')">{{
               "PAGES.TRASH.COLUMNS.DEVICE_MODEL" | translate
@@ -58,11 +64,16 @@
         </tr>
 
         <tr *ngFor="let record of deletedRecords">
-          <td class="serial-number">{{ record.serialNumber }}</td>
-          <td class="model">{{ record.model }}</td>
-          <td class="type">{{ record.type }}</td>
-          <td class="room">{{ record.room }}</td>
-          <td class="owner">{{ record.owner }}</td>
+          <td class="serial-number">
+            {{ record.serialNumber === "" ? "-" : record.serialNumber }}
+          </td>
+          <td class="serial-number">
+            {{ record.inventoryNumber === "" ? "-" : record.serialNumber }}
+          </td>
+          <td class="model">{{ record.model === "" ? "-" : record.model }}</td>
+          <td class="type">{{ record.type === "" ? "-" : record.type }}</td>
+          <td class="room">{{ record.room === "" ? "-" : record.room }}</td>
+          <td class="owner">{{ record.owner === "" ? "-" : record.owner }}</td>
           <td class="date">{{ getDate(record.deletedDate) }}</td>
         </tr>
       </table>

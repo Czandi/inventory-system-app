@@ -36,7 +36,23 @@ export class ReportCreator {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: "Numer Seryjny",
+                  text: "Numer Inw.",
+                  bold: true,
+                }),
+              ],
+            }),
+          ],
+          width: {
+            size: "33%",
+            type: WidthType.PERCENTAGE,
+          },
+        }),
+        new TableCell({
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "Typ",
                   bold: true,
                 }),
               ],
@@ -53,22 +69,6 @@ export class ReportCreator {
               children: [
                 new TextRun({
                   text: "Model",
-                  bold: true,
-                }),
-              ],
-            }),
-          ],
-          width: {
-            size: "33%",
-            type: WidthType.PERCENTAGE,
-          },
-        }),
-        new TableCell({
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "Właściciel",
                   bold: true,
                 }),
               ],
@@ -201,13 +201,13 @@ export class ReportCreator {
     const tableRow = new TableRow({
       children: [
         new TableCell({
-          children: [new Paragraph(device.serialNumber)],
+          children: [new Paragraph(device.inventoryNumber)],
+        }),
+        new TableCell({
+          children: [new Paragraph(device.model.type.name)],
         }),
         new TableCell({
           children: [new Paragraph(device.model.name)],
-        }),
-        new TableCell({
-          children: [new Paragraph(device.owner.name)],
         }),
       ],
     });

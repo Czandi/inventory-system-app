@@ -9,6 +9,6 @@ import java.time.LocalDate;
 @Builder
 public class InventoryDto {
   private Long id;
-  private String room;
+  private Long record;
   private LocalDate date;
 }

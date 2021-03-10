@@ -1,6 +1,8 @@
 package com.app.inventorysystemapp.controller;
 
 import com.app.inventorysystemapp.controller.dto.OwnerDto;
+import com.app.inventorysystemapp.controller.dto.ProductDto;
+import com.app.inventorysystemapp.controller.mapper.ProductMapper;
 import com.app.inventorysystemapp.controller.mapper.OwnerMapper;
 import com.app.inventorysystemapp.model.Owner;
 import com.app.inventorysystemapp.service.ProductService;
@@ -55,5 +57,10 @@ public class OwnerController {
   @DeleteMapping("/owners/{id}")
   public Boolean deleteOwner(@PathVariable(value = "id") Long id) {
     return productService.deleteOwner(id);
+  }
+
+  @GetMapping("/owners/{id}/products")
+  public List<ProductDto> getDevicesFromOwner(@PathVariable long id){
+    return ProductMapper.mapToProductDtos(productService.getDevicesFromOwner(id));
   }
 }

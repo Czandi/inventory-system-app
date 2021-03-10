@@ -15,7 +15,7 @@ public class InventoryMapper {
   private static InventoryDto mapToInventoryDto(Inventory inventory) {
     return InventoryDto.builder()
       .id(inventory.getId())
-      .room(inventory.getRoom().getName())
+      .record(inventory.getIdRecord())
       .date(inventory.getDate())
       .build();
   }

@@ -53,6 +53,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
   List<Product> findDeviceByRoom(Room room);
 
+  List<Product> findDeviceByOwner(Owner owner);
+
   ArrayList<Product> findByModel(Model model);
 
   List<Product> findByOwner(Owner owner);

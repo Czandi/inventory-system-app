@@ -4,6 +4,7 @@ import { DeviceService } from "./../../core/services/device.service";
 import { Subscription } from "rxjs";
 import { RoomService } from "app/core/services/room.service";
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
+import { OwnerService } from "app/core/services/owner.service";
 
 @Component({
   selector: "app-inventory",
@@ -12,25 +13,31 @@ import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 })
 export class InventoryComponent implements OnInit {
   @ViewChild("roomInput") roomInput;
+  @ViewChild("ownerInput") ownerInput;
   @ViewChild("alertBox") alertBox;
   @ViewChild("popup") popup;
+  @ViewChild("attributeSelect") attributeSelect;
 
   public newRecord = [];
-  public roomAccepted = false;
+  public valueAccepted = false;
   public rooms = [];
+  public owners = [];
   public barcodes = [];
-  public roomDevices = [];
+  public devices = [];
+  public selectedAttirbute = "room";
 
   private currentBarcode = "";
+  private selectedValue = "";
   private allBarcodes;
-  private roomBarcodes = [];
-  private inventoryId;
+  private selectedBarcodes = [];
   private roomServiceSub: Subscription;
-  private deviceServiceSub: any;
+  private deviceServiceSub: Subscription;
+  private ownerServiceSub: Subscription;
 
   constructor(
     private roomService: RoomService,
     private deviceService: DeviceService,
+    private ownerService: OwnerService,
     private inventoryService: InventoryService,
     private router: Router
   ) {}
@@ -40,13 +47,23 @@ export class InventoryComponent implements OnInit {
   }
 
   getAutoCompleteData() {
-    this.roomServiceSub = this.roomService.getAllRooms().subscribe((data) => {
-      for (let room of data) {
+    this.roomServiceSub = this.roomService.getAllRooms().subscribe((rooms) => {
+      for (let room of rooms) {
         if (room.name !== "null") {
           this.rooms.push(room);
         }
       }
     });
+
+    this.ownerServiceSub = this.ownerService
+      .getAllOwners()
+      .subscribe((owners) => {
+        for (let owner of owners) {
+          if (owner.name !== "null") {
+            this.owners.push(owner);
+          }
+        }
+      });
 
     this.deviceServiceSub = this.deviceService
       .getAllBarcodes()
@@ -55,34 +72,55 @@ export class InventoryComponent implements OnInit {
       });
   }
 
-  roomSelectSwitcher() {
-    let value = this.roomInput.nativeElement.value;
-    if (value !== null && value !== "") {
-      this.roomAccepted = !this.roomAccepted;
-      // this.roomDevices = [];
-      this.roomService
-        .getDevicesFromRoom(value)
-        .subscribe((devices: Array<any>) => {
-          devices.map((device) => {
-            this.roomBarcodes.push(device.barCode);
-            this.roomDevices.push({
-              model: device.model,
-              type: device.type,
-              barcode: device.barCode,
+  valueSelectAccept() {
+    if (this.selectedAttirbute === "room") {
+      this.selectedValue = this.roomInput.nativeElement.value;
+      if (this.selectedValue !== null && this.selectedValue !== "") {
+        this.valueAccepted = !this.valueAccepted;
+        this.devices = [];
+        this.roomService
+          .getDevicesFromRoom(+this.selectedValue)
+          .subscribe((devices: Array<any>) => {
+            devices.map((device) => {
+              this.selectedBarcodes.push(device.barCode);
+              this.devices.push({
+                model: device.model,
+                inventoryNumber: device.inventoryNumber,
+                barcode: device.barCode,
+              });
             });
           });
-        });
+      }
+    } else {
+      this.selectedValue = this.ownerInput.nativeElement.value;
+      if (this.selectedValue !== null && this.selectedValue !== "") {
+        this.valueAccepted = !this.valueAccepted;
+        this.devices = [];
+        this.ownerService
+          .getDevicesFromOwner(+this.selectedValue)
+          .subscribe((devices: Array<any>) => {
+            devices.map((device) => {
+              this.selectedBarcodes.push(device.barCode);
+              this.devices.push({
+                model: device.model,
+                inventoryNumber: device.inventoryNumber,
+                barcode: device.barCode,
+              });
+            });
+          });
+      }
     }
   }
 
   ngOnDestroy() {
     this.roomServiceSub.unsubscribe();
     this.deviceServiceSub.unsubscribe();
+    this.ownerServiceSub.unsubscribe();
   }
 
   @HostListener("document:keyup", ["$event"])
   clickout(event) {
-    if (this.roomAccepted && this.allBarcodes !== undefined) {
+    if (this.valueAccepted && this.allBarcodes !== undefined) {
       if (event.key === "Enter") {
         if (this.checkIfBarcodeExists(this.currentBarcode)) {
           if (!this.checkIfBarcodeIsAlreadyScanned(this.currentBarcode)) {
@@ -123,7 +161,7 @@ export class InventoryComponent implements OnInit {
       this.barcodes.push(+barcode);
     } else {
       this.deviceService.getDeviceByBarcode(barcode).subscribe((device) => {
-        this.roomDevices.push({
+        this.devices.push({
           model: device.model,
           type: device.type,
           barcode: device.barCode,
@@ -138,7 +176,7 @@ export class InventoryComponent implements OnInit {
   }
 
   checkIfBarcodeBelongsToRoom(barcode) {
-    if (this.roomBarcodes.indexOf(+barcode) !== -1) {
+    if (this.selectedBarcodes.indexOf(+barcode) !== -1) {
       return true;
     } else {
       return false;
@@ -151,14 +189,20 @@ export class InventoryComponent implements OnInit {
   }
 
   finish() {
-    let room = this.roomInput.nativeElement.value;
     this.inventoryService
-      .insertInventoryItem(room, this.barcodes)
-      .subscribe((data) => {
-        this.inventoryId = data.id;
+      .insertInventoryItem(
+        this.selectedValue,
+        this.selectedAttirbute,
+        this.barcodes
+      )
+      .subscribe(() => {
         this.router.navigate(["/inventory/raports"], {
           queryParams: { page: 1 },
         });
       });
+  }
+
+  changeAttribute() {
+    this.selectedAttirbute = this.attributeSelect.nativeElement.value;
   }
 }

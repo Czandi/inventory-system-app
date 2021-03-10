@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
   @Query("Select i from Inventory i " +
-    "where i.room.name like %?1% " +
-    "or i.date like %?1%")
+    "where i.date like %?1%")
   Page<Inventory> findByContaining(String search, Pageable paging);
 }

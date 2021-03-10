@@ -38,6 +38,10 @@ export class OwnerService {
     return this.http.get(url);
   }
 
+  getDevicesFromOwner(id: number) {
+    return this.http.get(this.config.ownerUrl + "/" + id + "/products");
+  }
+
   getSingleOwner(id: number) {
     return this.http.get(this.config.ownerUrl + "/" + id);
   }

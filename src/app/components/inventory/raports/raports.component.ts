@@ -87,10 +87,11 @@ export class RaportsComponent implements OnInit {
 
   download(id): void {
     this.inventoryService.getReport(id).subscribe((report) => {
+      console.log(report);
       const documentCreator = new ReportCreator();
       const doc = documentCreator.create([
         report["date"],
-        report["room"],
+        report["recordName"],
         report["missingRecords"],
         report["additionalRecords"],
         report["actualStock"],
@@ -100,7 +101,7 @@ export class RaportsComponent implements OnInit {
       Packer.toBlob(doc).then((blob) => {
         saveAs(
           blob,
-          "report-" + report["date"] + "-" + report["room"] + ".docx"
+          "report-" + report["date"] + "-" + report["recordName"] + ".docx"
         );
       });
     });

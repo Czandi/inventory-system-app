@@ -16,7 +16,8 @@ export class ConfigService {
 
   private PAGE_SIZE = 10;
 
-  private _inventoryRoom = "?idRoom=";
+  private _inventoryRecordValue = "?idRecord=";
+  private _inventoryRecordType = "&recordType=";
   private _page = "?page=";
   private _page_size = "&pageSize=" + this.PAGE_SIZE;
   private _sortType = "&sortType=";
@@ -67,8 +68,12 @@ export class ConfigService {
     return this._reportUrl;
   }
 
-  get inventoryRoom(): string {
-    return this._inventoryRoom;
+  get inventoryRecordValue(): string {
+    return this._inventoryRecordValue;
+  }
+
+  get inventoryRecordType(): string {
+    return this._inventoryRecordType;
   }
 
   get page(): string {
