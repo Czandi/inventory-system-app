@@ -81,4 +81,6 @@ public class ProductController {
     return productService.deleteDevice(id);
   }
 
+  @DeleteMapping("/products/deleted/empty")
+  public Boolean emptyDeleted() { return productService.emptyDeleted(); }
 }

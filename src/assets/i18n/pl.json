@@ -139,6 +139,9 @@
     "TRASH": {
       "TITLE": "Kosz",
       "EMPTY_TEXT": "Kosz jest pusty",
+      "EMPTY": "Opróżnij",
+      "EMPTY_TRASH_ALERT_TITLE": "Opróżnij kosz",
+      "EMPTY_TRASH_ALERT_MESSAGE": "Czy jesteś pewny, że chcesz opróżnić kosz?",
       "COLUMNS": {
         "SERIAL_NUMBER": "Numer seryjny",
         "INVENTORY_NUMBER": "Numer inw.",

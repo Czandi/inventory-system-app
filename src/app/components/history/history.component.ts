@@ -18,6 +18,7 @@ export class HistoryComponent implements OnInit {
   public totalPages;
   public currentPage;
   public history = [];
+  public emptyHistory: Boolean = true;
   public searchValue = "";
 
   private currentSortValue: string;
@@ -79,6 +80,9 @@ export class HistoryComponent implements OnInit {
       )
       .subscribe((history) => {
         this.history = history.content;
+        if (this.history.length !== 0) {
+          this.emptyHistory = false;
+        }
         this.totalPages = history.totalPages;
       });
   }

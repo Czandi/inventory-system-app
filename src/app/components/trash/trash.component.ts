@@ -11,6 +11,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { DateService } from "app/core/services/date.service";
+import { SubjectService } from "app/core/services/subject.service";
 
 @Component({
   selector: "app-trash",
@@ -19,6 +20,7 @@ import { DateService } from "app/core/services/date.service";
 })
 export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild("searchBar") searchBar: ElementRef;
+  @ViewChild("alert") alert;
 
   public totalPages;
   public currentPage;
@@ -31,11 +33,13 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
   private routeSub: Subscription;
   private currentArrow;
   private sort: SortInfo;
+  private alertSub: Subscription;
 
   constructor(
     private deviceService: DeviceService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private subjectService: SubjectService
   ) {
     this.sort = new SortInfo();
   }
@@ -59,6 +63,14 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
       if (params["page"] !== undefined && params["page"] !== this.currentPage) {
         this.currentPage = params["page"];
         this.getRecords();
+      }
+    });
+
+    this.alertSub = this.subjectService.alert.subscribe((accept) => {
+      if (accept) {
+        this.deviceService.emptyTrash().subscribe(() => {
+          this.getRecords();
+        });
       }
     });
   }
@@ -142,5 +154,9 @@ export class TrashComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.sort.type === "desc") {
       this.sort.type = "asc";
     }
+  }
+
+  emptyTrash() {
+    this.alert.trigger();
   }
 }

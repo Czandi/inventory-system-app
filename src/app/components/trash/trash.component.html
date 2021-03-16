@@ -10,6 +10,12 @@
         (keyup)="onTyping()"
       />
     </div> -->
+    <app-button
+      class="empty-button"
+      [text]="'PAGES.TRASH.EMPTY' | translate"
+      type="primary"
+      (click)="emptyTrash()"
+    ></app-button>
     <div class="table-container">
       <table>
         <tr>
@@ -67,8 +73,8 @@
           <td class="serial-number">
             {{ record.serialNumber === "" ? "-" : record.serialNumber }}
           </td>
-          <td class="serial-number">
-            {{ record.inventoryNumber === "" ? "-" : record.serialNumber }}
+          <td class="inventory-number">
+            {{ record.inventoryNumber === "" ? "-" : record.inventoryNumber }}
           </td>
           <td class="model">{{ record.model === "" ? "-" : record.model }}</td>
           <td class="type">{{ record.type === "" ? "-" : record.type }}</td>
@@ -88,4 +94,9 @@
     [totalPages]="totalPages"
     [currentPage]="currentPage"
   ></app-pagination>
+  <app-alert
+    [title]="'PAGES.TRASH.EMPTY_TRASH_ALERT_TITLE' | translate"
+    [text]="'PAGES.TRASH.EMPTY_TRASH_ALERT_MESSAGE' | translate"
+    #alert
+  ></app-alert>
 </div>

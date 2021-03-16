@@ -90,7 +90,7 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
       case "type":
         return "model." + orderBy;
       case "setNumber":
-        return "deviceSet";
+        return "productSet";
       case "date":
         return "deletedDate";
       default:
@@ -338,5 +338,10 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
       product.setProductSet(nullProductSet);
       productRepository.save(product);
     }
+  }
+
+  public Boolean emptyDeleted() {
+    deletedProductRepository.truncateTable();
+    return true;
   }
 }

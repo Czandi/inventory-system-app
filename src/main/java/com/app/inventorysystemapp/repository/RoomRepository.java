@@ -14,18 +14,18 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
   @Query("Select " +
     "r.id as roomId, " +
     "r.name as roomName, " +
-    "count(r.id) as count " +
-    "from Product d " +
-    "inner join d.room r " +
+    "count(p) as count " +
+    "from Room r " +
+    "left outer join Product p on p.room.id=r.id " +
     "group by r.id")
   Page<IRoom> findAllRoomsWithItemsCount(Pageable page);
 
   @Query("Select " +
     "r.id as roomId, " +
     "r.name as roomName, " +
-    "count(r.id) as count " +
-    "from Product d " +
-    "inner join d.room r " +
+    "count(p) as count " +
+    "from Room r " +
+    "left outer join Product p on p.room.id=r.id " +
     "group by r.id " +
     "having r.id like ?1")
   IRoom findByIdWithCount(long id);

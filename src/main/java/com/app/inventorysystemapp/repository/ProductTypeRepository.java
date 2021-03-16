@@ -30,6 +30,25 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Long> 
     "having dt.id like ?1")
   IProductType findByIdWithCount(long id);
 
+//  @Query("Select " +
+//    "pt.id as deviceTypeId, " +
+//    "pt.name as deviceTypeName, " +
+//    "count(p) as deviceTypeCount " +
+//    "from ProductType pt " +
+//    "left outer join Product p on p.model.type=pt.id " +
+//    "group by pt.id")
+//  Page<IProductType> findAllDeviceTypesWithCount(Pageable page);
+//
+//  @Query("Select " +
+//    "pt.id as deviceTypeId, " +
+//    "pt.name as deviceTypeName, " +
+//    "count(p) as deviceTypeCount " +
+//    "from ProductType pt " +
+//    "left outer join Product p on p.model.type=pt.id " +
+//    "group by pt.id " +
+//    "having pt.id like ?1")
+//  IProductType findByIdWithCount(long id);
+
   @Query("Select " +
     "dt.id as deviceTypeId, " +
     "dt.name as deviceTypeName, " +

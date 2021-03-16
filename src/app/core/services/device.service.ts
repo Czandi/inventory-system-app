@@ -95,4 +95,8 @@ export class DeviceService {
   deleteDevice(id: number): Observable<any> {
     return this.http.delete(this.config.deviceUrl + "/" + id);
   }
+
+  emptyTrash() {
+    return this.http.delete(this.config.deviceUrl + "/deleted/empty");
+  }
 }

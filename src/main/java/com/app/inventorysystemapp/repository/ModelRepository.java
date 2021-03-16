@@ -14,23 +14,44 @@ import java.util.List;
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
-  @Query("Select " +
-    "m.name as modelName, " +
-    "m.id as modelId, " +
-    "m.type.name as typeName, " +
-    "count(m.name) as modelCount " +
-    "from Product d " +
-    "inner join d.model m " +
-    "group by m.id")
-  Page<IModel> findAllModelsWithCount(Pageable page);
+//  @Query("Select " +
+//    "m.name as modelName, " +
+//    "m.id as modelId, " +
+//    "m.type.name as typeName, " +
+//    "count(m.name) as modelCount " +
+//    "from Product d " +
+//    "inner join d.model m " +
+//    "group by m.id")
+//  Page<IModel> findAllModelsWithCount(Pageable page);
 
   @Query("Select " +
     "m.name as modelName, " +
     "m.id as modelId, " +
     "m.type.name as typeName, " +
-    "count(m.name) as modelCount " +
-    "from Product d " +
-    "inner join d.model m " +
+    "count(p) as modelCount " +
+    "from Model m " +
+    "left outer join Product p on m.id=p.model.id " +
+    "group by m.id")
+  Page<IModel> findAllModelsWithCount(Pageable page);
+
+//  @Query("Select " +
+//    "m.name as modelName, " +
+//    "m.id as modelId, " +
+//    "m.type.name as typeName, " +
+//    "count(m.name) as modelCount " +
+//    "from Product d " +
+//    "inner join d.model m " +
+//    "group by m.id " +
+//    "having m.id like ?1")
+//  IModel findByIdWithCount(long id);
+
+  @Query("Select " +
+    "m.name as modelName, " +
+    "m.id as modelId, " +
+    "m.type.name as typeName, " +
+    "count(p) as modelCount " +
+    "from Model m " +
+    "left outer join Product p on m.id=p.model.id " +
     "group by m.id " +
     "having m.id like ?1")
   IModel findByIdWithCount(long id);
@@ -45,8 +66,7 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "group by m.id " +
     "having m.name like concat('%', ?1, '%') " +
     "or m.type.name like concat('%', ?1, '%') " +
-    "or count(d.model.name) = ?1" +
-    "")
+    "or count(d.model.name) = ?1")
   Page<IModel> findAllModelsWithCountByContaining(String search, Pageable paging);
 
     Model findByName(String name);

@@ -4,9 +4,16 @@ import com.app.inventorysystemapp.model.DeletedProduct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface DeletedProductRepository extends JpaRepository<DeletedProduct, Long> {
+
+  @Modifying
+  @Transactional
+  @Query("delete from DeletedProduct dp")
+  void truncateTable();
 
 //  @Query("Select d from DeletedProduct d " +
 //    "inner join d.owner ow " +
