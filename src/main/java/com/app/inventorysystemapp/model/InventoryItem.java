@@ -19,7 +19,10 @@ public class InventoryItem {
   @ManyToOne
   @JoinColumn(name = "id_inventory")
   private Inventory inventory;
-  @ManyToOne
-  @JoinColumn(name = "id_record")
-  private Product product;
+  @JoinColumn(name = "inventory_number")
+  private String inventoryNumber;
+  private String model;
+  private String type;
+  @JoinColumn(name = "stock_type")
+  private String stockType;
 }

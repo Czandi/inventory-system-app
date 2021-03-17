@@ -82,5 +82,5 @@ public class ProductController {
   }
 
   @DeleteMapping("/products/deleted/empty")
-  public Boolean emptyDeleted() { return productService.emptyDeleted(); }
+  public Boolean truncateDeleted() { return productService.emptyDeleted(); }
 }

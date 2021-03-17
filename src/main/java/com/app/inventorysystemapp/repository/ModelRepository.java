@@ -14,16 +14,6 @@ import java.util.List;
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
-//  @Query("Select " +
-//    "m.name as modelName, " +
-//    "m.id as modelId, " +
-//    "m.type.name as typeName, " +
-//    "count(m.name) as modelCount " +
-//    "from Product d " +
-//    "inner join d.model m " +
-//    "group by m.id")
-//  Page<IModel> findAllModelsWithCount(Pageable page);
-
   @Query("Select " +
     "m.name as modelName, " +
     "m.id as modelId, " +
@@ -33,17 +23,6 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     "left outer join Product p on m.id=p.model.id " +
     "group by m.id")
   Page<IModel> findAllModelsWithCount(Pageable page);
-
-//  @Query("Select " +
-//    "m.name as modelName, " +
-//    "m.id as modelId, " +
-//    "m.type.name as typeName, " +
-//    "count(m.name) as modelCount " +
-//    "from Product d " +
-//    "inner join d.model m " +
-//    "group by m.id " +
-//    "having m.id like ?1")
-//  IModel findByIdWithCount(long id);
 
   @Query("Select " +
     "m.name as modelName, " +

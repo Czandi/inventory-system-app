@@ -344,4 +344,16 @@ public class ProductService implements com.app.inventorysystemapp.service.Servic
     deletedProductRepository.truncateTable();
     return true;
   }
+
+  public void saveProduct(Product product) {
+    productRepository.save(product);
+  }
+
+  public List<Product> findByOwner(Owner owner) {
+    return productRepository.findByOwner(owner);
+  }
+
+  public List<Product> findByRoom(Room room) {
+    return productRepository.findByRoom(room);
+  }
 }

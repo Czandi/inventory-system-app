@@ -204,10 +204,10 @@ export class ReportCreator {
           children: [new Paragraph(device.inventoryNumber)],
         }),
         new TableCell({
-          children: [new Paragraph(device.model.type.name)],
+          children: [new Paragraph(device.model)],
         }),
         new TableCell({
-          children: [new Paragraph(device.model.name)],
+          children: [new Paragraph(device.type)],
         }),
       ],
     });

@@ -1,6 +1,7 @@
 package com.app.inventorysystemapp.service;
 
 import com.app.inventorysystemapp.controller.dto.InventoryDto;
+import com.app.inventorysystemapp.controller.dto.InventoryItemDto;
 import com.app.inventorysystemapp.controller.mapper.InventoryMapper;
 import com.app.inventorysystemapp.model.*;
 import com.app.inventorysystemapp.repository.InventoryItemRepository;
@@ -33,14 +34,49 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
   public Inventory insertInventory(Long idRecord, String recordType, List<Long> barcodes) {
     Inventory inventory = insertNewInventory(idRecord, recordType);
 
+    List<Product> oldState = getOldStateProducts(recordType, idRecord);
+
+    for(int i = 0; i < oldState.size(); i++) {
+      insertInventoryItem(inventory, oldState.get(i), "previous");
+    }
+
     for(int i = 0; i < barcodes.size(); i++){
       Product product = productService.findByBarcode(barcodes.get(i));
       if(product != null){
-        insertInventoryItem(inventory, product);
+        insertInventoryItem(inventory, product, "actual");
+        if(recordType.equals("owner")) {
+          Owner owner = ownerService.findOwnerById(idRecord);
+          updateOwnerDevice(product, owner);
+        }else if(recordType.equals("room")) {
+          Room room = roomService.findRoomById(idRecord);
+          updateRoomDevice(product, room);
+        }
       }
     }
 
     return inventory;
+  }
+
+  public List<Product> getOldStateProducts(String recordType, Long idRecord) {
+    if(recordType.equals("owner")) {
+      Owner owner = ownerService.findOwnerById(idRecord);
+      return productService.findByOwner(owner);
+    }else if(recordType.equals("room")) {
+      Room room = roomService.findRoomById(idRecord);
+      return productService.findByRoom(room);
+    }
+
+    return null;
+  }
+
+  public void updateOwnerDevice(Product product, Owner owner) {
+    product.setOwner(owner);
+    productService.saveProduct(product);
+  }
+
+  public void updateRoomDevice(Product product, Room room) {
+    product.setRoom(room);
+    productService.saveProduct(product);
   }
 
   public Inventory insertNewInventory(Long idRecord, String recordType){
@@ -50,10 +86,13 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     return inventoryRepository.save(inventory);
   }
 
-  public InventoryItem insertInventoryItem(Inventory inventory, Product record){
+  public InventoryItem insertInventoryItem(Inventory inventory, Product record, String stateType){
     InventoryItem inventoryItem = new InventoryItem();
-    inventoryItem.setProduct(record);
     inventoryItem.setInventory(inventory);
+    inventoryItem.setInventoryNumber(record.getInventoryNumber());
+    inventoryItem.setModel(record.getModel().getName());
+    inventoryItem.setType(record.getModel().getType().getName());
+    inventoryItem.setStockType(stateType);
     return inventoryItemRepository.save(inventoryItem);
   }
 
@@ -85,32 +124,21 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
   public Report getReport(long id) {
     Report report = new Report();
     Inventory inventory = inventoryRepository.findById(id).orElseThrow();
-    List<Product> previousStock = null;
+    List<InventoryItem> inventoryItems = inventoryItemRepository.findByInventory(inventory);
+    List<InventoryItemDto> previousStock = getStock(inventoryItems, "previous");
+    List<InventoryItemDto> actualStock = getStock(inventoryItems, "actual");
     String recordName = "";
 
     if(inventory.getRecordType().equals("room")) {
       Room room = roomService.findRoomById(inventory.getIdRecord());
-      previousStock = productService.getDevicesFromRoom(room);
-      System.out.println(previousStock.get(0));
       recordName = room.getName();
     } else if (inventory.getRecordType().equals("owner")) {
       Owner owner = ownerService.findOwnerById(inventory.getIdRecord());
-      previousStock = productService.getDevicesFromOwner(owner);
-      System.out.println(previousStock.get(0));
-
       recordName = owner.getName();
     }
 
-
-    List<InventoryItem> inventoryItems = inventoryItemRepository.findByInventory(inventory);
-    List<Product> actualStock = new ArrayList<>();
-
-    for(int i = 0; i < inventoryItems.size(); i++){
-      actualStock.add(inventoryItems.get(i).getProduct());
-    }
-
-    List<Product> missingRecords = getDifferentDevices(previousStock, actualStock);
-    List<Product> additionalRecords = getDifferentDevices(actualStock, previousStock);
+    List<InventoryItemDto> missingRecords = getDifferentProducts(previousStock, actualStock);
+    List<InventoryItemDto> additionalRecords = getDifferentProducts(actualStock, previousStock);
 
     report.setActualStock(actualStock);
     report.setPreviousStock(previousStock);
@@ -120,6 +148,20 @@ public class InventoryService implements com.app.inventorysystemapp.service.Serv
     report.setRecordName(recordName);
 
     return report;
+  }
+
+  public List<InventoryItemDto> getStock(List<InventoryItem> inventoryItems, String stockType) {
+    List<InventoryItemDto> stock = new ArrayList<>();
+
+    for(int i = 0; i < inventoryItems.size(); i++) {
+      InventoryItem inventoryItem = inventoryItems.get(i);
+      if(inventoryItem.getStockType().equals(stockType)) {
+        InventoryItemDto inventoryItemDto = InventoryMapper.mapToInventoryItemDto(inventoryItem);
+        stock.add(inventoryItemDto);
+      }
+    }
+
+    return stock;
   }
 
   @Override

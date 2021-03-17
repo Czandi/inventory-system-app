@@ -1,5 +1,6 @@
 package com.app.inventorysystemapp.service;
 
+import com.app.inventorysystemapp.controller.dto.InventoryItemDto;
 import com.app.inventorysystemapp.model.Product;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -35,15 +36,15 @@ public interface Service {
     }
   }
 
-  default List<Product> getDifferentDevices(List<Product> array1, List<Product> array2) {
-    List<Product> products = new ArrayList<>();
+  default List<InventoryItemDto> getDifferentProducts(List<InventoryItemDto> array1, List<InventoryItemDto> array2) {
+    List<InventoryItemDto> products = new ArrayList<>();
 
     for(int i = 0; i < array1.size(); i++){
       Boolean additional = true;
 
       for(int j = 0; j < array2.size(); j++){
 
-        if(array1.get(i) == array2.get(j)){
+        if(array1.get(i).getInventoryNumber().equals(array2.get(j).getInventoryNumber())){
           additional = false;
           break;
         }
